@@ -1,0 +1,199 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - link "0852 6214 6214" [ref=e7] [cursor=pointer]:
+      - /url: tel:08526214614
+    - generic [ref=e14]:
+      - link [ref=e15] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000
+        - img "Bandara Kalimarau" [ref=e16]
+      - button "Menu" [active] [ref=e287]
+    - navigation [ref=e293]:
+      - link "Beranda" [ref=e294] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000
+      - link "Berita" [ref=e295] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/berita
+      - button "Profil" [ref=e297]
+      - button "Pelayanan" [ref=e302]
+      - button "Pengaduan" [ref=e307]
+      - link "PPID" [ref=e311] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/ppid
+      - link "Kontak" [ref=e312] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/kontak
+      - link "0852 6214 6214" [ref=e314] [cursor=pointer]:
+        - /url: tel:08526214614
+  - main [ref=e41]:
+    - generic [ref=e42]:
+      - img "Bandara Kalimarau" [ref=e43]
+      - img "Bandara Kalimarau" [ref=e44]
+      - img "Bandara Kalimarau" [ref=e45]
+      - generic [ref=e47]:
+        - generic [ref=e48]: Berau, Kalimantan Timur
+        - heading "Selamat Datang di" [level=2] [ref=e50]
+        - heading "Bandara Kalimarau" [level=1] [ref=e51]
+        - paragraph [ref=e52]: Gerbang udara utama Kabupaten Berau. Kami melayani dengan sepenuh hati untuk perjalanan Anda yang aman dan nyaman.
+        - generic [ref=e53]:
+          - link "Lihat Jadwal Penerbangan" [ref=e54] [cursor=pointer]:
+            - /url: http://127.0.0.1:8000/jadwal-penerbangan
+          - link "Layanan Pengaduan" [ref=e57] [cursor=pointer]:
+            - /url: http://127.0.0.1:8000/kontak
+    - generic [ref=e60]:
+      - link "Jadwal Penerbangan" [ref=e61] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/jadwal-penerbangan
+      - link [ref=e66] [cursor=pointer]:
+        - /url: https://idpas.kalimarau-airport.com
+      - link "Survey Kepuasan" [ref=e75] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/survey-kepuasan-masyarakat-internal
+      - link "PPID" [ref=e81] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/ppid
+      - link "Kontak" [ref=e87] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/kontak
+    - generic [ref=e93]:
+      - generic [ref=e94]:
+        - generic [ref=e95]:
+          - heading "Jadwal Penerbangan" [level=2] [ref=e96]
+          - paragraph [ref=e97]: Informasi keberangkatan dan kedatangan hari ini
+        - link "Lihat Jadwal Lengkap →" [ref=e98] [cursor=pointer]:
+          - /url: http://127.0.0.1:8000/jadwal-penerbangan
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - button "Keberangkatan" [ref=e101]
+          - button "Kedatangan" [ref=e102]
+        - generic [ref=e103]:
+          - paragraph [ref=e106]: Belum ada jadwal aktif saat ini.
+          - paragraph [ref=e107]: Data jadwal penerbangan sedang diperbarui.
+    - generic [ref=e110]:
+      - generic [ref=e111]:
+        - heading "0+" [level=3] [ref=e115]
+        - paragraph [ref=e116]: Penerbangan Bulanan
+      - generic [ref=e117]:
+        - heading "0+" [level=3] [ref=e122]
+        - paragraph [ref=e123]: Maskapai Penerbangan
+      - generic [ref=e124]:
+        - heading "0K+" [level=3] [ref=e130]
+        - paragraph [ref=e131]: Penumpang per Hari
+    - generic [ref=e133]:
+      - generic [ref=e134]:
+        - heading "Berita Terkini" [level=2] [ref=e135]
+        - link "Lihat Semua Berita →" [ref=e136] [cursor=pointer]:
+          - /url: http://127.0.0.1:8000/berita
+      - paragraph [ref=e138]: Belum ada berita yang dipublikasikan.
+    - generic [ref=e140]:
+      - generic [ref=e142]:
+        - heading "Fasilitas Bandara" [level=2] [ref=e143]
+        - paragraph [ref=e144]: Tersedia untuk kenyamanan seluruh penumpang
+      - generic [ref=e146]:
+        - generic [ref=e147]:
+          - img "Ruang Tunggu Eksekutif" [ref=e149]
+          - generic [ref=e151]:
+            - heading "Ruang Tunggu Eksekutif" [level=3] [ref=e152]
+            - paragraph [ref=e153]: Kenyamanan ekstra dengan makanan ringan dan minuman gratis.
+        - generic [ref=e154]:
+          - img "Area Komersial" [ref=e156]
+          - generic [ref=e158]:
+            - heading "Area Komersial" [level=3] [ref=e159]
+            - paragraph [ref=e160]: Toko suvenir dan produk lokal khas Kalimantan Timur.
+        - generic [ref=e161]:
+          - img "Ruang Laktasi" [ref=e163]
+          - generic [ref=e165]:
+            - heading "Ruang Laktasi" [level=3] [ref=e166]
+            - paragraph [ref=e167]: Ruang khusus yang nyaman untuk ibu menyusui dan bayi.
+        - generic [ref=e168]:
+          - img "Restoran & Kafe" [ref=e170]
+          - generic [ref=e172]:
+            - heading "Restoran & Kafe" [level=3] [ref=e173]
+            - paragraph [ref=e174]: Beragam pilihan hidangan lokal dan internasional.
+    - generic [ref=e176]:
+      - generic [ref=e177]:
+        - heading "Unit Kerja" [level=2] [ref=e178]
+        - paragraph [ref=e179]: Bagian dari operasional Bandara Kalimarau yang bertugas memberikan layanan prima
+      - generic [ref=e180]:
+        - generic [ref=e181]:
+          - heading "Unit Bangland" [level=3] [ref=e182]
+          - paragraph [ref=e183]: Fokus pada pengembangan dan perawatan fasilitas sisi udara (airside) dan darat.
+        - generic [ref=e184]:
+          - heading "Unit Elband" [level=3] [ref=e185]
+          - paragraph [ref=e186]: Menangani seluruh instalasi kelistrikan, navigasi, dan komunikasi penerbangan.
+        - generic [ref=e187]:
+          - heading "Unit AMC" [level=3] [ref=e188]
+          - paragraph [ref=e189]: Apron Movement Control, mengatur pergerakan pesawat di apron demi keselamatan.
+        - generic [ref=e190]:
+          - heading "Unit PKP-PK" [level=3] [ref=e191]
+          - paragraph [ref=e192]: Pertolongan Kecelakaan Penerbangan dan Pemadam Kebakaran bersiaga penuh.
+        - generic [ref=e193]:
+          - heading "Unit Power House" [level=3] [ref=e194]
+          - paragraph [ref=e195]: Menjaga suplai daya listrik tanpa henti untuk operasional bandara.
+        - generic [ref=e196]:
+          - heading "Unit Avsec" [level=3] [ref=e197]
+          - paragraph [ref=e198]: Aviation Security, memastikan keamanan seluruh area dan pengguna jasa bandara.
+    - generic [ref=e200]:
+      - generic [ref=e201]:
+        - heading "Layanan Publik" [level=2] [ref=e202]
+        - paragraph [ref=e203]: Akses layanan informasi, pengaduan, dan survei kepuasan masyarakat
+      - link "Internal Kontak Internal Hubungi pihak Bandara Kalimarau secara langsung Buka layanan →" [ref=e205] [cursor=pointer]:
+        - /url: http://127.0.0.1:8000/kontak
+        - generic [ref=e206]: Internal
+        - heading "Kontak Internal" [level=3] [ref=e211]
+        - paragraph [ref=e212]: Hubungi pihak Bandara Kalimarau secara langsung
+        - generic [ref=e213]: Buka layanan →
+  - contentinfo [ref=e214]:
+    - generic [ref=e215]:
+      - generic [ref=e216]:
+        - generic [ref=e217]:
+          - generic [ref=e218]:
+            - img "Bandara Kalimarau" [ref=e219]
+            - generic [ref=e220]:
+              - generic [ref=e221]: Bandara Kalimarau
+              - generic [ref=e222]: Kab. Berau, Kaltim
+          - generic [ref=e223]: Teluk Bayur, 77315 Kabupaten Berau Kalimantan Timur
+          - link "0852 6214 6214" [ref=e224] [cursor=pointer]:
+            - /url: tel:08526214614
+        - generic [ref=e227]:
+          - heading "Navigasi" [level=4] [ref=e228]
+          - list [ref=e229]:
+            - listitem [ref=e230]:
+              - link "Beranda" [ref=e231] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000
+            - listitem [ref=e232]:
+              - link "Berita" [ref=e233] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/berita
+            - listitem [ref=e234]:
+              - link "PPID" [ref=e235] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/ppid
+            - listitem [ref=e236]:
+              - link "Kontak" [ref=e237] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/kontak
+        - generic [ref=e238]:
+          - heading "Layanan" [level=4] [ref=e239]
+          - list [ref=e240]:
+            - listitem [ref=e241]:
+              - link "Jadwal Penerbangan" [ref=e242] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/jadwal-penerbangan
+            - listitem [ref=e243]:
+              - link "Fasilitas Disewakan" [ref=e244] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/fasilitas-disewakan
+            - listitem [ref=e245]:
+              - link "Tarif Kebandarudaraan" [ref=e246] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/tarif-kebandarudaraan
+            - listitem [ref=e247]:
+              - link "Standar Pelayanan" [ref=e248] [cursor=pointer]:
+                - /url: http://127.0.0.1:8000/standar-pelayanan
+        - generic [ref=e249]:
+          - heading "Tautan Eksternal" [level=4] [ref=e250]
+          - list [ref=e251]:
+            - listitem [ref=e252]:
+              - link "Kementerian Perhubungan" [ref=e253] [cursor=pointer]:
+                - /url: https://dephub.go.id
+            - listitem [ref=e258]:
+              - link "Ditjen Perhubungan Udara" [ref=e259] [cursor=pointer]:
+                - /url: https://hubud.dephub.go.id
+            - listitem [ref=e264]:
+              - link "AirNav Indonesia" [ref=e265] [cursor=pointer]:
+                - /url: https://airnav.co.id
+            - listitem [ref=e270]:
+              - link "JDIH Kemenhub" [ref=e271] [cursor=pointer]:
+                - /url: https://jdih.dephub.go.id
+      - generic [ref=e276]:
+        - generic [ref=e277]: © 2026 Bandara Kalimarau — UPT Kementerian Perhubungan RI
+        - link "Sitemap" [ref=e279] [cursor=pointer]:
+          - /url: http://127.0.0.1:8000
+  - button "Hubungi kami" [ref=e281]

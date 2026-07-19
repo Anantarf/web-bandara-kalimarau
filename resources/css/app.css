@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Palet resmi dari desain Figma (src/index.css) */
+  --color-navy: #0c2d6b;
+  --color-navy-dark: #091f4a;
+  --color-navy-light: #1a4799;
+  --color-gold: #F2A900;
+  --color-gold-light: #FFC627;
+  --color-gold-dark: #C08700;
+  --color-sky: #1e6fb5;
+  --color-sky-dark: #154f82;
+  --color-surface: #f5f7fb;
+  --color-border-soft: #e2e7f0;
+  --color-text-main: #1a1e2c;
+  --color-text-muted: #5c657a;
+
+  /* blue-* dipetakan ke palet navy yang sama, supaya markup lama (bg-blue-900 dst) ikut konsisten */
+  --color-blue-50: #eef2f8;
+  --color-blue-100: #dce5f1;
+  --color-blue-200: #b9cbe3;
+  --color-blue-300: #8faed0;
+  --color-blue-400: #4a7fc2;
+  --color-blue-500: #1e6fb5;
+  --color-blue-600: #1a4799;
+  --color-blue-700: #123a80;
+  --color-blue-800: #0c2d6b;
+  --color-blue-900: #091f4a;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-gold-light);
+  outline-offset: 3px;
+}
+
+.partner-marquee {
+  position: relative;
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  overflow: hidden;
+  padding-block: clamp(2.75rem, 5vw, 4.25rem);
+}
+
+.partner-marquee::before,
+.partner-marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: clamp(5rem, 14vw, 13rem);
+  height: 100%;
+  pointer-events: none;
+}
+
+.partner-marquee::before {
+  left: 0;
+  background: linear-gradient(90deg, #fff, transparent);
+}
+
+.partner-marquee::after {
+  right: 0;
+  background: linear-gradient(270deg, #fff, transparent);
+}
+
+.partner-marquee__track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: clamp(2.5rem, 4.5vw, 4.5rem);
+  animation: partner-marquee 46s linear infinite;
+  will-change: transform;
+}
+
+.partner-marquee:hover .partner-marquee__track {
+  animation-play-state: paused;
+}
+
+.partner-marquee__item {
+  display: flex;
+  width: clamp(7rem, 10vw, 9rem);
+  height: 3.5rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.34;
+  filter: grayscale(1);
+  transition: opacity 180ms ease-out, filter 180ms ease-out, transform 180ms ease-out;
+}
+
+.partner-marquee__item:hover {
+  opacity: 1;
+  filter: grayscale(0);
+  transform: translateY(-2px);
+}
+
+.partner-marquee__logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.partner-marquee__fallback {
+  color: var(--color-text-muted);
+  font-weight: 800;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+@keyframes partner-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .partner-marquee {
+    overflow-x: auto;
+    padding-inline: 1rem;
+  }
+
+  .partner-marquee::before,
+  .partner-marquee::after {
+    display: none;
+  }
+
+  .partner-marquee__track {
+    min-width: max-content;
+    animation: none !important;
+  }
+}

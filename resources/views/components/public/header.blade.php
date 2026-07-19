@@ -5,7 +5,6 @@
         'Informasi Publik' => [
             ['label' => 'Profil Bandara', 'slug' => 'profil-bandara-kalimarau'],
             ['label' => 'Fasilitas Bandara', 'slug' => 'fasilitas-bandara'],
-            ['label' => 'Maklumat Pelayanan', 'url' => route('pages.show', 'profil-bandara-kalimarau') . '#maklumat-pelayanan'],
             ['label' => 'Struktur Organisasi', 'slug' => 'struktur-organisasi'],
         ],
         'Layanan' => [

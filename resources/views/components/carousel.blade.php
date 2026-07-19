@@ -72,24 +72,25 @@
     </div>
 
     <!-- Fullscreen Modal -->
-    <div x-cloak
-         x-show="isModalOpen" 
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0 backdrop-blur-none"
-         x-transition:enter-end="opacity-100 backdrop-blur-sm"
-         x-transition:leave="transition ease-in duration-200"
-         x-transition:leave-start="opacity-100 backdrop-blur-sm"
-         x-transition:leave-end="opacity-0 backdrop-blur-none"
-         style="display: none; z-index: 9999;"
-         class="fixed inset-0 flex items-center justify-center bg-black/90 p-4 sm:p-10"
-         @click.self="closeModal()"
-         @keydown.escape.window="closeModal()"
-         @keydown.arrow-right.window="if(isModalOpen) next()"
-         @keydown.arrow-left.window="if(isModalOpen) prev()">
-         
-        <button @click="closeModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white hover:text-gray-300 bg-black/50 rounded-full p-2 z-50">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
+    <template x-teleport="body">
+        <div x-cloak
+             x-show="isModalOpen" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 backdrop-blur-none"
+             x-transition:enter-end="opacity-100 backdrop-blur-sm"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 backdrop-blur-sm"
+             x-transition:leave-end="opacity-0 backdrop-blur-none"
+             style="display: none; z-index: 9999;"
+             class="fixed inset-0 flex items-center justify-center bg-black/90 p-4 sm:p-10"
+             @click.self="closeModal()"
+             @keydown.escape.window="closeModal()"
+             @keydown.arrow-right.window="if(isModalOpen) next()"
+             @keydown.arrow-left.window="if(isModalOpen) prev()">
+             
+            <button @click="closeModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white hover:text-gray-300 bg-black/50 rounded-full p-2 z-50">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
         
         <button @click.stop="prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition z-50" aria-label="Previous">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -103,5 +104,6 @@
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </button>
     </div>
+    </template>
 </div>
 @endif

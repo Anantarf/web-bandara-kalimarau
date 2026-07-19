@@ -13,7 +13,7 @@
         this.activeSlide = this.activeSlide === 0 ? this.slides.length - 1 : this.activeSlide - 1;
     },
     startAutoplay() {
-        this.autoplayInterval = setInterval(() => { this.next() }, 5000);
+        this.autoplayInterval = setInterval(() => { this.next() }, 4000);
     },
     stopAutoplay() {
         clearInterval(this.autoplayInterval);
@@ -26,12 +26,12 @@
         
         <template x-for="(slide, index) in slides" :key="index">
             <div x-show="activeSlide === index" 
-                 x-transition:enter="transition ease-out duration-[800ms]"
-                 x-transition:enter-start="opacity-0 scale-[0.97]"
-                 x-transition:enter-end="opacity-100 scale-100"
-                 x-transition:leave="transition ease-in duration-[800ms] absolute inset-0"
-                 x-transition:leave-start="opacity-100 scale-100"
-                 x-transition:leave-end="opacity-0 scale-[1.03]"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-300 absolute inset-0"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
                  class="w-full h-full flex items-center justify-center p-6 cursor-zoom-in relative z-10"
                  @click="isModalOpen = true">
                 <img :src="slide" class="max-w-full max-h-full object-contain drop-shadow-xl rounded-lg border border-gray-100/50" alt="Penghargaan">

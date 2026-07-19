@@ -25,8 +25,8 @@
         </div>
     </div>
 
-    <article class="py-12 bg-white" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 50)">
-        <div class="container mx-auto px-4 max-w-4xl transition-all duration-700 ease-out"
+    <article class="pt-32 pb-24" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-1000 ease-out transform"
              :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
              
             <header class="mb-10 text-center md:text-left">
@@ -44,11 +44,65 @@
                 </figure>
             @endif
 
-            <!-- Content Area -->
-            <div class="prose prose-lg prose-blue max-w-none text-gray-800
-                        prose-p:leading-relaxed prose-a:text-sky prose-a:no-underline hover:prose-a:underline
-                        prose-headings:text-navy-dark prose-headings:font-bold">
-                {!! $page->content !!}
+            <!-- Content Area with Table of Contents -->
+            @php
+                // Extract H2 headings for Table of Contents
+                preg_match_all('/<h2[^>]*>(.*?)<\/h2>/i', $page->content, $matches);
+                $headings = [];
+                foreach($matches[1] as $headingText) {
+                    $headings[] = [
+                        'text' => strip_tags($headingText),
+                        'id' => \Illuminate\Support\Str::slug(strip_tags($headingText))
+                    ];
+                }
+                
+                // Add IDs to H2 tags in the content so we can link to them
+                $contentWithIds = preg_replace_callback('/<h2[^>]*>(.*?)<\/h2>/i', function($m) {
+                    $id = \Illuminate\Support\Str::slug(strip_tags($m[1]));
+                    return "<h2 id=\"{$id}\" class=\"scroll-mt-32 border-b-2 border-gray-100 pb-2\">{$m[1]}</h2>";
+                }, $page->content);
+            @endphp
+
+            <div class="flex flex-col lg:flex-row gap-12 relative" x-data="{ activeSection: '' }" @scroll.window="
+                let sections = document.querySelectorAll('h2[id]');
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.scrollY >= sectionTop - 150) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                activeSection = current;
+            ">
+                <!-- Main Content -->
+                <div class="w-full @if(count($headings) > 1) lg:w-3/4 @endif">
+                    <div class="prose prose-lg prose-blue text-gray-800
+                                prose-p:leading-relaxed prose-a:text-sky prose-a:no-underline hover:prose-a:underline
+                                prose-headings:text-navy-dark prose-headings:font-bold
+                                prose-li:marker:text-gold prose-ul:space-y-1">
+                        {!! $contentWithIds !!}
+                    </div>
+                </div>
+
+                <!-- Table of Contents Sidebar -->
+                @if(count($headings) > 1)
+                    <div class="hidden lg:block lg:w-1/4 relative">
+                        <div class="sticky top-32 bg-gray-50/50 rounded-2xl p-6 border border-gray-100">
+                            <h4 class="text-sm font-bold text-navy-dark uppercase tracking-wider mb-4">Daftar Isi</h4>
+                            <ul class="space-y-3 text-sm">
+                                @foreach($headings as $heading)
+                                    <li>
+                                        <a href="#{{ $heading['id'] }}" 
+                                           class="block transition-colors duration-200 hover:text-gold"
+                                           :class="activeSection === '{{ $heading['id'] }}' ? 'text-gold font-bold translate-x-1' : 'text-gray-500'">
+                                            {{ $heading['text'] }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
             </div>
 
             @if($page->slug === 'profil-bandara-kalimarau')

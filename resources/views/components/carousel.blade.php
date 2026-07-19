@@ -42,7 +42,7 @@
                  @click="openModal()">
                  
                 <!-- Image without the bulky frame, just a nice shadow -->
-                <img :src="slide" class="max-w-full max-h-full object-contain drop-shadow-2xl rounded-md transition-transform duration-700 group-hover/track:scale-[1.03]" alt="Penghargaan">
+                <img :src="slide" loading="lazy" class="max-w-full max-h-full object-contain drop-shadow-2xl rounded-md transition-transform duration-700 group-hover/track:scale-[1.03]" alt="Penghargaan">
                 
                 <!-- Hover Hint (Magnifying Glass) -->
                 <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover/track:opacity-100 transition-opacity duration-300 pointer-events-none">
@@ -64,11 +64,11 @@
         </button>
         
         <!-- Indicators -->
-        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-20 bg-white/70 backdrop-blur-md px-3.5 py-2 rounded-full shadow-sm border border-gray-100/50">
+        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-20 bg-white/70 backdrop-blur-md px-3.5 py-2 rounded-full shadow-sm border border-gray-100/50" role="tablist">
             <template x-for="(slide, index) in slides" :key="index">
                 <button @click="activeSlide = index" 
                         :class="activeSlide === index ? 'bg-navy w-6' : 'bg-gray-400 hover:bg-navy/70 w-2'" 
-                        class="h-2 rounded-full transition-all duration-500 ease-out" aria-label="Go to slide"></button>
+                        class="h-2 rounded-full transition-all duration-500 ease-out" :aria-label="'Go to slide ' + (index + 1)" role="tab" :aria-selected="activeSlide === index"></button>
             </template>
         </div>
     </div>
@@ -94,18 +94,18 @@
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         
-        <button @click.stop="prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition z-50" aria-label="Previous">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-        </button>
+            <button @click.stop="prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition z-50" aria-label="Previous">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
 
-        <div class="relative max-w-5xl w-full flex items-center justify-center p-4">
-            <img :src="slides[activeSlide]" class="w-auto h-auto max-h-[85vh] object-contain select-none rounded-xl shadow-2xl ring-1 ring-white/20" alt="Penghargaan Zoom">
+            <div class="relative max-w-5xl w-full flex items-center justify-center p-4">
+                <img :src="slides[activeSlide]" loading="lazy" class="w-auto h-auto max-h-[85vh] object-contain select-none rounded-xl shadow-2xl ring-1 ring-white/20" alt="Penghargaan Zoom">
+            </div>
+
+            <button @click.stop="next" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition z-50" aria-label="Next">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
         </div>
-
-        <button @click.stop="next" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition z-50" aria-label="Next">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-        </button>
-    </div>
     </template>
 </div>
 @endif

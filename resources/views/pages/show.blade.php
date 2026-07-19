@@ -29,19 +29,21 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-1000 ease-out transform"
              :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
              
-            <header class="mb-10 text-center md:text-left">
-                <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">{{ $page->title }}</h1>
-                <div class="h-1.5 w-20 bg-gold-light rounded-full mb-6 mx-auto md:mx-0"></div>
-                @if($page->excerpt)
-                    <p class="text-xl text-gray-500 leading-relaxed">{{ $page->excerpt }}</p>
-                @endif
-            </header>
+            @if($page->slug !== 'fasilitas-bandara')
+                <header class="mb-10 text-center md:text-left">
+                    <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">{{ $page->title }}</h1>
+                    <div class="h-1.5 w-20 bg-gold-light rounded-full mb-6 mx-auto md:mx-0"></div>
+                    @if($page->excerpt)
+                        <p class="text-xl text-gray-500 leading-relaxed">{{ $page->excerpt }}</p>
+                    @endif
+                </header>
 
-            @if($page->featured_image_url)
-                <figure class="mb-12 rounded-2xl overflow-hidden bg-gray-100 border border-gray-100 shadow-sm relative group">
-                    <img src="{{ $page->featured_image_url }}" alt="{{ $page->title }}" class="w-full h-auto object-cover max-h-[500px] transition-transform duration-700 group-hover:scale-105">
-                    <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-2xl"></div>
-                </figure>
+                @if($page->featured_image_url)
+                    <figure class="mb-12 rounded-2xl overflow-hidden bg-gray-100 border border-gray-100 shadow-sm relative group">
+                        <img src="{{ $page->featured_image_url }}" alt="{{ $page->title }}" class="w-full h-auto object-cover max-h-[500px] transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-2xl"></div>
+                    </figure>
+                @endif
             @endif
 
             <!-- Content Area with Table of Contents -->

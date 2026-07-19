@@ -177,9 +177,6 @@
                 @endphp
                 <div id="maklumat-pelayanan" class="mt-16 bg-gradient-to-br from-white via-white to-gold/5 rounded-3xl p-6 md:p-10 border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] scroll-mt-32">
                     <div class="text-center mb-10">
-                        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gold/10 text-gold-dark mb-5 shadow-sm">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                        </div>
                         <h2 class="text-3xl md:text-4xl font-extrabold text-navy-dark mb-4">Maklumat Pelayanan</h2>
                         <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
                         <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">Komitmen UPBU Kelas I Kalimarau untuk memberikan pelayanan yang transparan, akuntabel, dan sesuai standar mutu bagi seluruh pengguna jasa bandar udara.</p>
@@ -193,9 +190,6 @@
 
                 <div class="mt-16 bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-6 md:p-10 border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
                     <div class="text-center mb-10">
-                        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gold/10 text-gold-dark mb-5 shadow-sm">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
-                        </div>
                         <h2 id="penghargaan-prestasi" class="text-3xl md:text-4xl font-extrabold text-navy-dark mb-4 scroll-mt-32">Penghargaan & Prestasi</h2>
                         <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
                         <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">Komitmen UPBU Kalimarau terhadap standar pelayanan prima secara konsisten diwujudkan melalui berbagai pencapaian dan penghargaan bergengsi tingkat nasional.</p>

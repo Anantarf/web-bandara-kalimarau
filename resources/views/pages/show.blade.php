@@ -174,6 +174,15 @@
                                     </div>
                                 </div>
                             </div>
+                        @elseif($page->slug === 'standar-pelayanan')
+                            <div class="bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-xl shadow-navy-dark/5 relative w-full mb-12">
+                                <div class="w-full h-[600px] md:h-[800px] rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gold border-t-transparent"></div>
+                                    </div>
+                                    <iframe src="{{ asset('storage/media/legacy/2024/09/Standar-Pelayanan-2023.pdf') }}" class="absolute inset-0 w-full h-full border-0 relative z-10" allowfullscreen></iframe>
+                                </div>
+                            </div>
                         @else
                             <div class="prose prose-lg prose-blue text-gray-800
                                         prose-p:leading-relaxed prose-a:text-sky prose-a:no-underline hover:prose-a:underline

@@ -101,7 +101,7 @@ $categories = [
 >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="text-center mb-16" data-aos="fade-up">
+        <div class="text-center mb-16">
             <h2 class="text-3xl md:text-5xl font-extrabold text-navy-dark mb-4">Fasilitas Lengkap</h2>
             <div class="h-1.5 w-24 bg-gold mx-auto rounded-full mb-6"></div>
             <p class="text-lg text-gray-500 max-w-2xl mx-auto">Kami menyediakan berbagai fasilitas berstandar tinggi untuk memastikan kenyamanan, keamanan, dan kelancaran perjalanan seluruh pengguna jasa bandara.</p>
@@ -109,7 +109,7 @@ $categories = [
 
         <div class="space-y-20">
             @foreach($categories as $index => $category)
-                <div class="facility-category scroll-mt-24" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                <div class="facility-category scroll-mt-24">
                     <div class="flex items-center mb-8">
                         <div class="w-10 h-10 rounded-xl bg-navy/10 text-navy flex items-center justify-center mr-4">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
@@ -120,19 +120,13 @@ $categories = [
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                         @foreach($category['items'] as $item)
                             <button @click="openModal({{ json_encode($item) }})" 
-                                    class="group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 text-left h-full flex flex-col">
+                                    class="group relative bg-white rounded-2xl overflow-hidden shadow border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-gold text-left h-full flex flex-col">
                                 
                                 <div class="relative h-40 sm:h-48 w-full overflow-hidden bg-gray-100">
-                                    <img src="{{ $item['image'] }}" loading="lazy" alt="{{ $item['name'] }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-navy-dark/90 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <div class="bg-white/90 text-navy p-3 rounded-full transform scale-75 group-hover:scale-100 transition-all duration-300 backdrop-blur-sm shadow-lg">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                        </div>
-                                    </div>
+                                    <img src="{{ $item['image'] }}" loading="lazy" alt="{{ $item['name'] }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                 </div>
-                                <div class="p-4 sm:p-5 flex-grow flex items-center justify-center border-t border-gray-50 group-hover:bg-gray-50 transition-colors">
-                                    <h4 class="font-bold text-gray-800 text-center text-sm sm:text-base group-hover:text-navy transition-colors leading-snug">{{ $item['name'] }}</h4>
+                                <div class="p-4 flex-grow flex items-center justify-center border-t border-gray-50">
+                                    <h4 class="font-bold text-gray-800 text-center text-sm sm:text-base leading-snug group-hover:text-blue-700 transition-colors">{{ $item['name'] }}</h4>
                                 </div>
                             </button>
                         @endforeach
@@ -163,12 +157,12 @@ $categories = [
             
             <div class="relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row transform transition-all"
                  x-show="modalOpen"
-                 x-transition:enter="transition ease-out duration-400 delay-100"
-                 x-transition:enter-start="opacity-0 translate-y-12 scale-95"
-                 x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 scale-95"
+                 x-transition:enter-end="opacity-100 scale-100"
                  x-transition:leave="transition ease-in duration-200"
-                 x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-                 x-transition:leave-end="opacity-0 translate-y-8 scale-95"
+                 x-transition:leave-start="opacity-100 scale-100"
+                 x-transition:leave-end="opacity-0 scale-95"
                  @click.stop>
                 
                 <!-- Modal Image Section -->

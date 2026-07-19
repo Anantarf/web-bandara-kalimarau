@@ -4,11 +4,11 @@
     $navGroups = [
         'Informasi Publik' => [
             ['label' => 'Profil Bandara', 'slug' => 'profil-bandara-kalimarau'],
+            ['label' => 'Fasilitas Bandara', 'slug' => 'fasilitas-bandara'],
             ['label' => 'Maklumat Pelayanan', 'slug' => 'maklumat-pelayanan'],
             ['label' => 'Struktur Organisasi', 'slug' => 'struktur-organisasi'],
         ],
         'Layanan' => [
-            ['label' => 'Fasilitas Bandara', 'slug' => 'fasilitas-bandara'],
             ['label' => 'Tarif Kebandarudaraan', 'slug' => 'tarif-kebandarudaraan'],
             ['label' => 'Standar Pelayanan', 'slug' => 'standar-pelayanan'],
             ['label' => 'Pengajuan Pas Bandara', 'url' => 'https://idpas.kalimarau-airport.com', 'external' => true],

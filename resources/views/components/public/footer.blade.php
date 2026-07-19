@@ -26,6 +26,8 @@
                 <h4 class="text-white font-semibold text-sm mb-4">Navigasi</h4>
                 <ul class="space-y-2.5 text-sm">
                     <li><a href="{{ route('home') }}" class="hover:text-white transition-colors">Beranda</a></li>
+                    <li><a href="{{ route('pages.show', 'profil-bandara-kalimarau') }}" class="hover:text-white transition-colors">Profil Bandara</a></li>
+                    <li><a href="{{ route('pages.show', 'fasilitas-bandara') }}" class="hover:text-white transition-colors">Fasilitas Bandara</a></li>
                     <li><a href="{{ route('posts.index') }}" class="hover:text-white transition-colors">Berita</a></li>
                     <li><a href="{{ route('ppid.show') }}" class="hover:text-white transition-colors">PPID</a></li>
                     <li><a href="{{ route('contact.index') }}" class="hover:text-white transition-colors">Kontak</a></li>
@@ -37,7 +39,6 @@
                 <h4 class="text-white font-semibold text-sm mb-4">Layanan</h4>
                 <ul class="space-y-2.5 text-sm">
                     <li><a href="{{ route('flights.index') }}" class="hover:text-white transition-colors">Jadwal Penerbangan</a></li>
-                    <li><a href="{{ route('pages.show', 'fasilitas-bandara') }}" class="hover:text-white transition-colors">Fasilitas Bandara</a></li>
                     <li><a href="{{ route('pages.show', 'tarif-kebandarudaraan') }}" class="hover:text-white transition-colors">Tarif Kebandarudaraan</a></li>
                     <li><a href="{{ route('pages.show', 'standar-pelayanan') }}" class="hover:text-white transition-colors">Standar Pelayanan</a></li>
                 </ul>

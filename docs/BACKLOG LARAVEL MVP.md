@@ -2,111 +2,111 @@
 
 ## Sprint 0 - Persiapan
 
-- [x] Buat repository Laravel baru.
-- [x] Setup `.env`.
-- [x] Setup database.
-- [x] Install Filament.
-- [x] Setup auth admin.
-- [x] Setup Tailwind/Vite.
-- [x] Setup base layout frontend.
+- [X] Buat repository Laravel baru.
+- [X] Setup `.env`.
+- [X] Setup database.
+- [X] Install Filament.
+- [X] Setup auth admin.
+- [X] Setup Tailwind/Vite.
+- [X] Setup base layout frontend.
 
 ## Sprint 1 - Core Data
 
-- [x] Migration `users`.
-- [x] Migration `media`.
-- [x] Migration `categories`.
-- [x] Migration `posts`.
-- [x] Migration `pages`.
-- [x] Migration `flight_schedules`.
-- [x] Migration `public_service_links`.
-- [x] Migration `contact_messages`.
-- [x] Migration `redirects`.
-- [x] Tambahkan unique index untuk slug `pages`, `posts`, `categories`, dan `redirects.old_path`.
-- [x] Tambahkan foreign key untuk relasi media, kategori, author, dan featured image.
-- [x] Tambahkan index untuk kolom yang sering difilter: `status`, `published_at`, `is_active`, `sort_order`.
-- [x] Tetapkan convention status: draft, published, archived.
-- [x] Seeder super admin.
+- [X] Migration `users`.
+- [X] Migration `media`.
+- [X] Migration `categories`.
+- [X] Migration `posts`.
+- [X] Migration `pages`.
+- [X] Migration `flight_schedules`.
+- [X] Migration `public_service_links`.
+- [X] Migration `contact_messages`.
+- [X] Migration `redirects`.
+- [X] Tambahkan unique index untuk slug `pages`, `posts`, `categories`, dan `redirects.old_path`.
+- [X] Tambahkan foreign key untuk relasi media, kategori, author, dan featured image.
+- [X] Tambahkan index untuk kolom yang sering difilter: `status`, `published_at`, `is_active`, `sort_order`.
+- [X] Tetapkan convention status: draft, published, archived.
+- [X] Seeder super admin.
 
 ## Sprint 2 - Admin Panel
 
-- [x] Filament resource Pages.
-- [x] Filament resource Posts.
-- [x] Filament resource Categories.
-- [x] Filament resource Media.
-- [x] Filament resource Flight Schedules.
-- [x] Filament resource Public Service Links.
-- [x] Filament resource Contact Messages.
-- [x] Filament resource Redirects.
-- [x] Filament resource Users.
-- [x] Policy/authorization admin per role.
-- [x] Validasi form admin untuk slug unik, file upload, status publish, dan field SEO.
-- [x] Proteksi admin agar hanya user aktif yang bisa login.
-- [x] Dashboard widgets.
+- [X] Filament resource Pages.
+- [X] Filament resource Posts.
+- [X] Filament resource Categories.
+- [X] Filament resource Media.
+- [X] Filament resource Flight Schedules.
+- [X] Filament resource Public Service Links.
+- [X] Filament resource Contact Messages.
+- [X] Filament resource Redirects.
+- [X] Filament resource Users.
+- [X] Policy/authorization admin per role.
+- [X] Validasi form admin untuk slug unik, file upload, status publish, dan field SEO.
+- [X] Proteksi admin agar hanya user aktif yang bisa login.
+- [X] Dashboard widgets.
 
 ## Sprint 3 - Frontend Public
 
-- [x] Header desktop.
-- [x] Header mobile.
-- [x] Footer.
-- [x] Homepage.
-- [x] Listing berita.
-- [x] Detail berita.
-- [x] Page template.
-- [x] Jadwal penerbangan.
-- [x] Empty state jadwal jika data detail resmi belum tersedia.
-- [x] Kontak.
-- [x] Search.
-- [x] 404 page.
-- [x] Rate limit form kontak dan search.
-- [x] Validasi server-side semua input publik.
-- [x] Pastikan semua external link memakai label/indikator yang jelas.
+- [X] Header desktop.
+- [X] Header mobile.
+- [X] Footer.
+- [X] Homepage.
+- [X] Listing berita.
+- [X] Detail berita.
+- [X] Page template.
+- [X] Jadwal penerbangan.
+- [X] Empty state jadwal jika data detail resmi belum tersedia.
+- [X] Kontak.
+- [X] Search.
+- [X] 404 page.
+- [X] Rate limit form kontak dan search.
+- [X] Validasi server-side semua input publik.
+- [X] Pastikan semua external link memakai label/indikator yang jelas.
 
 ## Sprint 4 - Import Konten
 
-- [x] Restore database WP lama di local database terpisah.
-- [x] Tetapkan angka target import: jumlah post, page, media, dan dokumen yang benar-benar dibawa.
-- [x] Export posts penting.
-- [x] Export pages penting.
-- [x] Extract featured images.
-- [x] Copy media yang dipakai.
-- [x] Bersihkan shortcode Elementor.
-- [x] Import posts ke Laravel.
-- [x] Import pages ke Laravel.
-- [x] Import media metadata.
-- [x] Review manual konten halaman utama.
-- [x] Inventaris dokumen PPID final dari media/live site.
-- [x] Validasi tidak ada konten hasil import yang masih mengandung shortcode/plugin WordPress.
-- [x] Validasi tidak ada link internal lama yang masih broken.
+- [X] Restore database WP lama di local database terpisah.
+- [X] Tetapkan angka target import: jumlah post, page, media, dan dokumen yang benar-benar dibawa.
+- [X] Export posts penting.
+- [X] Export pages penting.
+- [X] Extract featured images.
+- [X] Copy media yang dipakai.
+- [X] Bersihkan shortcode Elementor.
+- [X] Import posts ke Laravel.
+- [X] Import pages ke Laravel.
+- [X] Import media metadata.
+  - [X] Review manual konten halaman utama.
+- [X] Inventaris dokumen PPID final dari media/live site.
+- [X] Validasi tidak ada konten hasil import yang masih mengandung shortcode/plugin WordPress.
+- [X] Validasi tidak ada link internal lama yang masih broken.
 
 Status lokal 2026-07-18: 164 posts, 154 published posts, 30 pages, 69 media, dan 156 redirects sudah ada di database lokal. Sisa Sprint 4 adalah QA editorial/import, bukan plumbing import.
 
 ## Sprint 5 - SEO dan Redirect
 
-- [x] Meta title dan description.
-- [x] Canonical URL.
-- [x] Open Graph.
-- [x] Sitemap XML.
-- [x] Robots.txt.
-- [x] Middleware redirect 301.
-- [x] Import redirect map.
-- [x] Test URL lama utama.
-- [x] Finalisasi redirect PPID nested yang masih pending.
-- [x] Test redirect berita root slug lama ke `/berita/{slug}`.
-- [x] Test redirect tidak loop dan tidak menimpa route Laravel yang valid.
+- [X] Meta title dan description.
+- [X] Canonical URL.
+- [X] Open Graph.
+- [X] Sitemap XML.
+- [X] Robots.txt.
+- [X] Middleware redirect 301.
+- [X] Import redirect map.
+- [X] Test URL lama utama.
+- [X] Finalisasi redirect PPID nested yang masih pending.
+- [X] Test redirect berita root slug lama ke `/berita/{slug}`.
+- [X] Test redirect tidak loop dan tidak menimpa route Laravel yang valid.
 
 Status 2026-07-18: Sprint 5 ditutup secara teknis. Validasi otomatis mencakup metadata canonical/Open Graph, sitemap berisi post/page published, dan redirect fallback tidak menimpa route valid.
 
 ## Sprint 5.5 - Security dan Hardening
 
 - [ ] Set `APP_ENV=production` dan `APP_DEBUG=false` saat production deployment disetujui.
-- [x] Pastikan `.env`, dump SQL, folder backup, dan folder karantina tidak ikut deploy.
-- [x] Batasi upload file berdasarkan MIME, ekstensi, dan ukuran.
-- [x] Simpan file upload hanya lewat Laravel storage, bukan path bebas.
-- [x] Tambahkan CSRF protection untuk semua form web.
-- [x] Tambahkan rate limit untuk login admin dan form kontak.
-- [x] Pastikan error publik tidak membocorkan stack trace atau path server.
-- [x] Review permission folder `storage` dan `bootstrap/cache`.
-- [x] Tambahkan backup database dan media sebelum go-live.
+- [X] Pastikan `.env`, dump SQL, folder backup, dan folder karantina tidak ikut deploy.
+- [X] Batasi upload file berdasarkan MIME, ekstensi, dan ukuran.
+- [X] Simpan file upload hanya lewat Laravel storage, bukan path bebas.
+- [X] Tambahkan CSRF protection untuk semua form web.
+- [X] Tambahkan rate limit untuk login admin dan form kontak.
+- [X] Pastikan error publik tidak membocorkan stack trace atau path server.
+- [X] Review permission folder `storage` dan `bootstrap/cache`.
+- [X] Tambahkan backup database dan media sebelum go-live.
 
 Status 2026-07-18: hardening aplikasi sudah diterapkan, tetapi Sprint 5.5 belum ditutup. Konfigurasi production aktual, permission Linux, backup, dan final verification tetap pending sampai deployment disetujui.
 
@@ -140,11 +140,11 @@ Status 2026-07-18: hardening aplikasi sudah diterapkan, tetapi Sprint 5.5 belum 
 
 ## Non-MVP
 
-- [x] Audit log perubahan admin untuk data operasional.
-- [x] Role granular: editor berita, admin konten, dan operator layanan dengan akses terbatas.
+- [X] Audit log perubahan admin untuk data operasional.
+- [X] Role granular: editor berita, admin konten, dan operator layanan dengan akses terbatas.
 - [ ] Optimasi gambar otomatis.
 - [ ] Dokumen PPID searchable.
-- [x] Scheduled posts dan pages memakai `published_at` tanpa worker tambahan.
-- [x] Preview konten post/page dengan signed URL 30 menit dan `noindex`.
+- [X] Scheduled posts dan pages memakai `published_at` tanpa worker tambahan.
+- [X] Preview konten post/page dengan signed URL 30 menit dan `noindex`.
 - [ ] Backup otomatis.
 - [ ] GA4/Search Console setup.

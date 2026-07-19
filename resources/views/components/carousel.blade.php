@@ -5,15 +5,22 @@
     activeSlide: 0, 
     slides: {{ json_encode($images) }},
     isModalOpen: false,
+    autoplayInterval: null,
     next() {
         this.activeSlide = this.activeSlide === this.slides.length - 1 ? 0 : this.activeSlide + 1;
     },
     prev() {
         this.activeSlide = this.activeSlide === 0 ? this.slides.length - 1 : this.activeSlide - 1;
+    },
+    startAutoplay() {
+        this.autoplayInterval = setInterval(() => { this.next() }, 3500);
+    },
+    stopAutoplay() {
+        clearInterval(this.autoplayInterval);
     }
-}">
+}" x-init="startAutoplay()" @mouseenter="stopAutoplay()" @mouseleave="startAutoplay()">
     <!-- Carousel Track -->
-    <div class="relative w-full overflow-hidden bg-gray-100 rounded-2xl shadow-inner h-64 sm:h-80 md:h-96 flex items-center justify-center">
+    <div class="relative w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl shadow-inner h-64 sm:h-80 md:h-96 flex items-center justify-center border border-gray-200">
         
         <template x-for="(slide, index) in slides" :key="index">
             <div x-show="activeSlide === index" 
@@ -30,12 +37,12 @@
         </template>
 
         <!-- Previous Button -->
-        <button @click="prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-gray-800 flex items-center justify-center shadow backdrop-blur transition z-10" aria-label="Previous">
+        <button @click="prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-gray-800 flex items-center justify-center shadow backdrop-blur transition transform hover:scale-110 z-10" aria-label="Previous">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         </button>
 
         <!-- Next Button -->
-        <button @click="next" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-gray-800 flex items-center justify-center shadow backdrop-blur transition z-10" aria-label="Next">
+        <button @click="next" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-gray-800 flex items-center justify-center shadow backdrop-blur transition transform hover:scale-110 z-10" aria-label="Next">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </button>
         

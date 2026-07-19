@@ -38,6 +38,19 @@
   outline-offset: 3px;
 }
 
+/* Custom Typography Styling for Content */
+.prose img {
+  @apply rounded-xl shadow-md mx-auto my-8 border border-gray-100 object-contain max-h-[600px];
+}
+
+.prose iframe {
+  @apply w-full aspect-video rounded-xl shadow-md my-8;
+}
+
+.prose h2, .prose h3 {
+  @apply text-navy-dark mt-10 mb-4 font-bold;
+}
+
 .partner-marquee {
   position: relative;
   width: min(100%, 76rem);

@@ -26,27 +26,9 @@
     ];
 
     $ppidGroups = [
-        'Profil PPID' => [
-            ['label' => 'Profile PPID', 'slug' => 'profile-ppid'],
-            ['label' => 'PPID', 'slug' => 'ppid'],
-            ['label' => 'Struktur Organisasi', 'slug' => 'struktur-organisasi-ppid-pelaksana-upt'],
-            ['label' => 'Tugas Dan Fungsi', 'slug' => 'tugas-dan-fungsi'],
-            ['label' => 'Visi Misi PPID', 'slug' => 'visi-misi-ppid'],
-        ],
-        'Layanan Informasi' => [
-            ['label' => 'Informasi Berkala', 'slug' => 'informasi-berkala'],
-            ['label' => 'Informasi Serta Merta', 'slug' => 'informasi-serta-merta'],
-            ['label' => 'Informasi Setiap Saat', 'slug' => 'informasi-setiap-saat'],
-            ['label' => 'Formulir Pengajuan', 'slug' => 'formulir-pengajuan-informasi'],
-        ],
-        'Regulasi & Prosedur' => [
-            ['label' => 'Regulasi', 'slug' => 'regulasi'],
-            ['label' => 'Permohonan Informasi', 'slug' => 'prosedur-permohonan-informasi'],
-            ['label' => 'Permohonan Keberatan', 'slug' => 'prosedur-permohonan-keberatan-informasi'],
-            ['label' => 'Pengajuan Sengketa', 'slug' => 'prosedur-pengajuan-sengketa-informasi-publik'],
-            ['label' => 'Maklumat & Standar Biaya', 'slug' => 'maklumat-pelayanan-dan-standar-biaya'],
-            ['label' => 'Kritik & Saran', 'slug' => 'kritik-saran'],
-        ],
+        ['label' => 'Profil PPID', 'slug' => 'profile-ppid'],
+        ['label' => 'Layanan Informasi', 'slug' => 'layanan-informasi'],
+        ['label' => 'Regulasi & Prosedur', 'slug' => 'regulasi'],
     ];
 @endphp
 <header class="w-full fixed top-0 z-50 transition-all duration-500 ease-out"
@@ -101,7 +83,7 @@
                     </div>
                 @endforeach
 
-            <!-- Nested PPID Dropdown -->
+            <!-- PPID Dropdown (Single Level) -->
             <div class="relative group/ppid" x-data="{ openPpid: false }" @mouseenter="openPpid = true" @mouseleave="openPpid = false" @click.outside="openPpid = false" @keydown.escape.window="openPpid = false">
                 <button type="button" @click="openPpid = !openPpid" :aria-expanded="openPpid.toString()" aria-haspopup="true" class="group relative flex items-center gap-1 px-2 py-2 text-[15px] font-bold hover:text-gold transition-colors tracking-wide">
                     PPID
@@ -115,27 +97,13 @@
                           x-transition:leave="transition ease-in duration-150" 
                           x-transition:leave-start="opacity-100 translate-y-0" 
                           x-transition:leave-end="opacity-0 translate-y-2"
-                          class="absolute top-full right-0 mt-3 bg-white border border-navy/5 rounded-2xl shadow-[0_15px_50px_-10px_rgba(20,35,58,0.15)] py-2.5 min-w-64 z-50 overflow-visible" style="display: none;">
-                        @foreach($ppidGroups as $groupLabel => $items)
-                            <div class="relative group/sub" x-data="{ openSub: false }" @mouseenter="openSub = true" @mouseleave="openSub = false">
-                                <button class="w-full flex items-center justify-between px-5 py-2.5 text-[14px] font-semibold text-navy/80 hover:bg-[#f5f7fa] hover:text-navy transition-colors">
-                                    {{ $groupLabel }}
-                                    <svg class="w-4 h-4 text-text-muted transition-transform group-hover/sub:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                                </button>
-                                <div x-show="openSub"
-                                     x-transition:enter="transition ease-out duration-200"
-                                     x-transition:enter-start="opacity-0 -translate-x-2"
-                                     x-transition:enter-end="opacity-100 translate-x-0"
-                                     class="absolute top-0 left-full ml-2 bg-white border border-navy/5 rounded-2xl shadow-[0_15px_50px_-10px_rgba(20,35,58,0.15)] py-2.5 min-w-60 z-50" style="display: none;">
-                                    @foreach($items as $item)
-                                        <a href="{{ route('pages.show', $item['slug']) }}"
-                                           class="group/item flex items-center px-5 py-2 text-[14px] font-semibold text-navy/80 hover:bg-[#f5f7fa] hover:text-navy transition-all duration-350">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-gold opacity-0 -translate-x-2 mr-0 w-0 transition-all duration-300 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:w-2 group-hover/item:mr-2"></span>
-                                            <span>{{ $item['label'] }}</span>
-                                        </a>
-                                    @endforeach
-                                </div>
-                            </div>
+                          class="absolute top-full right-0 mt-3 bg-white border border-navy/5 rounded-2xl shadow-[0_15px_50px_-10px_rgba(20,35,58,0.15)] py-2.5 min-w-64 z-50 overflow-hidden" style="display: none;">
+                        @foreach($ppidGroups as $item)
+                            <a href="{{ route('pages.show', $item['slug']) }}"
+                               class="group/item flex items-center px-5 py-2.5 text-[14px] font-semibold text-navy/80 hover:bg-[#f5f7fa] hover:text-navy transition-all duration-350">
+                                <span class="w-1.5 h-1.5 rounded-full bg-gold opacity-0 -translate-x-2 mr-0 w-0 transition-all duration-300 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:w-2 group-hover/item:mr-2"></span>
+                                <span>{{ $item['label'] }}</span>
+                            </a>
                         @endforeach
                     </div>
                 </div>
@@ -191,22 +159,12 @@
                     <span>PPID</span>
                     <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': expanded === 'PPID' }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
-                <div x-show="expanded === 'PPID'" class="pl-2 pb-1 space-y-1" style="display: none;">
-                    @foreach($ppidGroups as $groupLabel => $items)
-                        <div x-data="{ expandedSub: false }">
-                            <button type="button" @click="expandedSub = !expandedSub" class="w-full flex items-center justify-between px-3 py-2 text-sm font-medium text-text-muted hover:text-navy rounded-md">
-                                <span>{{ $groupLabel }}</span>
-                                <svg class="w-3.5 h-3.5 transition-transform" :class="{ 'rotate-180': expandedSub }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                            <div x-show="expandedSub" class="pl-4 pb-1 space-y-0.5" style="display: none;">
-                                @foreach($items as $item)
-                                    <a href="{{ route('pages.show', $item['slug']) }}"
-                                       class="flex items-center px-3 py-1.5 text-xs text-text-muted hover:text-navy rounded-md">
-                                        {{ $item['label'] }}
-                                    </a>
-                                @endforeach
-                            </div>
-                        </div>
+                <div x-show="expanded === 'PPID'" class="pl-4 pb-1 space-y-0.5" style="display: none;">
+                    @foreach($ppidGroups as $item)
+                        <a href="{{ route('pages.show', $item['slug']) }}"
+                           class="flex items-center px-3 py-2 text-sm text-text-muted hover:text-navy rounded-md">
+                            {{ $item['label'] }}
+                        </a>
                     @endforeach
                 </div>
             </div>

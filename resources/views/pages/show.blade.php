@@ -214,34 +214,34 @@
                                 </div>
                             </div>
                         @elseif($page->slug === 'simadu')
-                            <div class="bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-8 md:p-12 border border-gray-100 shadow-xl shadow-navy-dark/5 relative w-full mb-12 overflow-hidden">
+                            <div class="bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-xl shadow-navy-dark/5 relative w-full mb-12 overflow-hidden">
                                 <!-- Decorative Elements -->
                                 <div class="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-gradient-to-br from-gold/10 to-transparent opacity-50 blur-3xl pointer-events-none"></div>
                                 
-                                <div class="relative z-10 flex flex-col items-center gap-10">
+                                <div class="relative z-10 flex flex-col items-center gap-6 md:gap-8">
                                     <!-- Title & Opening Text -->
                                     <div class="w-full text-center max-w-3xl mx-auto">
-                                        <div class="w-16 h-16 bg-blue-50 text-navy rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-blue-100 mx-auto transform -rotate-3 hover:rotate-0 transition-transform duration-300">
-                                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                        <div class="w-12 h-12 bg-blue-50 text-navy rounded-xl flex items-center justify-center mb-4 shadow-sm border border-blue-100 mx-auto transform -rotate-3 hover:rotate-0 transition-transform duration-300">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                                         </div>
-                                        <h3 class="text-3xl md:text-4xl font-bold text-navy-dark mb-4 leading-tight">Sistem Manajemen Pengaduan (SIMADU)</h3>
-                                        <p class="text-gray-500 text-lg leading-relaxed">
+                                        <h3 class="text-2xl md:text-3xl font-bold text-navy-dark mb-3 leading-tight">Sistem Manajemen Pengaduan (SIMADU)</h3>
+                                        <p class="text-gray-500 text-base md:text-lg leading-relaxed">
                                             Layanan terpadu Kementerian Perhubungan untuk menyampaikan laporan, aspirasi, atau pengaduan atas pelayanan publik. Kami menjamin kerahasiaan identitas Anda sepenuhnya.
                                         </p>
                                     </div>
                                     
                                     <!-- Image -->
-                                    <div class="w-full max-w-5xl mx-auto">
-                                        <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white">
+                                    <div class="w-full max-w-4xl mx-auto">
+                                        <div class="rounded-2xl overflow-hidden shadow-lg border-4 border-white bg-white">
                                             <img src="{{ asset('storage/media/legacy/2022/11/4ba95402a5433595324bab5efc0ec308.png') }}" alt="Alur Tata Cara Pengaduan SIMADU" class="w-full h-auto block">
                                         </div>
                                     </div>
                                     
                                     <!-- CTA Button -->
-                                    <div class="w-full text-center mt-4">
-                                        <a href="https://simadu.dephub.go.id/" target="_blank" class="inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-gold to-gold-light text-white rounded-full font-bold text-xl shadow-xl shadow-gold/30 hover:shadow-2xl hover:shadow-gold/40 hover:-translate-y-2 transition-all duration-300 group">
+                                    <div class="w-full text-center mt-2">
+                                        <a href="https://simadu.dephub.go.id/" target="_blank" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-gold to-gold-light text-white rounded-full font-bold text-lg shadow-lg shadow-gold/30 hover:shadow-xl hover:shadow-gold/40 hover:-translate-y-1 transition-all duration-300 group">
                                             <span>Buat Pengaduan Sekarang</span>
-                                            <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                            <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                         </a>
                                     </div>
                                 </div>

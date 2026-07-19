@@ -221,10 +221,12 @@
                                 <div class="relative z-10 flex flex-col items-center gap-6 md:gap-8">
                                     <!-- Title & Opening Text -->
                                     <div class="w-full text-center max-w-3xl mx-auto">
-                                        <div class="w-12 h-12 bg-blue-50 text-navy rounded-xl flex items-center justify-center mb-4 shadow-sm border border-blue-100 mx-auto transform -rotate-3 hover:rotate-0 transition-transform duration-300">
-                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                                        </div>
-                                        <h3 class="text-2xl md:text-3xl font-bold text-navy-dark mb-3 leading-tight">Sistem Manajemen Pengaduan (SIMADU)</h3>
+                                        <h3 class="flex flex-col md:flex-row items-center justify-center gap-3 text-2xl md:text-3xl font-bold text-navy-dark mb-4 leading-tight">
+                                            <span>Sistem Manajemen Pengaduan (SIMADU)</span>
+                                            <div class="w-10 h-10 bg-blue-50 text-navy rounded-lg flex items-center justify-center shadow-sm border border-blue-100 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
+                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                            </div>
+                                        </h3>
                                         <p class="text-gray-500 text-base md:text-lg leading-relaxed">
                                             Layanan terpadu Kementerian Perhubungan untuk menyampaikan laporan, aspirasi, atau pengaduan atas pelayanan publik. Kami menjamin kerahasiaan identitas Anda sepenuhnya.
                                         </p>

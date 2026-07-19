@@ -25,23 +25,32 @@
         </div>
     </div>
 
-    <article class="py-12 bg-white">
-        <div class="container mx-auto px-4 max-w-4xl">
-            <header class="mb-8">
-                <h1 class="font-sans text-3xl md:text-4xl font-bold text-text-main leading-tight mb-4">{{ $page->title }}</h1>
+    <article class="py-12 bg-white" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 50)">
+        <div class="container mx-auto px-4 max-w-4xl transition-all duration-700 ease-out"
+             :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+             
+            <header class="mb-10 text-center md:text-left">
+                <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">{{ $page->title }}</h1>
+                <div class="h-1.5 w-20 bg-gold-light rounded-full mb-6 mx-auto md:mx-0"></div>
                 @if($page->excerpt)
-                    <p class="text-xl text-gray-500">{{ $page->excerpt }}</p>
+                    <p class="text-xl text-gray-500 leading-relaxed">{{ $page->excerpt }}</p>
                 @endif
             </header>
 
             @if($page->featured_image_url)
-                <figure class="mb-10 rounded-xl overflow-hidden bg-gray-100 border border-gray-100">
-                    <img src="{{ $page->featured_image_url }}" alt="{{ $page->title }}" class="w-full h-auto object-cover max-h-[500px]">
+                <figure class="mb-12 rounded-2xl overflow-hidden bg-gray-100 border border-gray-100 shadow-sm relative group">
+                    <img src="{{ $page->featured_image_url }}" alt="{{ $page->title }}" class="w-full h-auto object-cover max-h-[500px] transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-2xl"></div>
                 </figure>
             @endif
 
             <!-- Content Area -->
-            <div class="prose prose-lg prose-blue max-w-none text-gray-800">
+            <div class="prose prose-lg prose-blue max-w-none text-gray-800
+                        prose-p:leading-relaxed prose-a:text-sky prose-a:no-underline hover:prose-a:underline
+                        prose-headings:text-navy-dark prose-headings:font-bold
+                        first-of-type:prose-p:first-letter:text-6xl first-of-type:prose-p:first-letter:font-bold 
+                        first-of-type:prose-p:first-letter:text-navy first-of-type:prose-p:first-letter:float-left 
+                        first-of-type:prose-p:first-letter:mr-4 first-of-type:prose-p:first-letter:mt-2 first-of-type:prose-p:first-letter:leading-none">
                 {!! $page->content !!}
             </div>
 

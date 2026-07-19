@@ -178,27 +178,27 @@
                         '/storage/media/legacy/2022/10/Screenshot_20221024-100101_TapScanner-1.jpg',
                     ];
                 @endphp
-                <div class="mt-16 bg-gradient-to-br from-white via-white to-gold/5 rounded-3xl p-6 md:p-10 border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] scroll-mt-32">
+                <div class="mt-16 bg-gradient-to-br from-white via-white to-gold/5 rounded-3xl p-6 md:p-10 border border-gray-100 shadow-xl shadow-navy-dark/5 scroll-mt-32">
                     <div class="text-center mb-10">
                         <h2 id="maklumat-pelayanan" class="text-3xl md:text-4xl font-extrabold text-navy-dark mb-4 scroll-mt-32">Maklumat Pelayanan</h2>
                         <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
                         <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">Komitmen UPBU Kelas I Kalimarau untuk memberikan pelayanan yang transparan, akuntabel, dan sesuai standar mutu bagi seluruh pengguna jasa bandar udara.</p>
                     </div>
                     
-                    <figure class="max-w-4xl mx-auto rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm relative group">
+                    <figure class="max-w-4xl mx-auto rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-lg shadow-black/5 relative group">
                         <img src="/storage/media/legacy/2023/01/maklumat-pelayanan-2023.jpg" alt="Maklumat Pelayanan Bandar Udara Kalimarau" class="w-full h-auto transition-transform duration-700 group-hover:scale-[1.01]">
                         <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-2xl pointer-events-none"></div>
                     </figure>
                 </div>
 
-                <div class="mt-16 bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-6 md:p-10 border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
+                <div class="mt-16 bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-6 md:p-10 border border-gray-100 shadow-xl shadow-navy-dark/5">
                     <div class="text-center mb-10">
                         <h2 id="penghargaan-prestasi" class="text-3xl md:text-4xl font-extrabold text-navy-dark mb-4 scroll-mt-32">Penghargaan & Prestasi</h2>
                         <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
                         <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">Komitmen UPBU Kalimarau terhadap standar pelayanan prima secara konsisten diwujudkan melalui berbagai pencapaian dan penghargaan bergengsi tingkat nasional.</p>
                     </div>
                     
-                    <div class="max-w-4xl mx-auto relative group rounded-2xl overflow-hidden bg-white shadow-sm border border-gray-100">
+                    <div class="max-w-4xl mx-auto relative group rounded-2xl overflow-hidden bg-white shadow-lg shadow-black/5 border border-gray-100">
                         <x-carousel :images="$awardImages" />
                         <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-2xl pointer-events-none"></div>
                     </div>

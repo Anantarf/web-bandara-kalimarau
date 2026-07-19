@@ -20,43 +20,48 @@
     }
 }" x-init="startAutoplay()" @mouseenter="stopAutoplay()" @mouseleave="startAutoplay()">
     <!-- Carousel Track -->
-    <div class="relative w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl shadow-inner h-64 sm:h-80 md:h-96 flex items-center justify-center border border-gray-200">
+    <div class="relative w-full overflow-hidden bg-white rounded-3xl shadow-[inset_0_2px_10px_rgba(0,0,0,0.03)] border border-gray-100 h-72 sm:h-80 md:h-96 flex items-center justify-center">
+        <!-- Subtle Background Pattern -->
+        <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 24px 24px;"></div>
         
         <template x-for="(slide, index) in slides" :key="index">
             <div x-show="activeSlide === index" 
-                 x-transition:enter="transition ease-out duration-300"
-                 x-transition:enter-start="opacity-0 transform scale-95"
-                 x-transition:enter-end="opacity-100 transform scale-100"
+                 x-transition:enter="transition ease-out duration-500"
+                 x-transition:enter-start="opacity-0 translate-x-12 scale-95"
+                 x-transition:enter-end="opacity-100 translate-x-0 scale-100"
                  x-transition:leave="transition ease-in duration-300 absolute inset-0"
-                 x-transition:leave-start="opacity-100 transform scale-100"
-                 x-transition:leave-end="opacity-0 transform scale-95"
-                 class="w-full h-full flex items-center justify-center p-4 cursor-pointer"
+                 x-transition:leave-start="opacity-100 translate-x-0 scale-100"
+                 x-transition:leave-end="opacity-0 -translate-x-12 scale-95"
+                 class="w-full h-full flex items-center justify-center p-6 cursor-zoom-in relative z-10"
                  @click="isModalOpen = true">
-                <img :src="slide" class="max-w-full max-h-full object-contain drop-shadow-md rounded" alt="Penghargaan">
+                <img :src="slide" class="max-w-full max-h-full object-contain drop-shadow-xl rounded-lg border border-gray-100/50" alt="Penghargaan">
             </div>
         </template>
 
         <!-- Previous Button -->
-        <button @click="prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-gray-800 flex items-center justify-center shadow backdrop-blur transition transform hover:scale-110 z-10" aria-label="Previous">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        <button @click="prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 hover:bg-white text-navy flex items-center justify-center shadow-md backdrop-blur transition-all duration-300 transform hover:scale-110 hover:shadow-lg hover:-translate-x-1 z-20 group" aria-label="Previous">
+            <svg class="w-6 h-6 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
         </button>
 
         <!-- Next Button -->
-        <button @click="next" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-gray-800 flex items-center justify-center shadow backdrop-blur transition transform hover:scale-110 z-10" aria-label="Next">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        <button @click="next" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/90 hover:bg-white text-navy flex items-center justify-center shadow-md backdrop-blur transition-all duration-300 transform hover:scale-110 hover:shadow-lg hover:translate-x-1 z-20 group" aria-label="Next">
+            <svg class="w-6 h-6 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
         </button>
         
         <!-- Indicators -->
-        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex space-x-2.5 z-20 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm">
             <template x-for="(slide, index) in slides" :key="index">
                 <button @click="activeSlide = index" 
-                        :class="activeSlide === index ? 'bg-blue-600 w-6' : 'bg-gray-400 w-2'" 
-                        class="h-2 rounded-full transition-all duration-300" aria-label="Go to slide"></button>
+                        :class="activeSlide === index ? 'bg-navy w-8' : 'bg-gray-300 hover:bg-gray-400 w-2'" 
+                        class="h-2 rounded-full transition-all duration-500 ease-out" aria-label="Go to slide"></button>
             </template>
         </div>
     </div>
     
-    <p class="text-center text-sm text-gray-500 mt-3">Klik gambar untuk memperbesar</p>
+    <div class="flex items-center justify-center mt-4 text-gray-400">
+        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+        <p class="text-sm font-medium">Klik gambar untuk memperbesar</p>
+    </div>
 
     <!-- Fullscreen Modal -->
     <div x-show="isModalOpen" 

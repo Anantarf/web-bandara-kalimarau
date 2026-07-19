@@ -175,6 +175,22 @@
                         '/storage/media/legacy/2022/10/Screenshot_20221024-100101_TapScanner-1.jpg',
                     ];
                 @endphp
+                <div id="maklumat-pelayanan" class="mt-16 bg-white rounded-3xl p-6 md:p-10 border border-gray-100 shadow-sm scroll-mt-32">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-navy-dark mb-4">Maklumat Pelayanan</h2>
+                        <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
+                        <p class="text-gray-500 max-w-2xl mx-auto text-lg">Komitmen kami untuk memberikan pelayanan yang transparan, akuntabel, dan sesuai standar bagi seluruh pengguna jasa Bandar Udara Kalimarau.</p>
+                    </div>
+                    
+                    <figure class="rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm relative group">
+                        <img src="/storage/media/legacy/2023/01/maklumat-pelayanan-2023.jpg" alt="Maklumat Pelayanan Bandar Udara Kalimarau" class="w-full h-auto transition-transform duration-700 group-hover:scale-[1.02]">
+                        <figcaption class="px-6 py-4 bg-gray-50 border-t border-gray-100 text-center">
+                            <span class="text-sm text-gray-500 font-medium italic">Dokumen Resmi Maklumat Pelayanan UPBU Kelas I Kalimarau</span>
+                        </figcaption>
+                        <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-2xl pointer-events-none"></div>
+                    </figure>
+                </div>
+
                 <div class="mt-16 bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
                     <div class="flex flex-col md:flex-row gap-8 items-center">
                         <div class="w-full md:w-1/3 text-center md:text-left">

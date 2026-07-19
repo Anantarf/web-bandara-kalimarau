@@ -1,7 +1,7 @@
 @props(['images' => []])
 
 @if(count($images) > 0)
-<div class="mt-12" x-data="{ 
+<div class="w-full" x-data="{ 
     activeSlide: 0, 
     slides: {{ json_encode($images) }},
     isModalOpen: false,
@@ -20,7 +20,7 @@
     }
 }" x-init="startAutoplay()" @mouseenter="stopAutoplay()" @mouseleave="startAutoplay()">
     <!-- Carousel Track -->
-    <div class="relative w-full overflow-hidden bg-white rounded-3xl shadow-[inset_0_2px_10px_rgba(0,0,0,0.03)] border border-gray-100 h-72 sm:h-80 md:h-96 flex items-center justify-center">
+    <div class="relative w-full overflow-hidden bg-white rounded-2xl shadow-[inset_0_2px_10px_rgba(0,0,0,0.02)] border border-gray-100 h-56 sm:h-64 md:h-72 flex items-center justify-center">
         <!-- Subtle Background Pattern -->
         <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 24px 24px;"></div>
         

@@ -120,13 +120,13 @@
                             <div class="relative group/sub" x-data="{ openSub: false }" @mouseenter="openSub = true" @mouseleave="openSub = false">
                                 <button class="w-full flex items-center justify-between px-5 py-2.5 text-[14px] font-semibold text-navy/80 hover:bg-[#f5f7fa] hover:text-navy transition-colors">
                                     {{ $groupLabel }}
-                                    <svg class="w-4 h-4 text-text-muted transition-transform group-hover/sub:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                    <svg class="w-4 h-4 text-text-muted transition-transform group-hover/sub:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </button>
                                 <div x-show="openSub"
                                      x-transition:enter="transition ease-out duration-200"
-                                     x-transition:enter-start="opacity-0 translate-x-2"
+                                     x-transition:enter-start="opacity-0 -translate-x-2"
                                      x-transition:enter-end="opacity-100 translate-x-0"
-                                     class="absolute top-0 right-full mr-2 bg-white border border-navy/5 rounded-2xl shadow-[0_15px_50px_-10px_rgba(20,35,58,0.15)] py-2.5 min-w-60 z-50" style="display: none;">
+                                     class="absolute top-0 left-full ml-2 bg-white border border-navy/5 rounded-2xl shadow-[0_15px_50px_-10px_rgba(20,35,58,0.15)] py-2.5 min-w-60 z-50" style="display: none;">
                                     @foreach($items as $item)
                                         <a href="{{ route('pages.show', $item['slug']) }}"
                                            class="group/item flex items-center px-5 py-2 text-[14px] font-semibold text-navy/80 hover:bg-[#f5f7fa] hover:text-navy transition-all duration-350">

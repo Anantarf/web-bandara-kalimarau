@@ -57,9 +57,20 @@
                 }
                 
                 // Add IDs to H2 tags in the content so we can link to them
-                $contentWithIds = preg_replace_callback('/<h2[^>]*>(.*?)<\/h2>/i', function($m) {
-                    $id = \Illuminate\Support\Str::slug(strip_tags($m[1]));
-                    return "<h2 id=\"{$id}\" class=\"scroll-mt-32 border-b-2 border-gray-100 pb-2\">{$m[1]}</h2>";
+                $contentWithIds = preg_replace_callback('/<h2([^>]*)>(.*?)<\/h2>/i', function($m) {
+                    $existingAttrs = $m[1];
+                    $id = \Illuminate\Support\Str::slug(strip_tags($m[2]));
+                    
+                    // Add standard classes
+                    $newClasses = 'scroll-mt-32 border-b-2 border-gray-100 pb-2';
+                    
+                    if (strpos($existingAttrs, 'class="') !== false) {
+                        $attrs = preg_replace('/class="/', 'class="' . $newClasses . ' ', $existingAttrs);
+                    } else {
+                        $attrs = $existingAttrs . ' class="' . $newClasses . '"';
+                    }
+                    
+                    return "<h2 id=\"{$id}\"{$attrs}>{$m[2]}</h2>";
                 }, $page->content);
             @endphp
 

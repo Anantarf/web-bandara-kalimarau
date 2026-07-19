@@ -130,7 +130,7 @@
                         '/storage/media/legacy/2022/10/Screenshot_20221024-100101_TapScanner-1.jpg',
                     ];
                 @endphp
-                <div class="mt-16 bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
+                <div class="mt-16 bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)]">
                     <div class="flex flex-col md:flex-row gap-8 items-center">
                         <div class="w-full md:w-1/3 text-center md:text-left">
                             <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gold/10 text-gold-dark mb-4">

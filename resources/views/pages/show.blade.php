@@ -8,8 +8,8 @@
     @if($preview ?? false)
         <div class="bg-amber-100 border-b border-amber-300 py-3 text-center text-sm font-medium text-amber-900">Pratinjau admin. Konten ini belum tersedia untuk publik.</div>
     @endif
-    <div class="bg-gray-50 py-6 border-b border-gray-200">
-        <div class="container mx-auto px-4 max-w-4xl">
+    <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Breadcrumb -->
             <nav class="text-sm" aria-label="Breadcrumb">
                 <ol class="list-none p-0 inline-flex flex-wrap">
@@ -53,6 +53,14 @@
                     $headings[] = [
                         'text' => strip_tags($headingText),
                         'id' => \Illuminate\Support\Str::slug(strip_tags($headingText))
+                    ];
+                }
+                
+                // Inject Penghargaan & Prestasi to TOC if on the right page
+                if ($page->slug === 'profil-bandara-kalimarau') {
+                    $headings[] = [
+                        'text' => 'Penghargaan & Prestasi',
+                        'id' => 'penghargaan-prestasi'
                     ];
                 }
                 
@@ -136,7 +144,7 @@
                             <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gold/10 text-gold-dark mb-4">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
                             </div>
-                            <h2 class="text-2xl font-bold text-navy-dark mb-3">Penghargaan & Prestasi</h2>
+                            <h2 id="penghargaan-prestasi" class="text-2xl font-bold text-navy-dark mb-3 scroll-mt-32">Penghargaan & Prestasi</h2>
                             <p class="text-gray-600 text-sm leading-relaxed">Komitmen UPBU Kalimarau terhadap standar pelayanan prima secara konsisten diwujudkan melalui berbagai pencapaian dan penghargaan bergengsi tingkat nasional.</p>
                         </div>
                         <div class="w-full md:w-2/3">

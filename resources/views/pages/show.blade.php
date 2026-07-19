@@ -154,7 +154,7 @@
                                          x-transition:enter-start="opacity-0 translate-y-4" 
                                          x-transition:enter-end="opacity-100 translate-y-0" 
                                          class="w-full">
-                                        <div class="aspect-[4/3] md:aspect-[16/10] w-full rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
+                                        <div class="aspect-[4/3] md:aspect-[16/10] w-full rounded-lg overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
                                             <div class="absolute inset-0 flex items-center justify-center">
                                                 <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gold border-t-transparent"></div>
                                             </div>
@@ -168,7 +168,7 @@
                                          x-transition:enter-start="opacity-0 translate-y-4" 
                                          x-transition:enter-end="opacity-100 translate-y-0" 
                                          class="w-full">
-                                        <div class="aspect-[4/3] md:aspect-[16/10] w-full rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
+                                        <div class="aspect-[4/3] md:aspect-[16/10] w-full rounded-lg overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
                                             <div class="absolute inset-0 flex items-center justify-center">
                                                 <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gold border-t-transparent"></div>
                                             </div>
@@ -179,7 +179,7 @@
                             </div>
                         @elseif($page->slug === 'standar-pelayanan')
                             <div class="bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-xl shadow-navy-dark/5 relative w-full mb-12">
-                                <div class="w-full h-[600px] md:h-[800px] rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
+                                <div class="w-full h-[600px] md:h-[800px] rounded-lg overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
                                     <div class="absolute inset-0 flex items-center justify-center">
                                         <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gold border-t-transparent"></div>
                                     </div>

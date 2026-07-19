@@ -6,7 +6,6 @@
             ['label' => 'Profil Bandara', 'slug' => 'profil-bandara-kalimarau'],
             ['label' => 'Maklumat Pelayanan', 'slug' => 'maklumat-pelayanan'],
             ['label' => 'Struktur Organisasi', 'slug' => 'struktur-organisasi'],
-            ['label' => 'Visi & Misi', 'slug' => 'visi-misi'],
         ],
         'Layanan' => [
             ['label' => 'Fasilitas Bandara', 'slug' => 'fasilitas-bandara'],

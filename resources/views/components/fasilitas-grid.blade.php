@@ -102,12 +102,34 @@ $categories = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="text-center mb-16">
-            <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">Fasilitas Lengkap</h1>
-            <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
-            <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">Kami menyediakan berbagai fasilitas berstandar tinggi untuk memastikan kenyamanan, keamanan, dan kelancaran perjalanan seluruh pengguna jasa bandara.</p>
+            <h1 x-show="loaded" 
+                x-transition:enter="transition-all ease-out duration-1000 delay-[800ms]" 
+                x-transition:enter-start="opacity-0 translate-y-8" 
+                x-transition:enter-end="opacity-100 translate-y-0"
+                style="display: none;"
+                class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">Fasilitas Lengkap</h1>
+            
+            <div x-show="loaded" 
+                 x-transition:enter="transition-all ease-out duration-1000 delay-[1000ms]" 
+                 x-transition:enter-start="opacity-0 scale-0" 
+                 x-transition:enter-end="opacity-100 scale-100"
+                 style="display: none;"
+                 class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
+            
+            <p x-show="loaded" 
+               x-transition:enter="transition-all ease-out duration-1000 delay-[1200ms]" 
+               x-transition:enter-start="opacity-0 translate-y-4" 
+               x-transition:enter-end="opacity-100 translate-y-0"
+               style="display: none;"
+               class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">Kami menyediakan berbagai fasilitas berstandar tinggi untuk memastikan kenyamanan, keamanan, dan kelancaran perjalanan seluruh pengguna jasa bandara.</p>
         </div>
 
-        <div class="space-y-20">
+        <div class="space-y-20"
+             x-show="loaded"
+             x-transition:enter="transition-all ease-out duration-1000 delay-[1400ms]"
+             x-transition:enter-start="opacity-0 translate-y-12"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             style="display: none;">
             @foreach($categories as $index => $category)
                 <div class="facility-category scroll-mt-24">
                     <div class="flex items-center mb-8">

@@ -178,6 +178,9 @@
                                 </div>
                             </div>
                         @elseif($page->slug === 'standar-pelayanan')
+                            <p class="text-gray-500 mb-8 text-lg leading-relaxed max-w-3xl">
+                                Dokumen resmi mengenai pedoman operasional, tolak ukur jaminan mutu, serta prosedur standar pelayanan publik yang diselenggarakan oleh Kantor BLU UPBU Kelas I Kalimarau demi kepuasan dan kenyamanan seluruh pengguna jasa bandar udara.
+                            </p>
                             <div class="bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-xl shadow-navy-dark/5 relative w-full mb-12">
                                 <div class="aspect-[4/3] md:aspect-[16/10] w-full rounded-lg overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
                                     <div class="absolute inset-0 flex items-center justify-center">

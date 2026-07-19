@@ -17,6 +17,14 @@
     },
     stopAutoplay() {
         clearInterval(this.autoplayInterval);
+    },
+    openModal() {
+        this.isModalOpen = true;
+        document.body.style.overflow = 'hidden';
+    },
+    closeModal() {
+        this.isModalOpen = false;
+        document.body.style.overflow = '';
     }
 }" x-init="startAutoplay()" @mouseenter="stopAutoplay()" @mouseleave="startAutoplay()">
     <!-- Carousel Track -->
@@ -33,7 +41,7 @@
                  x-transition:leave-start="opacity-100"
                  x-transition:leave-end="opacity-0"
                  class="w-full h-full flex items-center justify-center p-6 cursor-zoom-in relative z-10"
-                 @click="isModalOpen = true">
+                 @click="openModal()">
                 <img :src="slide" class="max-w-full max-h-full object-contain drop-shadow-xl rounded-lg border border-gray-100/50" alt="Penghargaan">
             </div>
         </template>
@@ -74,12 +82,12 @@
          x-transition:leave-end="opacity-0 backdrop-blur-none"
          style="display: none; z-index: 9999;"
          class="fixed inset-0 flex items-center justify-center bg-black/90 p-4 sm:p-10"
-         @click.self="isModalOpen = false"
-         @keydown.escape.window="isModalOpen = false"
+         @click.self="closeModal()"
+         @keydown.escape.window="closeModal()"
          @keydown.arrow-right.window="if(isModalOpen) next()"
          @keydown.arrow-left.window="if(isModalOpen) prev()">
          
-        <button @click="isModalOpen = false" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white hover:text-gray-300 bg-black/50 rounded-full p-2 z-50">
+        <button @click="closeModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white hover:text-gray-300 bg-black/50 rounded-full p-2 z-50">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
         

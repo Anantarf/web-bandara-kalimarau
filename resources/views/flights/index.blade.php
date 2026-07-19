@@ -3,21 +3,27 @@
     description="Informasi jadwal keberangkatan dan kedatangan pesawat di Bandara Kalimarau."
     :canonical="route('flights.index')"
 >
-    <!-- Header -->
-    <div class="bg-navy-dark text-white py-8 border-b-4 border-gold">
+    <!-- Breadcrumb -->
+    <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4">
-            <nav class="text-sm mb-6 text-white/70" aria-label="Breadcrumb">
+            <nav class="text-sm" aria-label="Breadcrumb">
                 <ol class="list-none p-0 inline-flex flex-wrap">
                     <li class="flex items-center">
-                        <a href="{{ route('home') }}" class="hover:text-white">Beranda</a>
-                        <svg class="fill-current w-3 h-3 mx-2 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
+                        <a href="{{ route('home') }}" class="text-gray-500 hover:text-navy">Beranda</a>
+                        <svg class="fill-current w-3 h-3 mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
                     </li>
-                    <li><span class="font-medium text-white" aria-current="page">Jadwal Penerbangan</span></li>
+                    <li><span class="text-gray-800 font-medium" aria-current="page">Jadwal Penerbangan</span></li>
                 </ol>
             </nav>
+        </div>
+    </div>
 
-            <h1 class="font-sans text-2xl md:text-4xl font-bold mb-3">Jadwal Penerbangan</h1>
-            <p class="text-base text-white/70 max-w-3xl">Informasi jadwal keberangkatan dan kedatangan pesawat di Bandara Kalimarau.</p>
+    <!-- Header -->
+    <div class="pt-12 pb-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 text-center md:text-left">
+            <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-4">Jadwal Penerbangan</h1>
+            <div class="h-1.5 w-20 bg-gold-light rounded-full mb-4 mx-auto md:mx-0"></div>
+            <p class="text-lg text-gray-500 max-w-3xl mx-auto md:mx-0">Informasi jadwal keberangkatan dan kedatangan pesawat di Bandara Kalimarau.</p>
         </div>
     </div>
 

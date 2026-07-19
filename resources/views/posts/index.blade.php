@@ -3,31 +3,36 @@
     description="Informasi dan pengumuman terbaru dari Bandara Kalimarau."
     :canonical="route('posts.index')"
 >
-    <div class="bg-gray-50 py-8 border-b border-gray-200">
+    <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
         <div class="container mx-auto px-4 max-w-7xl">
             <!-- Breadcrumb -->
-            <nav class="text-sm mb-4" aria-label="Breadcrumb">
-                <ol class="list-none p-0 inline-flex">
+            <nav class="text-sm" aria-label="Breadcrumb">
+                <ol class="list-none p-0 inline-flex flex-wrap">
                     <li class="flex items-center">
                         <a href="{{ route('home') }}" class="text-gray-500 hover:text-blue-600">Beranda</a>
-                        <svg class="fill-current w-3 h-3 mx-3 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
+                        <svg class="fill-current w-3 h-3 mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
                     </li>
                     <li>
                         <span class="text-gray-800 font-medium" aria-current="page">Berita</span>
                     </li>
                 </ol>
             </nav>
+        </div>
+    </div>
 
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-                <div>
-                    <h1 class="font-sans text-3xl md:text-4xl font-bold text-navy mb-2">Berita Terkini</h1>
-                    <p class="text-gray-600">Informasi dan pengumuman terbaru dari Bandara Kalimarau.</p>
+    <div class="pt-12 pb-8 bg-white border-b border-gray-100">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div class="text-center md:text-left">
+                    <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-4">Berita Terkini</h1>
+                    <div class="h-1.5 w-20 bg-gold-light rounded-full mb-4 mx-auto md:mx-0"></div>
+                    <p class="text-lg text-gray-500">Informasi dan pengumuman terbaru dari Bandara Kalimarau.</p>
                 </div>
                 
                 <!-- Search & Filter Form -->
                 <form action="{{ route('posts.index') }}" method="GET" class="w-full md:w-auto flex flex-col sm:flex-row gap-3">
                     <div class="relative w-full sm:w-48">
-                        <select name="category" class="w-full pl-4 pr-10 py-2.5 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700 appearance-none text-sm" onchange="this.form.submit()">
+                        <select name="category" class="w-full pl-4 pr-10 py-2.5 bg-gray-50 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-gold focus:border-gold text-gray-700 appearance-none text-sm transition-colors" onchange="this.form.submit()">
                             <option value="">Semua Kategori</option>
                             <option value="pengumuman" {{ request('category') === 'pengumuman' ? 'selected' : '' }}>Pengumuman</option>
                             <option value="berita" {{ request('category') === 'berita' ? 'selected' : '' }}>Berita</option>
@@ -40,14 +45,14 @@
                     
                     <div class="flex w-full sm:w-auto">
                         <div class="relative w-full sm:w-64">
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari berita..." class="w-full pl-4 pr-10 py-2.5 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari berita..." class="w-full pl-4 pr-10 py-2.5 bg-gray-50 border border-gray-200 rounded-l-md focus:outline-none focus:ring-2 focus:ring-gold focus:border-gold text-sm transition-colors">
                             @if(request('search'))
                                 <a href="{{ route('posts.index', ['category' => request('category')]) }}" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                 </a>
                             @endif
                         </div>
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-r-md transition-colors flex-shrink-0">
+                        <button type="submit" class="bg-navy hover:bg-navy-dark text-white px-5 py-2.5 rounded-r-md transition-colors flex-shrink-0">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </button>
                     </div>
@@ -56,7 +61,7 @@
         </div>
     </div>
 
-    <div class="py-12">
+    <div class="py-12 bg-white">
         <div class="container mx-auto px-4 max-w-7xl">
             @if($posts->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

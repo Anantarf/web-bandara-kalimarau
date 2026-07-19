@@ -9,8 +9,8 @@
     @if($preview ?? false)
         <div class="bg-amber-100 border-b border-amber-300 py-3 text-center text-sm font-medium text-amber-900">Pratinjau admin. Konten ini belum tersedia untuk publik.</div>
     @endif
-    <div class="bg-gray-50 py-6 border-b border-gray-200">
-        <div class="container mx-auto px-4 max-w-4xl">
+    <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
             <!-- Breadcrumb -->
             <nav class="text-sm" aria-label="Breadcrumb">
                 <ol class="list-none p-0 inline-flex flex-wrap">
@@ -30,12 +30,15 @@
         </div>
     </div>
 
-    <article class="py-12 bg-white">
-        <div class="container mx-auto px-4 max-w-4xl">
-            <header class="mb-8">
-                <h1 class="font-sans text-3xl md:text-4xl lg:text-5xl font-bold text-text-main leading-tight mb-6">{{ $post->title }}</h1>
+    <article class="pt-12 pb-24 bg-white" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl transition-all duration-1000 ease-out transform"
+             :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
+             
+            <header class="mb-10 text-center md:text-left">
+                <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">{{ $post->title }}</h1>
+                <div class="h-1.5 w-20 bg-gold-light rounded-full mb-6 mx-auto md:mx-0"></div>
                 
-                <div class="flex flex-wrap items-center text-sm text-gray-500 gap-4 pb-6 border-b border-gray-100">
+                <div class="flex flex-wrap items-center justify-center md:justify-start text-sm text-gray-500 gap-4 pb-6 border-b border-gray-100">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         {{ $post->published_at?->translatedFormat('d F Y') ?? 'Belum dipublikasikan' }}

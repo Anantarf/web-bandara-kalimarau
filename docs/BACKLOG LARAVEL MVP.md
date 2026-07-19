@@ -74,7 +74,7 @@
 - [x] Import pages ke Laravel.
 - [x] Import media metadata.
 - [x] Review manual konten halaman utama.
-- [ ] Inventaris dokumen PPID final dari media/live site.
+- [x] Inventaris dokumen PPID final dari media/live site.
 - [x] Validasi tidak ada konten hasil import yang masih mengandung shortcode/plugin WordPress.
 - [x] Validasi tidak ada link internal lama yang masih broken.
 

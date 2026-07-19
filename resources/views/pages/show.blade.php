@@ -98,7 +98,7 @@
                 <!-- Table of Contents Sidebar -->
                 @if(count($headings) > 1)
                     <div class="hidden lg:block lg:w-1/4 relative">
-                        <div class="sticky top-32 bg-gray-50/50 rounded-2xl p-6 border border-gray-100 lg:-mt-2">
+                        <div class="sticky top-32 bg-gray-100/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 shadow-sm lg:-mt-2">
                             <h4 class="text-sm font-bold text-navy-dark uppercase tracking-wider mb-4">Daftar Isi</h4>
                             <ul class="space-y-3 text-sm">
                                 @foreach($headings as $heading)

@@ -72,8 +72,8 @@
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100 backdrop-blur-sm"
          x-transition:leave-end="opacity-0 backdrop-blur-none"
-         style="display: none;"
-         class="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 sm:p-10"
+         style="display: none; z-index: 9999;"
+         class="fixed inset-0 flex items-center justify-center bg-black/90 p-4 sm:p-10"
          @click.self="isModalOpen = false"
          @keydown.escape.window="isModalOpen = false"
          @keydown.arrow-right.window="if(isModalOpen) next()"
@@ -87,7 +87,9 @@
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         </button>
 
-        <img :src="slides[activeSlide]" class="max-w-full max-h-[90vh] object-contain select-none" alt="Penghargaan Zoom">
+        <div class="relative max-w-5xl w-full flex items-center justify-center p-4">
+            <img :src="slides[activeSlide]" class="w-auto h-auto max-h-[85vh] object-contain select-none rounded-xl shadow-2xl ring-1 ring-white/20" alt="Penghargaan Zoom">
+        </div>
 
         <button @click.stop="next" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition z-50" aria-label="Next">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>

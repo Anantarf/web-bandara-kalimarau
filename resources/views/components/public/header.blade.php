@@ -68,7 +68,7 @@
                              x-transition:leave-end="opacity-0 translate-y-2"
                              class="absolute top-full left-0 mt-3 bg-white border border-navy/5 rounded-2xl shadow-[0_15px_50px_-10px_rgba(20,35,58,0.15)] py-2.5 min-w-60 z-50 overflow-hidden" style="display: none;">
                             @foreach($items as $item)
-                                <a href="{{ isset($item['route']) ? route($item['route']) : ($item['external'] ?? false ? $item['url'] : route('pages.show', $item['slug'])) }}"
+                                <a href="{{ isset($item['route']) ? route($item['route']) : (isset($item['url']) ? $item['url'] : route('pages.show', $item['slug'])) }}"
                                    @if($item['external'] ?? false) target="_blank" rel="noopener noreferrer" @endif
                                    class="group/item flex items-center px-5 py-2.5 text-[14px] font-semibold text-navy/80 hover:bg-[#f5f7fa] hover:text-navy transition-all duration-350">
                                     <span class="w-1.5 h-1.5 rounded-full bg-gold opacity-0 -translate-x-2 mr-0 w-0 transition-all duration-300 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:w-2 group-hover/item:mr-2"></span>
@@ -139,7 +139,7 @@
                     </button>
                     <div x-show="expanded === '{{ $groupLabel }}'" class="pl-4 pb-1 space-y-0.5" style="display: none;">
                         @foreach($items as $item)
-                            <a href="{{ isset($item['route']) ? route($item['route']) : ($item['external'] ?? false ? $item['url'] : route('pages.show', $item['slug'])) }}"
+                            <a href="{{ isset($item['route']) ? route($item['route']) : (isset($item['url']) ? $item['url'] : route('pages.show', $item['slug'])) }}"
                                @if($item['external'] ?? false) target="_blank" rel="noopener noreferrer" @endif
                                class="flex items-center px-3 py-2 text-sm text-text-muted hover:text-navy rounded-md">
                                 {{ $item['label'] }}

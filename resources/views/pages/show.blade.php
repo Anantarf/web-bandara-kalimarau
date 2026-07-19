@@ -128,12 +128,60 @@
                 ">
                     <!-- Main Content -->
                     <div class="w-full @if(count($headings) > 1) lg:w-3/4 @endif">
-                        <div class="prose prose-lg prose-blue text-gray-800
-                                    prose-p:leading-relaxed prose-a:text-sky prose-a:no-underline hover:prose-a:underline
-                                    prose-headings:text-navy-dark prose-headings:font-bold
-                                    prose-li:marker:text-gold prose-ul:space-y-1">
-                            {!! $contentWithIds !!}
-                        </div>
+                        @if($page->slug === 'tarif-kebandarudaraan')
+                            <div x-data="{ activeTab: 'aero' }" class="w-full">
+                                <div class="flex flex-col sm:flex-row p-1.5 bg-gray-100/80 backdrop-blur-sm rounded-2xl mb-8 border border-gray-200">
+                                    <button @click="activeTab = 'aero'" 
+                                            :class="activeTab === 'aero' ? 'bg-white text-navy-dark shadow-sm font-bold' : 'text-gray-500 hover:text-navy hover:bg-gray-200/50'"
+                                            class="flex-1 py-3 px-6 rounded-xl text-sm md:text-base font-medium transition-all duration-200 flex items-center justify-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        Tarif Aero
+                                    </button>
+                                    <button @click="activeTab = 'nonaero'" 
+                                            :class="activeTab === 'nonaero' ? 'bg-white text-navy-dark shadow-sm font-bold' : 'text-gray-500 hover:text-navy hover:bg-gray-200/50'"
+                                            class="flex-1 py-3 px-6 rounded-xl text-sm md:text-base font-medium transition-all duration-200 flex items-center justify-center gap-2 mt-1 sm:mt-0 sm:ml-1">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                        Tarif Non Aero
+                                    </button>
+                                </div>
+
+                                <div class="bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-xl shadow-navy-dark/5 relative">
+                                    <div x-show="activeTab === 'aero'" 
+                                         x-transition:enter="transition ease-out duration-500 delay-100" 
+                                         x-transition:enter-start="opacity-0 translate-y-4" 
+                                         x-transition:enter-end="opacity-100 translate-y-0" 
+                                         class="w-full">
+                                        <div class="aspect-[4/3] md:aspect-[16/10] w-full rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
+                                            <div class="absolute inset-0 flex items-center justify-center">
+                                                <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gold border-t-transparent"></div>
+                                            </div>
+                                            <iframe src="https://drive.google.com/file/d/1XsuTFf4z0TyGMer01QT4mX6K5LVmr7S5/preview" class="absolute inset-0 w-full h-full border-0 relative z-10" allow="autoplay"></iframe>
+                                        </div>
+                                    </div>
+
+                                    <div x-show="activeTab === 'nonaero'" 
+                                         style="display: none;" 
+                                         x-transition:enter="transition ease-out duration-500 delay-100" 
+                                         x-transition:enter-start="opacity-0 translate-y-4" 
+                                         x-transition:enter-end="opacity-100 translate-y-0" 
+                                         class="w-full">
+                                        <div class="aspect-[4/3] md:aspect-[16/10] w-full rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
+                                            <div class="absolute inset-0 flex items-center justify-center">
+                                                <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gold border-t-transparent"></div>
+                                            </div>
+                                            <iframe src="https://drive.google.com/file/d/12UDBEDfbWAxBzbsabMvO7wyUjg5luItb/preview" class="absolute inset-0 w-full h-full border-0 relative z-10" allow="autoplay"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <div class="prose prose-lg prose-blue text-gray-800
+                                        prose-p:leading-relaxed prose-a:text-sky prose-a:no-underline hover:prose-a:underline
+                                        prose-headings:text-navy-dark prose-headings:font-bold
+                                        prose-li:marker:text-gold prose-ul:space-y-1">
+                                {!! $contentWithIds !!}
+                            </div>
+                        @endif
                     </div>
 
                     <!-- Table of Contents Sidebar -->
@@ -198,9 +246,8 @@
                         <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">Komitmen UPBU Kalimarau terhadap standar pelayanan prima secara konsisten diwujudkan melalui berbagai pencapaian dan penghargaan bergengsi tingkat nasional.</p>
                     </div>
                     
-                    <div class="max-w-4xl mx-auto relative group rounded-2xl overflow-hidden bg-white shadow-lg shadow-black/5 border border-gray-100">
+                    <div class="max-w-4xl mx-auto">
                         <x-carousel :images="$awardImages" />
-                        <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-2xl pointer-events-none"></div>
                     </div>
                 </div>
             @endif

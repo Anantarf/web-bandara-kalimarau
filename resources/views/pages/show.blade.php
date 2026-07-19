@@ -60,9 +60,12 @@
                             x-transition:enter-start="opacity-0 translate-y-8" 
                             x-transition:enter-end="opacity-100 translate-y-0" 
                             style="display: none;"
-                            class="mb-12 rounded-2xl overflow-hidden bg-gray-100 border border-gray-100 shadow-sm relative group">
-                        <img src="{{ $page->featured_image_url }}" alt="{{ $page->title }}" class="w-full h-auto object-cover max-h-[500px] transition-transform duration-700 group-hover:scale-105">
-                        <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-2xl"></div>
+                            class="mb-12 rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm relative group">
+                        <img src="{{ $page->featured_image_url }}" alt="{{ $page->title }}" class="w-full h-auto transition-transform duration-700 group-hover:scale-[1.02]">
+                        <figcaption class="px-6 py-4 bg-gray-50 border-t border-gray-100 text-center">
+                            <span class="text-sm text-gray-500 font-medium italic">Lampiran Visual: {{ $page->title }}</span>
+                        </figcaption>
+                        <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-2xl pointer-events-none"></div>
                     </figure>
                 @endif
             @endif

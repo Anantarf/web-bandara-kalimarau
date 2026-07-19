@@ -140,6 +140,12 @@
                     </div>
 
                     <!-- Table of Contents Sidebar -->
+                    @php
+                        if($page->slug === 'profil-bandara-kalimarau') {
+                            $headings[] = ['id' => 'maklumat-pelayanan', 'text' => 'Maklumat Pelayanan', 'level' => 2];
+                            $headings[] = ['id' => 'penghargaan-prestasi', 'text' => 'Penghargaan & Prestasi', 'level' => 2];
+                        }
+                    @endphp
                     @if(count($headings) > 1)
                         <div class="hidden lg:block lg:w-1/4 relative">
                             <div class="sticky top-32 bg-gray-100/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 shadow-sm lg:-mt-2">
@@ -175,9 +181,9 @@
                         '/storage/media/legacy/2022/10/Screenshot_20221024-100101_TapScanner-1.jpg',
                     ];
                 @endphp
-                <div id="maklumat-pelayanan" class="mt-16 bg-gradient-to-br from-white via-white to-gold/5 rounded-3xl p-6 md:p-10 border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] scroll-mt-32">
+                <div class="mt-16 bg-gradient-to-br from-white via-white to-gold/5 rounded-3xl p-6 md:p-10 border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] scroll-mt-32">
                     <div class="text-center mb-10">
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-navy-dark mb-4">Maklumat Pelayanan</h2>
+                        <h2 id="maklumat-pelayanan" class="text-3xl md:text-4xl font-extrabold text-navy-dark mb-4 scroll-mt-32">Maklumat Pelayanan</h2>
                         <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
                         <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">Komitmen UPBU Kelas I Kalimarau untuk memberikan pelayanan yang transparan, akuntabel, dan sesuai standar mutu bagi seluruh pengguna jasa bandar udara.</p>
                     </div>

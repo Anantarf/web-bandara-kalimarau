@@ -74,7 +74,7 @@
                 }, $page->content);
             @endphp
 
-            <div class="flex flex-col lg:flex-row gap-12 relative" x-data="{ activeSection: '' }" @scroll.window="
+            <div class="flex flex-col lg:flex-row lg:items-start gap-12 relative" x-data="{ activeSection: '' }" @scroll.window="
                 let sections = document.querySelectorAll('h2[id]');
                 let current = '';
                 sections.forEach(section => {
@@ -98,7 +98,7 @@
                 <!-- Table of Contents Sidebar -->
                 @if(count($headings) > 1)
                     <div class="hidden lg:block lg:w-1/4 relative">
-                        <div class="sticky top-32 bg-gray-50/50 rounded-2xl p-6 border border-gray-100">
+                        <div class="sticky top-32 bg-gray-50/50 rounded-2xl p-6 border border-gray-100 lg:-mt-2">
                             <h4 class="text-sm font-bold text-navy-dark uppercase tracking-wider mb-4">Daftar Isi</h4>
                             <ul class="space-y-3 text-sm">
                                 @foreach($headings as $heading)

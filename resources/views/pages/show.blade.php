@@ -126,8 +126,12 @@
                     });
                     activeSection = current;
                 ">
+                    @php
+                        $customPages = ['tarif-kebandarudaraan', 'standar-pelayanan', 'survey-kepuasan-masyarakat-internal', 'simadu'];
+                        $showToc = count($headings) > 1 && !in_array($page->slug, $customPages);
+                    @endphp
                     <!-- Main Content -->
-                    <div class="w-full @if(count($headings) > 1) lg:w-3/4 @endif">
+                    <div class="w-full @if($showToc) lg:w-3/4 @endif">
                         @if($page->slug === 'tarif-kebandarudaraan')
                             <div x-data="{ activeTab: 'aero' }" class="w-full">
                                 <p class="text-gray-500 mb-8 text-lg leading-relaxed max-w-3xl">
@@ -252,7 +256,7 @@
                             $headings[] = ['id' => 'penghargaan-prestasi', 'text' => 'Penghargaan & Prestasi', 'level' => 2];
                         }
                     @endphp
-                    @if(count($headings) > 1)
+                    @if($showToc)
                         <div class="hidden lg:block lg:w-1/4 relative">
                             <div class="sticky top-32 bg-gray-100/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 shadow-sm lg:-mt-2">
                                 <h4 class="text-sm font-bold text-navy-dark uppercase tracking-wider mb-4">Daftar Isi</h4>

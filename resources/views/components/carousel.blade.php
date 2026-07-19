@@ -32,12 +32,12 @@
         
         <template x-for="(slide, index) in slides" :key="index">
             <div x-show="activeSlide === index" 
-                 x-transition:enter="transition ease-out duration-500"
-                 x-transition:enter-start="opacity-0 translate-x-4"
-                 x-transition:enter-end="opacity-100 translate-x-0"
-                 x-transition:leave="transition ease-in duration-300 absolute inset-0"
-                 x-transition:leave-start="opacity-100 translate-x-0"
-                 x-transition:leave-end="opacity-0 -translate-x-4"
+                 x-transition:enter="transition ease-in-out duration-400"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in-out duration-400 absolute inset-0"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
                  class="w-full h-full flex items-center justify-center p-6 sm:p-10 cursor-zoom-in relative z-10"
                  @click="openModal()">
                  

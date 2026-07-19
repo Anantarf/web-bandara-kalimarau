@@ -47,10 +47,7 @@
             <!-- Content Area -->
             <div class="prose prose-lg prose-blue max-w-none text-gray-800
                         prose-p:leading-relaxed prose-a:text-sky prose-a:no-underline hover:prose-a:underline
-                        prose-headings:text-navy-dark prose-headings:font-bold
-                        first-of-type:prose-p:first-letter:text-6xl first-of-type:prose-p:first-letter:font-bold 
-                        first-of-type:prose-p:first-letter:text-navy first-of-type:prose-p:first-letter:float-left 
-                        first-of-type:prose-p:first-letter:mr-4 first-of-type:prose-p:first-letter:mt-2 first-of-type:prose-p:first-letter:leading-none">
+                        prose-headings:text-navy-dark prose-headings:font-bold">
                 {!! $page->content !!}
             </div>
 

@@ -127,7 +127,7 @@
                     activeSection = current;
                 ">
                     @php
-                        $customPages = ['tarif-kebandarudaraan', 'standar-pelayanan', 'survey-kepuasan-masyarakat-internal', 'simadu', 'sp4n-lapor'];
+                        $customPages = ['tarif-kebandarudaraan', 'standar-pelayanan', 'survey-kepuasan-masyarakat-internal', 'simadu', 'sp4n-lapor', 'hasil-dan-tindak-lanjut'];
                         $showToc = count($headings) > 1 && !in_array($page->slug, $customPages);
                     @endphp
                     <!-- Main Content -->
@@ -267,6 +267,43 @@
                                         <span>Menuju Portal SP4N-LAPOR!</span>
                                         <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                     </a>
+                                </div>
+                            </div>
+                        @elseif($page->slug === 'hasil-dan-tindak-lanjut')
+                            <div class="mb-12">
+                                <h3 class="text-3xl md:text-4xl font-extrabold text-navy-dark mb-4 leading-tight">Laporan Hasil Survei Kepuasan Masyarakat</h3>
+                                <div class="h-1.5 w-20 bg-gold-light rounded-full mb-6"></div>
+                                <p class="text-gray-500 mb-10 text-lg leading-relaxed max-w-3xl">
+                                    Berikut adalah kumpulan dokumen laporan berkala mengenai hasil survei kepuasan masyarakat terhadap pelayanan publik di UPBU Kelas I Kalimarau. Anda dapat mengakses seluruh rincian laporannya melalui tautan di bawah ini:
+                                </p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6">
+                                    @php
+                                        $dokumenSurvei = [
+                                            'https://drive.google.com/file/d/168c9qLjIMP5Yv_HnxIOFwJbuDjzdPB9p/view?usp=sharing',
+                                            'https://drive.google.com/file/d/1RHBFHchoTMFc33gAcOBgJCcPFwFcMYe3/view?usp=sharing',
+                                            'https://drive.google.com/file/d/1hLnJ738R6mVgTcgQ9GlqtrMGRomChR77/view?usp=sharing',
+                                            'https://drive.google.com/file/d/1hjCbhhY7CUZOfFM0FmToHr41gQ3N8ew9/view?usp=sharing',
+                                            'https://drive.google.com/file/d/1EYX-1kbv4OSNimhUJdQOCg7DWHib5_T_/view?usp=sharing',
+                                            'https://drive.google.com/file/d/1JQgLUwKlN69EnzPcsEJwgqkqKa_S6EwP/view?usp=sharing',
+                                            'https://drive.google.com/file/d/1s8wSZm7n4fZ5YfKIpk2N8QC9z1Cl7U8q/view?usp=sharing',
+                                            'https://drive.google.com/file/d/1nlemN1rV8VjG_Kq75jljY8Q6jAvgb213/view?usp=sharing',
+                                        ];
+                                    @endphp
+                                    @foreach($dokumenSurvei as $index => $link)
+                                        <a href="{{ $link }}" target="_blank" class="group flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300">
+                                            <div class="w-14 h-14 bg-red-50 text-red-500 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
+                                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                            </div>
+                                            <div class="flex-1">
+                                                <h4 class="font-bold text-navy-dark group-hover:text-gold transition-colors duration-300 mb-1 text-lg">Dokumen Laporan Survei</h4>
+                                                <p class="text-sm text-gray-500 font-medium">Bagian / Berkas Ke-{{ $index + 1 }}</p>
+                                            </div>
+                                            <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-gold-light/10 group-hover:text-gold transition-colors duration-300">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                            </div>
+                                        </a>
+                                    @endforeach
                                 </div>
                             </div>
                         @else

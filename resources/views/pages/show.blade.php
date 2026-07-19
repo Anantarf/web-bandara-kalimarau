@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <article class="pt-32 pb-24" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
+    <article class="pt-12 pb-24 bg-white" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-1000 ease-out transform"
              :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
              

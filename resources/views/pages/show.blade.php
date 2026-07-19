@@ -59,6 +59,8 @@
                         '/storage/media/legacy/2022/10/Screenshot_20221024-100101_TapScanner-1.jpg',
                     ];
                 @endphp
+                <hr class="my-12 border-gray-200">
+                <h2 class="text-3xl font-bold text-navy-dark mb-8 text-center">Penghargaan</h2>
                 <x-carousel :images="$awardImages" />
             @endif
         </div>

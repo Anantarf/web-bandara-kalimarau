@@ -44,6 +44,23 @@
             <div class="prose prose-lg prose-blue max-w-none text-gray-800">
                 {!! $page->content !!}
             </div>
+
+            @if($page->slug === 'profil-bandara-kalimarau')
+                @php
+                    $awardImages = [
+                        '/storage/media/legacy/2022/10/20221024_093158-scaled.jpg',
+                        '/storage/media/legacy/2022/10/Screenshot_20221024-100158_TapScanner-1.jpg',
+                        '/storage/media/legacy/2022/10/Screenshot_20221024-100119_TapScanner-1.jpg',
+                        '/storage/media/legacy/2022/10/Screenshot_20221024-100043_TapScanner-1.jpg',
+                        '/storage/media/legacy/2022/10/Screenshot_20221024-100150_TapScanner-1.jpg',
+                        '/storage/media/legacy/2022/10/Screenshot_20221024-100110_TapScanner-1.jpg',
+                        '/storage/media/legacy/2022/10/Screenshot_20221024-100051_TapScanner-1.jpg',
+                        '/storage/media/legacy/2022/10/Screenshot_20221024-100127_TapScanner-1.jpg',
+                        '/storage/media/legacy/2022/10/Screenshot_20221024-100101_TapScanner-1.jpg',
+                    ];
+                @endphp
+                <x-carousel :images="$awardImages" />
+            @endif
         </div>
     </article>
 </x-layouts.public>

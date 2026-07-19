@@ -75,8 +75,8 @@
 - [x] Import media metadata.
 - [x] Review manual konten halaman utama.
 - [ ] Inventaris dokumen PPID final dari media/live site.
-- [ ] Validasi tidak ada konten hasil import yang masih mengandung shortcode/plugin WordPress.
-- [ ] Validasi tidak ada link internal lama yang masih broken.
+- [x] Validasi tidak ada konten hasil import yang masih mengandung shortcode/plugin WordPress.
+- [x] Validasi tidak ada link internal lama yang masih broken.
 
 Status lokal 2026-07-18: 164 posts, 154 published posts, 30 pages, 69 media, dan 156 redirects sudah ada di database lokal. Sisa Sprint 4 adalah QA editorial/import, bukan plumbing import.
 

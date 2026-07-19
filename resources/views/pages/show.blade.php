@@ -82,47 +82,52 @@
                 }, $page->content);
             @endphp
 
-            <div class="flex flex-col lg:flex-row lg:items-start gap-12 relative" x-data="{ activeSection: '' }" @scroll.window="
-                let sections = document.querySelectorAll('h2[id]');
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (window.scrollY >= sectionTop - 150) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                activeSection = current;
-            ">
-                <!-- Main Content -->
-                <div class="w-full @if(count($headings) > 1) lg:w-3/4 @endif">
-                    <div class="prose prose-lg prose-blue text-gray-800
-                                prose-p:leading-relaxed prose-a:text-sky prose-a:no-underline hover:prose-a:underline
-                                prose-headings:text-navy-dark prose-headings:font-bold
-                                prose-li:marker:text-gold prose-ul:space-y-1">
-                        {!! $contentWithIds !!}
-                    </div>
-                </div>
-
-                <!-- Table of Contents Sidebar -->
-                @if(count($headings) > 1)
-                    <div class="hidden lg:block lg:w-1/4 relative">
-                        <div class="sticky top-32 bg-gray-100/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 shadow-sm lg:-mt-2">
-                            <h4 class="text-sm font-bold text-navy-dark uppercase tracking-wider mb-4">Daftar Isi</h4>
-                            <ul class="space-y-3 text-sm">
-                                @foreach($headings as $heading)
-                                    <li>
-                                        <a href="#{{ $heading['id'] }}" 
-                                           class="block transition-colors duration-200 hover:text-gold"
-                                           :class="activeSection === '{{ $heading['id'] }}' ? 'text-gold font-bold translate-x-1' : 'text-gray-500'">
-                                            {{ $heading['text'] }}
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
+            @if($page->slug === 'fasilitas-bandara')
+                <!-- Custom Fasilitas Layout -->
+                <x-fasilitas-grid />
+            @else
+                <div class="flex flex-col lg:flex-row lg:items-start gap-12 relative" x-data="{ activeSection: '' }" @scroll.window="
+                    let sections = document.querySelectorAll('h2[id]');
+                    let current = '';
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        if (window.scrollY >= sectionTop - 150) {
+                            current = section.getAttribute('id');
+                        }
+                    });
+                    activeSection = current;
+                ">
+                    <!-- Main Content -->
+                    <div class="w-full @if(count($headings) > 1) lg:w-3/4 @endif">
+                        <div class="prose prose-lg prose-blue text-gray-800
+                                    prose-p:leading-relaxed prose-a:text-sky prose-a:no-underline hover:prose-a:underline
+                                    prose-headings:text-navy-dark prose-headings:font-bold
+                                    prose-li:marker:text-gold prose-ul:space-y-1">
+                            {!! $contentWithIds !!}
                         </div>
                     </div>
-                @endif
-            </div>
+
+                    <!-- Table of Contents Sidebar -->
+                    @if(count($headings) > 1)
+                        <div class="hidden lg:block lg:w-1/4 relative">
+                            <div class="sticky top-32 bg-gray-100/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 shadow-sm lg:-mt-2">
+                                <h4 class="text-sm font-bold text-navy-dark uppercase tracking-wider mb-4">Daftar Isi</h4>
+                                <ul class="space-y-3 text-sm">
+                                    @foreach($headings as $heading)
+                                        <li>
+                                            <a href="#{{ $heading['id'] }}" 
+                                               class="block transition-colors duration-200 hover:text-gold"
+                                               :class="activeSection === '{{ $heading['id'] }}' ? 'text-gold font-bold translate-x-1' : 'text-gray-500'">
+                                                {{ $heading['text'] }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            @endif
 
             @if($page->slug === 'profil-bandara-kalimarau')
                 @php

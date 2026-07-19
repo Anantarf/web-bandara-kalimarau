@@ -1,5 +1,6 @@
 @props(['transparent' => false])
 
+@php
     $navGroups = [
         'Informasi Publik' => [
             ['label' => 'Profil Bandara', 'slug' => 'profil-bandara-kalimarau'],

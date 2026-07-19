@@ -271,8 +271,6 @@
                             </div>
                         @elseif($page->slug === 'hasil-dan-tindak-lanjut')
                             <div class="mb-12">
-                                <h3 class="text-3xl md:text-4xl font-extrabold text-navy-dark mb-4 leading-tight">Laporan Hasil Survei Kepuasan Masyarakat</h3>
-                                <div class="h-1.5 w-20 bg-gold-light rounded-full mb-6"></div>
                                 <p class="text-gray-500 mb-10 text-lg leading-relaxed max-w-3xl">
                                     Berikut adalah kumpulan dokumen laporan berkala mengenai hasil survei kepuasan masyarakat terhadap pelayanan publik di UPBU Kelas I Kalimarau. Anda dapat mengakses seluruh rincian laporannya melalui tautan di bawah ini:
                                 </p>

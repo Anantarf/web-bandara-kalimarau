@@ -97,14 +97,14 @@ $categories = [
             document.body.style.overflow = '';
         }
     }" 
-    class="py-12 bg-gray-50"
+    class="pb-12 bg-transparent"
 >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-5xl font-extrabold text-navy-dark mb-4">Fasilitas Lengkap</h2>
-            <div class="h-1.5 w-24 bg-gold mx-auto rounded-full mb-6"></div>
-            <p class="text-lg text-gray-500 max-w-2xl mx-auto">Kami menyediakan berbagai fasilitas berstandar tinggi untuk memastikan kenyamanan, keamanan, dan kelancaran perjalanan seluruh pengguna jasa bandara.</p>
+            <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">Fasilitas Lengkap</h1>
+            <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
+            <p class="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">Kami menyediakan berbagai fasilitas berstandar tinggi untuk memastikan kenyamanan, keamanan, dan kelancaran perjalanan seluruh pengguna jasa bandara.</p>
         </div>
 
         <div class="space-y-20">

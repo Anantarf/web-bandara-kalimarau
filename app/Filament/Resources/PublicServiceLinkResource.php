@@ -15,6 +15,7 @@ class PublicServiceLinkResource extends Resource
     protected static ?string $model = PublicServiceLink::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-link';
+    protected static ?string $navigationGroup = 'Layanan & Data';
 
     protected static ?int $navigationSort = 7;
 
@@ -43,7 +44,9 @@ class PublicServiceLinkResource extends Resource
                     ->url()
                     ->required(),
                 Forms\Components\TextInput::make('category')
-                    ->label('Kategori'),
+                    ->label('Kategori')
+                    ->required()
+                    ->maxLength(40),
                 Forms\Components\TextInput::make('icon')
                     ->label('Ikon')
                     ->helperText('Nama ikon Heroicon, contoh: heroicon-o-link'),

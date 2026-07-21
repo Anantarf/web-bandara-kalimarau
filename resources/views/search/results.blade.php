@@ -46,7 +46,7 @@
                 </div>
             @else
                 
-                @if($posts->isEmpty() && $pages->isEmpty())
+                @if($posts->isEmpty() && $pages->isEmpty() && $documents->isEmpty())
                     <!-- Not Found State -->
                     <div class="bg-white rounded-3xl p-12 text-center border border-border-soft shadow-sm max-w-2xl mx-auto">
                         <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6 text-red-400">
@@ -103,6 +103,34 @@
                                             </div>
                                             <div class="w-10 h-10 rounded-full bg-surface shrink-0 flex items-center justify-center text-navy group-hover:bg-sky group-hover:text-white transition-colors">
                                                 <svg class="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                        @if($documents->isNotEmpty())
+                            <div>
+                                <div class="flex items-center gap-3 mb-6">
+                                    <h2 class="text-2xl font-bold text-navy">Dokumen PPID</h2>
+                                    <span class="bg-navy/10 text-navy font-semibold px-2.5 py-0.5 rounded-full text-sm">{{ $documents->count() }}</span>
+                                </div>
+                                <div class="grid gap-4">
+                                    @foreach($documents as $doc)
+                                    <a href="{{ \Illuminate\Support\Facades\Storage::url($doc->file_path) }}" target="_blank" class="group block bg-white rounded-2xl p-6 border border-border-soft shadow-sm hover:shadow-lg hover:border-sky/50 hover:-translate-y-1 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
+                                        <div class="flex items-start justify-between gap-4">
+                                            <div>
+                                                <h3 class="text-lg font-bold text-navy group-hover:text-sky transition-colors mb-1.5">{{ $doc->title }}</h3>
+                                                <div class="flex items-center gap-2 mb-3">
+                                                    <span class="text-xs font-semibold text-gold tracking-wide uppercase">Dokumen</span>
+                                                    <span class="w-1 h-1 rounded-full bg-border-soft"></span>
+                                                    <span class="text-xs text-text-muted">{{ $doc->published_at ? $doc->published_at->translatedFormat('d M Y') : '' }}</span>
+                                                </div>
+                                                <p class="text-text-muted text-sm leading-relaxed line-clamp-2">{{ $doc->description }}</p>
+                                            </div>
+                                            <div class="w-10 h-10 rounded-full bg-surface shrink-0 flex items-center justify-center text-navy group-hover:bg-sky group-hover:text-white transition-colors">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                             </div>
                                         </div>
                                     </a>

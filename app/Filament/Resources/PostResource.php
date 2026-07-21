@@ -15,6 +15,7 @@ class PostResource extends Resource
     protected static ?string $model = Post::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
+    protected static ?string $navigationGroup = 'Konten Website';
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -38,12 +39,6 @@ class PostResource extends Resource
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(fn (string $operation, $state, callable $set) => $operation === 'create' ? $set('slug', str($state)->slug()) : null)
                                     ->columnSpanFull(),
-                                Forms\Components\TextInput::make('slug')
-                                    ->label('Slug (URL)')
-                                    ->helperText('Bagian alamat website untuk berita ini, terisi otomatis dari judul.')
-                                    ->required()
-                                    ->unique(ignoreRecord: true)
-                                    ->columnSpanFull(),
                                 Forms\Components\Textarea::make('excerpt')
                                     ->label('Ringkasan Singkat')
                                     ->columnSpanFull(),
@@ -62,10 +57,15 @@ class PostResource extends Resource
                                     ->directory('featured-images')
                                     ->columnSpanFull(),
                             ]),
-                        Forms\Components\Section::make('Optimasi Pencarian Google (SEO)')
-                            ->description('Opsional. Menentukan judul dan deskripsi yang muncul di hasil pencarian Google.')
+                        Forms\Components\Section::make('Pengaturan Lanjutan & SEO')
+                            ->description('Opsional. Pengaturan URL dan tampilan di Google.')
                             ->collapsed()
                             ->schema([
+                                Forms\Components\TextInput::make('slug')
+                                    ->label('Slug (URL)')
+                                    ->helperText('Bagian alamat website untuk berita ini. Dihasilkan otomatis, jangan diubah kecuali perlu.')
+                                    ->required()
+                                    ->unique(ignoreRecord: true),
                                 Forms\Components\TextInput::make('seo_title')
                                     ->label('Judul untuk Google')
                                     ->helperText('Kosongkan untuk memakai judul berita.'),
@@ -124,13 +124,17 @@ class PostResource extends Resource
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul')
-                    ->searchable(),
+                    ->searchable()
+                    ->wrap()
+                    ->lineClamp(2),
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Kategori')
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('author.name')
                     ->label('Penulis')
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state, Post $record) => $state === 'published' && $record->published_at?->isFuture() ? 'info' : match ($state) {
@@ -143,17 +147,21 @@ class PostResource extends Resource
                         $state === 'published' => 'Diterbitkan',
                         $state === 'archived' => 'Diarsipkan',
                         default => 'Draf',
-                    }),
+                    })
+                    ->toggleable(),
                 Tables\Columns\IconColumn::make('is_featured')
                     ->label('Unggulan')
-                    ->boolean(),
+                    ->boolean()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\IconColumn::make('is_pinned')
                     ->label('Disematkan')
-                    ->boolean(),
+                    ->boolean()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('published_at')
                     ->label('Tanggal Publikasi')
-                    ->dateTime()
-                    ->sortable(),
+                    ->dateTime('d M Y')
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->defaultSort('published_at', 'desc')
             ->filters([

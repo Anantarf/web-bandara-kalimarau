@@ -26,7 +26,6 @@ class PageController extends Controller
         'informasi-setiap-saat' => 'informasi-setiap-saat',
         'informasi-serta-merta' => 'informasi-serta-merta',
         'formulir-pengajuan-informasi' => 'formulir-pengajuan-informasi',
-        'maklumat-pelayanan-standar-biaya' => 'maklumat-pelayanan-dan-standar-biaya',
         'prosedur-permohonan-informasi' => 'prosedur-permohonan-informasi',
         'prosedur-keberatan-informasi' => 'prosedur-permohonan-keberatan-informasi',
         'prosedur-sengketa-informasi-publik' => 'prosedur-pengajuan-sengketa-informasi-publik',

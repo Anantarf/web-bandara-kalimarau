@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Redirect;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -28,7 +29,17 @@ class PostController extends Controller
             ->with('author')
             ->where('slug', $slug)
             ->published()
-            ->firstOrFail();
+            ->first();
+
+        if (! $post) {
+            $redirect = Redirect::where('old_path', '/berita/'.$slug)
+                ->where('is_active', true)
+                ->first();
+
+            abort_if(! $redirect, 404);
+
+            return redirect($redirect->new_path, $redirect->status_code);
+        }
 
         $relatedPosts = Post::query()
             ->published()

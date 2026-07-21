@@ -15,6 +15,7 @@ class RedirectResource extends Resource
     protected static ?string $model = Redirect::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-top-right-on-square';
+    protected static ?string $navigationGroup = 'Sistem & Akses';
 
     protected static ?int $navigationSort = 9;
 

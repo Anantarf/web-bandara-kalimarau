@@ -25,7 +25,7 @@
         <div class="container mx-auto px-4 max-w-7xl text-center md:text-left">
             <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-4">Pengaduan & Kontak</h1>
             <div class="h-1.5 w-20 bg-gold-light rounded-full mb-4 mx-auto md:mx-0"></div>
-            <p class="text-lg text-gray-500 max-w-3xl mx-auto md:mx-0">Hubungi kami atau sampaikan pengaduan layanan secara online melalui formulir di bawah ini.</p>
+            <p class="text-lg text-gray-500 text-pretty max-w-3xl mx-auto md:mx-0">Hubungi kami atau sampaikan pengaduan layanan secara online melalui formulir di bawah ini.</p>
         </div>
     </div>
 
@@ -86,7 +86,7 @@
                     <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
                         <h2 class="text-xl font-bold text-gray-900 mb-6">Kirim Pesan atau Pengaduan</h2>
                         
-                        <form action="{{ route('contact.store') }}" method="POST">
+                        <form action="{{ route('contact.store') }}" method="POST" x-data="{ submitting: false }" @submit="submitting = true">
                             @csrf
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -134,9 +134,10 @@
                             </div>
                             
                             <div class="flex justify-end">
-                                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-md transition-colors shadow-sm inline-flex items-center">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                                    Kirim Pesan
+                                <button type="submit" :disabled="submitting" :class="{ 'opacity-60 cursor-not-allowed': submitting }" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-md transition-colors shadow-sm inline-flex items-center">
+                                    <svg x-show="!submitting" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                                    <svg x-show="submitting" class="w-5 h-5 mr-2 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                                    <span x-text="submitting ? 'Mengirim...' : 'Kirim Pesan'"></span>
                                 </button>
                             </div>
                         </form>

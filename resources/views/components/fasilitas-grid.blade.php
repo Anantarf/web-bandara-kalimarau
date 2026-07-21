@@ -145,7 +145,7 @@ $categories = [
                                     class="group relative bg-white rounded-2xl overflow-hidden shadow border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-gold text-left h-full flex flex-col">
                                 
                                 <div class="relative h-40 sm:h-48 w-full overflow-hidden bg-gray-100">
-                                    <img src="{{ $item['image'] }}" loading="lazy" alt="{{ $item['name'] }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                    <img src="{{ $item['image'] }}" loading="lazy" alt="{{ $item['name'] }}" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=Fasilitas'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                 </div>
                                 <div class="p-4 flex-grow flex items-center justify-center border-t border-gray-50">
                                     <h4 class="font-bold text-gray-800 text-center text-sm sm:text-base leading-snug group-hover:text-blue-700 transition-colors">{{ $item['name'] }}</h4>
@@ -190,7 +190,7 @@ $categories = [
                 <!-- Modal Image Section -->
                 <div class="w-full md:w-3/5 lg:w-2/3 h-64 md:h-auto bg-gray-100 relative">
                     <template x-if="activeFacility">
-                        <img :src="activeFacility.image" :alt="activeFacility.name" class="w-full h-full object-cover">
+                        <img :src="activeFacility.image" :alt="activeFacility.name" @error="$el.src = 'https://via.placeholder.com/400x300?text=Fasilitas'" class="w-full h-full object-cover">
                     </template>
                 </div>
 

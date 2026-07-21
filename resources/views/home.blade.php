@@ -24,9 +24,40 @@
                 <h1 x-show="show" x-transition:enter="transition-all ease-out duration-1000 delay-300" x-transition:enter-start="opacity-0 scale-90 translate-y-12 blur-sm" x-transition:enter-end="opacity-100 scale-100 translate-y-0 blur-none" style="display: none;" class="font-sans text-white text-5xl sm:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-none drop-shadow-lg mb-10">Kalimarau</h1>
 
                 <!-- Weather Widget -->
-                <div x-show="show" x-transition:enter="transition-all ease-out duration-1000 delay-500" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;" class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-2.5 shadow-lg">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
-                    <span class="text-white font-medium text-sm sm:text-base">28°C, Cerah di Berau</span>
+                <div x-data="{ 
+                        temp: '...', 
+                        desc: 'Memuat cuaca...',
+                        icon: 'cloud',
+                        async fetchWeather() {
+                            try {
+                                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=2.152&longitude=117.491&current_weather=true');
+                                const data = await res.json();
+                                const current = data.current_weather;
+                                this.temp = Math.round(current.temperature) + '°C';
+                                
+                                const code = current.weathercode;
+                                if (code <= 1) { this.desc = 'Cerah'; this.icon = 'sun'; }
+                                else if (code <= 3) { this.desc = 'Berawan'; this.icon = 'cloud'; }
+                                else if (code <= 48) { this.desc = 'Kabut'; this.icon = 'cloud'; }
+                                else if (code <= 57) { this.desc = 'Gerimis'; this.icon = 'rain'; }
+                                else if (code <= 82) { this.desc = 'Hujan'; this.icon = 'rain'; }
+                                else { this.desc = 'Badai Petir'; this.icon = 'lightning'; }
+                            } catch (e) {
+                                this.temp = '28°C';
+                                this.desc = 'Cerah';
+                                this.icon = 'sun';
+                            }
+                        }
+                    }" 
+                    x-init="fetchWeather()"
+                    x-show="show" x-transition:enter="transition-all ease-out duration-1000 delay-500" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;" class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-2.5 shadow-lg">
+                    
+                    <svg x-show="icon === 'cloud'" style="display: none;" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                    <svg x-show="icon === 'sun'" style="display: none;" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.485-7.071l-1.414 1.414M6.929 17.657l-1.414 1.414M17.657 17.657l-1.414-1.414M6.929 6.929L5.515 5.515M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+                    <svg x-show="icon === 'rain'" style="display: none;" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v2m-4-2v2m8-2v2m-4-6h.01M19 10a7 7 0 10-14 0 7 7 0 0014 0z"></path></svg>
+                    <svg x-show="icon === 'lightning'" style="display: none;" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    
+                    <span class="text-white font-medium text-sm sm:text-base" x-text="temp === '...' ? 'Memuat cuaca...' : `${temp}, ${desc} di Berau`">Memuat...</span>
                 </div>
             </div>
 
@@ -275,9 +306,76 @@
             </div>
         </div>
     </section>
+    <!-- Section: FAQ -->
+    <section class="py-16 lg:py-24 bg-gray-50 border-t border-gray-100">
+        <div class="max-w-4xl mx-auto px-4 scroll-animate opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-100">
+            <div class="text-center mb-16">
+                <h2 class="font-sans text-3xl md:text-4xl font-extrabold tracking-tight text-navy-dark mb-4">Pertanyaan Seputar Bandara</h2>
+                <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
+                <p class="text-text-muted text-base md:text-lg">Temukan jawaban untuk pertanyaan yang paling sering diajukan oleh pengunjung kami.</p>
+            </div>
+
+            <div class="space-y-4" x-data="{ active: null }">
+                @php
+                    $faqs = [
+                        ['q' => 'Berapa lama saya harus tiba di bandara sebelum keberangkatan?', 'a' => 'Untuk penerbangan domestik, kami menyarankan Anda tiba di bandara minimal 2 jam sebelum waktu keberangkatan yang tertera di tiket. Hal ini untuk memberikan waktu yang cukup untuk proses check-in, penyerahan bagasi, dan pemeriksaan keamanan yang menyeluruh.'],
+                        ['q' => 'Apakah di Bandara Kalimarau terdapat fasilitas penginapan?', 'a' => 'Saat ini Bandara Kalimarau belum memiliki fasilitas penginapan atau hotel transit di dalam area bandara. Namun, terdapat berbagai pilihan akomodasi dan hotel terkemuka yang hanya berjarak beberapa menit berkendara dari kawasan bandara.'],
+                        ['q' => 'Bagaimana prosedur jika ada barang saya yang tertinggal atau hilang di bandara?', 'a' => 'Jika Anda merasa barang Anda tertinggal di area bandara (di luar pesawat), silakan segera melapor ke petugas Avsec (Aviation Security) atau menuju meja pusat informasi di terminal kedatangan. Anda juga dapat menghubungi kami melalui halaman Kontak.'],
+                        ['q' => 'Apakah ada layanan transportasi umum dari/ke bandara?', 'a' => 'Tersedia layanan taksi bandara dan transportasi online yang telah resmi bermitra dengan Bandara Kalimarau. Loket taksi resmi dapat Anda temukan tepat di pintu keluar area kedatangan terminal penumpang.'],
+                    ];
+                @endphp
+
+                @foreach($faqs as $index => $faq)
+                    <div class="group relative overflow-hidden border border-gray-200/60 rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300"
+                         :class="{ 'ring-1 ring-gold-light/50 shadow-md': active === {{ $index }} }">
+                        
+                        <!-- Left Accent Line on Active -->
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-gold-light transition-transform duration-300 origin-top"
+                             :class="active === {{ $index }} ? 'scale-y-100' : 'scale-y-0'"></div>
+                             
+                        <button @click="active !== {{ $index }} ? active = {{ $index }} : active = null" class="w-full flex justify-between items-center p-5 md:p-6 text-left focus:outline-none rounded-2xl">
+                            <span class="font-sans font-bold text-navy-dark text-base md:text-lg pr-6 transition-colors duration-300" 
+                                  :class="active === {{ $index }} ? 'text-navy-dark' : 'group-hover:text-gold'">
+                                {{ $faq['q'] }}
+                            </span>
+                            <span class="relative shrink-0 w-6 h-6 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)]" 
+                                  :class="active === {{ $index }} ? 'rotate-180 text-gold' : 'text-gray-400 group-hover:text-gold'">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </button>
+                        
+                        <div x-show="active === {{ $index }}" 
+                             x-transition:enter="transition-all ease-out duration-300"
+                             x-transition:enter-start="opacity-0 max-h-0"
+                             x-transition:enter-end="opacity-100 max-h-[500px]"
+                             x-transition:leave="transition-all ease-in duration-200"
+                             x-transition:leave-start="opacity-100 max-h-[500px]"
+                             x-transition:leave-end="opacity-0 max-h-0"
+                             class="overflow-hidden"
+                             style="display: none;">
+                            <div class="px-5 md:px-6 pb-5 md:pb-6 text-text-muted text-sm md:text-base leading-relaxed">
+                                <div class="w-full h-px bg-gray-100 mb-4 md:mb-5"></div>
+                                {{ $faq['a'] }}
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mt-12">
+                <a href="{{ route('faq') }}" class="inline-flex justify-center items-center gap-3 px-8 py-3.5 bg-white text-navy border-2 border-navy rounded-full shadow-md hover:bg-navy hover:text-white hover:-translate-y-0.5 transition-all duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
+                    <span class="text-sm font-semibold tracking-wide">Lihat Semua FAQ</span>
+                    <svg class="w-4 h-4 text-navy group-hover:text-gold-light group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+                <a href="{{ route('contact.index') }}" class="inline-flex justify-center items-center gap-3 px-8 py-3.5 bg-navy text-white rounded-full shadow-lg shadow-navy/20 hover:bg-navy-dark hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
+                    <span class="text-sm font-semibold tracking-wide">Punya pertanyaan lain? Hubungi Kami</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- Section: Mitra Terkemuka -->
-    <section class="py-16 lg:py-24 bg-white overflow-hidden">
+    <section class="py-16 lg:py-24 bg-surface overflow-hidden">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-10">
                 <h2 class="font-sans text-3xl font-extrabold tracking-tight text-navy">Dipercaya oleh Mitra Terkemuka</h2>

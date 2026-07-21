@@ -28,22 +28,24 @@
     }
 }" x-init="startAutoplay()" @mouseenter="stopAutoplay()" @mouseleave="startAutoplay()">
     <!-- Carousel Track -->
-    <div class="relative w-full overflow-hidden bg-slate-50/50 rounded-2xl border border-gray-100 h-64 sm:h-72 md:h-80 flex items-center justify-center group/track">
-        
+    <div class="relative w-full overflow-hidden bg-navy-dark/[0.06] rounded-2xl border border-navy-dark/5 shadow-inner h-64 sm:h-72 md:h-80 flex items-center justify-center group/track">
+
         <template x-for="(slide, index) in slides" :key="index">
-            <div x-show="activeSlide === index" 
+            <div x-show="activeSlide === index"
                  x-transition:enter="transition ease-in-out duration-400"
                  x-transition:enter-start="opacity-0"
                  x-transition:enter-end="opacity-100"
                  x-transition:leave="transition ease-in-out duration-400 absolute inset-0"
                  x-transition:leave-start="opacity-100"
                  x-transition:leave-end="opacity-0"
-                 class="w-full h-full flex items-center justify-center p-6 sm:p-10 cursor-zoom-in relative z-10"
+                 class="w-full h-full flex items-center justify-center p-5 sm:p-8 cursor-zoom-in relative z-10"
                  @click="openModal()">
-                 
-                <!-- Image without the bulky frame, just a nice shadow -->
-                <img :src="slide" loading="lazy" class="max-w-full max-h-full object-contain drop-shadow-2xl rounded-md transition-transform duration-700 group-hover/track:scale-[1.03]" alt="Penghargaan">
-                
+
+                <!-- White mat card so the certificate reads as mounted, not floating -->
+                <div class="bg-white rounded-lg shadow-xl p-2.5 sm:p-3 max-w-full max-h-full transition-transform duration-700 group-hover/track:scale-[1.03]">
+                    <img :src="slide" loading="lazy" class="max-w-full max-h-[13rem] sm:max-h-[15rem] md:max-h-[17rem] object-contain rounded" alt="Penghargaan">
+                </div>
+
                 <!-- Hover Hint (Magnifying Glass) -->
                 <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover/track:opacity-100 transition-opacity duration-300 pointer-events-none">
                     <div class="bg-navy/90 text-white p-3.5 rounded-full shadow-xl backdrop-blur-md transform scale-90 group-hover/track:scale-100 transition-all duration-300">

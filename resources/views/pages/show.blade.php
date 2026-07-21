@@ -75,14 +75,16 @@
 
             <!-- Content Area with Table of Contents -->
             @php
-                // Extract H2 headings for Table of Contents
-                preg_match_all('/<h2[^>]*>(.*?)<\/h2>/i', $page->content, $matches);
+                // Extract H2 and H3 headings for Table of Contents
+                preg_match_all('/<(h[23])[^>]*>(.*?)<\/\1>/i', $page->content, $matches);
                 $headings = [];
-                foreach($matches[1] as $headingText) {
-                    $headings[] = [
-                        'text' => strip_tags($headingText),
-                        'id' => \Illuminate\Support\Str::slug(strip_tags($headingText))
-                    ];
+                if (!empty($matches[2])) {
+                    foreach($matches[2] as $headingText) {
+                        $headings[] = [
+                            'text' => strip_tags($headingText),
+                            'id' => \Illuminate\Support\Str::slug(strip_tags($headingText))
+                        ];
+                    }
                 }
                 
                 // Inject Penghargaan & Prestasi to TOC if on the right page
@@ -93,13 +95,19 @@
                     ];
                 }
                 
-                // Add IDs to H2 tags in the content so we can link to them
-                $contentWithIds = preg_replace_callback('/<h2([^>]*)>(.*?)<\/h2>/i', function($m) {
-                    $existingAttrs = $m[1];
-                    $id = \Illuminate\Support\Str::slug(strip_tags($m[2]));
+                // Add IDs to H2 and H3 tags in the content so we can link to them
+                $contentWithIds = preg_replace_callback('/<(h[23])([^>]*)>(.*?)<\/\1>/i', function($m) {
+                    $tag = $m[1];
+                    $existingAttrs = $m[2];
+                    $content = $m[3];
+                    $id = \Illuminate\Support\Str::slug(strip_tags($content));
                     
                     // Add standard classes
                     $newClasses = 'scroll-mt-32 border-b-2 border-gray-100 pb-2';
+                    
+                    if (strpos($existingAttrs, 'id="') === false) {
+                        $existingAttrs .= ' id="' . $id . '"';
+                    }
                     
                     if (strpos($existingAttrs, 'class="') !== false) {
                         $attrs = preg_replace('/class="/', 'class="' . $newClasses . ' ', $existingAttrs);
@@ -107,7 +115,7 @@
                         $attrs = $existingAttrs . ' class="' . $newClasses . '"';
                     }
                     
-                    return "<h2 id=\"{$id}\"{$attrs}>{$m[2]}</h2>";
+                    return "<{$tag}{$attrs}>{$content}</{$tag}>";
                 }, $page->content);
             @endphp
 
@@ -153,31 +161,37 @@
                                 </div>
 
                                 <div class="bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-xl shadow-navy-dark/5 relative">
-                                    <div x-show="activeTab === 'aero'" 
-                                         x-transition:enter="transition ease-out duration-500 delay-100" 
-                                         x-transition:enter-start="opacity-0 translate-y-4" 
-                                         x-transition:enter-end="opacity-100 translate-y-0" 
+                                    <div x-show="activeTab === 'aero'"
+                                         x-transition:enter="transition ease-out duration-500 delay-100"
+                                         x-transition:enter-start="opacity-0 translate-y-4"
+                                         x-transition:enter-end="opacity-100 translate-y-0"
                                          class="w-full">
-                                        <div class="aspect-[4/3] md:aspect-[16/10] w-full rounded-lg overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
-                                            <div class="absolute inset-0 flex items-center justify-center">
+                                        <div x-data="{ loaded: false }" class="aspect-[4/3] md:aspect-[16/10] w-full rounded-lg overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
+                                            <div x-show="!loaded" class="absolute inset-0 flex items-center justify-center">
                                                 <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gold border-t-transparent"></div>
                                             </div>
-                                            <iframe src="https://drive.google.com/file/d/1XsuTFf4z0TyGMer01QT4mX6K5LVmr7S5/preview" class="absolute inset-0 w-full h-full border-0 relative z-10" allow="autoplay" allowfullscreen></iframe>
+                                            <iframe src="https://drive.google.com/file/d/1XsuTFf4z0TyGMer01QT4mX6K5LVmr7S5/preview" @load="loaded = true" class="absolute inset-0 w-full h-full border-0 relative z-10" allow="autoplay" allowfullscreen></iframe>
                                         </div>
+                                        <a href="https://drive.google.com/file/d/1XsuTFf4z0TyGMer01QT4mX6K5LVmr7S5/view" target="_blank" rel="noopener" class="inline-flex items-center gap-1 mt-3 text-sm text-navy hover:text-gold-dark font-medium">
+                                            Dokumen tidak tampil? Buka di tab baru
+                                        </a>
                                     </div>
 
-                                    <div x-show="activeTab === 'nonaero'" 
-                                         style="display: none;" 
-                                         x-transition:enter="transition ease-out duration-500 delay-100" 
-                                         x-transition:enter-start="opacity-0 translate-y-4" 
-                                         x-transition:enter-end="opacity-100 translate-y-0" 
+                                    <div x-show="activeTab === 'nonaero'"
+                                         style="display: none;"
+                                         x-transition:enter="transition ease-out duration-500 delay-100"
+                                         x-transition:enter-start="opacity-0 translate-y-4"
+                                         x-transition:enter-end="opacity-100 translate-y-0"
                                          class="w-full">
-                                        <div class="aspect-[4/3] md:aspect-[16/10] w-full rounded-lg overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
-                                            <div class="absolute inset-0 flex items-center justify-center">
+                                        <div x-data="{ loaded: false }" class="aspect-[4/3] md:aspect-[16/10] w-full rounded-lg overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
+                                            <div x-show="!loaded" class="absolute inset-0 flex items-center justify-center">
                                                 <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gold border-t-transparent"></div>
                                             </div>
-                                            <iframe src="https://drive.google.com/file/d/12UDBEDfbWAxBzbsabMvO7wyUjg5luItb/preview" class="absolute inset-0 w-full h-full border-0 relative z-10" allow="autoplay" allowfullscreen></iframe>
+                                            <iframe src="https://drive.google.com/file/d/12UDBEDfbWAxBzbsabMvO7wyUjg5luItb/preview" @load="loaded = true" class="absolute inset-0 w-full h-full border-0 relative z-10" allow="autoplay" allowfullscreen></iframe>
                                         </div>
+                                        <a href="https://drive.google.com/file/d/12UDBEDfbWAxBzbsabMvO7wyUjg5luItb/view" target="_blank" rel="noopener" class="inline-flex items-center gap-1 mt-3 text-sm text-navy hover:text-gold-dark font-medium">
+                                            Dokumen tidak tampil? Buka di tab baru
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -186,12 +200,15 @@
                                 Dokumen resmi mengenai pedoman operasional, tolak ukur jaminan mutu, serta prosedur standar pelayanan publik yang diselenggarakan oleh Kantor BLU UPBU Kelas I Kalimarau demi kepuasan dan kenyamanan seluruh pengguna jasa bandar udara.
                             </p>
                             <div class="bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-6 md:p-8 border border-gray-100 shadow-xl shadow-navy-dark/5 relative w-full mb-12">
-                                <div class="aspect-[4/3] md:aspect-[16/10] w-full rounded-lg overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
-                                    <div class="absolute inset-0 flex items-center justify-center">
+                                <div x-data="{ loaded: false }" class="aspect-[4/3] md:aspect-[16/10] w-full rounded-lg overflow-hidden bg-gray-50 border border-gray-100 shadow-inner relative">
+                                    <div x-show="!loaded" class="absolute inset-0 flex items-center justify-center">
                                         <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gold border-t-transparent"></div>
                                     </div>
-                                    <iframe src="https://docs.google.com/viewer?url=https://kalimarau-airport.com/wp-content/uploads/2024/09/Standar-Pelayanan-2023.pdf&embedded=true" class="absolute inset-0 w-full h-full border-0 relative z-10" allowfullscreen></iframe>
+                                    <iframe src="https://docs.google.com/viewer?url=https://kalimarau-airport.com/wp-content/uploads/2024/09/Standar-Pelayanan-2023.pdf&embedded=true" @load="loaded = true" class="absolute inset-0 w-full h-full border-0 relative z-10" allowfullscreen></iframe>
                                 </div>
+                                <a href="https://kalimarau-airport.com/wp-content/uploads/2024/09/Standar-Pelayanan-2023.pdf" target="_blank" rel="noopener" class="inline-flex items-center gap-1 mt-3 text-sm text-navy hover:text-gold-dark font-medium">
+                                    Dokumen tidak tampil? Buka di tab baru
+                                </a>
                             </div>
                         @elseif($page->slug === 'survey-kepuasan-masyarakat-internal')
                             <div class="bg-gradient-to-br from-white via-white to-blue-50/40 rounded-3xl p-8 md:p-12 border border-gray-100 shadow-xl shadow-navy-dark/5 relative w-full mb-12 text-center overflow-hidden">
@@ -275,30 +292,86 @@
                                     Berikut adalah kumpulan dokumen laporan berkala mengenai hasil survei kepuasan masyarakat terhadap pelayanan publik di UPBU Kelas I Kalimarau. Anda dapat mengakses seluruh rincian laporannya melalui tautan di bawah ini:
                                 </p>
                                 
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mt-6">
                                     @php
                                         $dokumenSurvei = [
-                                            'https://drive.google.com/file/d/168c9qLjIMP5Yv_HnxIOFwJbuDjzdPB9p/view?usp=sharing',
-                                            'https://drive.google.com/file/d/1RHBFHchoTMFc33gAcOBgJCcPFwFcMYe3/view?usp=sharing',
-                                            'https://drive.google.com/file/d/1hLnJ738R6mVgTcgQ9GlqtrMGRomChR77/view?usp=sharing',
-                                            'https://drive.google.com/file/d/1hjCbhhY7CUZOfFM0FmToHr41gQ3N8ew9/view?usp=sharing',
-                                            'https://drive.google.com/file/d/1EYX-1kbv4OSNimhUJdQOCg7DWHib5_T_/view?usp=sharing',
-                                            'https://drive.google.com/file/d/1JQgLUwKlN69EnzPcsEJwgqkqKa_S6EwP/view?usp=sharing',
-                                            'https://drive.google.com/file/d/1s8wSZm7n4fZ5YfKIpk2N8QC9z1Cl7U8q/view?usp=sharing',
-                                            'https://drive.google.com/file/d/1nlemN1rV8VjG_Kq75jljY8Q6jAvgb213/view?usp=sharing',
+                                            [
+                                                'title' => 'Bulan Agustus 2024',
+                                                'link' => 'https://drive.google.com/file/d/168c9qLjIMP5Yv_HnxIOFwJbuDjzdPB9p/view?usp=sharing',
+                                                'id' => '168c9qLjIMP5Yv_HnxIOFwJbuDjzdPB9p'
+                                            ],
+                                            [
+                                                'title' => 'Bulan Juli 2024',
+                                                'link' => 'https://drive.google.com/file/d/1RHBFHchoTMFc33gAcOBgJCcPFwFcMYe3/view?usp=sharing',
+                                                'id' => '1RHBFHchoTMFc33gAcOBgJCcPFwFcMYe3'
+                                            ],
+                                            [
+                                                'title' => 'Bulan Juni 2024',
+                                                'link' => 'https://drive.google.com/file/d/1hLnJ738R6mVgTcgQ9GlqtrMGRomChR77/view?usp=sharing',
+                                                'id' => '1hLnJ738R6mVgTcgQ9GlqtrMGRomChR77'
+                                            ],
+                                            [
+                                                'title' => 'Bulan Mei 2024',
+                                                'link' => 'https://drive.google.com/file/d/1hjCbhhY7CUZOfFM0FmToHr41gQ3N8ew9/view?usp=sharing',
+                                                'id' => '1hjCbhhY7CUZOfFM0FmToHr41gQ3N8ew9'
+                                            ],
+                                            [
+                                                'title' => 'Bulan April 2024',
+                                                'link' => 'https://drive.google.com/file/d/1EYX-1kbv4OSNimhUJdQOCg7DWHib5_T_/view?usp=sharing',
+                                                'id' => '1EYX-1kbv4OSNimhUJdQOCg7DWHib5_T_'
+                                            ],
+                                            [
+                                                'title' => 'Bulan Maret 2024',
+                                                'link' => 'https://drive.google.com/file/d/1JQgLUwKlN69EnzPcsEJwgqkqKa_S6EwP/view?usp=sharing',
+                                                'id' => '1JQgLUwKlN69EnzPcsEJwgqkqKa_S6EwP'
+                                            ],
+                                            [
+                                                'title' => 'Bulan Februari 2024',
+                                                'link' => 'https://drive.google.com/file/d/1s8wSZm7n4fZ5YfKIpk2N8QC9z1Cl7U8q/view?usp=sharing',
+                                                'id' => '1s8wSZm7n4fZ5YfKIpk2N8QC9z1Cl7U8q'
+                                            ],
+                                            [
+                                                'title' => 'Bulan Januari 2024',
+                                                'link' => 'https://drive.google.com/file/d/1nlemN1rV8VjG_Kq75jljY8Q6jAvgb213/view?usp=sharing',
+                                                'id' => '1nlemN1rV8VjG_Kq75jljY8Q6jAvgb213'
+                                            ],
                                         ];
                                     @endphp
-                                    @foreach($dokumenSurvei as $index => $link)
-                                        <a href="{{ $link }}" target="_blank" class="group flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-blue-100 hover:-translate-y-1 transition-all duration-300">
-                                            <div class="w-14 h-14 bg-red-50 text-red-500 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
-                                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+
+                                    @foreach($dokumenSurvei as $doc)
+                                        <a href="{{ $doc['link'] }}" target="_blank" class="group flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                                            <!-- Thumbnail Section -->
+                                            <div class="relative w-full aspect-[3/4] bg-gray-50 flex items-center justify-center overflow-hidden border-b border-gray-100">
+                                                <img src="https://drive.google.com/thumbnail?id={{ $doc['id'] }}&sz=w800" 
+                                                     alt="Cover Survei {{ $doc['title'] }}"
+                                                     class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                                                     onerror="this.onerror=null; this.src='https://placehold.co/600x800/f8fafc/94a3b8?text=Laporan+Survei'; this.className='w-full h-full object-cover opacity-50';"
+                                                     loading="lazy">
+                                                
+                                                <!-- Overlay on hover -->
+                                                <div class="absolute inset-0 bg-navy-dark/0 group-hover:bg-navy-dark/10 transition-colors duration-300"></div>
+                                                
+                                                <!-- View Icon overlay -->
+                                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 scale-90 group-hover:scale-100">
+                                                    <div class="bg-white/95 backdrop-blur-sm w-14 h-14 rounded-full flex items-center justify-center text-navy-dark shadow-xl">
+                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="flex-1">
-                                                <h4 class="font-bold text-navy-dark group-hover:text-gold transition-colors duration-300 mb-1 text-lg">Dokumen Laporan Survei</h4>
-                                                <p class="text-sm text-gray-500 font-medium">Bagian / Berkas Ke-{{ $index + 1 }}</p>
-                                            </div>
-                                            <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-gold-light/10 group-hover:text-gold transition-colors duration-300">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                            
+                                            <!-- Content Section -->
+                                            <div class="p-6 flex-1 flex flex-col justify-center items-center text-center relative bg-white">
+                                                <div class="absolute -top-6 bg-white p-2 rounded-full shadow-sm border border-gray-50">
+                                                    <div class="w-10 h-10 bg-gold-light/20 text-gold-dark rounded-full flex items-center justify-center">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                                    </div>
+                                                </div>
+                                                
+                                                <h4 class="font-bold text-navy-dark group-hover:text-gold transition-colors duration-300 mb-2 mt-4 leading-snug text-lg">Hasil Survei Kepuasan Masyarakat</h4>
+                                                <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-50 text-gray-600 rounded-full text-sm font-semibold border border-gray-100">
+                                                    <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                                    {{ $doc['title'] }}
+                                                </div>
                                             </div>
                                         </a>
                                     @endforeach

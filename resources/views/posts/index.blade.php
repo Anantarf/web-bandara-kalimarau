@@ -26,7 +26,7 @@
                 <div class="text-center md:text-left">
                     <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-4">Berita Terkini</h1>
                     <div class="h-1.5 w-20 bg-gold-light rounded-full mb-4 mx-auto md:mx-0"></div>
-                    <p class="text-lg text-gray-500">Informasi dan pengumuman terbaru dari Bandara Kalimarau.</p>
+                    <p class="text-lg text-gray-500 text-pretty">Informasi dan pengumuman terbaru dari Bandara Kalimarau.</p>
                 </div>
                 
                 <!-- Search & Filter Form -->

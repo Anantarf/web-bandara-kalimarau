@@ -47,6 +47,9 @@ Route::prefix('berita')->name('posts.')->group(function () {
 // PPID (nested per docs/SITEMAP LARAVEL.md, must come before the catch-all below)
 Route::get('/ppid/{sub?}', [PageController::class, 'ppid'])->name('ppid.show');
 
+// FAQ
+Route::view('/faq', 'faq')->name('faq');
+
 // Halaman Statis (Catch-all for pages, should be at the bottom)
 Route::get('/{slug}', [PageController::class, 'show'])->name('pages.show');
 

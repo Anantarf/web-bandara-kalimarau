@@ -15,6 +15,7 @@ class FlightScheduleResource extends Resource
     protected static ?string $model = FlightSchedule::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
+    protected static ?string $navigationGroup = 'Layanan & Data';
 
     protected static ?int $navigationSort = 1;
 

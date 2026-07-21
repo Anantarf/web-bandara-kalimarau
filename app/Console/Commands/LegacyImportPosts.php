@@ -26,43 +26,47 @@ class LegacyImportPosts extends Command
             ->orderBy('post_date')
             ->get();
 
+        $thumbnailIds = DB::connection('legacy')->table('postmeta')
+            ->whereIn('post_id', $rows->pluck('ID'))
+            ->where('meta_key', '_thumbnail_id')
+            ->pluck('meta_value', 'post_id');
+
         $created = 0;
         $updated = 0;
 
-        foreach ($rows as $row) {
-            $thumbnailId = DB::connection('legacy')->table('postmeta')
-                ->where('post_id', $row->ID)
-                ->where('meta_key', '_thumbnail_id')
-                ->value('meta_value');
+        DB::transaction(function () use ($rows, $thumbnailIds, $mediaImporter, $defaultAuthorId, &$created, &$updated) {
+            foreach ($rows as $row) {
+                $thumbnailId = $thumbnailIds[$row->ID] ?? null;
 
-            $featuredImage = $mediaImporter->resolve($thumbnailId ? (int) $thumbnailId : null);
+                $featuredImage = $mediaImporter->resolve($thumbnailId ? (int) $thumbnailId : null);
 
-            $slug = $row->post_name ?: str($row->post_title)->slug();
-            if (Post::where('slug', $slug)->where('legacy_id', '!=', $row->ID)->exists()) {
-                $slug .= '-'.$row->ID;
+                $slug = $row->post_name ?: str($row->post_title)->slug();
+                if (Post::where('slug', $slug)->where('legacy_id', '!=', $row->ID)->exists()) {
+                    $slug .= '-'.$row->ID;
+                }
+
+                $attributes = [
+                    'featured_image' => $featuredImage?->path,
+                    'author_id' => $defaultAuthorId,
+                    'title' => Str::limit(html_entity_decode($row->post_title, ENT_QUOTES), 250, ''),
+                    'slug' => Str::limit($slug, 250, ''),
+                    'excerpt' => $row->post_excerpt ?: null,
+                    'content' => $mediaImporter->rewriteInlineImages(LegacyContentCleaner::clean($row->post_content)),
+                    'status' => $row->post_status === 'publish' ? 'published' : 'draft',
+                    'published_at' => $row->post_status === 'publish' ? $row->post_date : null,
+                ];
+
+                $post = Post::where('legacy_id', $row->ID)->first();
+
+                if ($post) {
+                    $post->update($attributes);
+                    $updated++;
+                } else {
+                    Post::create(['legacy_id' => $row->ID, ...$attributes]);
+                    $created++;
+                }
             }
-
-            $attributes = [
-                'featured_image' => $featuredImage?->path,
-                'author_id' => $defaultAuthorId,
-                'title' => Str::limit(html_entity_decode($row->post_title, ENT_QUOTES), 250, ''),
-                'slug' => Str::limit($slug, 250, ''),
-                'excerpt' => $row->post_excerpt ?: null,
-                'content' => $mediaImporter->rewriteInlineImages(LegacyContentCleaner::clean($row->post_content)),
-                'status' => $row->post_status === 'publish' ? 'published' : 'draft',
-                'published_at' => $row->post_status === 'publish' ? $row->post_date : null,
-            ];
-
-            $post = Post::where('legacy_id', $row->ID)->first();
-
-            if ($post) {
-                $post->update($attributes);
-                $updated++;
-            } else {
-                Post::create(['legacy_id' => $row->ID, ...$attributes]);
-                $created++;
-            }
-        }
+        });
 
         $this->info("Posts imported: {$created} created, {$updated} updated (of {$rows->count()} legacy rows).");
 

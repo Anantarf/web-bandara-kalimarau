@@ -42,6 +42,14 @@ class LegacyContentCleaner
         // Strip data-ekit-*/aria-* attributes left behind on surviving tags.
         $html = preg_replace('/\s(data-ekit-[a-z-]+|aria-[a-z-]+|data-target)="[^"]*"/i', '', $html);
 
+        // <img> tags whose src never resolved (lazy-load placeholders that were never
+        // hydrated in the static HTML dump) — an empty src just renders a broken-image icon.
+        $html = preg_replace('/<img\b[^>]*\ssrc=(["\'])\1[^>]*\/?>/i', '', $html);
+
+        // Standalone "Menu"/"Memuat…" lines — leftover nav-widget labels/loading text with
+        // no surrounding markup, common on PPID pages built from Elementor header templates.
+        $html = preg_replace('/^\s*(Menu|Memuat…)\s*$/mi', '', $html);
+
         // Old domain used for internal links -> make relative (leave /wp-content/uploads/
         // links alone; LegacyMediaImporter::rewriteInlineImages handles those separately).
         $html = preg_replace('#https?://(?:www\.)?kalimarau-airport\.com(?!/wp-content/uploads)#i', '', $html);

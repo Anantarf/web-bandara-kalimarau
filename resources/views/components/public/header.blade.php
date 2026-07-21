@@ -14,6 +14,7 @@
         ],
         'Informasi' => [
             ['label' => 'Berita Terkini', 'route' => 'posts.index'],
+            ['label' => 'FAQ Lengkap', 'route' => 'faq'],
         ],
         'Pengaduan' => [
             ['label' => 'Survey Kepuasan', 'slug' => 'survey-kepuasan-masyarakat-internal'],
@@ -24,7 +25,7 @@
     ];
 
     $ppidGroups = [
-        ['label' => 'Profil PPID', 'slug' => 'profile-ppid'],
+        ['label' => 'Tentang PPID', 'slug' => 'profile-ppid'],
         ['label' => 'Layanan Informasi', 'slug' => 'layanan-informasi'],
         ['label' => 'Regulasi & Prosedur', 'slug' => 'regulasi'],
     ];

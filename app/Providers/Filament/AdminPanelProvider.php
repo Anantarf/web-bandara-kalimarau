@@ -29,7 +29,6 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->globalSearch(false)
             ->login(Login::class)
             ->brandLogo(fn () => new HtmlString('
                 <div class="flex items-center gap-3">

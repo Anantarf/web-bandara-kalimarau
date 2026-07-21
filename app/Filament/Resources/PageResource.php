@@ -15,12 +15,14 @@ class PageResource extends Resource
     protected static ?string $model = Page::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationGroup = 'Konten Website';
 
     protected static ?int $navigationSort = 4;
 
     protected static ?string $modelLabel = 'Halaman';
 
     protected static ?string $pluralModelLabel = 'Halaman';
+    protected static ?string $recordTitleAttribute = 'title';
 
     public static function form(Form $form): Form
     {
@@ -35,20 +37,13 @@ class PageResource extends Resource
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn (string $operation, $state, callable $set) => $operation === 'create' ? $set('slug', str($state)->slug()) : null)
                             ->columnSpanFull(),
-                        Forms\Components\TextInput::make('slug')
-                            ->label('Slug (URL)')
-                            ->helperText('Bagian alamat website untuk halaman ini, terisi otomatis dari judul.')
-                            ->required()
-                            ->unique(ignoreRecord: true),
+
                         Forms\Components\Select::make('status')
                             ->label('Status')
                             ->options(['draft' => 'Draf', 'published' => 'Diterbitkan', 'archived' => 'Diarsipkan'])
                             ->default('draft')
                             ->required(),
-                        Forms\Components\TextInput::make('template')
-                            ->label('Template')
-                            ->default('default')
-                            ->required(),
+
                         Forms\Components\DateTimePicker::make('published_at')
                             ->label('Tanggal Publikasi')
                             ->helperText('Pilih waktu di masa depan untuk menjadwalkan publikasi.'),
@@ -66,10 +61,19 @@ class PageResource extends Resource
                             ->label('Isi Halaman')
                             ->columnSpanFull(),
                     ]),
-                Forms\Components\Section::make('Optimasi Pencarian Google (SEO)')
-                    ->description('Opsional. Menentukan judul dan deskripsi yang muncul di hasil pencarian Google.')
+                Forms\Components\Section::make('Pengaturan Lanjutan & SEO')
+                    ->description('Opsional. Pengaturan URL, template, dan tampilan di Google.')
                     ->collapsed()
                     ->schema([
+                        Forms\Components\TextInput::make('slug')
+                            ->label('Slug (URL)')
+                            ->helperText('Bagian alamat website. Dihasilkan otomatis, jangan diubah kecuali perlu.')
+                            ->required()
+                            ->unique(ignoreRecord: true),
+                        Forms\Components\TextInput::make('template')
+                            ->label('Template')
+                            ->default('default')
+                            ->required(),
                         Forms\Components\TextInput::make('seo_title')
                             ->label('Judul untuk Google')
                             ->helperText('Kosongkan untuk memakai judul halaman.'),
@@ -90,10 +94,13 @@ class PageResource extends Resource
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul Halaman')
-                    ->searchable(),
+                    ->searchable()
+                    ->wrap()
+                    ->lineClamp(2),
                 Tables\Columns\TextColumn::make('slug')
                     ->label('Slug (URL)')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state, Page $record) => $state === 'published' && $record->published_at?->isFuture() ? 'info' : match ($state) {
@@ -108,10 +115,11 @@ class PageResource extends Resource
                         default => 'Draf',
                     }),
                 Tables\Columns\TextColumn::make('template')
-                    ->label('Template'),
+                    ->label('Template')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('published_at')
                     ->label('Tanggal Publikasi')
-                    ->dateTime()
+                    ->dateTime('d M Y')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Diubah')

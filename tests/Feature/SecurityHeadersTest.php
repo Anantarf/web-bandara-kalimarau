@@ -16,6 +16,7 @@ class SecurityHeadersTest extends TestCase
             ->assertHeader('Permissions-Policy', 'camera=(), geolocation=(), microphone=()')
             ->assertHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
             ->assertHeader('X-Content-Type-Options', 'nosniff')
-            ->assertHeader('X-Frame-Options', 'DENY');
+            ->assertHeader('X-Frame-Options', 'DENY')
+            ->assertHeader('Content-Security-Policy');
     }
 }

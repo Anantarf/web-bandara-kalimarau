@@ -15,6 +15,7 @@ class MediaResource extends Resource
     protected static ?string $model = Media::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
+
     protected static ?string $navigationGroup = 'Konten Website';
 
     protected static ?int $navigationSort = 8;

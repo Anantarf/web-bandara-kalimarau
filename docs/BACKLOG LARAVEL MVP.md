@@ -106,19 +106,33 @@ Status 2026-07-18: Sprint 5 ditutup secara teknis. Validasi otomatis mencakup me
 - [X] Tambahkan rate limit untuk login admin dan form kontak.
 - [X] Pastikan error publik tidak membocorkan stack trace atau path server.
 - [X] Review permission folder `storage` dan `bootstrap/cache`.
-- [X] Tambahkan backup database dan media sebelum go-live.
+- [X] Tambahkan backup database dan media sebelum go-live (manual, lihat `docs/GO-LIVE.md`).
+- [X] Backup otomatis terjadwal (`spatie/laravel-backup`, lihat item baru di bawah).
+- [X] Tambahkan Content-Security-Policy header (`app/Http/Middleware/AddSecurityHeaders.php`).
+- [X] Pasang error tracking (Sentry) — terpasang, tinggal isi `SENTRY_LARAVEL_DSN` saat go-live.
+- [X] Log production di-rotate (`LOG_CHANNEL=daily`, didokumentasikan di `docs/GO-LIVE.md`).
 
-Status 2026-07-18: hardening aplikasi sudah diterapkan, tetapi Sprint 5.5 belum ditutup. Konfigurasi production aktual, permission Linux, backup, dan final verification tetap pending sampai deployment disetujui.
+Status 2026-07-22: hardening aplikasi + backup otomatis + CSP + error tracking sudah diimplementasikan di kode. Yang tersisa murni konfigurasi saat deploy sungguhan: nilai `.env` production aktual, permission Linux, cron `schedule:run`, dan DSN Sentry — semua sudah didokumentasikan di `docs/GO-LIVE.md`.
+
+## Item Baru - Hasil Audit Produksi 2026-07-22
+
+- [X] Instal & jadwalkan `spatie/laravel-backup` (`config/backup.php`, `routes/console.php` — `backup:run` harian, `backup:clean` harian).
+- [X] Tambah Content-Security-Policy ke `AddSecurityHeaders` (catatan: `script-src` masih perlu `unsafe-inline`/`unsafe-eval` karena Alpine.js dipakai luas; hardening lebih lanjut butuh migrasi ke `@alpinejs/csp` build).
+- [X] Instal `sentry/sentry-laravel`, di-wire di `bootstrap/app.php`, inert sampai `SENTRY_LARAVEL_DSN` diisi.
+- [X] Dokumentasikan `LOG_CHANNEL=daily` untuk production di `docs/GO-LIVE.md`.
+- [ ] Upgrade Filament v3 → v5 dan Laravel v11 → v12 (tidak mendesak untuk launch, tapi rencanakan — v3/v11 makin jauh dari rilis terbaru).
+- [ ] Setup CI (GitHub Actions atau setara) untuk otomatis jalankan `php artisan test` di setiap push — saat ini 100% bergantung manusia menjalankan manual.
+- [ ] Pertimbangkan disk `s3`/cloud storage untuk upload (Facility, PPID Document, Media, featured image) — saat ini 100% disk lokal server, berisiko hilang saat redeploy/scale ke banyak instance.
 
 ## Sprint 5.6 - Automated Test Minimal
 
-- [ ] Feature test homepage, berita listing, detail berita, page statis, kontak, jadwal, dan PPID.
-- [ ] Feature test form kontak tersimpan ke database.
-- [ ] Feature test redirect middleware.
-- [ ] Feature test admin login hanya untuk user aktif.
-- [ ] Unit/feature test published scope untuk posts/pages.
-- [ ] Unit/feature test hanya jadwal aktif yang tampil publik.
-- [ ] Jalankan `php artisan test` sebelum staging dan production.
+- [X] Feature test homepage, berita listing, detail berita, page statis, kontak, jadwal, dan PPID. (`tests/Feature/PublicPagesSmokeTest.php`)
+- [X] Feature test form kontak tersimpan ke database, termasuk validasi gagal dan rate limit. (`tests/Feature/ContactFormTest.php`)
+- [X] Feature test redirect middleware. (`tests/Feature/SeoAndRedirectTest.php`)
+- [X] Feature test admin login hanya untuk user aktif. (`tests/Feature/AdminPanelSmokeTest.php`)
+- [X] Unit/feature test published scope untuk posts/pages. (`tests/Feature/ScheduledContentTest.php`)
+- [X] Unit/feature test hanya jadwal aktif yang tampil publik. (`tests/Feature/FlightScheduleVisibilityTest.php`)
+- [ ] Jalankan `php artisan test` sebelum staging dan production. (proses manual, belum ada CI — lihat item baru di bawah)
 
 ## Sprint 6 - QA dan Launch
 
@@ -146,5 +160,5 @@ Status 2026-07-18: hardening aplikasi sudah diterapkan, tetapi Sprint 5.5 belum 
 - [ ] Dokumen PPID searchable.
 - [X] Scheduled posts dan pages memakai `published_at` tanpa worker tambahan.
 - [X] Preview konten post/page dengan signed URL 30 menit dan `noindex`.
-- [ ] Backup otomatis.
+- [X] Backup otomatis (`spatie/laravel-backup`, lihat Sprint 5.5).
 - [ ] GA4/Search Console setup.

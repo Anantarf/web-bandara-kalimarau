@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Facility;
 use App\Models\Page;
 use App\Models\Post;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -96,7 +97,7 @@ class PublicPagesSmokeTest extends TestCase
 
     public function test_fasilitas_page_renders_facility_grid_from_database(): void
     {
-        \App\Models\Facility::create([
+        Facility::create([
             'category' => 'Fasilitas Umum',
             'name' => 'Mushola',
             'image' => 'facilities/mushola.jpg',

@@ -15,6 +15,7 @@ class PublicServiceLinkResource extends Resource
     protected static ?string $model = PublicServiceLink::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-link';
+
     protected static ?string $navigationGroup = 'Layanan & Data';
 
     protected static ?int $navigationSort = 7;

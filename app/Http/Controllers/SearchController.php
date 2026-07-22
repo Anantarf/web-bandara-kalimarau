@@ -36,7 +36,7 @@ class SearchController extends Controller
                 })
                 ->take(5)
                 ->get();
-                
+
             $documents = PpidDocument::query()
                 ->where('is_active', true)
                 ->where(function ($q) use ($keyword) {

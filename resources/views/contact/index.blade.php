@@ -6,17 +6,10 @@
     <!-- Breadcrumb -->
     <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
         <div class="container mx-auto px-4 max-w-7xl">
-            <nav class="text-sm" aria-label="Breadcrumb">
-                <ol class="list-none p-0 inline-flex flex-wrap">
-                    <li class="flex items-center">
-                        <a href="{{ route('home') }}" class="text-gray-500 hover:text-navy">Beranda</a>
-                        <svg class="fill-current w-3 h-3 mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
-                    </li>
-                    <li>
-                        <span class="text-gray-800 font-medium" aria-current="page">Pengaduan & Kontak</span>
-                    </li>
-                </ol>
-            </nav>
+            <x-breadcrumb :items="[
+                ['label' => 'Beranda', 'url' => route('home')],
+                ['label' => 'Pengaduan & Kontak'],
+            ]" />
         </div>
     </div>
 
@@ -46,7 +39,7 @@
                 <!-- Kontak Info -->
                 <div class="w-full lg:w-1/3 space-y-6">
                     <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
-                        <h2 class="text-xl font-bold text-gray-900 mb-6">Informasi Kontak</h2>
+                        <h2 class="card-title mb-6">Informasi Kontak</h2>
                         
                         <div class="flex items-start mb-6">
                             <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
@@ -84,7 +77,7 @@
                 <!-- Formulir Kontak -->
                 <div class="w-full lg:w-2/3">
                     <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
-                        <h2 class="text-xl font-bold text-gray-900 mb-6">Kirim Pesan atau Pengaduan</h2>
+                        <h2 class="card-title mb-6">Kirim Pesan atau Pengaduan</h2>
                         
                         <form action="{{ route('contact.store') }}" method="POST" x-data="{ submitting: false }" @submit="submitting = true">
                             @csrf
@@ -92,7 +85,7 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <div>
                                     <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
-                                    <input type="text" id="name" name="name" value="{{ old('name') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors @error('name') border-red-500 @enderror" required>
+                                    <input type="text" id="name" name="name" value="{{ old('name') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('name') border-red-500 @enderror" required>
                                     @error('name')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -100,7 +93,7 @@
                                 
                                 <div>
                                     <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Alamat Email <span class="text-red-500">*</span></label>
-                                    <input type="email" id="email" name="email" value="{{ old('email') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors @error('email') border-red-500 @enderror" required>
+                                    <input type="email" id="email" name="email" value="{{ old('email') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('email') border-red-500 @enderror" required>
                                     @error('email')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -110,7 +103,7 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <div>
                                     <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Nomor HP/Telepon <span class="text-red-500">*</span></label>
-                                    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors @error('phone') border-red-500 @enderror" required>
+                                    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('phone') border-red-500 @enderror" required>
                                     @error('phone')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -118,7 +111,7 @@
                                 
                                 <div>
                                     <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subjek Pesan <span class="text-red-500">*</span></label>
-                                    <input type="text" id="subject" name="subject" value="{{ old('subject') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors @error('subject') border-red-500 @enderror" required>
+                                    <input type="text" id="subject" name="subject" value="{{ old('subject') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('subject') border-red-500 @enderror" required>
                                     @error('subject')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -127,14 +120,14 @@
                             
                             <div class="mb-6">
                                 <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Isi Pesan/Pengaduan <span class="text-red-500">*</span></label>
-                                <textarea id="message" name="message" rows="6" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors @error('message') border-red-500 @enderror" required>{{ old('message') }}</textarea>
+                                <textarea id="message" name="message" rows="6" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('message') border-red-500 @enderror" required>{{ old('message') }}</textarea>
                                 @error('message')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                             
                             <div class="flex justify-end">
-                                <button type="submit" :disabled="submitting" :class="{ 'opacity-60 cursor-not-allowed': submitting }" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-md transition-colors shadow-sm inline-flex items-center">
+                                <button type="submit" :disabled="submitting" :class="{ 'opacity-60 cursor-not-allowed': submitting }" class="bg-navy hover:bg-navy-dark text-white font-semibold py-3 px-8 rounded-md transition-colors shadow-sm inline-flex items-center">
                                     <svg x-show="!submitting" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
                                     <svg x-show="submitting" class="w-5 h-5 mr-2 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
                                     <span x-text="submitting ? 'Mengirim...' : 'Kirim Pesan'"></span>

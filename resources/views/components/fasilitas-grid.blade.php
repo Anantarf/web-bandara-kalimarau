@@ -1,86 +1,17 @@
 @php
-$categories = [
-    [
-        'title' => 'Fasilitas Sisi Udara',
-        'items' => [
-            [
-                'name' => 'Runway',
-                'image' => 'https://aptpairport.id/uploads/fasilitas/C71sTmDprY3asQDEhE67W1mojj9Ce1zpTIHiH7E0.jpg',
-                'details' => ['Ukuran: 2.250 m x 45 m', 'Daya Dukung: PCN 50 F/C/X/T']
-            ],
-            [
-                'name' => 'Apron',
-                'image' => 'https://aptpairport.id/uploads/fasilitas/dcZrrhulEXz09yKVZiYM3WAT6bd39ZNwsqH9aazb.jpg',
-                'details' => ['Ukuran: 300 m x 123 m', '8 Parking Stand', 'Daya Dukung: PCN 63 F/C/X/T']
-            ],
-            [
-                'name' => 'Garbarata',
-                'image' => 'https://aptpairport.id/uploads/fasilitas/bgAHN6w5yuLszgSDmmlZStirQOoO39y3MXx2rbKU.png',
-                'details' => ['Tersedia: 2 Unit', 'Memudahkan akses ke pesawat.']
-            ],
-            [
-                'name' => 'Runway Light',
-                'image' => 'https://aptpairport.id/uploads/fasilitas/yqttMTNnma9cbGsTQoMojZZV6LpQ2zmfJEx16e1e.jpg',
-                'details' => ['Runway Light', 'Taxiway Light', 'Apron Light', 'P.A.P.I', 'Flood Light']
-            ],
-            [
-                'name' => 'Taxiway',
-                'image' => 'https://aptpairport.id/uploads/fasilitas/ZGuuUG3Gm5PbLLDQ2ia9wQiYLq1nnK1JPBaqbrOK.png',
-                'details' => ['Taxiway Alpha 173,5 m x 23 m', 'Taxiway Bravo 148 m x 18 m', 'Paralel Taxi 527 m x 18 m']
-            ]
-        ]
-    ],
-    [
-        'title' => 'Fasilitas Sisi Darat',
-        'items' => [
-            [
-                'name' => 'Terminal Penumpang',
-                'image' => 'https://aptpairport.id/uploads/fasilitas/YdG7J8PUBJNjVwrDknCy9f4ejT9v9uolu4JS109d.png',
-                'details' => ['Luas: 12.700 m²', 'Kapasitas: 1.5 Juta Penumpang/Tahun']
-            ],
-            [
-                'name' => 'Terminal Kargo',
-                'image' => 'https://aptpairport.id/uploads/fasilitas/beCshuIrWRXELJWPyDmVUzUTHv9MvVLSSteW4p2U.png',
-                'details' => ['Luas Lini I: 1.148 m²', 'Luas Lini II: 1.623,9 m²', 'Mendukung logistik & pengiriman barang.']
-            ],
-            [
-                'name' => 'Gedung VVIP',
-                'image' => 'https://aptpairport.id/uploads/fasilitas/yuchwOrO8mXX58FgWTrti7zJsbmlBJfLfluMR06e.png',
-                'details' => ['Luas: 743,60 m²', 'Kenyamanan eksklusif untuk tamu penting.']
-            ],
-            [
-                'name' => 'Parkir & Landscape',
-                'image' => 'https://aptpairport.id/uploads/fasilitas/wJg0zN8aFIWkheMTxOmbE4Rx3sHWApOu00rTwguF.png',
-                'details' => ['Luas: 30.000 m²', 'Kapasitas luas untuk kendaraan.']
-            ]
-        ]
-    ],
-    [
-        'title' => 'Fasilitas Umum',
-        'items' => [
-            [
-                'name' => 'Check-in Counter',
-                'image' => 'https://aptpairport.id/uploads/fasilitas/1vqnSgDWAaul2e9ygX9CUAT3CdXQnGScKZeTRXgE.png',
-                'details' => ['Tersedia: 16 Counter', 'Proses check-in yang cepat dan efisien.']
-            ],
-            [
-                'name' => 'Self Check-In',
-                'image' => 'https://aptpairport.id/uploads/fasilitas/ggp83Fvs6KuPVoP49g71gi60FiPE279AUNWm7xuL.png',
-                'details' => ['Tersedia mesin self-check-in mandiri untuk memudahkan penumpang tanpa bagasi.']
-            ],
-            [
-                'name' => 'Mushola',
-                'image' => 'https://aptpairport.id/uploads/fasilitas/MOtEEUemCyt8eqBC6ljL8klO4PK1nUkMKL7gXmWz.jpg',
-                'details' => ['Ruang ibadah yang bersih dan nyaman.']
-            ],
-            [
-                'name' => 'Nursery Room',
-                'image' => 'https://aptpairport.id/uploads/fasilitas/QSct13Ok2MtX7qVrAymD2P5RGBr85emkn5qQMUr4.png',
-                'details' => ['Fasilitas nursery room untuk ibu dan anak.']
-            ]
-        ]
-    ]
-];
+$categories = \App\Models\Facility::query()
+    ->orderBy('order')
+    ->get()
+    ->groupBy('category')
+    ->map(fn ($items, $title) => [
+        'title' => $title,
+        'items' => $items->map(fn ($facility) => [
+            'name' => $facility->name,
+            'image' => $facility->image_url,
+            'details' => $facility->details ?? [],
+        ])->values(),
+    ])
+    ->values();
 @endphp
 
 <div x-data="{
@@ -145,7 +76,7 @@ $categories = [
                                     class="group relative bg-white rounded-2xl overflow-hidden shadow border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-gold text-left h-full flex flex-col">
                                 
                                 <div class="relative h-40 sm:h-48 w-full overflow-hidden bg-gray-100">
-                                    <img src="{{ $item['image'] }}" loading="lazy" alt="{{ $item['name'] }}" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=Fasilitas'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                    <img src="{{ $item['image'] }}" loading="lazy" alt="{{ $item['name'] }}" onerror="this.onerror=null;this.src='https://placehold.co/400x300?text=Fasilitas'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                 </div>
                                 <div class="p-4 flex-grow flex items-center justify-center border-t border-gray-50">
                                     <h4 class="font-bold text-gray-800 text-center text-sm sm:text-base leading-snug group-hover:text-blue-700 transition-colors">{{ $item['name'] }}</h4>
@@ -190,7 +121,7 @@ $categories = [
                 <!-- Modal Image Section -->
                 <div class="w-full md:w-3/5 lg:w-2/3 h-64 md:h-auto bg-gray-100 relative">
                     <template x-if="activeFacility">
-                        <img :src="activeFacility.image" :alt="activeFacility.name" @error="$el.src = 'https://via.placeholder.com/400x300?text=Fasilitas'" class="w-full h-full object-cover">
+                        <img :src="activeFacility.image" :alt="activeFacility.name" x-on:error="$el.src = 'https://placehold.co/400x300?text=Fasilitas'" class="w-full h-full object-cover">
                     </template>
                 </div>
 

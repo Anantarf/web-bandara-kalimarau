@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AirportStat;
+use App\Models\Facility;
 use App\Models\FlightSchedule;
 use App\Models\Post;
 use App\Models\PublicServiceLink;
@@ -23,56 +24,31 @@ class HomeController extends Controller
      * Media), stock photography is the safe choice here.
      */
     protected const HERO_IMAGES = [
-        'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1705322883689-e0ce95308103?w=1600&h=900&fit=crop&auto=format',
-        'https://images.unsplash.com/photo-1544281678-75f106460459?q=80&w=1600&auto=format&fit=crop',
-    ];
-
-    protected const FACILITIES = [
-        [
-            'title' => 'Ruang Tunggu Eksekutif',
-            'desc' => 'Kenyamanan ekstra dengan makanan ringan dan minuman gratis.',
-            'img' => 'https://images.unsplash.com/photo-1542296332-2e4473faf563?q=80&w=600&auto=format&fit=crop',
-        ],
-        [
-            'title' => 'Area Komersial',
-            'desc' => 'Toko suvenir dan produk lokal khas Kalimantan Timur.',
-            'img' => 'https://images.unsplash.com/photo-1555626906-fcf10d6851b4?q=80&w=600&auto=format&fit=crop',
-        ],
-        [
-            'title' => 'Ruang Laktasi',
-            'desc' => 'Ruang khusus yang nyaman untuk ibu menyusui dan bayi.',
-            'img' => 'https://images.unsplash.com/photo-1563298723-dcfebaa392e3?q=80&w=600&auto=format&fit=crop',
-        ],
-        [
-            'title' => 'Restoran & Kafe',
-            'desc' => 'Beragam pilihan hidangan lokal dan internasional.',
-            'img' => 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600&auto=format&fit=crop',
-        ],
+        'images/hero/hero1.png',
     ];
 
     protected const SAMBUTAN = [
-        'nama' => 'Budi Raharjo',
-        'jabatan' => 'Kepala UPBU Kelas I Kalimarau',
+        'nama' => 'Bapak Patah Atabri, S.Si.T., M.M.',
+        'jabatan' => 'Kepala BLU Kantor UPBU Kelas I Kalimarau',
         'teks' => [
             'Selamat datang di portal resmi Bandara Kalimarau. Di tengah kebutuhan informasi yang semakin cepat, kami menghadirkan website ini sebagai kanal resmi untuk membantu masyarakat memperoleh informasi layanan bandara secara mudah, jelas, dan tepercaya.',
             'Kami terus berkomitmen memberikan pelayanan terbaik dengan mengutamakan keselamatan, keamanan, dan kenyamanan pengguna jasa penerbangan. Melalui website ini, masyarakat dapat mengakses informasi penerbangan, layanan publik, berita, kontak, serta kanal pengaduan secara lebih terarah.',
             'Kami mengundang masyarakat untuk memanfaatkan situs ini sebagai sarana informasi dan komunikasi. Masukan yang konstruktif akan menjadi bagian penting dalam meningkatkan kualitas pelayanan Bandara Kalimarau bagi Kabupaten Berau dan wilayah sekitarnya.',
         ],
-        'foto' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=256&auto=format&fit=crop',
+        'foto' => 'images/people/kepala-bandara.JPG',
     ];
 
     protected const MITRA = [
         [
             'nama' => 'Batik Air',
             'rute' => 'Jakarta (CGK), Surabaya (SUB)',
-            'logo' => 'images/airlines/batik-air.svg',
+            'logo' => 'images/airlines/batik-air.png',
             'slug' => 'batik-air',
         ],
         [
             'nama' => 'Super Air Jet',
             'rute' => 'Balikpapan (BPN), Surabaya (SUB)',
-            'logo' => 'images/airlines/super-air-jet.svg',
+            'logo' => 'images/airlines/super-air-jet.png',
             'slug' => 'super-air-jet',
         ],
         [
@@ -84,7 +60,7 @@ class HomeController extends Controller
         [
             'nama' => 'Sriwijaya Air',
             'rute' => 'Balikpapan (BPN), Makassar (UPG)',
-            'logo' => 'images/airlines/sriwijaya-air.png',
+            'logo' => 'images/airlines/sriwijaya-air.jpg',
             'slug' => 'sriwijaya-air',
         ],
         [
@@ -96,7 +72,7 @@ class HomeController extends Controller
         [
             'nama' => 'Wings Air',
             'rute' => 'Samarinda (AAP), Balikpapan (BPN), Maratua (RTU)',
-            'logo' => 'images/airlines/wings-air.svg',
+            'logo' => 'images/airlines/wings-air.png',
             'slug' => 'wings-air',
         ],
         [
@@ -133,9 +109,18 @@ class HomeController extends Controller
             ->latest('period_date')
             ->first();
 
-        $heroImages = self::HERO_IMAGES;
-        $facilities = self::FACILITIES;
+        $heroImages = collect(self::HERO_IMAGES)->map(fn ($path) => asset($path))->toArray();
+        $facilities = Facility::query()
+            ->orderBy('order')
+            ->take(4)
+            ->get()
+            ->map(fn (Facility $facility) => [
+                'title' => $facility->name,
+                'desc' => $facility->details[0] ?? '',
+                'img' => $facility->image_url,
+            ]);
         $sambutan = self::SAMBUTAN;
+        $sambutan['foto'] = asset($sambutan['foto']);
         $mitra = self::MITRA;
 
         return view('home', compact('latestPosts', 'flightSchedules', 'serviceLinks', 'airportStat', 'heroImages', 'facilities', 'sambutan', 'mitra'));

@@ -12,21 +12,11 @@
     <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
             <!-- Breadcrumb -->
-            <nav class="text-sm" aria-label="Breadcrumb">
-                <ol class="list-none p-0 inline-flex flex-wrap">
-                    <li class="flex items-center">
-                        <a href="{{ route('home') }}" class="text-gray-500 hover:text-blue-600">Beranda</a>
-                        <svg class="fill-current w-3 h-3 mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
-                    </li>
-                    <li class="flex items-center">
-                        <a href="{{ route('posts.index') }}" class="text-gray-500 hover:text-blue-600">Berita</a>
-                        <svg class="fill-current w-3 h-3 mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
-                    </li>
-                    <li>
-                        <span class="text-gray-800 font-medium truncate max-w-[200px] md:max-w-md inline-block" aria-current="page">{{ $post->title }}</span>
-                    </li>
-                </ol>
-            </nav>
+            <x-breadcrumb :items="[
+                ['label' => 'Beranda', 'url' => route('home')],
+                ['label' => 'Berita', 'url' => route('posts.index')],
+                ['label' => $post->title, 'class' => 'truncate max-w-[200px] md:max-w-md inline-block'],
+            ]" />
         </div>
     </div>
 
@@ -48,7 +38,7 @@
                         {{ $post->author->name ?? 'Admin Kalimarau' }}
                     </div>
                     <div class="flex items-center ml-auto">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-gold/10 text-gold-dark">
                             Berita
                         </span>
                     </div>
@@ -88,7 +78,7 @@
     @if($relatedPosts->count() > 0)
     <section class="py-12 bg-gray-50 border-t border-gray-200">
         <div class="container mx-auto px-4 max-w-4xl">
-            <h2 class="text-2xl font-bold text-gray-900 mb-8">Berita Terkait</h2>
+            <h2 class="subsection-title mb-8">Berita Terkait</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @foreach($relatedPosts as $related)
                 <div class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -104,7 +94,7 @@
                     <div class="p-4">
                         <span class="text-xs text-gray-500 mb-2 block">{{ $related->published_at->translatedFormat('d M Y') }}</span>
                         <a href="{{ route('posts.show', $related->slug) }}" class="block">
-                            <h3 class="font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2 text-sm">{{ $related->title }}</h3>
+                            <h3 class="font-bold text-navy group-hover:text-sky transition-colors line-clamp-2 text-sm">{{ $related->title }}</h3>
                         </a>
                     </div>
                 </div>

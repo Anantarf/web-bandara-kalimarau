@@ -25,3 +25,11 @@ yarn-error.log
 _ide_helper.php
 _ide_helper_models.php
 .phpstorm.meta.php
+
+# Raw source-photo dumps used to produce the optimized assets under
+# storage/app/public and public/images — not meant to enter git history.
+/PPID
+/fasilitas
+/logo maskapai
+/output
+*.DNG

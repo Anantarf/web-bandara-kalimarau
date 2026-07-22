@@ -40,7 +40,7 @@ class LegacyImportPosts extends Command
 
                 $featuredImage = $mediaImporter->resolve($thumbnailId ? (int) $thumbnailId : null);
 
-                $slug = $row->post_name ?: str($row->post_title)->slug();
+                $slug = $row->post_name ?: Str::slug($row->post_title);
                 if (Post::where('slug', $slug)->where('legacy_id', '!=', $row->ID)->exists()) {
                     $slug .= '-'.$row->ID;
                 }
@@ -48,8 +48,8 @@ class LegacyImportPosts extends Command
                 $attributes = [
                     'featured_image' => $featuredImage?->path,
                     'author_id' => $defaultAuthorId,
-                    'title' => Str::limit(html_entity_decode($row->post_title, ENT_QUOTES), 250, ''),
-                    'slug' => Str::limit($slug, 250, ''),
+                    'title' => mb_substr(html_entity_decode($row->post_title, ENT_QUOTES), 0, 250),
+                    'slug' => mb_substr($slug, 0, 250),
                     'excerpt' => $row->post_excerpt ?: null,
                     'content' => $mediaImporter->rewriteInlineImages(LegacyContentCleaner::clean($row->post_content)),
                     'status' => $row->post_status === 'publish' ? 'published' : 'draft',
@@ -77,6 +77,6 @@ class LegacyImportPosts extends Command
             }
         }
 
-        return self::SUCCESS;
+        return Command::SUCCESS;
     }
 }

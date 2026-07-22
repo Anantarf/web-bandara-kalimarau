@@ -6,17 +6,10 @@
     <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
         <div class="container mx-auto px-4 max-w-7xl">
             <!-- Breadcrumb -->
-            <nav class="text-sm" aria-label="Breadcrumb">
-                <ol class="list-none p-0 inline-flex flex-wrap">
-                    <li class="flex items-center">
-                        <a href="{{ route('home') }}" class="text-gray-500 hover:text-blue-600">Beranda</a>
-                        <svg class="fill-current w-3 h-3 mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
-                    </li>
-                    <li>
-                        <span class="text-gray-800 font-medium" aria-current="page">Berita</span>
-                    </li>
-                </ol>
-            </nav>
+            <x-breadcrumb :items="[
+                ['label' => 'Beranda', 'url' => route('home')],
+                ['label' => 'Berita'],
+            ]" />
         </div>
     </div>
 
@@ -61,8 +54,11 @@
         </div>
     </div>
 
-    <div class="py-12 bg-white">
-        <div class="container mx-auto px-4 max-w-7xl">
+    <div class="py-12 bg-white" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
+        <div class="container mx-auto px-4 max-w-7xl"
+             x-show="loaded" x-transition:enter="transition-all ease-out duration-700"
+             x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0"
+             style="display: none;">
             @if($posts->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($posts as $post)
@@ -83,17 +79,17 @@
                                     {{ $post->published_at->translatedFormat('d F Y') }}
                                 </span>
                                 <!-- Simulated Category Badge -->
-                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gold/10 text-gold-dark">
                                     Berita
                                 </span>
                             </div>
                             <a href="{{ route('posts.show', $post->slug) }}" class="block mb-3">
-                                <h2 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">{{ $post->title }}</h2>
+                                <h2 class="text-xl font-bold text-navy group-hover:text-sky transition-colors line-clamp-2">{{ $post->title }}</h2>
                             </a>
                             <p class="text-gray-600 mb-4 line-clamp-3 text-sm flex-grow">
                                 {{ $post->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($post->content), 120) }}
                             </p>
-                            <a href="{{ route('posts.show', $post->slug) }}" class="text-blue-600 font-medium hover:text-blue-800 inline-flex items-center mt-auto text-sm">
+                            <a href="{{ route('posts.show', $post->slug) }}" class="text-navy font-medium hover:text-sky inline-flex items-center mt-auto text-sm">
                                 Baca selengkapnya <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                             </a>
                         </div>
@@ -110,7 +106,7 @@
                     <h3 class="text-xl font-semibold text-gray-800 mb-2">Tidak Ada Berita Ditemukan</h3>
                     @if(request('search'))
                         <p class="text-gray-600 mb-4">Tidak ada berita yang cocok dengan kata kunci "{{ request('search') }}".</p>
-                        <a href="{{ route('posts.index') }}" class="text-blue-600 font-medium hover:underline">Hapus pencarian</a>
+                        <a href="{{ route('posts.index') }}" class="text-navy font-medium hover:underline">Hapus pencarian</a>
                     @else
                         <p class="text-gray-600">Belum ada berita yang dipublikasikan saat ini.</p>
                     @endif

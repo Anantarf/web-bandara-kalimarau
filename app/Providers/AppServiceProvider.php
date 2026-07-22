@@ -11,10 +11,13 @@ use App\Models\Post;
 use App\Models\PublicServiceLink;
 use App\Models\Redirect;
 use App\Models\User;
+use App\Models\Visitor;
 use App\Observers\AuditLogObserver;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -44,6 +47,15 @@ class AppServiceProvider extends ServiceProvider
 
         RateLimiter::for('search', function (Request $request) {
             return Limit::perMinute(10)->by($request->ip());
+        });
+
+        View::composer('components.public.footer', function ($view) {
+            $stats = Cache::remember('visitor_stats', 60 * 5, function () {
+                return [
+                    'total' => Visitor::count(),
+                ];
+            });
+            $view->with('visitorStats', $stats);
         });
     }
 }

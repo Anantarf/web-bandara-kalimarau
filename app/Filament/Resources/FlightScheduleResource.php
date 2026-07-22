@@ -15,6 +15,7 @@ class FlightScheduleResource extends Resource
     protected static ?string $model = FlightSchedule::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
+
     protected static ?string $navigationGroup = 'Layanan & Data';
 
     protected static ?int $navigationSort = 1;
@@ -38,7 +39,6 @@ class FlightScheduleResource extends Resource
     public const AIRLINES = [
         'Batik Air' => 'Batik Air',
         'Super Air Jet' => 'Super Air Jet',
-        'AirAsia' => 'AirAsia',
         'Sriwijaya Air' => 'Sriwijaya Air',
         'Citilink' => 'Citilink',
         'Wings Air' => 'Wings Air',

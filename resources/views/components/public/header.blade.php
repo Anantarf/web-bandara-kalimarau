@@ -40,9 +40,9 @@
 
         <a href="{{ route('home') }}" class="flex items-center gap-3 shrink-0 group py-2">
             <img src="{{ asset('images/logo-as.png') }}" alt="Bandara Kalimarau"
-                    class="w-auto object-contain h-11 md:h-12 transition-transform duration-300 group-hover:scale-105 filter drop-shadow-md"
-                    :class="(transparent && !scrolled) ? 'brightness-0 invert' : ''"
-                    onerror="this.src='https://via.placeholder.com/200x50?text=Kalimarau'">
+                    class="w-auto object-contain h-11 md:h-12 transition-transform duration-300 group-hover:scale-105 filter"
+                    :class="(transparent && !scrolled) ? 'brightness-0 invert drop-shadow-[0_2px_10px_rgba(0,0,0,0.75)]' : 'drop-shadow-md'"
+                    onerror="this.src='https://placehold.co/200x50?text=Kalimarau'">
         </a>
 
         <!-- Desktop nav -->
@@ -170,7 +170,7 @@
 
             <a href="{{ route('contact.index') }}" class="block px-3 py-2.5 text-sm font-medium text-text-main hover:text-navy rounded-md">Kontak</a>
             <div class="pt-2 pb-1">
-                <a href="tel:08526214614" class="flex items-center gap-2 px-3 py-2 text-sm text-navy font-medium">
+                <a href="tel:085262146214" class="flex items-center gap-2 px-3 py-2 text-sm text-navy font-medium">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.265-3.965-6.861-6.86l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
                     0852 6214 6214
                 </a>

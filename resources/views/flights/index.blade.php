@@ -6,15 +6,10 @@
     <!-- Breadcrumb -->
     <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4">
-            <nav class="text-sm" aria-label="Breadcrumb">
-                <ol class="list-none p-0 inline-flex flex-wrap">
-                    <li class="flex items-center">
-                        <a href="{{ route('home') }}" class="text-gray-500 hover:text-navy">Beranda</a>
-                        <svg class="fill-current w-3 h-3 mx-2 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
-                    </li>
-                    <li><span class="text-gray-800 font-medium" aria-current="page">Jadwal Penerbangan</span></li>
-                </ol>
-            </nav>
+            <x-breadcrumb :items="[
+                ['label' => 'Beranda', 'url' => route('home')],
+                ['label' => 'Jadwal Penerbangan'],
+            ]" />
         </div>
     </div>
 
@@ -31,8 +26,6 @@
         <div class="max-w-7xl mx-auto px-4">
             @php
                 $dayLabels = ['senin' => 'Sen', 'selasa' => 'Sel', 'rabu' => 'Rab', 'kamis' => 'Kam', 'jumat' => 'Jum', 'sabtu' => 'Sab', 'minggu' => 'Min'];
-                $palette = ['#1E6FB5', '#C8860A', '#1A7A4A', '#7A3A1A', '#5A1A7A', '#0C2D6B'];
-                $airlineColor = fn (string $name) => $palette[crc32($name) % count($palette)];
                 $airlineInitials = fn (string $name) => collect(explode(' ', $name))->map(fn ($w) => mb_substr($w, 0, 1))->take(2)->implode('');
                 $operatingDays = function ($flight) use ($dayLabels) {
                     if (empty($flight->days) || count($flight->days) === 7) return 'Setiap Hari';
@@ -40,7 +33,9 @@
                 };
             @endphp
 
-            <div class="bg-navy-dark rounded-2xl overflow-hidden shadow-xl" x-data="{ tab: 'kedatangan' }">
+            <div class="bg-navy-dark rounded-2xl overflow-hidden shadow-xl transition-all duration-700 ease-out transform"
+                 x-data="{ tab: 'kedatangan', loaded: false }" x-init="setTimeout(() => loaded = true, 100)"
+                 :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'">
                 <!-- Pill toggle -->
                 <div class="flex justify-center gap-3 py-6 px-4 border-b border-white/10">
                     <button type="button" @click="tab = 'kedatangan'" :class="tab === 'kedatangan' ? 'bg-gold text-navy-dark' : 'bg-white/5 text-white/70 hover:bg-white/10'" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-colors">
@@ -54,7 +49,10 @@
                 </div>
 
                 <!-- Kedatangan -->
-                <div x-show="tab === 'kedatangan'" class="w-full">
+                <div x-show="tab === 'kedatangan'" class="w-full"
+                     x-transition:enter="transition-all ease-out duration-300"
+                     x-transition:enter-start="opacity-0 translate-y-2"
+                     x-transition:enter-end="opacity-100 translate-y-0">
                     @if($arrivals->isEmpty())
                         <div class="py-20 px-4 text-center">
                             <h3 class="text-xl font-bold text-white mb-2">Belum ada jadwal aktif</h3>
@@ -103,7 +101,10 @@
                 </div>
 
                 <!-- Keberangkatan -->
-                <div x-show="tab === 'keberangkatan'" style="display: none;" class="w-full">
+                <div x-show="tab === 'keberangkatan'" style="display: none;" class="w-full"
+                     x-transition:enter="transition-all ease-out duration-300"
+                     x-transition:enter-start="opacity-0 translate-y-2"
+                     x-transition:enter-end="opacity-100 translate-y-0">
                     @if($departures->isEmpty())
                         <div class="py-20 px-4 text-center">
                             <h3 class="text-xl font-bold text-white mb-2">Belum ada jadwal aktif</h3>

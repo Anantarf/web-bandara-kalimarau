@@ -23,12 +23,11 @@ class FlightScheduleController extends Controller
             ->get();
 
         $logos = [
-            'Batik Air' => asset('images/airlines/batik-air.svg'),
-            'Super Air Jet' => asset('images/airlines/super-air-jet.svg'),
-            'AirAsia' => asset('images/airlines/airasia.svg'),
-            'Sriwijaya Air' => asset('images/airlines/sriwijaya-air.png'),
+            'Batik Air' => asset('images/airlines/batik-air.png'),
+            'Super Air Jet' => asset('images/airlines/super-air-jet.png'),
+            'Sriwijaya Air' => asset('images/airlines/sriwijaya-air.jpg'),
             'Citilink' => asset('images/airlines/citilink.svg'),
-            'Wings Air' => asset('images/airlines/wings-air.svg'),
+            'Wings Air' => asset('images/airlines/wings-air.png'),
             'Smart Aviation' => asset('images/airlines/smart-aviation.png'),
         ];
 

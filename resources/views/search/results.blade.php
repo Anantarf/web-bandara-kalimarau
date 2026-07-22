@@ -32,8 +32,11 @@
     </div>
 
     <!-- Results Area -->
-    <div class="py-16 lg:py-24 bg-surface min-h-[50vh]">
-        <div class="max-w-4xl mx-auto px-4">
+    <div class="py-16 lg:py-24 bg-surface min-h-[50vh]" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
+        <div class="max-w-4xl mx-auto px-4"
+             x-show="loaded" x-transition:enter="transition-all ease-out duration-700"
+             x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0"
+             style="display: none;">
             
             @if(empty($keyword))
                 <!-- Initial Empty State -->

@@ -33,7 +33,12 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('images/logo-blu.png') }}">
 
-    <!-- Scripts and Styles (fonts + Alpine.js bundled via app.css/app.js) -->
+    <!-- Fonts: preconnect + non-blocking stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+
+    <!-- Scripts and Styles (Alpine.js bundled via app.css/app.js) -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased text-text-main bg-surface flex flex-col min-h-screen overflow-x-hidden">

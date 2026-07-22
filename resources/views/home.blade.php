@@ -8,53 +8,30 @@
     <!-- Section 1: Hero -->
     <section x-data="{ activeIndex: 0, images: {{ json_encode($heroImages) }}, show: false, reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches }"
              x-init="setTimeout(() => { show = true }, 150); if (! reducedMotion && images.length > 1) { const rotation = setInterval(() => { activeIndex = (activeIndex + 1) % images.length }, 5000); return () => clearInterval(rotation); }"
-             class="relative w-full overflow-hidden bg-navy-dark h-[100dvh] min-h-[600px] flex flex-col justify-center">
+             class="relative w-full overflow-hidden bg-navy-dark h-screen h-[100dvh] min-h-[600px] flex flex-col justify-center">
         
         <template x-for="(image, index) in images" :key="index">
             <img :src="image" alt="Bandara Kalimarau" :loading="index === 0 ? 'eager' : 'lazy'"
                  class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out" 
-                 :class="activeIndex === index ? 'opacity-50' : 'opacity-0'">
+                 :class="activeIndex === index ? 'opacity-100' : 'opacity-0'">
         </template>
 
-        <div class="absolute inset-0 bg-gradient-to-r from-navy-dark/95 via-navy-dark/70 to-transparent pointer-events-none"></div>
+        <div class="absolute inset-0 bg-navy-dark/25 mix-blend-multiply"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-navy-dark/85 via-navy-dark/20 to-navy-dark/80"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-navy-dark/20 via-transparent to-navy-dark/20"></div>
 
         <div class="relative max-w-7xl mx-auto px-4 w-full h-full flex flex-col items-center justify-center pt-24">
             <div class="text-center w-full flex-1 flex flex-col justify-center items-center mt-16">
-                <h2 x-show="show" x-transition:enter="transition-all ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0 translate-y-8 tracking-widest" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;" class="font-sans text-white/90 text-2xl sm:text-3xl lg:text-4xl font-light uppercase tracking-[0.2em] mb-6">Bandar Udara</h2>
+                <h2 x-show="show" x-transition:enter="transition-all ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0 translate-y-8 tracking-widest" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;" class="font-sans text-white text-2xl sm:text-3xl lg:text-4xl font-semibold uppercase tracking-[0.16em] mb-6">Bandar Udara</h2>
                 <h1 x-show="show" x-transition:enter="transition-all ease-out duration-1000 delay-300" x-transition:enter-start="opacity-0 scale-90 translate-y-12 blur-sm" x-transition:enter-end="opacity-100 scale-100 translate-y-0 blur-none" style="display: none;" class="font-sans text-white text-5xl sm:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-none drop-shadow-lg mb-10">Kalimarau</h1>
 
                 <!-- Weather Widget -->
-                <div x-data="{ 
-                        temp: '...', 
-                        desc: 'Memuat cuaca...',
-                        icon: 'cloud',
-                        async fetchWeather() {
-                            try {
-                                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=2.152&longitude=117.491&current_weather=true');
-                                const data = await res.json();
-                                const current = data.current_weather;
-                                this.temp = Math.round(current.temperature) + '°C';
-                                
-                                const code = current.weathercode;
-                                if (code <= 1) { this.desc = 'Cerah'; this.icon = 'sun'; }
-                                else if (code <= 3) { this.desc = 'Berawan'; this.icon = 'cloud'; }
-                                else if (code <= 48) { this.desc = 'Kabut'; this.icon = 'cloud'; }
-                                else if (code <= 57) { this.desc = 'Gerimis'; this.icon = 'rain'; }
-                                else if (code <= 82) { this.desc = 'Hujan'; this.icon = 'rain'; }
-                                else { this.desc = 'Badai Petir'; this.icon = 'lightning'; }
-                            } catch (e) {
-                                this.temp = '28°C';
-                                this.desc = 'Cerah';
-                                this.icon = 'sun';
-                            }
-                        }
-                    }" 
-                    x-init="fetchWeather()"
+                <div x-data="weatherWidget" x-init="fetchWeather()"
                     x-show="show" x-transition:enter="transition-all ease-out duration-1000 delay-500" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;" class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-2.5 shadow-lg">
                     
                     <svg x-show="icon === 'cloud'" style="display: none;" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
                     <svg x-show="icon === 'sun'" style="display: none;" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.485-7.071l-1.414 1.414M6.929 17.657l-1.414 1.414M17.657 17.657l-1.414-1.414M6.929 6.929L5.515 5.515M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
-                    <svg x-show="icon === 'rain'" style="display: none;" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v2m-4-2v2m8-2v2m-4-6h.01M19 10a7 7 0 10-14 0 7 7 0 0014 0z"></path></svg>
+                    <svg x-show="icon === 'rain'" style="display: none;" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 18.5v1M12 18.5v1M17 18.5v1M6.5 15.5h10a4.5 4.5 0 10-.28-8.99 5.5 5.5 0 00-10.57 1.68A3.75 3.75 0 006.5 15.5z"></path></svg>
                     <svg x-show="icon === 'lightning'" style="display: none;" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     
                     <span class="text-white font-medium text-sm sm:text-base" x-text="temp === '...' ? 'Memuat cuaca...' : `${temp}, ${desc} di Berau`">Memuat...</span>
@@ -75,11 +52,7 @@
             </div>
 
             <!-- Social Media Buttons -->
-            <div x-show="show" x-transition:enter="transition-all ease-out duration-1000 delay-[900ms]" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;" class="flex flex-nowrap justify-start sm:justify-center items-center gap-2.5 sm:gap-3 mb-8 sm:mb-12 w-[90%] max-w-4xl overflow-x-auto pb-2" style="scrollbar-width: none; -ms-overflow-style: none;">
-                <style>
-                    /* Hide scrollbar for Chrome, Safari and Opera */
-                    .overflow-x-auto::-webkit-scrollbar { display: none; }
-                </style>
+            <div x-show="show" x-transition:enter="transition-all ease-out duration-1000 delay-[900ms]" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;" class="flex flex-nowrap justify-start sm:justify-center items-center gap-2.5 sm:gap-3 mb-8 sm:mb-12 w-[90%] max-w-4xl overflow-x-auto scrollbar-hide pb-2">
                 <a href="https://instagram.com/bandarakalimarau" target="_blank" rel="noopener noreferrer" class="shrink-0 flex items-center gap-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white px-3 py-1.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
                     <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                     <span class="text-[11px] sm:text-xs font-medium tracking-wide">@bandarakalimarau</span>
@@ -101,27 +74,27 @@
     </section>
 
     <!-- Section: Sambutan -->
-    <section class="bg-surface py-16 lg:py-20 relative z-0">
+    <section class="bg-surface py-12 lg:py-14 relative z-0">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid lg:grid-cols-[minmax(0,1fr)_320px] gap-10 lg:gap-16 items-start scroll-animate opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out">
-                <div class="max-w-5xl">
-                    <h2 class="font-sans text-lg md:text-xl font-bold text-navy uppercase tracking-wide mb-6">Sambutan dari Kepala Bandar Udara</h2>
+            <div class="grid lg:grid-cols-[minmax(0,70ch)_300px] gap-8 lg:gap-12 items-start scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out">
+                <div>
+                    <h2 class="font-sans text-lg md:text-xl font-bold text-navy uppercase tracking-wide mb-5">Sambutan dari Kepala Bandar Udara</h2>
 
-                    <div class="space-y-7 text-text-muted">
+                    <div class="space-y-5 text-text-muted">
                         @foreach($sambutan['teks'] as $paragraph)
-                            <p class="font-sans italic text-lg md:text-xl leading-loose">"{{ $paragraph }}"</p>
+                            <p class="font-sans italic text-lg md:text-[1.15rem] leading-[1.75] text-pretty">"{{ $paragraph }}"</p>
                         @endforeach
                     </div>
 
-                    <div class="mt-10">
-                        <h3 class="font-sans text-xl md:text-2xl font-extrabold text-navy leading-snug">{{ $sambutan['nama'] }}</h3>
-                        <p class="text-text-muted text-base md:text-lg mt-1">{{ $sambutan['jabatan'] }}</p>
-                    </div>
                 </div>
 
-                <div class="w-full max-w-xs lg:max-w-none mx-auto lg:mx-0">
-                    <div class="aspect-[4/5] rounded-xl overflow-hidden bg-white shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
-                        <img src="{{ $sambutan['foto'] }}" alt="{{ $sambutan['nama'] }}" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                <div class="w-full max-w-[280px] lg:max-w-none mx-auto lg:mx-0">
+                    <div class="aspect-[4/5] rounded-xl overflow-hidden bg-white shadow-[0_22px_44px_-18px_rgba(12,45,107,0.22)]">
+                        <img src="{{ $sambutan['foto'] }}" alt="{{ $sambutan['nama'] }}" loading="lazy" decoding="async" class="w-full h-full object-cover object-[50%_18%]">
+                    </div>
+                    <div class="mt-2.5 text-center lg:text-left">
+                        <h3 class="font-sans text-base md:text-[1.02rem] font-extrabold text-navy leading-snug">{{ $sambutan['nama'] }}</h3>
+                        <p class="text-text-muted text-sm md:text-[0.88rem] leading-snug mt-1 lg:whitespace-nowrap">{{ $sambutan['jabatan'] }}</p>
                     </div>
                 </div>
             </div>
@@ -131,7 +104,7 @@
     <!-- Section: Aktivitas -->
     @if($airportStat)
     <section class="bg-white py-16 lg:py-24">
-        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out">
+        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out">
             <div class="text-center mb-12">
                 <h2 class="font-sans text-3xl font-extrabold tracking-tight text-navy mb-2">Aktivitas Bandara</h2>
                 <p class="text-text-muted text-base mt-2">Statistik pergerakan periode {{ $airportStat->period_name }}</p>
@@ -168,7 +141,7 @@
         $flightLogos = collect($mitra)->pluck('logo', 'nama')->toArray();
     @endphp
     <section class="bg-navy-dark py-16 lg:py-24 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-100"
+        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out delay-100"
              x-data="{
                 tab: 'kedatangan',
                 flights: {{ \Illuminate\Support\Js::from($flightSchedules->map(function ($f) use ($flightLogos) {
@@ -197,11 +170,11 @@
             <div class="flex justify-center mb-10">
                 <div class="inline-flex rounded-full p-1 bg-white/5 border border-white/10 shadow-inner">
                     <button type="button" @click="tab = 'kedatangan'" :class="tab === 'kedatangan' ? 'bg-gold text-navy-dark shadow-md' : 'text-white/70 hover:text-white'" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
-                        <svg class="w-4 h-4 transform rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        <x-icon-arrow class="w-4 h-4 transform rotate-45" />
                         Kedatangan
                     </button>
                     <button type="button" @click="tab = 'keberangkatan'" :class="tab === 'keberangkatan' ? 'bg-gold text-navy-dark shadow-md' : 'text-white/70 hover:text-white'" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
-                        <svg class="w-4 h-4 transform -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        <x-icon-arrow class="w-4 h-4 transform -rotate-45" />
                         Keberangkatan
                     </button>
                 </div>
@@ -271,7 +244,7 @@
 
     <!-- Section 5: Fasilitas Bandara -->
     <section id="fasilitas" class="py-16 lg:py-24 bg-surface">
-        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-100">
+        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out delay-100">
             <div class="flex flex-col sm:flex-row items-end justify-between mb-8 gap-4">
                 <div>
                     <h2 class="font-sans text-3xl font-extrabold tracking-tight text-navy">Fasilitas Bandara</h2>
@@ -301,14 +274,14 @@
             <div class="text-center mt-12">
                 <a href="{{ route('pages.show', 'fasilitas-bandara') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-gold text-gold hover:bg-gold hover:text-navy font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
                     Lihat Semua Fasilitas
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <x-icon-arrow class="w-4 h-4" />
                 </a>
             </div>
         </div>
     </section>
     <!-- Section: FAQ -->
     <section class="py-16 lg:py-24 bg-gray-50 border-t border-gray-100">
-        <div class="max-w-4xl mx-auto px-4 scroll-animate opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-100">
+        <div class="max-w-4xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out delay-100">
             <div class="text-center mb-16">
                 <h2 class="font-sans text-3xl md:text-4xl font-extrabold tracking-tight text-navy-dark mb-4">Pertanyaan Seputar Bandara</h2>
                 <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
@@ -365,7 +338,7 @@
             <div class="flex flex-col sm:flex-row justify-center gap-4 mt-12">
                 <a href="{{ route('faq') }}" class="inline-flex justify-center items-center gap-3 px-8 py-3.5 bg-white text-navy border-2 border-navy rounded-full shadow-md hover:bg-navy hover:text-white hover:-translate-y-0.5 transition-all duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
                     <span class="text-sm font-semibold tracking-wide">Lihat Semua FAQ</span>
-                    <svg class="w-4 h-4 text-navy group-hover:text-gold-light group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <x-icon-arrow class="w-4 h-4 text-navy group-hover:text-gold-light group-hover:translate-x-1 transition-all" />
                 </a>
                 <a href="{{ route('contact.index') }}" class="inline-flex justify-center items-center gap-3 px-8 py-3.5 bg-navy text-white rounded-full shadow-lg shadow-navy/20 hover:bg-navy-dark hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
                     <span class="text-sm font-semibold tracking-wide">Punya pertanyaan lain? Hubungi Kami</span>
@@ -401,7 +374,7 @@
 
     <!-- Section: Berita Terkini -->
     <section class="py-16 lg:py-24 bg-navy-dark">
-        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-100">
+        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out delay-100">
             <div class="text-center mb-12">
                 <h2 class="font-sans text-3xl font-extrabold tracking-tight text-white mb-2">Kabar Terbaru dari Gerbang Udara Anda</h2>
                 <p class="text-white/70 text-base mt-2 max-w-2xl mx-auto">Ikuti terus informasi, acara, dan pengembangan terbaru langsung dari Bandar Udara Kalimarau.</p>

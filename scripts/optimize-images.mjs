@@ -1,22 +1,22 @@
 // One-off image optimizer for existing uploaded/static photos that were
 // never compressed before deploy (see chat: images taking a long time to
 // render on the live host). Not part of the build — run manually with
-// `node scripts/optimize-images.mjs` after adding new large source photos.
+// `npm run optimize:images` after adding new large source photos.
 import sharp from 'sharp';
 import { statSync } from 'fs';
 
 const jobs = [
     // Photos stored as PNG (lossless, wasteful for photography) -> JPEG.
-    { in: 'public/images/hero/hero1.png', out: 'public/images/hero/hero1.jpg', width: 1920, quality: 82 },
-    { in: 'public/images/profil/Profile-bandara 1.png', out: 'public/images/profil/Profile-bandara 1.jpg', width: 1400, quality: 82 },
-    { in: 'public/images/profil/Profile-bandara 2.png', out: 'public/images/profil/Profile-bandara 2.jpg', width: 1400, quality: 82 },
-    { in: 'public/images/profil/Profile-bandara 3.png', out: 'public/images/profil/Profile-bandara 3.jpg', width: 1400, quality: 82 },
-    { in: 'public/images/profil/Profile-bandara 4.png', out: 'public/images/profil/Profile-bandara 4.jpg', width: 1400, quality: 82 },
-    { in: 'public/images/profil/Profile-bandara 5.jpg', out: 'public/images/profil/Profile-bandara 5.jpg', width: 1400, quality: 82 },
+    { in: 'public/images/hero/hero1.png', out: 'public/images/hero/hero1.jpg', width: 1920, quality: 90 },
+    { in: 'public/images/profil/Profile-bandara 1.png', out: 'public/images/profil/Profile-bandara 1.jpg', width: 1400, quality: 90 },
+    { in: 'public/images/profil/Profile-bandara 2.png', out: 'public/images/profil/Profile-bandara 2.jpg', width: 1400, quality: 90 },
+    { in: 'public/images/profil/Profile-bandara 3.png', out: 'public/images/profil/Profile-bandara 3.jpg', width: 1400, quality: 90 },
+    { in: 'public/images/profil/Profile-bandara 4.png', out: 'public/images/profil/Profile-bandara 4.jpg', width: 1400, quality: 90 },
+    { in: 'public/images/profil/Profile-bandara 5.jpg', out: 'public/images/profil/Profile-bandara 5.jpg', width: 1400, quality: 90 },
 
     // Already JPEG but shot at full camera resolution for a ~672px-wide slot.
-    { in: 'public/images/ppid/ppid-1.jpg', out: 'public/images/ppid/ppid-1.jpg', width: 1400, quality: 82 },
-    { in: 'public/images/ppid/ppid-3.jpg', out: 'public/images/ppid/ppid-3.jpg', width: 1400, quality: 82 },
+    { in: 'public/images/ppid/ppid-1.jpg', out: 'public/images/ppid/ppid-1.jpg', width: 1400, quality: 90 },
+    { in: 'public/images/ppid/ppid-3.jpg', out: 'public/images/ppid/ppid-3.jpg', width: 1400, quality: 90 },
 
     // Logo displayed at ~28-56px tall but exported at 3375x3375.
     { in: 'public/images/ppid/logo-ppid.png', out: 'public/images/ppid/logo-ppid.png', width: 400, png: true },
@@ -32,7 +32,7 @@ const facilityFiles = [
 ];
 for (const name of facilityFiles) {
     const path = `storage/app/public/facilities/${name}`;
-    jobs.push({ in: path, out: path, width: 1000, quality: 80 });
+    jobs.push({ in: path, out: path, width: 1000, quality: 88 });
 }
 
 let totalBefore = 0;

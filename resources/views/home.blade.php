@@ -3,6 +3,7 @@
     description="Website resmi Bandara Kalimarau untuk informasi penerbangan, berita, layanan publik, PPID, kontak, dan pengaduan."
     :canonical="route('home')"
     :image="$heroImages[0]"
+    :preloadImage="$heroImages[0]"
     :withHeaderPadding="false"
 >
     <!-- Section 1: Hero -->
@@ -10,10 +11,14 @@
              x-init="setTimeout(() => { show = true }, 150); if (! reducedMotion && images.length > 1) { const rotation = setInterval(() => { activeIndex = (activeIndex + 1) % images.length }, 5000); return () => clearInterval(rotation); }"
              class="relative w-full overflow-hidden bg-navy-dark h-screen h-[100dvh] min-h-[600px] flex flex-col justify-center">
         
-        <template x-for="(image, index) in images" :key="index">
-            <img :src="image" alt="Bandara Kalimarau" :loading="index === 0 ? 'eager' : 'lazy'"
-                 class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out" 
-                 :class="activeIndex === index ? 'opacity-100' : 'opacity-0'">
+        <img src="{{ $heroImages[0] }}" alt="Bandara Kalimarau" loading="eager" fetchpriority="high" decoding="async"
+             class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+             :class="activeIndex === 0 ? 'opacity-100' : 'opacity-0'">
+
+        <template x-for="(image, index) in images.slice(1)" :key="image">
+            <img :src="image" alt="Bandara Kalimarau" loading="lazy" decoding="async"
+                 class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+                 :class="activeIndex === index + 1 ? 'opacity-100' : 'opacity-0'">
         </template>
 
         <div class="absolute inset-0 bg-navy-dark/25 mix-blend-multiply"></div>

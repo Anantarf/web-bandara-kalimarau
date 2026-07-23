@@ -6,6 +6,7 @@
     'type' => 'website',
     'robots' => null,
     'withHeaderPadding' => true,
+    'preloadImage' => null,
 ])
 
 <!DOCTYPE html>
@@ -18,6 +19,9 @@
     <title>{{ $title }}</title>
     <meta name="description" content="{{ $description }}">
     <link rel="canonical" href="{{ $canonical }}">
+    @if($preloadImage)
+        <link rel="preload" as="image" href="{{ $preloadImage }}" fetchpriority="high">
+    @endif
 
     <meta property="og:type" content="{{ $type }}">
     <meta property="og:title" content="{{ $title }}">

@@ -24,7 +24,7 @@ class HomeController extends Controller
      * Media), stock photography is the safe choice here.
      */
     protected const HERO_IMAGES = [
-        'images/hero/hero1.png',
+        'images/hero/hero1.jpg',
     ];
 
     protected const SAMBUTAN = [

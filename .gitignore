@@ -13,6 +13,7 @@
 .env
 .env.backup
 .env.production
+.env.cpanel-notes
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -33,3 +34,7 @@ _ide_helper_models.php
 /logo maskapai
 /output
 *.DNG
+
+# Local deployment build output (zip archives for manual cPanel upload).
+/deploy-artifacts
+*.zip

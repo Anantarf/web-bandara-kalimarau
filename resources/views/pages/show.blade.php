@@ -50,10 +50,10 @@
                 @if($page->slug === 'profil-bandara-kalimarau')
                     @php
                         $profilImages = [
-                            asset('images/profil/Profile-bandara 1.png'),
-                            asset('images/profil/Profile-bandara 2.png'),
-                            asset('images/profil/Profile-bandara 3.png'),
-                            asset('images/profil/Profile-bandara 4.png'),
+                            asset('images/profil/Profile-bandara 1.jpg'),
+                            asset('images/profil/Profile-bandara 2.jpg'),
+                            asset('images/profil/Profile-bandara 3.jpg'),
+                            asset('images/profil/Profile-bandara 4.jpg'),
                             asset('images/profil/Profile-bandara 5.jpg'),
                         ];
                     @endphp

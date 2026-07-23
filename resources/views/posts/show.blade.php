@@ -20,6 +20,29 @@
         </div>
     </div>
 
+    <script type="application/ld+json">{!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'Article',
+        'headline' => $post->title,
+        'description' => $post->seo_description ?: $post->excerpt,
+        'image' => $post->featured_image_url ?? asset('images/logo-header.png'),
+        'datePublished' => $post->published_at?->toIso8601String(),
+        'dateModified' => $post->updated_at->toIso8601String(),
+        'author' => [
+            '@type' => 'Organization',
+            'name' => $post->author->name ?? 'Admin Kalimarau',
+        ],
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => 'Bandara Kalimarau',
+            'logo' => [
+                '@type' => 'ImageObject',
+                'url' => asset('images/logo-blu.png'),
+            ],
+        ],
+        'mainEntityOfPage' => route('posts.show', $post->slug),
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+
     <article class="pt-12 pb-24 bg-white" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl transition-all duration-1000 ease-out transform"
              :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">

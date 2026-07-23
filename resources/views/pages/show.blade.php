@@ -252,9 +252,9 @@
                                     <div x-show="!loaded" class="absolute inset-0 flex items-center justify-center">
                                         <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gold border-t-transparent"></div>
                                     </div>
-                                    <iframe src="https://docs.google.com/viewer?url=https://kalimarau-airport.com/wp-content/uploads/2024/09/Standar-Pelayanan-2023.pdf&embedded=true" @load="loaded = true" class="absolute inset-0 w-full h-full border-0 relative z-10" allowfullscreen></iframe>
+                                    <iframe src="https://docs.google.com/viewer?url={{ urlencode(asset('storage/media/legacy/2024/09/Standar-Pelayanan-2023.pdf')) }}&embedded=true" @load="loaded = true" class="absolute inset-0 w-full h-full border-0 relative z-10" allowfullscreen></iframe>
                                 </div>
-                                <a href="https://kalimarau-airport.com/wp-content/uploads/2024/09/Standar-Pelayanan-2023.pdf" target="_blank" rel="noopener" class="inline-flex items-center gap-1 mt-3 text-sm text-navy hover:text-gold-dark font-medium">
+                                <a href="{{ asset('storage/media/legacy/2024/09/Standar-Pelayanan-2023.pdf') }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 mt-3 text-sm text-navy hover:text-gold-dark font-medium">
                                     Dokumen tidak tampil? Buka di tab baru
                                 </a>
                             </div>

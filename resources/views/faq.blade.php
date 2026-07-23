@@ -129,7 +129,23 @@
                     </div>
                 @endforeach
             </div>
-            
+
+            @php
+                $faqJsonLd = [
+                    '@context' => 'https://schema.org',
+                    '@type' => 'FAQPage',
+                    'mainEntity' => collect($faqsCategory1)->concat($faqsCategory2)->map(fn ($faq) => [
+                        '@type' => 'Question',
+                        'name' => $faq['q'],
+                        'acceptedAnswer' => [
+                            '@type' => 'Answer',
+                            'text' => $faq['a'],
+                        ],
+                    ])->all(),
+                ];
+            @endphp
+            <script type="application/ld+json">{!! json_encode($faqJsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+
             <!-- CTA Section -->
             <div class="mt-16 text-center bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
                 <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-sky">

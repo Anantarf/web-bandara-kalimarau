@@ -1,5 +1,20 @@
 @props(['items'])
 
+@php
+    $jsonLd = [
+        '@context' => 'https://schema.org',
+        '@type' => 'BreadcrumbList',
+        'itemListElement' => collect($items)->values()->map(fn ($item, $index) => [
+            '@type' => 'ListItem',
+            'position' => $index + 1,
+            'name' => $item['label'],
+            'item' => $item['url'] ?? url()->current(),
+        ])->all(),
+    ];
+@endphp
+
+<script type="application/ld+json">{!! json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+
 <nav class="text-sm" aria-label="Breadcrumb">
     <ol class="list-none p-0 inline-flex flex-wrap">
         @foreach($items as $item)

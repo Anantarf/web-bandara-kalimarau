@@ -3,6 +3,7 @@
     description="Cari informasi, berita, dan halaman layanan Bandara Kalimarau."
     :canonical="route('search')"
     :withHeaderPadding="true"
+    robots="noindex, follow"
 >
     <!-- Search Header -->
     <div class="relative bg-navy-dark pt-20 pb-16 lg:pt-28 lg:pb-24 overflow-hidden border-b border-white/10">

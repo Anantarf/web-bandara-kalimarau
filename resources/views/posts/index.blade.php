@@ -1,7 +1,7 @@
 <x-layouts.public
     title="Berita - Bandara Kalimarau"
     description="Informasi dan pengumuman terbaru dari Bandara Kalimarau."
-    :canonical="route('posts.index')"
+    :canonical="url()->full()"
 >
     <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
         <div class="container mx-auto px-4 max-w-7xl">

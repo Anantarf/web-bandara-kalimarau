@@ -30,6 +30,22 @@
         <meta name="robots" content="{{ $robots }}">
     @endif
 
+    <script type="application/ld+json">{!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'GovernmentOrganization',
+        'name' => 'Bandara Kalimarau',
+        'alternateName' => 'UPBU Kelas I Kalimarau',
+        'url' => url('/'),
+        'logo' => asset('images/logo-blu.png'),
+        'address' => [
+            '@type' => 'PostalAddress',
+            'addressLocality' => 'Teluk Bayur',
+            'addressRegion' => 'Kabupaten Berau, Kalimantan Timur',
+            'postalCode' => '77315',
+            'addressCountry' => 'ID',
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('images/logo-blu.png') }}">
 

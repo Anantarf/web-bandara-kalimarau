@@ -9,18 +9,21 @@
    | --- | --- | --- |
    | `APP_ENV` | `local` | `production` |
    | `APP_DEBUG` | `true` | `false` ⚠️ paling kritis — kalau lupa, stack trace error bisa kebaca publik |
-   | `APP_URL` | `http://127.0.0.1:8000` | domain asli, HTTPS |
+   | `APP_URL` | `http://127.0.0.1:8000` | `https://bandara-kalimarau.com` |
    | `APP_KEY` | punya lokal | generate baru (`php artisan key:generate`) |
    | `LOG_CHANNEL` | `stack` | `daily` |
    | `SESSION_ENCRYPT` / `SESSION_SECURE_COOKIE` | `false` | `true` |
    | `MAIL_MAILER` | `log` | mailer asli kalau perlu kirim email |
    | `SENTRY_LARAVEL_DSN` | kosong | isi (daftar gratis di sentry.io) — opsional tapi disarankan |
 
+   | `SEED_ADMIN_PASSWORD` | kosong/dev | password awal admin yang kuat, hanya saat seed pertama |
+
 3. **Jalankan di server setelah upload** (urutan penting):
 
    ```bash
    composer install --no-dev --optimize-autoloader
    php artisan migrate --force
+   php artisan db:seed --force
    php artisan storage:link
    php artisan config:cache
    php artisan route:cache
@@ -36,11 +39,12 @@ Detail lengkap tiap poin ada di bagian-bagian di bawah ini.
 
 ## Production environment
 
-- Set `APP_ENV=production`, `APP_DEBUG=false`, and the HTTPS production `APP_URL`.
+- Set `APP_ENV=production`, `APP_DEBUG=false`, and `APP_URL=https://bandara-kalimarau.com`.
 - Set `SESSION_ENCRYPT=true`, `SESSION_SECURE_COOKIE=true`, `SESSION_HTTP_ONLY=true`, and `SESSION_SAME_SITE=lax`.
 - Set `LOG_CHANNEL=daily` (the default `single` channel never rotates and will grow unbounded on a long-running server). `LOG_DAILY_DAYS` defaults to 14, adjust if needed.
 - Set `SENTRY_LARAVEL_DSN` (create a free project at sentry.io) so production errors are actually reported somewhere instead of only sitting in a log file nobody watches. `sentry/sentry-laravel` is already installed and wired in `bootstrap/app.php`; it stays inert until this DSN is set.
 - Generate a unique `APP_KEY`; do not copy `.env` from local development.
+- Set `SEED_ADMIN_EMAIL`, `SEED_ADMIN_USERNAME`, `SEED_ADMIN_NAME`, and a strong `SEED_ADMIN_PASSWORD` before running `php artisan db:seed --force`. Production seeding intentionally fails if `SEED_ADMIN_PASSWORD` is empty.
 - Keep `.env`, SQL dumps, `backups/`, and `_quarantine*/` outside the deploy artifact.
 
 ## Server permissions
@@ -93,6 +97,7 @@ Use credentials from the production environment only in the terminal session, no
 
 ```bash
 php artisan migrate --force
+php artisan db:seed --force
 php artisan storage:link
 php artisan config:cache
 php artisan route:cache

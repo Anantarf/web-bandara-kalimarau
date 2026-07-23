@@ -26,6 +26,23 @@ class SeoAndRedirectTest extends TestCase
 
         $response = $this->get(route('posts.show', $post->slug));
 
+        $jsonLdBlocks = [];
+        preg_match_all('#<script type="application/ld\+json">(.*?)</script>#s', $response->getContent(), $matches);
+        foreach ($matches[1] as $json) {
+            $jsonLdBlocks[] = json_decode($json, true);
+        }
+        $this->assertNotEmpty($jsonLdBlocks, 'Expected at least one JSON-LD block on the post page.');
+        foreach ($jsonLdBlocks as $block) {
+            $this->assertNotNull($block, 'Each JSON-LD block must be valid JSON.');
+        }
+        $articleBlock = collect($jsonLdBlocks)->firstWhere('@type', 'Article');
+        $this->assertNotNull($articleBlock, 'Expected an Article JSON-LD block.');
+        $this->assertSame($post->title, $articleBlock['headline']);
+
+        $breadcrumbBlock = collect($jsonLdBlocks)->firstWhere('@type', 'BreadcrumbList');
+        $this->assertNotNull($breadcrumbBlock, 'Expected a BreadcrumbList JSON-LD block.');
+        $this->assertSame($post->title, end($breadcrumbBlock['itemListElement'])['name']);
+
         $response->assertOk()
             ->assertSee('<title>Judul SEO Berita Uji - Bandara Kalimarau</title>', false)
             ->assertSee('<link rel="canonical" href="'.route('posts.show', $post->slug).'">', false)
@@ -71,5 +88,34 @@ class SeoAndRedirectTest extends TestCase
             ->assertStatus(301);
 
         $this->get(route('posts.index'))->assertOk();
+    }
+
+    public function test_faq_page_has_valid_faqpage_json_ld(): void
+    {
+        $response = $this->get(route('faq'));
+
+        preg_match_all('#<script type="application/ld\+json">(.*?)</script>#s', $response->getContent(), $matches);
+        $faqBlock = collect($matches[1])
+            ->map(fn ($json) => json_decode($json, true))
+            ->firstWhere('@type', 'FAQPage');
+
+        $this->assertNotNull($faqBlock, 'Expected a FAQPage JSON-LD block on the FAQ page.');
+        $this->assertNotEmpty($faqBlock['mainEntity']);
+        $this->assertArrayHasKey('name', $faqBlock['mainEntity'][0]);
+        $this->assertArrayHasKey('text', $faqBlock['mainEntity'][0]['acceptedAnswer']);
+    }
+
+    public function test_search_results_page_is_noindexed(): void
+    {
+        $this->get(route('search'))
+            ->assertOk()
+            ->assertSee('<meta name="robots" content="noindex, follow">', false);
+    }
+
+    public function test_posts_index_canonical_reflects_current_pagination_page(): void
+    {
+        $this->get(route('posts.index', ['page' => 2]))
+            ->assertOk()
+            ->assertSee('<link rel="canonical" href="'.route('posts.index', ['page' => 2]).'">', false);
     }
 }

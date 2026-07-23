@@ -27,7 +27,7 @@
         'description' => $post->seo_description ?: $post->excerpt,
         'image' => $post->featured_image_url ?? asset('images/logo-header.png'),
         'datePublished' => $post->published_at?->toIso8601String(),
-        'dateModified' => $post->updated_at->toIso8601String(),
+        'dateModified' => $post->updated_at?->toIso8601String(),
         'author' => [
             '@type' => 'Organization',
             'name' => $post->author->name ?? 'Admin Kalimarau',

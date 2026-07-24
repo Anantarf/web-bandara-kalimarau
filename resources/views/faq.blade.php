@@ -77,13 +77,13 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-md"
                          x-show="searchQuery === '' || '{{ strtolower(addslashes($faq['q'] . ' ' . $faq['a'])) }}'.includes(searchQuery.toLowerCase())">
                         <button @click="activeAccordion = activeAccordion === 'cat1_{{ $index }}' ? null : 'cat1_{{ $index }}'" 
-                                class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none relative">
+                                class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-gold relative">
                             <div class="absolute left-0 top-0 bottom-0 w-1 bg-gold transition-transform duration-300 transform origin-left"
                                  :class="activeAccordion === 'cat1_{{ $index }}' ? 'scale-y-100' : 'scale-y-0'"></div>
                             <span class="font-bold text-navy-dark text-lg" :class="activeAccordion === 'cat1_{{ $index }}' ? 'text-gold' : ''">{{ $faq['q'] }}</span>
                             <span class="bg-gray-50 rounded-full p-2 transition-transform duration-300" 
                                   :class="activeAccordion === 'cat1_{{ $index }}' ? 'rotate-180 bg-gold/10 text-gold' : 'text-gray-400'">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </button>
                         <div x-show="activeAccordion === 'cat1_{{ $index }}'" x-collapse>
@@ -112,13 +112,13 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-md"
                          x-show="searchQuery === '' || '{{ strtolower(addslashes($faq['q'] . ' ' . $faq['a'])) }}'.includes(searchQuery.toLowerCase())">
                         <button @click="activeAccordion = activeAccordion === 'cat2_{{ $index }}' ? null : 'cat2_{{ $index }}'" 
-                                class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none relative">
+                                class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-gold relative">
                             <div class="absolute left-0 top-0 bottom-0 w-1 bg-gold transition-transform duration-300 transform origin-left"
                                  :class="activeAccordion === 'cat2_{{ $index }}' ? 'scale-y-100' : 'scale-y-0'"></div>
                             <span class="font-bold text-navy-dark text-lg" :class="activeAccordion === 'cat2_{{ $index }}' ? 'text-gold' : ''">{{ $faq['q'] }}</span>
                             <span class="bg-gray-50 rounded-full p-2 transition-transform duration-300" 
                                   :class="activeAccordion === 'cat2_{{ $index }}' ? 'rotate-180 bg-gold/10 text-gold' : 'text-gray-400'">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </button>
                         <div x-show="activeAccordion === 'cat2_{{ $index }}'" x-collapse>

@@ -266,7 +266,7 @@
                     <div class="group bg-white rounded-xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-500">
                         <a href="{{ route('pages.show', 'fasilitas-bandara') }}" class="block w-full h-full">
                             <div class="relative overflow-hidden bg-navy-dark aspect-[4/3]">
-                                <img src="{{ $item['img'] }}" alt="{{ $item['title'] }}" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out">
+                                <img src="{{ $item['img'] }}" alt="{{ $item['title'] }}" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </div>
                             <div class="p-5">
@@ -314,14 +314,14 @@
                         <div class="absolute left-0 top-0 bottom-0 w-1 bg-gold-light transition-transform duration-300 origin-top"
                              :class="active === {{ $index }} ? 'scale-y-100' : 'scale-y-0'"></div>
                              
-                        <button @click="active !== {{ $index }} ? active = {{ $index }} : active = null" class="w-full flex justify-between items-center p-5 md:p-6 text-left focus:outline-none rounded-2xl">
-                            <span class="font-sans font-bold text-navy-dark text-base md:text-lg pr-6 transition-colors duration-300" 
+                        <button @click="active !== {{ $index }} ? active = {{ $index }} : active = null" class="w-full flex justify-between items-center p-5 md:p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-2xl">
+                            <span class="font-sans font-bold text-navy-dark text-base md:text-lg pr-6 transition-colors duration-300"
                                   :class="active === {{ $index }} ? 'text-navy-dark' : 'group-hover:text-gold'">
                                 {{ $faq['q'] }}
                             </span>
-                            <span class="relative shrink-0 w-6 h-6 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)]" 
+                            <span class="relative shrink-0 w-6 h-6 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)]"
                                   :class="active === {{ $index }} ? 'rotate-180 text-gold' : 'text-gray-400 group-hover:text-gold'">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </button>
                         
@@ -423,8 +423,10 @@
                     </a>
                 </div>
             @else
-                <div class="bg-navy rounded-xl p-8 text-center border border-white/5">
-                    <p class="text-white/50">Belum ada berita yang dipublikasikan.</p>
+                <div class="bg-navy rounded-xl p-12 text-center border border-white/5">
+                    <svg class="w-16 h-16 text-white/20 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+                    <h3 class="text-xl font-semibold text-white mb-2">Belum Ada Berita</h3>
+                    <p class="text-white/50">Berita dan pengumuman akan tampil di sini setelah dipublikasikan.</p>
                 </div>
             @endif
         </div>

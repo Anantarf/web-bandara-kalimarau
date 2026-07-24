@@ -134,7 +134,7 @@
                                                 <p class="text-text-muted text-sm leading-relaxed line-clamp-2">{{ $doc->description }}</p>
                                             </div>
                                             <div class="w-10 h-10 rounded-full bg-surface shrink-0 flex items-center justify-center text-navy group-hover:bg-sky group-hover:text-white transition-colors">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                             </div>
                                         </div>
                                     </a>

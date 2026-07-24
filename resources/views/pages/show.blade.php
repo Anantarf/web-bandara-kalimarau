@@ -392,7 +392,7 @@
                                             <div class="relative w-full aspect-[3/4] bg-gray-50 flex items-center justify-center overflow-hidden border-b border-gray-100">
                                                 <img src="https://drive.google.com/thumbnail?id={{ $doc['id'] }}&sz=w800" 
                                                      alt="Cover Survei {{ $doc['title'] }}"
-                                                     class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                                                     class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                                                      onerror="this.onerror=null; this.src='https://placehold.co/600x800/f8fafc/94a3b8?text=Laporan+Survei'; this.className='w-full h-full object-cover opacity-50';"
                                                      loading="lazy">
                                                 

@@ -123,6 +123,9 @@
 
             <!-- Content Area with Table of Contents -->
             @php
+                $isMaklumatStandarBiaya = \Illuminate\Support\Str::contains($page->slug, 'maklumat-pelayanan')
+                    && \Illuminate\Support\Str::contains($page->title, 'Standar Biaya');
+
                 // Extract H2 and H3 headings for Table of Contents
                 preg_match_all('/<(h[23])[^>]*>(.*?)<\/\1>/i', $page->content, $matches);
                 $headings = [];
@@ -184,11 +187,45 @@
                 ">
                     @php
                         $customPages = ['tarif-kebandarudaraan', 'standar-pelayanan', 'survey-kepuasan-masyarakat-internal', 'simadu', 'sp4n-lapor', 'hasil-dan-tindak-lanjut'];
-                        $showToc = count($headings) > 1 && !in_array($page->slug, $customPages);
+                        $showToc = count($headings) > 1 && !in_array($page->slug, $customPages) && ! $isMaklumatStandarBiaya;
                     @endphp
                     <!-- Main Content -->
                     <div class="w-full @if($showToc) lg:w-3/4 @endif">
-                        @if($page->slug === 'tarif-kebandarudaraan')
+                        @if($isMaklumatStandarBiaya)
+                            @php
+                                preg_match('/href=["\']([^"\']+\.pdf[^"\']*)["\']/i', $page->content, $pdfMatch);
+                                $standardBiayaUrl = $pdfMatch[1] ?? asset('storage/media/legacy/2024/09/Standar-Pelayanan-2023.pdf');
+                            @endphp
+
+                            <div class="rounded-3xl border border-gray-100 bg-white p-5 shadow-xl shadow-navy-dark/5 md:p-8">
+                                <div class="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-stretch">
+                                    <figure class="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 shadow-sm">
+                                        <img src="{{ asset('storage/media/legacy/2023/01/maklumat-pelayanan-2023.jpg') }}"
+                                             alt="Maklumat Pelayanan Bandar Udara Kalimarau"
+                                             class="h-full min-h-[260px] w-full object-contain p-2 md:min-h-[340px]">
+                                    </figure>
+
+                                    <a href="{{ $standardBiayaUrl }}"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       class="group flex min-h-[260px] flex-col justify-between rounded-2xl border border-gray-100 bg-surface p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 hover:bg-white hover:shadow-lg md:p-8 lg:min-h-0">
+                                        <div>
+                                            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-white text-navy shadow-sm ring-1 ring-border-soft">
+                                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 21h10a2 2 0 002-2V9.5L13.5 4H7a2 2 0 00-2 2v13a2 2 0 002 2z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 4v6h6M8 15h8M8 18h5"/></svg>
+                                            </div>
+                                            <p class="mb-3 text-xs font-extrabold uppercase tracking-wider text-gold-dark">Dokumen PDF</p>
+                                            <h2 class="text-2xl font-extrabold leading-tight text-navy-dark md:text-3xl">Standar Biaya Layanan Informasi</h2>
+                                            <p class="mt-4 text-base leading-relaxed text-text-muted">Rincian biaya layanan informasi publik sebagai rujukan bagi pemohon informasi PPID.</p>
+                                        </div>
+
+                                        <span class="mt-8 inline-flex items-center gap-2 text-base font-bold text-navy transition-colors group-hover:text-gold-dark">
+                                            Buka dokumen
+                                            <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        @elseif($page->slug === 'tarif-kebandarudaraan')
                             <div x-data="{ activeTab: 'aero' }" class="w-full">
                                 <p class="text-gray-500 mb-8 text-lg leading-relaxed max-w-3xl">
                                     Informasi resmi mengenai rincian tarif pelayanan jasa kebandarudaraan, baik untuk layanan penerbangan (Aeronautika) maupun layanan penunjang non-penerbangan (Non Aeronautika) di UPBU Kelas I Kalimarau.
@@ -298,7 +335,7 @@
                                     </div>
                                     
                                     <!-- Image -->
-                                    <div class="w-48 mx-auto">
+                                    <div class="w-full max-w-[760px] mx-auto">
                                         <div class="rounded-2xl overflow-hidden shadow-lg border-4 border-white bg-white">
                                             <img src="{{ asset('storage/media/legacy/2022/11/4ba95402a5433595324bab5efc0ec308.png') }}" alt="Alur Tata Cara Pengaduan SIMADU" class="w-full h-auto block">
                                         </div>

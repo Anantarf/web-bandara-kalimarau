@@ -81,31 +81,38 @@
     <!-- Auto notification bubble -->
     <div x-show="showHint"
          x-transition:enter="transition ease-out duration-500"
-         x-transition:enter-start="opacity-0 translate-y-4 scale-90"
+         x-transition:enter-start="opacity-0 translate-y-6 scale-90"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-         x-transition:leave-end="opacity-0 translate-y-2 scale-95"
-         class="flex items-center gap-3 bg-white rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 py-2 pl-3 pr-2 cursor-pointer hover:-translate-y-1 transition-transform duration-300"
+         x-transition:leave-end="opacity-0 translate-y-4 scale-95"
+         class="relative flex items-center gap-3 bg-white rounded-2xl shadow-[0_12px_40px_-12px_rgba(12,45,107,0.3)] border border-gray-100 py-3 pl-4 pr-3 cursor-pointer hover:shadow-[0_16px_50px_-12px_rgba(12,45,107,0.4)] hover:-translate-y-1 transition-all duration-300 group"
          style="display: none;"
          @click="open = true; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')">
-        <div class="flex items-center justify-center bg-blue-50 w-8 h-8 rounded-full shrink-0">
-            <span class="text-base">👋</span>
+
+        <div class="flex items-center justify-center bg-gold-light/20 w-10 h-10 rounded-full shrink-0 group-hover:scale-110 transition-transform duration-300">
+            <span class="text-xl origin-bottom-right group-hover:animate-[wiggle_1s_ease-in-out_infinite]">👋</span>
         </div>
-        <span class="text-sm font-semibold text-navy pr-2">Halo! Butuh bantuan?</span>
-        <button @click.stop="showHint = false" aria-label="Tutup notifikasi" class="p-1.5 text-text-muted hover:text-navy hover:bg-surface rounded-full transition-colors ml-1">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        <div class="flex flex-col pr-2">
+            <span class="text-[15px] font-bold text-navy-dark leading-tight">Halo! Butuh bantuan?</span>
+            <span class="text-xs text-gray-500 mt-0.5">Tim kami siap membantu.</span>
+        </div>
+        <button @click.stop="showHint = false" aria-label="Tutup notifikasi" class="p-1.5 -mt-4 -mr-1 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
     </div>
 
     <!-- Toggle button -->
-    <button @click="open = !open; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')" :aria-label="open ? 'Tutup kontak' : 'Hubungi kami'" class="relative w-14 h-14 rounded-full bg-navy hover:bg-navy-dark text-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center">
+    <button @click="open = !open; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')" :aria-label="open ? 'Tutup kontak' : 'Hubungi kami'" class="relative w-14 h-14 rounded-full bg-navy hover:bg-navy-dark text-white shadow-[0_8px_30px_rgba(12,45,107,0.3)] hover:shadow-[0_12px_40px_rgba(12,45,107,0.5)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group overflow-hidden border-2 border-white/20">
+        <!-- Shine effect on hover -->
+        <div class="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
+        
         <!-- Notification Dot -->
-        <span x-show="hasUnread && !open" class="absolute top-0 right-0 flex h-3.5 w-3.5" style="display: none;">
+        <span x-show="hasUnread && !open" class="absolute top-0 right-0 flex h-3.5 w-3.5 translate-x-0.5 -translate-y-0.5" style="display: none;">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-white"></span>
         </span>
-        <svg x-show="!open" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6"><path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/></svg>
-        <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="w-6 h-6" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg x-show="!open" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110"><path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/></svg>
+        <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-90" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
 </div>

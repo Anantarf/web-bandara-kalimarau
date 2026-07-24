@@ -22,6 +22,7 @@ class PageController extends Controller
         'struktur-organisasi' => 'struktur-organisasi',
         'struktur-organisasi-pelaksana-upt' => 'struktur-organisasi-ppid-pelaksana-upt',
         'regulasi' => 'regulasi',
+        'maklumat-pelayanan-standar-biaya' => 'maklumat-pelayanan-dan-standar-biaya',
         'informasi-berkala' => 'informasi-berkala',
         'informasi-setiap-saat' => 'informasi-setiap-saat',
         'informasi-serta-merta' => 'informasi-serta-merta',

@@ -1,6 +1,6 @@
 @php
     $groups = [
-        'Tentang PPID' => ['profil', 'visi-misi', 'tugas-dan-fungsi', 'struktur-organisasi', 'struktur-organisasi-pelaksana-upt', 'regulasi'],
+        'Tentang PPID' => ['profil', 'visi-misi', 'tugas-dan-fungsi', 'struktur-organisasi', 'struktur-organisasi-pelaksana-upt', 'regulasi', 'maklumat-pelayanan-standar-biaya'],
         'Informasi Publik' => ['informasi-berkala', 'informasi-setiap-saat', 'informasi-serta-merta', 'formulir-pengajuan-informasi'],
         'Pelayanan' => ['prosedur-permohonan-informasi', 'prosedur-keberatan-informasi', 'prosedur-sengketa-informasi-publik'],
         'Kritik dan Saran' => ['kritik-saran'],
@@ -61,7 +61,7 @@
     <div class="py-10 bg-gray-50 min-h-[500px]" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
         <div class="container mx-auto px-4 max-w-7xl">
             <div class="flex flex-col lg:flex-row gap-6 relative" x-data="{ activeSection: '' }" @scroll.window="
-                let sections = document.querySelectorAll('h3[id]');
+                let sections = document.querySelectorAll('h2[id], h3[id], h4[id]');
                 let current = '';
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
@@ -99,8 +99,21 @@
 
                 <!-- Content Area -->
                 @php
+                    $pageContent = $page->content;
+                    $isMaklumatStandarBiaya = $currentSub === 'maklumat-pelayanan-standar-biaya'
+                        || (\Illuminate\Support\Str::contains($page->slug, 'maklumat-pelayanan')
+                            && \Illuminate\Support\Str::contains($page->title, 'Standar Biaya'));
+
+                    if ($currentSub === 'regulasi') {
+                        $pageContent = preg_replace(
+                            '/<div\\b[^>]*>.*?Draft.*?perlu ditinjau tim PPID.*?<\\/div>/isu',
+                            '',
+                            $pageContent
+                        );
+                    }
+
                     $headings = [];
-                    preg_match_all('/<(h[234])[^>]*>(.*?)<\/\1>/i', $page->content, $matches);
+                    preg_match_all('/<(h[234])[^>]*>(.*?)<\/\1>/i', $pageContent, $matches);
                     
                     if (!empty($matches[2])) {
                         foreach ($matches[2] as $index => $text) {
@@ -135,12 +148,29 @@
                         }
                         
                         return "<{$tag}{$attrs}>{$content}</{$tag}>";
-                    }, $page->content);
+                    }, $pageContent);
 
-                    $showToc = count($headings) > 0;
+                    $showToc = count($headings) > 0 && ! $isMaklumatStandarBiaya;
                 @endphp
 
                 <main class="w-full {{ $showToc ? 'lg:w-1/2' : 'lg:w-3/4' }}" x-show="loaded" x-transition:enter="transition-all ease-out duration-1000 delay-700" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
+                    @if($showToc)
+                        <div class="lg:hidden mb-4 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden" x-data="{ tocOpen: false }">
+                            <button type="button" @click="tocOpen = !tocOpen" :aria-expanded="tocOpen.toString()" class="w-full flex justify-between items-center px-5 py-4 font-bold text-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gold">
+                                Daftar Isi
+                                <svg class="w-4 h-4 text-gray-500 transition-transform" :class="{ 'rotate-180': tocOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <ul x-show="tocOpen" x-collapse class="space-y-1 px-5 pb-4 text-sm">
+                                @foreach($headings as $heading)
+                                    <li>
+                                        <a href="#{{ $heading['id'] }}" @click="tocOpen = false" class="block py-1.5 text-gray-600 hover:text-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">
+                                            {{ $heading['text'] }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
                         @if($currentSub)
                             <h2 class="subsection-title mb-6">{{ $page->title }}</h2>
@@ -173,7 +203,41 @@
                             </figure>
                         @endif
 
-                        @if(trim(strip_tags($page->content)) === '')
+                        @if($isMaklumatStandarBiaya)
+                            @php
+                                preg_match('/href=["\']([^"\']+\.pdf[^"\']*)["\']/i', $pageContent, $pdfMatch);
+                                $standardBiayaUrl = $pdfMatch[1] ?? asset('storage/media/legacy/2024/09/Standar-Pelayanan-2023.pdf');
+                            @endphp
+
+                            <div class="not-prose rounded-3xl border border-gray-100 bg-white p-5 shadow-xl shadow-navy-dark/5 md:p-8">
+                                <div class="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-stretch">
+                                    <figure class="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 shadow-sm">
+                                        <img src="{{ asset('storage/media/legacy/2023/01/maklumat-pelayanan-2023.jpg') }}"
+                                             alt="Maklumat Pelayanan Bandar Udara Kalimarau"
+                                             class="h-full min-h-[260px] w-full object-contain p-2 md:min-h-[340px]">
+                                    </figure>
+
+                                    <a href="{{ $standardBiayaUrl }}"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       class="group flex min-h-[260px] flex-col justify-between rounded-2xl border border-gray-100 bg-surface p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 hover:bg-white hover:shadow-lg md:p-8 lg:min-h-0">
+                                        <div>
+                                            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-white text-navy shadow-sm ring-1 ring-border-soft">
+                                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 21h10a2 2 0 002-2V9.5L13.5 4H7a2 2 0 00-2 2v13a2 2 0 002 2z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 4v6h6M8 15h8M8 18h5"/></svg>
+                                            </div>
+                                            <p class="mb-3 text-xs font-extrabold uppercase tracking-wider text-gold-dark">Dokumen PDF</p>
+                                            <h3 class="text-2xl font-extrabold leading-tight text-navy-dark md:text-3xl">Standar Biaya Layanan Informasi</h3>
+                                            <p class="mt-4 text-base leading-relaxed text-text-muted">Rincian biaya layanan informasi publik sebagai rujukan bagi pemohon informasi PPID.</p>
+                                        </div>
+
+                                        <span class="mt-8 inline-flex items-center gap-2 text-base font-bold text-navy transition-colors group-hover:text-gold-dark">
+                                            Buka dokumen
+                                            <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        @elseif(trim(strip_tags($pageContent)) === '')
                             <div class="p-12 text-center bg-gray-50 rounded-lg">
                                 <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                                 <h3 class="text-lg font-semibold text-gray-800 mb-1">Belum ada konten</h3>
@@ -210,3 +274,4 @@
         </div>
     </div>
 </x-layouts.public>
+

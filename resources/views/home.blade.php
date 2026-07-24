@@ -58,22 +58,22 @@
 
             <!-- Social Media Buttons -->
             <div x-show="show" x-transition:enter="transition-all ease-out duration-1000 delay-[900ms]" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;" class="relative w-[90%] max-w-4xl mb-8 sm:mb-12">
-            <div class="flex flex-nowrap justify-start sm:justify-center items-center gap-2.5 sm:gap-3 overflow-x-auto scrollbar-hide pb-2">
-                <a href="https://instagram.com/bandarakalimarau" target="_blank" rel="noopener noreferrer" class="shrink-0 flex items-center gap-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white px-3 py-1.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
-                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                    <span class="text-[11px] sm:text-xs font-medium tracking-wide">@bandarakalimarau</span>
+            <div class="flex flex-nowrap justify-center items-center gap-3 sm:gap-3 overflow-x-auto scrollbar-hide pb-2">
+                <a href="https://instagram.com/bandarakalimarau" target="_blank" rel="noopener noreferrer" class="shrink-0 flex items-center justify-center gap-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white w-9 h-9 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    <span class="hidden sm:inline text-xs font-medium tracking-wide">@bandarakalimarau</span>
                 </a>
-                <a href="https://facebook.com/bandaraudarakalimarau" target="_blank" rel="noopener noreferrer" class="shrink-0 flex items-center gap-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white px-3 py-1.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
-                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.312h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
-                    <span class="text-[11px] sm:text-xs font-medium tracking-wide">Bandar udara kalimarau</span>
+                <a href="https://facebook.com/bandaraudarakalimarau" target="_blank" rel="noopener noreferrer" class="shrink-0 flex items-center justify-center gap-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white w-9 h-9 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.312h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+                    <span class="hidden sm:inline text-xs font-medium tracking-wide">Bandar udara kalimarau</span>
                 </a>
-                <a href="https://tiktok.com/@bandarakalimarau" target="_blank" rel="noopener noreferrer" class="shrink-0 flex items-center gap-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white px-3 py-1.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
-                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.96-.5 3.95-1.54 5.6-1.63 2.59-4.76 4.1-7.85 3.52-2.58-.48-4.9-2.22-5.75-4.68-.89-2.55-.42-5.59 1.34-7.69 1.48-1.75 3.75-2.73 6.01-2.61v4.06c-1.25-.09-2.59.32-3.39 1.25-.97 1.11-.98 2.87-.26 4.1.86 1.48 2.89 2.07 4.54 1.41 1.53-.61 2.39-2.27 2.39-3.9v-16.32z"/></svg>
-                    <span class="text-[11px] sm:text-xs font-medium tracking-wide">@bandarakalimarau</span>
+                <a href="https://tiktok.com/@bandarakalimarau" target="_blank" rel="noopener noreferrer" class="shrink-0 flex items-center justify-center gap-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white w-9 h-9 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v7.2c0 1.96-.5 3.95-1.54 5.6-1.63 2.59-4.76 4.1-7.85 3.52-2.58-.48-4.9-2.22-5.75-4.68-.89-2.55-.42-5.59 1.34-7.69 1.48-1.75 3.75-2.73 6.01-2.61v4.06c-1.25-.09-2.59.32-3.39 1.25-.97 1.11-.98 2.87-.26 4.1.86 1.48 2.89 2.07 4.54 1.41 1.53-.61 2.39-2.27 2.39-3.9v-16.32z"/></svg>
+                    <span class="hidden sm:inline text-xs font-medium tracking-wide">@bandarakalimarau</span>
                 </a>
-                <a href="https://youtube.com/@bandarakalimarauberau7084" target="_blank" rel="noopener noreferrer" class="shrink-0 flex items-center gap-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white px-3 py-1.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
-                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                    <span class="text-[11px] sm:text-xs font-medium tracking-wide">@bandarakalimarauberau7084</span>
+                <a href="https://youtube.com/@bandarakalimarauberau7084" target="_blank" rel="noopener noreferrer" class="shrink-0 flex items-center justify-center gap-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white w-9 h-9 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    <span class="hidden sm:inline text-xs font-medium tracking-wide">@bandarakalimarauberau7084</span>
                 </a>
             </div>
             <div class="sm:hidden pointer-events-none absolute right-0 top-0 bottom-2 w-10 bg-gradient-to-l from-black/40 to-transparent rounded-r-full"></div>
@@ -84,7 +84,7 @@
     <!-- Section: Sambutan -->
     <section class="bg-surface py-12 lg:py-14 relative z-0">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid lg:grid-cols-[minmax(0,70ch)_300px] gap-8 lg:gap-12 items-start scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out">
+            <div class="flex flex-col-reverse lg:grid lg:grid-cols-[minmax(0,70ch)_300px] gap-8 lg:gap-12 items-start scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out">
                 <div>
                     <h2 class="font-sans text-lg md:text-xl font-bold text-navy uppercase tracking-wide mb-5">Sambutan dari Kepala Bandar Udara</h2>
 
@@ -203,41 +203,50 @@
                     </div>
 
                     <!-- Table Rows -->
-                    <div x-show="filteredFlights.length > 0" class="flex flex-col gap-2">
+                    <div x-show="filteredFlights.length > 0" class="flex flex-col gap-3 md:gap-2">
                         <template x-for="(flight, index) in filteredFlights" :key="tab + index">
-                            <div class="grid grid-cols-1 md:grid-cols-[1.3fr_2.6fr_1fr_1fr] gap-y-3 gap-x-4 items-center px-6 py-3.5 bg-[#14233a] rounded-xl hover:bg-[#1a2c49] transition-colors shadow-sm">
+                            <div class="flex flex-col md:grid md:grid-cols-[1.3fr_2.6fr_1fr_1fr] gap-3 md:gap-4 items-start md:items-center px-5 md:px-6 py-4 bg-[#14233a] rounded-xl hover:bg-[#1a2c49] transition-colors shadow-sm border border-white/5 md:border-transparent">
 
-                                <!-- Maskapai -->
-                                <div class="flex items-center gap-3">
-                                    <template x-if="flight.logo">
-                                        <div class="w-20 md:w-24 h-10 md:h-12 bg-white rounded-md p-2 shadow-sm flex items-center justify-center shrink-0">
-                                            <img :src="flight.logo" :alt="flight.airline" class="max-w-full max-h-full object-contain">
-                                        </div>
-                                    </template>
-                                    <template x-if="!flight.logo">
-                                        <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-white shrink-0" x-text="flight.initials" :title="flight.airline"></div>
-                                    </template>
+                                <!-- Top Area (Mobile) -->
+                                <div class="flex items-center gap-4 w-full md:contents">
+                                    <!-- Maskapai -->
+                                    <div class="flex items-center shrink-0">
+                                        <template x-if="flight.logo">
+                                            <div class="w-16 md:w-24 h-10 md:h-12 bg-white rounded-md p-1.5 md:p-2 shadow-sm flex items-center justify-center">
+                                                <img :src="flight.logo" :alt="flight.airline" class="max-w-full max-h-full object-contain">
+                                            </div>
+                                        </template>
+                                        <template x-if="!flight.logo">
+                                            <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold text-white" x-text="flight.initials" :title="flight.airline"></div>
+                                        </template>
+                                    </div>
+
+                                    <!-- Rute -->
+                                    <div class="font-bold text-white text-base md:text-base leading-snug flex-1 min-w-0">
+                                        <div class="md:hidden text-white/40 text-[10px] font-medium uppercase tracking-wider mb-0.5" x-text="tab === 'kedatangan' ? 'Kedatangan Dari' : 'Keberangkatan Ke'"></div>
+                                        <span class="truncate block" x-text="flight.route"></span>
+                                    </div>
                                 </div>
 
-                                <!-- Rute -->
-                                <div class="font-bold text-white text-sm md:text-base leading-snug whitespace-nowrap">
-                                    <span class="md:hidden text-white/40 text-xs font-normal uppercase mr-2" x-text="tab === 'kedatangan' ? 'Dari:' : 'Tujuan:'"></span>
-                                    <span x-text="flight.route"></span>
-                                </div>
+                                <!-- Divider -->
+                                <div class="w-full h-px bg-white/5 md:hidden my-0.5"></div>
 
-                                <!-- Nomor -->
-                                <div class="text-white/70 text-sm md:text-base font-medium whitespace-nowrap">
-                                    <span class="md:hidden text-white/40 text-xs font-normal uppercase mr-2">Nomor:</span>
-                                    <span x-text="flight.flight_number"></span>
-                                </div>
+                                <!-- Bottom Area (Mobile) -->
+                                <div class="flex items-center justify-between w-full md:contents">
+                                    <!-- Nomor -->
+                                    <div class="text-white/70 text-sm md:text-base font-medium whitespace-nowrap">
+                                        <span class="md:hidden text-white/40 text-[10px] font-medium uppercase tracking-wider block mb-0.5">Nomor Penerbangan</span>
+                                        <span x-text="flight.flight_number"></span>
+                                    </div>
 
-                                <!-- Waktu -->
-                                <div class="font-bold text-white text-sm md:text-base tabular-nums whitespace-nowrap">
-                                    <span class="md:hidden text-white/40 text-xs font-normal uppercase mr-2">Waktu:</span>
-                            <span x-text="flight.time"></span>
-                        </div>
-                    </div>
-                </template>
+                                    <!-- Waktu -->
+                                    <div class="font-bold text-white tabular-nums whitespace-nowrap text-right md:text-left">
+                                        <span class="md:hidden text-white/40 text-[10px] font-medium uppercase tracking-wider block mb-0.5">Waktu</span>
+                                        <span class="text-xl md:text-base text-gold md:text-white" x-text="flight.time"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
                     </div>
                 </div>
             </div>

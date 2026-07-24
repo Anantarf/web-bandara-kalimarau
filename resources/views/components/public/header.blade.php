@@ -127,8 +127,15 @@
         </div>
 
     <!-- Mobile drawer -->
-    <div id="mobile-navigation" x-show="mobileOpen" @keydown.escape.window="mobileOpen = false" class="lg:hidden bg-white border-b border-border-soft shadow-lg" style="display: none;" x-data="{ expanded: null }">
-        <nav class="max-w-7xl mx-auto px-4 py-3 space-y-0.5">
+    <div id="mobile-navigation" x-show="mobileOpen" 
+         x-transition:enter="transition ease-out duration-300 transform origin-top"
+         x-transition:enter-start="opacity-0 -translate-y-4 scale-y-95"
+         x-transition:enter-end="opacity-100 translate-y-0 scale-y-100"
+         x-transition:leave="transition ease-in duration-200 transform origin-top"
+         x-transition:leave-start="opacity-100 translate-y-0 scale-y-100"
+         x-transition:leave-end="opacity-0 -translate-y-4 scale-y-95"
+         @keydown.escape.window="mobileOpen = false" class="lg:hidden absolute top-full left-0 w-full bg-white border-b border-border-soft shadow-xl z-40" style="display: none;" x-data="{ expanded: null }">
+        <nav class="max-w-7xl mx-auto px-4 py-3 space-y-0.5 h-[calc(100vh-4rem)] overflow-y-auto">
             <a href="{{ route('home') }}" class="block px-3 py-2.5 text-sm font-medium text-text-main hover:text-navy rounded-md">Beranda</a>
 
             @foreach($navGroups as $groupLabel => $items)

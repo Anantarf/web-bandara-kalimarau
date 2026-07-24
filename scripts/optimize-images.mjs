@@ -3,7 +3,7 @@
 // render on the live host). Not part of the build — run manually with
 // `npm run optimize:images` after adding new large source photos.
 import sharp from 'sharp';
-import { statSync } from 'fs';
+import { existsSync, statSync } from 'fs';
 
 const jobs = [
     // Photos stored as PNG (lossless, wasteful for photography) -> JPEG.
@@ -39,6 +39,11 @@ let totalBefore = 0;
 let totalAfter = 0;
 
 for (const job of jobs) {
+    if (!existsSync(job.in)) {
+        console.log(`${job.in}: skipped (source no longer exists — already converted to ${job.out}?)`);
+        continue;
+    }
+
     const before = statSync(job.in).size;
     const pipeline = sharp(job.in).resize({ width: job.width, withoutEnlargement: true });
     const buffer = job.png

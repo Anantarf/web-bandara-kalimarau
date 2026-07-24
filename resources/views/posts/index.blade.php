@@ -27,9 +27,9 @@
                     <div class="relative w-full sm:w-48">
                         <select name="category" class="w-full pl-4 pr-10 py-2.5 bg-gray-50 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-gold focus:border-gold text-gray-700 appearance-none text-sm transition-colors" onchange="this.form.submit()">
                             <option value="">Semua Kategori</option>
-                            <option value="pengumuman" {{ request('category') === 'pengumuman' ? 'selected' : '' }}>Pengumuman</option>
-                            <option value="berita" {{ request('category') === 'berita' ? 'selected' : '' }}>Berita</option>
-                            <option value="artikel" {{ request('category') === 'artikel' ? 'selected' : '' }}>Artikel</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->slug }}" {{ request('category') === $category->slug ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @endforeach
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>

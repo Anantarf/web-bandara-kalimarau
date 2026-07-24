@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\Redirect;
 use Illuminate\Http\Request;
@@ -18,9 +19,15 @@ class PostController extends Controller
             $query->where('title', 'like', "%{$search}%");
         }
 
-        $posts = $query->latest('published_at')->paginate(12);
+        if ($request->filled('category')) {
+            $query->whereHas('category', fn ($q) => $q->where('slug', $request->input('category')));
+        }
 
-        return view('posts.index', compact('posts'));
+        $posts = $query->latest('published_at')->paginate(12)->withQueryString();
+
+        $categories = Category::query()->orderBy('name')->get();
+
+        return view('posts.index', compact('posts', 'categories'));
     }
 
     public function show($slug)

@@ -386,7 +386,7 @@
             </div>
 
             @if($latestPosts->count() > 0)
-                <div class="grid md:grid-cols-3 gap-6">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($latestPosts->take(3) as $post)
                         <div class="bg-black/20 backdrop-blur-sm rounded-xl overflow-hidden flex flex-col hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 transition-all duration-300 border border-white/10">
                             <div class="relative overflow-hidden bg-navy-dark aspect-[16/10] shrink-0">

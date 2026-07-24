@@ -120,7 +120,7 @@
             </div>
 
             <!-- Mobile menu button -->
-            <button type="button" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen.toString()" aria-controls="mobile-navigation" class="lg:hidden p-2 -mr-2 hover:bg-white/10 rounded-lg transition-colors" :class="(transparent && !scrolled) ? 'text-white' : 'text-navy'" aria-label="Menu">
+            <button type="button" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen.toString()" aria-controls="mobile-navigation" class="lg:hidden p-2.5 -mr-2.5 hover:bg-white/10 rounded-lg transition-colors" :class="(transparent && !scrolled) ? 'text-white' : 'text-navy'" aria-label="Menu">
                 <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                 <svg x-show="mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>

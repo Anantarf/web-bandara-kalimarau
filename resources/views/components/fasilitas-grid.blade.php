@@ -70,7 +70,7 @@ $categories = \App\Models\Facility::query()
                         <h3 class="text-2xl md:text-3xl font-bold text-navy-dark">{{ $category['title'] }}</h3>
                     </div>
                     
-                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                         @foreach($category['items'] as $item)
                             <button @click="openModal({{ json_encode($item) }})" 
                                     class="group relative bg-white rounded-2xl overflow-hidden shadow border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-gold text-left h-full flex flex-col">
@@ -108,7 +108,7 @@ $categories = \App\Models\Facility::query()
                 <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             
-            <div class="relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row transform transition-all"
+            <div class="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl flex flex-col md:flex-row transform transition-all max-h-[90vh] overflow-y-auto"
                  x-show="modalOpen"
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 scale-95"

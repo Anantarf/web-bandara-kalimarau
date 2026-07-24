@@ -1,6 +1,6 @@
 # Desain: Kategori Kontak
 
-**Status:** Disetujui, siap eksekusi
+**Status:** Disetujui, **belum dieksekusi**. Diarsipkan sebagai spesifikasi siap-pakai — form kontak & `StoreContactRequest` saat ini (2026-07-24) masih pakai field `subject` bebas teks, bukan `category`. Item terbuka ini ada di `docs/BACKLOG LARAVEL MVP.md`; kalau mau dikerjakan, spesifikasi lengkap di bawah masih berlaku apa adanya.
 **Konteks:** Sub-project #1 dari rencana penyamaan fitur dengan aptpairport.id. Field "Subjek Pesan" (teks bebas) pada form kontak diganti jadi kategori tetap, mengikuti pola situs referensi.
 
 ## Cakupan

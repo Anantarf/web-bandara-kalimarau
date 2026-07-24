@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class PageController extends Controller
 {
     /**
-     * Nested PPID sub-slug (per docs/SITEMAP LARAVEL.md) => actual page slug.
+     * Nested PPID sub-slug (per docs/archive/SITEMAP LARAVEL.md) => actual page slug.
      * The Page.slug column stays globally unique, so PPID sub-pages keep their
      * original imported slug in the DB and are only exposed at the short
      * /ppid/{sub} URL through this map.

@@ -1,6 +1,7 @@
 # Plan: Retouch Navigasi & Beranda (mengikuti pola aptpairport.id)
 
-**Status:** Draft — menunggu review
+**Status:** Diimplementasikan (2026-07-24), kecuali satu item — lihat catatan di bawah.
+> Diarsipkan sebagai referensi historis. Bagian 1 (navigasi header) dan Bagian 2 (section beranda: Sambutan, Aktivitas Bandara/`airport_stats`, Mitra Terkemuka) sudah dibangun dan ada di kode saat ini. **"Wisata Terdekat" tidak pernah dibuat** — dipindah ke `docs/BACKLOG LARAVEL MVP.md` sebagai item terbuka kalau masih diinginkan.
 **Konteks:** Setelah membandingkan struktur navigasi & section beranda proyek ini dengan https://aptpairport.id/, ditemukan gap di pengelompokan submenu dan beberapa section beranda yang belum ada. Plan ini merapikan keduanya — **mengikuti pola fitur & layout**, bukan meniru visual/warna/font persis. Branding (navy/gold/sky, font Plus Jakarta Sans / serif judul) tetap dipakai apa adanya.
 
 Tidak ada perubahan pada backend jadwal penerbangan, berita, PPID, kontak, atau sistem lain di luar navigasi header dan halaman beranda.

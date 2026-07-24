@@ -156,9 +156,16 @@ Status 2026-07-22: hardening aplikasi + backup otomatis + CSP + error tracking s
 
 - [X] Audit log perubahan admin untuk data operasional.
 - [X] Role granular: editor berita, admin konten, dan operator layanan dengan akses terbatas.
-- [ ] Optimasi gambar otomatis.
+- [~] Optimasi gambar otomatis — ada `npm run optimize:images` (script manual, `scripts/optimize-images.mjs`), belum otomatis jalan saat upload lewat Filament.
 - [ ] Dokumen PPID searchable.
 - [X] Scheduled posts dan pages memakai `published_at` tanpa worker tambahan.
 - [X] Preview konten post/page dengan signed URL 30 menit dan `noindex`.
 - [X] Backup otomatis (`spatie/laravel-backup`, lihat Sprint 5.5).
 - [ ] GA4/Search Console setup.
+
+## Disetujui tapi belum dikerjakan
+
+Dipindah dari dokumen rencana yang sudah diarsipkan (`docs/archive/`) — masih valid kalau mau dikerjakan, spesifikasinya tidak berubah.
+
+- [ ] **Kategori Kontak**: ganti field `subject` (teks bebas) di form kontak jadi `category` (pilihan tetap: Informasi/Keluhan/Saran/Apresiasi). Spesifikasi lengkap: `docs/archive/FITUR KATEGORI KONTAK.md`.
+- [ ] **Section "Wisata Terdekat"** di beranda (pola sama seperti Fasilitas — konstanta PHP di `HomeController`, bukan tabel baru). Bagian dari `docs/archive/PLAN RETOUCH BERANDA DAN NAVIGASI.md`, satu-satunya bagian dari plan itu yang belum dibangun.

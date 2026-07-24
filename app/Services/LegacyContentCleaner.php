@@ -6,7 +6,7 @@ namespace App\Services;
  * Strips WordPress/Elementor/ElementsKit cruft from legacy post_content so it's
  * safe to store and render. This is a best-effort automated pass, not a full
  * rebuild — pages built with Elementor accordions/widgets still need the manual
- * editorial review called for in docs/DATA MIGRATION PLAN.md.
+ * editorial review called for in docs/archive/DATA MIGRATION PLAN.md.
  */
 class LegacyContentCleaner
 {

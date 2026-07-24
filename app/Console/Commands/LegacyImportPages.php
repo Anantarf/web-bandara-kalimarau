@@ -12,7 +12,7 @@ class LegacyImportPages extends Command
 {
     protected $signature = 'legacy:import-pages';
 
-    protected $description = 'Import a curated whitelist of WordPress pages into pages, per docs/DATA MIGRATION PLAN.md';
+    protected $description = 'Import a curated whitelist of WordPress pages into pages, per docs/archive/DATA MIGRATION PLAN.md';
 
     /**
      * legacy post ID => overrides. Deliberately excludes: internal tools
@@ -22,7 +22,7 @@ class LegacyImportPages extends Command
      * homepage/berita/kontak pages which Laravel already rebuilt natively.
      */
     /**
-     * Only the 15 PPID sub-pages + hub from docs/SITEMAP LARAVEL.md nested
+     * Only the 15 PPID sub-pages + hub from docs/archive/SITEMAP LARAVEL.md nested
      * under /ppid/{sub}. "Hasil Dan Tindak Lanjut" (2994) is deliberately
      * excluded — the sitemap places it under Pengaduan as a top-level page.
      */

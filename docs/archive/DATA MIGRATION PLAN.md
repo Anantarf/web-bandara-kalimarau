@@ -1,5 +1,3 @@
-eekbsrekabereasrb
-
 # DATA MIGRATION PLAN
 
 ## Prinsip

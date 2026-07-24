@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 /**
  * Resolves a WordPress attachment (by legacy post ID) into a Laravel Media row,
  * copying only the physical files that are actually referenced as featured
- * images — per docs/DATA MIGRATION PLAN.md, not the full 1.7GB uploads folder.
+ * images — per docs/archive/DATA MIGRATION PLAN.md, not the full 1.7GB uploads folder.
  */
 class LegacyMediaImporter
 {
@@ -77,8 +77,8 @@ class LegacyMediaImporter
     /**
      * Post/page content can embed <img> tags pointing straight at the old
      * kalimarau-airport.com domain instead of going through featured_image_id.
-     * Copy those files locally too and rewrite the URLs, per docs/DATA
-     * MIGRATION PLAN.md ("pastikan gambar memakai path media Laravel").
+     * Copy those files locally too and rewrite the URLs, per
+     * docs/archive/DATA MIGRATION PLAN.md ("pastikan gambar memakai path media Laravel").
      */
     public function rewriteInlineImages(string $html): string
     {

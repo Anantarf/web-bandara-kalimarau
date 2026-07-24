@@ -44,7 +44,7 @@ Route::prefix('berita')->name('posts.')->group(function () {
     Route::get('/{slug}', [PostController::class, 'show'])->name('show');
 });
 
-// PPID (nested per docs/SITEMAP LARAVEL.md, must come before the catch-all below)
+// PPID (nested per docs/archive/SITEMAP LARAVEL.md, must come before the catch-all below)
 Route::get('/ppid/{sub?}', [PageController::class, 'ppid'])->name('ppid.show');
 
 // FAQ

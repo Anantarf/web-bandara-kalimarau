@@ -96,7 +96,7 @@
                 }
                 if ($page->slug === 'struktur-organisasi-ppid-pelaksana-upt') {
                     $headings[] = [
-                        'text' => 'Struktur Organisasi PPID',
+                        'text' => 'Struktur Organisasi Bandara Kalimarau',
                         'id' => 'struktur-ppid'
                     ];
                 }
@@ -165,19 +165,19 @@
                             <!-- Section 1: Maklumat Pelayanan -->
                             <div class="mb-12">
                                 <h3 id="maklumat-pelayanan" class="text-2xl font-extrabold leading-tight text-navy-dark border-b border-gray-100 pb-2 mb-6 scroll-mt-32">Maklumat Pelayanan</h3>
-                                <figure class="not-prose max-w-2xl mx-auto rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm relative group mb-6">
-                                    <img src="{{ asset('images/ppid/maklumat-ppid-page-1.jpg') }}" alt="Maklumat Pelayanan PPID Bandar Udara Kalimarau" class="w-full h-auto transition-transform duration-700 group-hover:scale-[1.01]">
-                                    <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-2xl pointer-events-none"></div>
-                                </figure>
+                                <x-lightbox-image
+                                    src="{{ asset('images/ppid/maklumat-ppid-page-1.jpg') }}"
+                                    alt="Maklumat Pelayanan PPID Bandar Udara Kalimarau"
+                                    figure-class="not-prose max-w-2xl mx-auto" />
                             </div>
 
                             <!-- Section 2: Standar Biaya -->
                             <div class="mt-16">
                                 <h3 id="standar-biaya" class="text-2xl font-extrabold leading-tight text-navy-dark border-b border-gray-100 pb-2 mb-6 scroll-mt-32">Standar Biaya</h3>
-                                <figure class="not-prose max-w-2xl mx-auto rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm relative group mb-6">
-                                    <img src="{{ asset('images/ppid/standar-biaya-page-1.jpg') }}" alt="Standar Biaya Layanan Informasi PPID Bandar Udara Kalimarau" class="w-full h-auto transition-transform duration-700 group-hover:scale-[1.01]">
-                                    <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-2xl pointer-events-none"></div>
-                                </figure>
+                                <x-lightbox-image
+                                    src="{{ asset('images/ppid/standar-biaya-page-1.jpg') }}"
+                                    alt="Standar Biaya Layanan Informasi PPID Bandar Udara Kalimarau"
+                                    figure-class="not-prose max-w-2xl mx-auto" />
                             </div>
                         @elseif($page->slug === 'tarif-kebandarudaraan')
                             <div x-data="{ activeTab: 'aero' }" class="w-full">
@@ -290,9 +290,10 @@
                                     
                                     <!-- Image -->
                                     <div class="w-full max-w-[760px] mx-auto">
-                                        <div class="rounded-2xl overflow-hidden shadow-lg border-4 border-white bg-white">
-                                            <img src="{{ asset('storage/media/legacy/2022/11/4ba95402a5433595324bab5efc0ec308.png') }}" alt="Alur Tata Cara Pengaduan SIMADU" class="w-full h-auto block">
-                                        </div>
+                                        <x-lightbox-image
+                                            src="{{ asset('storage/media/legacy/2022/11/4ba95402a5433595324bab5efc0ec308.png') }}"
+                                            alt="Alur Tata Cara Pengaduan SIMADU"
+                                            figure-class="my-0" />
                                     </div>
                                     
                                     <!-- CTA Button -->
@@ -424,17 +425,14 @@
                                 {!! $contentWithIds !!}
 
                                 @if($page->slug === 'struktur-organisasi-ppid-pelaksana-upt')
-                                    <h2 id="struktur-ppid" class="text-2xl font-extrabold leading-tight text-navy-dark not-prose mt-12 mb-4 scroll-mt-32 border-b-2 border-gray-100 pb-2">Struktur Organisasi PPID</h2>
+                                    <h2 id="struktur-ppid" class="text-2xl font-extrabold leading-tight text-navy-dark not-prose mt-12 mb-4 scroll-mt-32 border-b-2 border-gray-100 pb-2">Struktur Organisasi Bandara Kalimarau</h2>
                                     <p class="not-prose text-base md:text-lg leading-relaxed text-gray-700 mt-4 mb-6">
-                                        Berikut adalah bagan susunan Struktur Organisasi Pejabat Pengelola Informasi dan Dokumentasi (PPID) serta susunan Dewan Pengawas pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.
+                                        Berikut adalah bagan susunan Struktur Organisasi Bandara Kalimarau serta susunan Dewan Pengawas pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.
                                     </p>
-                                    <figure class="not-prose mt-6 mb-8 overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 shadow-sm">
-                                        <img src="{{ asset('images/ppid/struktur-ppid.jpeg') }}"
-                                             alt="Struktur Organisasi PPID dan Dewan Pengawas BLU Bandara Kalimarau"
-                                             loading="lazy"
-                                             decoding="async"
-                                             class="w-full object-contain">
-                                    </figure>
+                                    <x-lightbox-image
+                                        src="{{ asset('images/ppid/struktur-ppid.jpeg') }}"
+                                        alt="Struktur Organisasi Bandara Kalimarau dan Dewan Pengawas BLU Bandara Kalimarau"
+                                        figure-class="not-prose" />
                                 @endif
                             </div>
                         @endif
@@ -484,10 +482,10 @@
                         <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">Komitmen UPBU Kelas I Kalimarau untuk memberikan pelayanan yang transparan, akuntabel, dan sesuai standar mutu bagi seluruh pengguna jasa bandar udara.</p>
                     </div>
                     
-                    <figure class="max-w-2xl mx-auto rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-lg shadow-black/5 relative group">
-                        <img src="{{ asset('images/maklumat-pelayanan-2026.jpeg') }}" alt="Maklumat Pelayanan Bandar Udara Kalimarau" class="w-full h-auto transition-transform duration-700 group-hover:scale-[1.01]">
-                        <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-2xl pointer-events-none"></div>
-                    </figure>
+                    <x-lightbox-image
+                        src="{{ asset('images/maklumat-pelayanan-2026.jpeg') }}"
+                        alt="Maklumat Pelayanan Bandar Udara Kalimarau"
+                        figure-class="max-w-2xl mx-auto" />
 
                     <!-- Previous Maklumat Archive Cards -->
                     <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">

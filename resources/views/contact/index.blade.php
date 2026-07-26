@@ -91,13 +91,10 @@
                         <p class="mt-4 text-gray-600 leading-relaxed">Kami berkomitmen memberikan pelayanan yang nyaman, profesional, aman, dan terpercaya bagi seluruh pengguna jasa bandara.</p>
 
                         @if(file_exists(public_path('images/jam-pelayanan-operasional.jpeg')))
-                            <figure class="mt-6 overflow-hidden rounded-xl border border-gray-100 bg-gray-50 shadow-sm">
-                                <img src="{{ asset('images/jam-pelayanan-operasional.jpeg') }}"
-                                     alt="Jam Pelayanan Operasional Bandara Kalimarau pukul 07.00 sampai 20.00 WITA"
-                                     loading="lazy"
-                                     decoding="async"
-                                     class="w-full h-auto">
-                            </figure>
+                            <x-lightbox-image
+                                src="{{ asset('images/jam-pelayanan-operasional.jpeg') }}"
+                                alt="Jam Pelayanan Operasional Bandara Kalimarau pukul 07.00 sampai 20.00 WITA"
+                                figure-class="mt-6" />
                         @endif
                     </div>
                 </div>

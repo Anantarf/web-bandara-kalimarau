@@ -19,7 +19,7 @@ class PageController extends Controller
         'profil' => 'profile-ppid',
         'visi-misi' => 'visi-misi-ppid',
         'tugas-dan-fungsi' => 'tugas-dan-fungsi',
-        'struktur-organisasi' => 'struktur-organisasi',
+        'struktur-organisasi' => 'struktur-organisasi-ppid-pelaksana-upt',
         'struktur-organisasi-pelaksana-upt' => 'struktur-organisasi-ppid-pelaksana-upt',
         'regulasi' => 'regulasi',
         'maklumat-pelayanan-standar-biaya' => 'maklumat-pelayanan-dan-standar-biaya',

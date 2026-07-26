@@ -72,31 +72,6 @@
                 activeSection = current;
             ">
 
-                <!-- Sidebar Navigation (Desktop) / Accordion (Mobile) -->
-                <aside class="w-full lg:w-1/4" x-show="loaded" x-transition:enter="transition-all ease-out duration-1000 delay-500" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden sticky top-24" x-data="{ activeGroup: '{{ $activeGroup }}' }">
-                        <div class="p-4 border-b border-gray-100 bg-gray-50 hidden lg:block">
-                            <h3 class="font-bold text-gray-800">Menu PPID</h3>
-                        </div>
-
-                        @foreach($groups as $groupName => $subs)
-                            <div class="border-b border-gray-100">
-                                <button @click="activeGroup = activeGroup === '{{ $groupName }}' ? '' : '{{ $groupName }}'" class="w-full text-left px-5 py-4 font-semibold text-gray-800 flex justify-between items-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors">
-                                    {{ $groupName }}
-                                    <svg class="w-4 h-4 text-gray-500 transform transition-transform" :class="{ 'rotate-180': activeGroup === '{{ $groupName }}' }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                                </button>
-                                <div x-show="activeGroup === '{{ $groupName }}'" class="pb-2 space-y-1">
-                                    @foreach($subs as $sub)
-                                        <a href="{{ route('ppid.show', $sub) }}" class="block text-sm py-2 px-5 border-l-4 {{ $currentSub === $sub ? 'text-blue-700 font-medium bg-blue-50 border-blue-600' : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50 border-transparent' }} focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
-                                            {{ $ppidTitles[$sub] }}
-                                        </a>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </aside>
-
                 <!-- Content Area -->
                 @php
                     $pageContent = $page->content;
@@ -117,7 +92,7 @@
                     
                     if (!empty($matches[2])) {
                         foreach ($matches[2] as $index => $text) {
-                            $cleanText = strip_tags($text);
+                            $cleanText = html_entity_decode(strip_tags($text), ENT_QUOTES, 'UTF-8');
                             $id = \Illuminate\Support\Str::slug($cleanText);
                             if (strlen($cleanText) > 2 && strlen($cleanText) < 60) {
                                 $headings[] = [
@@ -150,10 +125,28 @@
                         return "<{$tag}{$attrs}>{$content}</{$tag}>";
                     }, $pageContent);
 
-                    $showToc = count($headings) > 0 && ! $isMaklumatStandarBiaya;
+                    if ($page->slug === 'struktur-organisasi-ppid-pelaksana-upt' || in_array($currentSub, ['struktur-organisasi', 'struktur-organisasi-pelaksana-upt'])) {
+                        $headings[] = [
+                            'id' => 'struktur-ppid',
+                            'text' => 'Struktur Organisasi PPID'
+                        ];
+                    }
+
+                    if ($currentSub === 'maklumat-pelayanan-standar-biaya' || $page->slug === 'maklumat-pelayanan-dan-standar-biaya') {
+                        $headings[] = [
+                            'id' => 'maklumat-pelayanan',
+                            'text' => 'Maklumat Pelayanan'
+                        ];
+                        $headings[] = [
+                            'id' => 'standar-biaya',
+                            'text' => 'Standar Biaya'
+                        ];
+                    }
+
+                    $showToc = count($headings) > 0;
                 @endphp
 
-                <main class="w-full {{ $showToc ? 'lg:w-1/2' : 'lg:w-3/4' }}" x-show="loaded" x-transition:enter="transition-all ease-out duration-1000 delay-700" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
+                <main class="w-full @if($showToc) lg:w-3/4 @endif" x-show="loaded" x-transition:enter="transition-all ease-out duration-1000 delay-700" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
                     @if($showToc)
                         <div class="lg:hidden mb-4 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden" x-data="{ tocOpen: false }">
                             <button type="button" @click="tocOpen = !tocOpen" :aria-expanded="tocOpen.toString()" class="w-full flex justify-between items-center px-5 py-4 font-bold text-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gold">
@@ -176,67 +169,30 @@
                             <h2 class="subsection-title mb-6">{{ $page->title }}</h2>
                         @endif
 
-                        @if($currentSub === 'profil')
-                            @php
-                                $ppidImages = [
-                                    asset('images/ppid/ppid-1.jpg'),
-                                    asset('images/ppid/ppid-2.jpg'),
-                                    asset('images/ppid/ppid-3.jpg'),
-                                ];
-                            @endphp
-                            <figure class="not-prose mb-8 rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm relative group aspect-video"
-                                    x-data="{ activeIndex: 0, images: {{ json_encode($ppidImages) }}, reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches }"
-                                    x-init="if (! reducedMotion && images.length > 1) { setInterval(() => { activeIndex = (activeIndex + 1) % images.length }, 5000) }">
-                                <div class="absolute left-4 top-4 z-30 flex items-center gap-3 rounded-full bg-white/92 px-3.5 py-2 shadow-[0_12px_28px_-18px_rgba(12,45,107,0.5)] ring-1 ring-navy/10 backdrop-blur-md">
-                                    <span class="flex h-10 w-10 items-center justify-center rounded-full bg-white ring-1 ring-border-soft">
-                                        <img src="{{ asset('images/ppid/logo-ppid.png') }}" alt="Logo PPID" loading="lazy" decoding="async" class="h-7 w-auto object-contain">
-                                    </span>
-                                    <span class="pr-1 text-sm font-extrabold leading-none text-navy">PPID Kalimarau</span>
-                                </div>
-                                <template x-for="(image, index) in images" :key="index">
-                                    <img :src="image" alt="Dokumentasi PPID Bandara Kalimarau"
-                                         class="absolute inset-0 w-full h-full object-cover object-center transition-[opacity,transform] duration-[1600ms] ease-out will-change-[opacity,transform]"
-                                         :class="activeIndex === index ? 'opacity-100 group-hover:scale-[1.025]' : 'opacity-0 scale-100'">
-                                </template>
-                                <div class="absolute inset-0 bg-gradient-to-t from-navy-dark/30 via-transparent to-white/5 pointer-events-none z-10"></div>
-                                <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-2xl pointer-events-none z-20"></div>
-                            </figure>
-                        @endif
+
 
                         @if($isMaklumatStandarBiaya)
                             @php
                                 preg_match('/href=["\']([^"\']+\.pdf[^"\']*)["\']/i', $pageContent, $pdfMatch);
                                 $standardBiayaUrl = $pdfMatch[1] ?? asset('storage/media/legacy/2024/09/Standar-Pelayanan-2023.pdf');
                             @endphp
-
-                            <div class="not-prose rounded-3xl border border-gray-100 bg-white p-5 shadow-xl shadow-navy-dark/5 md:p-8">
-                                <div class="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-stretch">
-                                    <figure class="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 shadow-sm">
-                                        <img src="{{ asset('storage/media/legacy/2023/01/maklumat-pelayanan-2023.jpg') }}"
-                                             alt="Maklumat Pelayanan Bandar Udara Kalimarau"
-                                             class="h-full min-h-[260px] w-full object-contain p-2 md:min-h-[340px]">
-                                    </figure>
-
-                                    <a href="{{ $standardBiayaUrl }}"
-                                       target="_blank"
-                                       rel="noopener noreferrer"
-                                       class="group flex min-h-[260px] flex-col justify-between rounded-2xl border border-gray-100 bg-surface p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/40 hover:bg-white hover:shadow-lg md:p-8 lg:min-h-0">
-                                        <div>
-                                            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-white text-navy shadow-sm ring-1 ring-border-soft">
-                                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7 21h10a2 2 0 002-2V9.5L13.5 4H7a2 2 0 00-2 2v13a2 2 0 002 2z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 4v6h6M8 15h8M8 18h5"/></svg>
-                                            </div>
-                                            <p class="mb-3 text-xs font-extrabold uppercase tracking-wider text-gold-dark">Dokumen PDF</p>
-                                            <h3 class="text-2xl font-extrabold leading-tight text-navy-dark md:text-3xl">Standar Biaya Layanan Informasi</h3>
-                                            <p class="mt-4 text-base leading-relaxed text-text-muted">Rincian biaya layanan informasi publik sebagai rujukan bagi pemohon informasi PPID.</p>
-                                        </div>
-
-                                        <span class="mt-8 inline-flex items-center gap-2 text-base font-bold text-navy transition-colors group-hover:text-gold-dark">
-                                            Buka dokumen
-                                            <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                                        </span>
-                                    </a>
-                                </div>
+                            <!-- Section 1: Maklumat Pelayanan -->
+                            <div class="mb-12">
+                                <h3 id="maklumat-pelayanan" class="text-2xl font-extrabold leading-tight text-navy-dark border-b border-gray-100 pb-2 mb-6 scroll-mt-32">Maklumat Pelayanan</h3>
+                                <figure class="not-prose max-w-2xl mx-auto rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm relative group mb-6">
+                                    <img src="{{ asset('images/ppid/maklumat-ppid-page-1.jpg') }}" alt="Maklumat Pelayanan PPID Bandar Udara Kalimarau" class="w-full h-auto transition-transform duration-700 group-hover:scale-[1.01]">
+                                    <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-2xl pointer-events-none"></div>
+                                </figure>
                             </div>
+                            <!-- Section 2: Standar Biaya -->
+                            <div class="mt-16">
+                                <h3 id="standar-biaya" class="text-2xl font-extrabold leading-tight text-navy-dark border-b border-gray-100 pb-2 mb-6 scroll-mt-32">Standar Biaya</h3>
+                                <figure class="not-prose max-w-2xl mx-auto rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm relative group mb-6">
+                                    <img src="{{ asset('images/ppid/standar-biaya-page-1.jpg') }}" alt="Standar Biaya Layanan Informasi PPID Bandar Udara Kalimarau" class="w-full h-auto transition-transform duration-700 group-hover:scale-[1.01]">
+                                    <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-2xl pointer-events-none"></div>
+                                </figure>
+                            </div>
+
                         @elseif(trim(strip_tags($pageContent)) === '')
                             <div class="p-12 text-center bg-gray-50 rounded-lg">
                                 <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
@@ -246,6 +202,20 @@
                         @else
                             <div class="prose prose-lg md:prose-xl prose-blue max-w-none prose-headings:font-bold prose-headings:text-navy-dark prose-a:text-blue-600 prose-img:rounded-xl">
                                 {!! $contentWithIds !!}
+
+                                @if($page->slug === 'struktur-organisasi-ppid-pelaksana-upt' || in_array($currentSub, ['struktur-organisasi', 'struktur-organisasi-pelaksana-upt']))
+                                    <h2 id="struktur-ppid" class="text-2xl font-extrabold leading-tight text-navy-dark not-prose mt-12 mb-4 scroll-mt-32 border-b-2 border-gray-100 pb-2">Struktur Organisasi PPID</h2>
+                                    <p class="not-prose text-base md:text-lg leading-relaxed text-gray-700 mt-4 mb-6">
+                                        Berikut adalah bagan susunan Struktur Organisasi Pejabat Pengelola Informasi dan Dokumentasi (PPID) serta susunan Dewan Pengawas pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.
+                                    </p>
+                                    <figure class="not-prose mt-6 mb-8 overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 shadow-sm">
+                                        <img src="{{ asset('images/ppid/struktur-ppid.jpeg') }}"
+                                             alt="Struktur Organisasi PPID dan Dewan Pengawas BLU Bandara Kalimarau"
+                                             loading="lazy"
+                                             decoding="async"
+                                             class="w-full object-contain">
+                                    </figure>
+                                @endif
                             </div>
                         @endif
                     </div>

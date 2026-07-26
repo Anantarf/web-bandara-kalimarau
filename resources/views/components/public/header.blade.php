@@ -2,7 +2,7 @@
 
 @php
     $navGroups = [
-        'Informasi Publik' => [
+        'Tentang Kami' => [
             ['label' => 'Profil Bandara', 'slug' => 'profil-bandara-kalimarau'],
             ['label' => 'Fasilitas Bandara', 'slug' => 'fasilitas-bandara'],
             ['label' => 'Struktur Organisasi', 'slug' => 'struktur-organisasi'],
@@ -25,7 +25,8 @@
     ];
 
     $ppidGroups = [
-        ['label' => 'Tentang PPID', 'slug' => 'profile-ppid'],
+        ['label' => 'Profil PPID', 'slug' => 'profile-ppid'],
+        ['label' => 'Struktur Organisasi PPID', 'slug' => 'struktur-organisasi-ppid-pelaksana-upt'],
         ['label' => 'Layanan Informasi', 'slug' => 'layanan-informasi'],
         ['label' => 'Regulasi & Prosedur', 'slug' => 'regulasi'],
     ];

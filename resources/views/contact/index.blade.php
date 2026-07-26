@@ -72,6 +72,34 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-12 h-12 bg-gold/10 text-gold-dark rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-extrabold text-navy-dark">Jam Pelayanan Operasional</h2>
+                                <p class="text-sm text-gray-500">Bandara Kalimarau</p>
+                            </div>
+                        </div>
+
+                        <div class="rounded-xl border border-gold/30 bg-gold/10 px-5 py-4 text-center">
+                            <p class="text-3xl md:text-4xl font-extrabold tracking-wide text-navy-dark">07.00 - 20.00 WITA</p>
+                        </div>
+
+                        <p class="mt-4 text-gray-600 leading-relaxed">Kami berkomitmen memberikan pelayanan yang nyaman, profesional, aman, dan terpercaya bagi seluruh pengguna jasa bandara.</p>
+
+                        @if(file_exists(public_path('images/jam-pelayanan-operasional.jpeg')))
+                            <figure class="mt-6 overflow-hidden rounded-xl border border-gray-100 bg-gray-50 shadow-sm">
+                                <img src="{{ asset('images/jam-pelayanan-operasional.jpeg') }}"
+                                     alt="Jam Pelayanan Operasional Bandara Kalimarau pukul 07.00 sampai 20.00 WITA"
+                                     loading="lazy"
+                                     decoding="async"
+                                     class="w-full h-auto">
+                            </figure>
+                        @endif
+                    </div>
                 </div>
 
                 <!-- Formulir Kontak -->

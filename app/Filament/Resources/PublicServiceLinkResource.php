@@ -46,6 +46,8 @@ class PublicServiceLinkResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('category')
                     ->label('Kategori')
+                    ->helperText('Gunakan penulisan yang sama persis dengan link lain di kategori yang sama (huruf besar/kecil dan spasi berpengaruh).')
+                    ->datalist(fn () => PublicServiceLink::query()->distinct()->orderBy('category')->pluck('category')->all())
                     ->required()
                     ->maxLength(40),
                 Forms\Components\TextInput::make('icon')

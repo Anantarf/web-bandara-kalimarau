@@ -64,11 +64,13 @@ class FlightScheduleResource extends Resource
                                     ->label('Asal')
                                     ->required()
                                     ->disabled(fn (Forms\Get $get): bool => $get('type') === 'keberangkatan')
+                                    ->helperText(fn (Forms\Get $get) => $get('type') === 'keberangkatan' ? 'Terkunci: penerbangan Keberangkatan selalu berasal dari Bandara Kalimarau.' : null)
                                     ->dehydrated(),
                                 Forms\Components\TextInput::make('route_to')
                                     ->label('Tujuan')
                                     ->required()
                                     ->disabled(fn (Forms\Get $get): bool => $get('type') === 'kedatangan')
+                                    ->helperText(fn (Forms\Get $get) => $get('type') === 'kedatangan' ? 'Terkunci: penerbangan Kedatangan selalu menuju Bandara Kalimarau.' : null)
                                     ->dehydrated(),
                                 Forms\Components\TimePicker::make('departure_time')
                                     ->label('Jam Berangkat')

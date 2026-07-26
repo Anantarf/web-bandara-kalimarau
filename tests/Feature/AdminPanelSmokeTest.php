@@ -26,8 +26,7 @@ class AdminPanelSmokeTest extends TestCase
         $admin->syncRoles(['super_admin']);
 
         $resources = [
-            'posts', 'pages', 'categories', 'media', 'flight-schedules',
-            'public-service-links', 'contact-messages', 'redirects', 'audit-logs', 'users', 'shield/roles',
+            'posts', 'flight-schedules', 'contact-messages', 'airport-stats', 'audit-logs', 'users',
         ];
 
         foreach ($resources as $resource) {
@@ -56,5 +55,17 @@ class AdminPanelSmokeTest extends TestCase
 
         $response = $this->actingAs($user)->get('/admin/posts');
         $this->assertContains($response->status(), [302, 403]);
+    }
+
+    public function test_user_email_is_generated_from_username_when_hidden_from_admin_form(): void
+    {
+        $user = User::query()->create([
+            'name' => 'Admin Konten',
+            'username' => 'admin.konten',
+            'password' => 'password',
+            'is_active' => true,
+        ]);
+
+        $this->assertSame('admin.konten@kalimarau.local', $user->email);
     }
 }

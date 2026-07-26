@@ -22,6 +22,20 @@ class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, HasRoles, Notifiable;
 
+    protected static function booted(): void
+    {
+        static::saving(function (User $user): void {
+            if ($user->username && ! $user->email) {
+                $user->email = str($user->username)
+                    ->lower()
+                    ->replaceMatches('/[^a-z0-9._-]+/', '.')
+                    ->trim('.')
+                    ->append('@kalimarau.local')
+                    ->toString();
+            }
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      *

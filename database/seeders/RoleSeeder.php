@@ -10,16 +10,13 @@ use Spatie\Permission\Models\Role;
 class RoleSeeder extends Seeder
 {
     /**
-     * Content and layanan entities Admin manages fully; Users/Roles/Redirect/Audit Log stay super_admin-only.
+     * Daily operator entities. Users and Audit Log stay super_admin-only.
      */
     protected const ADMIN_ENTITIES = [
-        'category',
-        'page',
         'post',
-        'media',
         'flight::schedule',
-        'public::service::link',
         'contact::message',
+        'airport::stat',
     ];
 
     protected const ADMIN_ACTIONS = [

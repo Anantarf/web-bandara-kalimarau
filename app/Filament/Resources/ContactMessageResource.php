@@ -16,9 +16,9 @@ class ContactMessageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
 
-    protected static ?string $navigationGroup = 'Layanan & Data';
+    protected static ?string $navigationGroup = null;
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $modelLabel = 'Pesan Masuk';
 
@@ -132,8 +132,8 @@ class ContactMessageResource extends Resource
                     ->options(['new' => 'Baru', 'read' => 'Dibaca', 'replied' => 'Dibalas', 'archived' => 'Diarsipkan']),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label('Ubah Status'),
+                Tables\Actions\DeleteAction::make()->label('Hapus'),
             ])
             ->bulkActions([]);
     }

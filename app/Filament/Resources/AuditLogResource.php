@@ -17,15 +17,15 @@ class AuditLogResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
-    protected static ?string $navigationGroup = 'Sistem & Akses';
+    protected static ?string $navigationGroup = null;
 
-    protected static ?int $navigationSort = 6;
+    protected static ?int $navigationSort = 5;
 
-    protected static ?string $navigationLabel = 'Audit Log';
+    protected static ?string $navigationLabel = 'Riwayat Aktivitas';
 
-    protected static ?string $modelLabel = 'Audit Log';
+    protected static ?string $modelLabel = 'Riwayat Aktivitas';
 
-    protected static ?string $pluralModelLabel = 'Audit Log';
+    protected static ?string $pluralModelLabel = 'Riwayat Aktivitas';
 
     public static function infolist(Infolist $infolist): Infolist
     {
@@ -51,22 +51,22 @@ class AuditLogResource extends Resource
                 Infolists\Components\TextEntry::make('auditable_id')
                     ->label('ID'),
                 Infolists\Components\KeyValueEntry::make('old_values')
-                    ->label('Nilai Sebelum')
+                    ->label('Data Sebelum Diubah')
                     ->placeholder('-')
                     ->columnSpanFull(),
                 Infolists\Components\KeyValueEntry::make('new_values')
-                    ->label('Nilai Sesudah')
+                    ->label('Data Sesudah Diubah')
                     ->placeholder('-')
                     ->columnSpanFull(),
                 Infolists\Components\TextEntry::make('url')
-                    ->label('URL')
+                    ->label('Alamat Halaman')
                     ->placeholder('-')
                     ->columnSpanFull(),
                 Infolists\Components\TextEntry::make('ip_address')
-                    ->label('IP')
+                    ->label('Alamat IP')
                     ->placeholder('-'),
                 Infolists\Components\TextEntry::make('user_agent')
-                    ->label('User Agent')
+                    ->label('Perangkat/Browser')
                     ->placeholder('-')
                     ->columnSpanFull(),
             ]);
@@ -105,7 +105,7 @@ class AuditLogResource extends Resource
                     ->label('ID')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('ip_address')
-                    ->label('IP')
+                    ->label('Alamat IP')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('created_at', 'desc')
@@ -119,7 +119,7 @@ class AuditLogResource extends Resource
                     ]),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\ViewAction::make()->label('Lihat Detail'),
             ]);
     }
 

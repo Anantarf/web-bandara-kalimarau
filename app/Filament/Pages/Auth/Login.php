@@ -12,7 +12,8 @@ class Login extends BaseLogin
     protected function getEmailFormComponent(): Component
     {
         return TextInput::make('username')
-            ->label(__('filament-panels::pages/auth/login.form.email.label'))
+            ->label('Username')
+            ->placeholder('Masukkan username admin')
             ->required()
             ->autocomplete()
             ->autofocus()
@@ -30,7 +31,7 @@ class Login extends BaseLogin
     protected function throwFailureValidationException(): never
     {
         throw ValidationException::withMessages([
-            'data.username' => __('filament-panels::pages/auth/login.messages.failed'),
+            'data.username' => 'Username atau kata sandi tidak sesuai.',
         ]);
     }
 }

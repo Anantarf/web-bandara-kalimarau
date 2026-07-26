@@ -13,7 +13,7 @@ class ManageAirportStats extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()->label('Tambah Statistik'),
         ];
     }
 }

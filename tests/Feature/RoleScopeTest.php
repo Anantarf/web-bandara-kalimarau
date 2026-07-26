@@ -22,10 +22,13 @@ class RoleScopeTest extends TestCase
         $admin->syncRoles(['admin']);
 
         $this->assertTrue($admin->can('view_any_flight::schedule'));
-        $this->assertTrue($admin->can('update_public::service::link'));
         $this->assertTrue($admin->can('update_contact::message'));
+        $this->assertTrue($admin->can('update_airport::stat'));
         $this->assertTrue($admin->can('view_any_post'));
         $this->assertTrue($admin->can('create_post'));
+        $this->assertFalse($admin->can('view_any_page'));
+        $this->assertFalse($admin->can('view_any_category'));
+        $this->assertFalse($admin->can('view_any_public::service::link'));
         $this->assertFalse($admin->can('view_any_redirect'));
         $this->assertFalse($admin->can('view_any_audit::log'));
         $this->assertFalse($admin->can('view_any_user'));

@@ -16,9 +16,9 @@ class FlightScheduleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
 
-    protected static ?string $navigationGroup = 'Layanan & Data';
+    protected static ?string $navigationGroup = null;
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $recordTitleAttribute = 'flight_number';
 
@@ -59,24 +59,31 @@ class FlightScheduleResource extends Resource
                                     ->searchable()
                                     ->required(),
                                 Forms\Components\TextInput::make('flight_number')
-                                    ->label('Nomor Penerbangan'),
+                                    ->label('Nomor Penerbangan')
+                                    ->placeholder('Contoh: ID 6431'),
                                 Forms\Components\TextInput::make('route_from')
                                     ->label('Asal')
+                                    ->default('Bandara Kalimarau - Berau')
                                     ->required()
                                     ->disabled(fn (Forms\Get $get): bool => $get('type') === 'keberangkatan')
                                     ->helperText(fn (Forms\Get $get) => $get('type') === 'keberangkatan' ? 'Terkunci: penerbangan Keberangkatan selalu berasal dari Bandara Kalimarau.' : null)
                                     ->dehydrated(),
                                 Forms\Components\TextInput::make('route_to')
                                     ->label('Tujuan')
+                                    ->placeholder('Contoh: Balikpapan')
                                     ->required()
                                     ->disabled(fn (Forms\Get $get): bool => $get('type') === 'kedatangan')
                                     ->helperText(fn (Forms\Get $get) => $get('type') === 'kedatangan' ? 'Terkunci: penerbangan Kedatangan selalu menuju Bandara Kalimarau.' : null)
                                     ->dehydrated(),
                                 Forms\Components\TimePicker::make('departure_time')
                                     ->label('Jam Berangkat')
+                                    ->visible(fn (Forms\Get $get): bool => $get('type') !== 'kedatangan')
+                                    ->required(fn (Forms\Get $get): bool => $get('type') === 'keberangkatan')
                                     ->seconds(false),
                                 Forms\Components\TimePicker::make('arrival_time')
                                     ->label('Jam Tiba')
+                                    ->visible(fn (Forms\Get $get): bool => $get('type') !== 'keberangkatan')
+                                    ->required(fn (Forms\Get $get): bool => $get('type') === 'kedatangan')
                                     ->seconds(false),
                             ])->columns(2),
 
@@ -101,6 +108,7 @@ class FlightScheduleResource extends Resource
                                 Forms\Components\Select::make('type')
                                     ->label('Jenis')
                                     ->options(['keberangkatan' => 'Keberangkatan', 'kedatangan' => 'Kedatangan'])
+                                    ->default('keberangkatan')
                                     ->required()
                                     ->live()
                                     ->afterStateUpdated(function (string $state, Forms\Set $set) {
@@ -174,8 +182,8 @@ class FlightScheduleResource extends Resource
                     ->label('Tampil di Website'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label('Ubah'),
+                Tables\Actions\DeleteAction::make()->label('Hapus'),
             ])
             ->bulkActions([]);
     }

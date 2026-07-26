@@ -29,7 +29,9 @@ class AirportStatResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
 
-    protected static ?string $navigationGroup = 'Tampilan Depan';
+    protected static ?string $navigationGroup = null;
+
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
@@ -120,7 +122,7 @@ class AirportStatResource extends Resource
             ])
             ->bulkActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()->label('Hapus yang dipilih'),
                 ]),
             ]);
     }

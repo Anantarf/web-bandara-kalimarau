@@ -3,6 +3,7 @@
     description="Hubungi Bandara Kalimarau untuk informasi, saran, dan pengaduan layanan."
     :canonical="route('contact.index')"
 >
+    <div x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 50)" class="w-full">
     <!-- Breadcrumb -->
     <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
         <div class="container mx-auto px-4 max-w-7xl">
@@ -14,15 +15,15 @@
     </div>
 
     <!-- Header -->
-    <div class="pt-12 pb-12 bg-white">
+    <div class="pt-12 pb-12 bg-white" x-show="loaded" x-transition:enter="transition-all ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
         <div class="container mx-auto px-4 max-w-7xl text-center md:text-left">
             <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-4">Pengaduan & Kontak</h1>
-            <div class="h-1.5 w-20 bg-gold-light rounded-full mb-4 mx-auto md:mx-0"></div>
-            <p class="text-lg text-gray-500 text-pretty max-w-3xl mx-auto md:mx-0">Hubungi kami atau sampaikan pengaduan layanan secara online melalui formulir di bawah ini.</p>
+            <div class="h-1.5 w-20 bg-gold-light mx-auto md:mx-0 rounded-full mb-6" x-show="loaded" x-transition:enter="transition-all ease-out duration-1000 delay-300" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0"></div>
+            <p class="text-lg text-gray-500 text-pretty max-w-3xl mx-auto md:mx-0" x-show="loaded" x-transition:enter="transition-all ease-out duration-1000 delay-500" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">Hubungi kami atau sampaikan pengaduan layanan secara online melalui formulir di bawah ini.</p>
         </div>
     </div>
 
-    <div class="py-8 bg-gray-50">
+    <div class="py-8 bg-gray-50" x-show="loaded" x-transition:enter="transition-all ease-out duration-1000 delay-700" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
         <div class="container mx-auto px-4 max-w-7xl">
             
             @if(session('success'))
@@ -84,8 +85,8 @@
                             </div>
                         </div>
 
-                        <div class="rounded-xl border border-gold/30 bg-gold/10 px-5 py-4 text-center">
-                            <p class="text-3xl md:text-4xl font-extrabold tracking-wide text-navy-dark">07.00 - 20.00 WITA</p>
+                        <div class="rounded-xl border border-gold/30 bg-gold/10 px-4 py-2.5 text-center">
+                            <p class="text-xl md:text-2xl font-extrabold tracking-wide text-navy-dark">07.00 - 20.00 WITA</p>
                         </div>
 
                         <p class="mt-4 text-gray-600 leading-relaxed">Kami berkomitmen memberikan pelayanan yang nyaman, profesional, aman, dan terpercaya bagi seluruh pengguna jasa bandara.</p>
@@ -160,14 +161,15 @@
                             </div>
                         </form>
                     </div>
+
+                    <!-- Maps Section -->
+                    <div class="mt-6 bg-white p-1.5 rounded-xl shadow-sm border border-gray-200 overflow-hidden relative" style="height: 625px;">
+                        <iframe :src="loaded ? 'https://www.google.com/maps?q=Bandar+Udara+Kalimarau,+Berau&output=embed' : ''" width="100%" height="100%" class="rounded-lg" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Maps Section -->
-            <div class="mt-12 bg-gray-300 rounded-xl overflow-hidden h-[400px] relative border border-gray-200">
-                <iframe src="https://maps.google.com/maps?q=Bandar%20Udara%20Kalimarau,%20Berau,%20Kaltim&t=&z=15&ie=UTF8&iwloc=B&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
 
         </div>
+    </div>
     </div>
 </x-layouts.public>

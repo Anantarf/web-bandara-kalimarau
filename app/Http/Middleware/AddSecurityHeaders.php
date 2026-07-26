@@ -28,7 +28,7 @@ class AddSecurityHeaders
             "font-src 'self' https://fonts.gstatic.com",
             "img-src 'self' data: https: blob:",
             "connect-src 'self' https://api.open-meteo.com",
-            'frame-src https://docs.google.com https://drive.google.com https://maps.google.com',
+            'frame-src https://docs.google.com https://drive.google.com https://maps.google.com https://www.google.com',
             "object-src 'none'",
             "base-uri 'self'",
             "form-action 'self'",

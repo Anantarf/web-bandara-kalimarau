@@ -114,11 +114,7 @@
                 </a>
             </nav>
 
-            <div class="hidden lg:flex items-center shrink-0">
-                <a href="/admin" class="flex items-center gap-2 bg-gold text-white px-4 xl:px-5 py-2 rounded-full text-[14px] font-bold hover:bg-gold-light hover:shadow-lg hover:-translate-y-0.5 transition-all">
-                    Masuk
-                </a>
-            </div>
+
 
             <!-- Mobile menu button -->
             <button type="button" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen.toString()" aria-controls="mobile-navigation" class="lg:hidden p-2.5 -mr-2.5 hover:bg-white/10 rounded-lg transition-colors" :class="(transparent && !scrolled) ? 'text-white' : 'text-navy'" aria-label="Menu">

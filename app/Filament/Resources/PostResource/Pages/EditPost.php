@@ -19,7 +19,7 @@ class EditPost extends EditRecord
                 ->icon('heroicon-o-eye')
                 ->url(fn (): string => URL::temporarySignedRoute('posts.preview', now()->addMinutes(30), ['post' => $this->getRecord()]))
                 ->openUrlInNewTab(),
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()->label('Hapus'),
         ];
     }
 }

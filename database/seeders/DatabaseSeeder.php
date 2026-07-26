@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,6 +20,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleSeeder::class);
         $this->call(FacilitySeeder::class);
+
+        Category::firstOrCreate(
+            ['slug' => 'berita'],
+            ['name' => 'Berita', 'sort_order' => 0],
+        );
 
         $adminEmail = env('SEED_ADMIN_EMAIL', 'admin@kalimarau.local');
         $adminPassword = env('SEED_ADMIN_PASSWORD');

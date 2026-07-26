@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PostResource\Pages;
+use App\Models\Category;
 use App\Models\Post;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -16,7 +17,7 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
-    protected static ?string $navigationGroup = 'Konten Website';
+    protected static ?string $navigationGroup = null;
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -24,7 +25,7 @@ class PostResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Berita';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -36,12 +37,14 @@ class PostResource extends Resource
                             ->schema([
                                 Forms\Components\TextInput::make('title')
                                     ->label('Judul')
+                                    ->placeholder('Contoh: Bandara Kalimarau Layani Penerbangan Tambahan')
                                     ->required()
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(fn (string $operation, $state, callable $set) => $operation === 'create' ? $set('slug', str($state)->slug()) : null)
                                     ->columnSpanFull(),
                                 Forms\Components\Textarea::make('excerpt')
                                     ->label('Ringkasan Singkat')
+                                    ->helperText('Opsional. Jika dikosongkan, sistem akan mengambil ringkasan dari isi berita.')
                                     ->columnSpanFull(),
                                 Forms\Components\RichEditor::make('content')
                                     ->label('Isi Berita')
@@ -58,22 +61,11 @@ class PostResource extends Resource
                                     ->directory('featured-images')
                                     ->columnSpanFull(),
                             ]),
-                        Forms\Components\Section::make('Pengaturan Lanjutan & SEO')
-                            ->description('Opsional. Pengaturan URL dan tampilan di Google.')
-                            ->collapsed()
-                            ->schema([
-                                Forms\Components\TextInput::make('slug')
-                                    ->label('Slug (URL)')
-                                    ->helperText('Bagian alamat website untuk berita ini. Dihasilkan otomatis, jangan diubah kecuali perlu.')
-                                    ->required()
-                                    ->unique(ignoreRecord: true),
-                                Forms\Components\TextInput::make('seo_title')
-                                    ->label('Judul untuk Google')
-                                    ->helperText('Kosongkan untuk memakai judul berita.'),
-                                Forms\Components\Textarea::make('seo_description')
-                                    ->label('Deskripsi untuk Google')
-                                    ->helperText('Ringkasan singkat yang tampil di bawah judul pada hasil pencarian.'),
-                            ]),
+                        Forms\Components\Hidden::make('slug')
+                            ->required()
+                            ->unique(ignoreRecord: true),
+                        Forms\Components\Hidden::make('seo_title'),
+                        Forms\Components\Hidden::make('seo_description'),
                     ])
                     ->columnSpan(['sm' => 12, 'md' => 8]),
 
@@ -85,23 +77,22 @@ class PostResource extends Resource
                                     ->label('Status')
                                     ->options(['draft' => 'Draf', 'published' => 'Diterbitkan', 'archived' => 'Diarsipkan'])
                                     ->default('draft')
+                                    ->live()
+                                    ->afterStateUpdated(function (?string $state, Forms\Set $set, Forms\Get $get): void {
+                                        if ($state === 'published' && blank($get('published_at'))) {
+                                            $set('published_at', now());
+                                        }
+                                    })
                                     ->required(),
                                 Forms\Components\DateTimePicker::make('published_at')
                                     ->label('Tanggal Publikasi')
-                                    ->helperText('Pilih waktu di masa depan untuk menjadwalkan publikasi.'),
+                                    ->default(now())
+                                    ->helperText('Biarkan tanggal saat ini untuk langsung tampil. Pilih waktu di masa depan jika berita ingin dijadwalkan.'),
                             ]),
-                        Forms\Components\Section::make('Meta & Hubungan')
-                            ->schema([
-                                Forms\Components\Select::make('category_id')
-                                    ->label('Kategori')
-                                    ->relationship('category', 'name')
-                                    ->searchable(),
-                                Forms\Components\Select::make('author_id')
-                                    ->label('Penulis')
-                                    ->relationship('author', 'name')
-                                    ->searchable()
-                                    ->default(fn () => auth()->id()),
-                            ]),
+                        Forms\Components\Hidden::make('category_id')
+                            ->default(fn () => Category::query()->where('slug', 'berita')->value('id')),
+                        Forms\Components\Hidden::make('author_id')
+                            ->default(fn () => auth()->id()),
                         Forms\Components\Section::make('Atribut Tambahan')
                             ->schema([
                                 Forms\Components\Toggle::make('is_featured')
@@ -128,10 +119,6 @@ class PostResource extends Resource
                     ->searchable()
                     ->wrap()
                     ->lineClamp(2),
-                Tables\Columns\TextColumn::make('category.name')
-                    ->label('Kategori')
-                    ->sortable()
-                    ->toggleable(),
                 Tables\Columns\TextColumn::make('author.name')
                     ->label('Penulis')
                     ->sortable()
@@ -169,13 +156,10 @@ class PostResource extends Resource
                 Tables\Filters\SelectFilter::make('status')
                     ->label('Status')
                     ->options(['draft' => 'Draf', 'published' => 'Diterbitkan', 'archived' => 'Diarsipkan']),
-                Tables\Filters\SelectFilter::make('category_id')
-                    ->label('Kategori')
-                    ->relationship('category', 'name'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label('Ubah'),
+                Tables\Actions\DeleteAction::make()->label('Hapus'),
             ])
             ->bulkActions([]);
     }

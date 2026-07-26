@@ -13,9 +13,8 @@ Status: **live-ready, siap disiapkan untuk go-live.** Migrasi dari WordPress ke 
 
 ## Ringkasan Fitur
 
-- **Konten**: Post (berita), Page (halaman statis + PPID nested routing), Category, Media, Redirect — CRUD lewat Filament.
-- **Facility (Fasilitas Bandara)**: data-driven lewat model `Facility` + admin CRUD, dipakai di homepage dan `/fasilitas-bandara`. Gambar disimpan di `storage/app/public/facilities` (di-*force-add* ke git karena default `.gitignore` Laravel mengecualikan `storage/app/public/*`).
-- **Jadwal Penerbangan**: scope `active()`, publik cuma lihat yang aktif.
+- **Konten**: Post (berita) — CRUD lewat Filament, kategori otomatis. Page (halaman statis + PPID nested routing), Category, Media, Facility, PpidDocument, PublicServiceLink, dan Redirect masih ada sebagai model/data dan tetap tampil di situs publik, tapi **tidak lagi punya layar CRUD di admin** — hanya bisa diubah lewat akses langsung ke database. Detail di `ALUR ADMIN.md`.
+- **Jadwal Penerbangan**: scope `active()`, publik cuma lihat yang aktif, CRUD lewat Filament.
 - **Kontak**: form dengan validasi server-side, rate limit 3x/menit, tersimpan ke `contact_messages`.
 - **Pencarian**: lintas Post/Page/PpidDocument, `noindex` (bukan halaman untuk di-index Google), rate limit.
 - **Visitor tracking**: middleware `TrackVisitor` mencatat hit harian per-IP, ditampilkan sebagai counter di footer.
@@ -37,7 +36,7 @@ Status: **live-ready, siap disiapkan untuk go-live.** Migrasi dari WordPress ke 
 
 ```bash
 vendor/bin/pint --test
-php artisan test          # 36 test, semua harus lolos
+php artisan test          # 37 test, semua harus lolos
 npm run build
 ```
 

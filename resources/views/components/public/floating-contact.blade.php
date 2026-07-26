@@ -103,16 +103,19 @@
     </div>
 
     <!-- Toggle button -->
-    <button @click="open = !open; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')" :aria-label="open ? 'Tutup kontak' : 'Hubungi kami'" class="relative w-14 h-14 rounded-full bg-navy hover:bg-navy-dark text-white shadow-[0_8px_30px_rgba(12,45,107,0.3)] hover:shadow-[0_12px_40px_rgba(12,45,107,0.5)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group overflow-hidden border-2 border-white/20">
-        <!-- Shine effect on hover -->
-        <div class="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
-        
+    <div class="relative hover:-translate-y-1 transition-all duration-300">
+        <button @click="open = !open; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')" :aria-label="open ? 'Tutup kontak' : 'Hubungi kami'" class="relative w-14 h-14 rounded-full bg-navy hover:bg-navy-dark text-white shadow-[0_8px_30px_rgba(12,45,107,0.3)] hover:shadow-[0_12px_40px_rgba(12,45,107,0.5)] flex items-center justify-center group overflow-hidden border-2 border-white/20">
+            <!-- Shine effect on hover -->
+            <div class="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
+            
+            <svg x-show="!open" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110"><path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/></svg>
+            <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-90" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+
         <!-- Notification Dot -->
-        <span x-show="hasUnread && !open" class="absolute top-0 right-0 flex h-3.5 w-3.5 translate-x-0.5 -translate-y-0.5" style="display: none;">
+        <span x-show="hasUnread && !open" class="absolute top-0 right-0 flex h-3.5 w-3.5 translate-x-0.5 -translate-y-0.5 z-10 pointer-events-none" style="display: none;">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-white"></span>
         </span>
-        <svg x-show="!open" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110"><path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/></svg>
-        <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-90" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+    </div>
 </div>

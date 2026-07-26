@@ -15,7 +15,6 @@ class SitemapController extends Controller
             (object) ['loc' => route('posts.index'), 'lastmod' => null],
             (object) ['loc' => route('flights.index'), 'lastmod' => null],
             (object) ['loc' => route('contact.index'), 'lastmod' => null],
-            (object) ['loc' => route('search'), 'lastmod' => null],
         ]);
 
         $postUrls = Post::query()

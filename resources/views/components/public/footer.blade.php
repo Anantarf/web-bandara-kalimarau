@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 @endif
-                <a href="{{ route('home') }}" class="hover:text-white/70 transition-colors">Sitemap</a>
+                <a href="{{ route('sitemap') }}" class="hover:text-white/70 transition-colors">Sitemap</a>
             </div>
         </div>
     </div>

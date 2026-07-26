@@ -71,7 +71,8 @@ class SeoAndRedirectTest extends TestCase
         $response->assertOk()
             ->assertHeader('Content-Type', 'application/xml')
             ->assertSee(route('posts.show', $post->slug), false)
-            ->assertSee(route('pages.show', $page->slug), false);
+            ->assertSee(route('pages.show', $page->slug), false)
+            ->assertDontSee(route('search'), false);
     }
 
     public function test_fallback_redirect_does_not_override_valid_routes(): void

@@ -8,6 +8,7 @@ Status: **live-ready, siap disiapkan untuk go-live.** Migrasi dari WordPress ke 
 |---|---|
 | Tahu apa yang sudah selesai & apa yang tersisa | `BACKLOG LARAVEL MVP.md` |
 | Deploy ke server/hosting | `GO-LIVE.md` — checklist cepat di paling atas, detail teknis di bawahnya |
+| Tahu cara pakai panel admin (role, alur publish, dll) | `ALUR ADMIN.md` |
 | Tahu sejarah/alasan keputusan migrasi (arsip) | folder `archive/` |
 
 ## Ringkasan Fitur

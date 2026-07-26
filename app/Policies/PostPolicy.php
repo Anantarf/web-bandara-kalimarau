@@ -36,7 +36,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
-        return $user->can('update_post') && $this->ownsOrHasFullAccess($user, $post);
+        return $user->can('update_post');
     }
 
     /**
@@ -44,20 +44,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
-        return $user->can('delete_post') && $this->ownsOrHasFullAccess($user, $post);
-    }
-
-    /**
-     * Editor Berita is limited to their own posts; other roles with post
-     * permissions (admin_konten, super_admin) can manage any post.
-     */
-    protected function ownsOrHasFullAccess(User $user, Post $post): bool
-    {
-        if (! $user->hasRole('editor_berita') || $user->hasAnyRole(['super_admin', 'admin_konten'])) {
-            return true;
-        }
-
-        return $post->author_id === $user->id;
+        return $user->can('delete_post');
     }
 
     /**

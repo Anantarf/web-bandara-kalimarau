@@ -13,21 +13,21 @@ class RoleScopeTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_service_operator_only_receives_service_and_contact_permissions(): void
+    public function test_admin_receives_content_and_layanan_permissions_but_not_system_ones(): void
     {
         Artisan::call('db:seed', ['--class' => RoleSeeder::class]);
         app(PermissionRegistrar::class)->forgetCachedPermissions();
 
-        $operator = User::factory()->create();
-        $operator->syncRoles(['operator_layanan']);
+        $admin = User::factory()->create();
+        $admin->syncRoles(['admin']);
 
-        $this->assertTrue($operator->can('view_any_flight::schedule'));
-        $this->assertTrue($operator->can('update_public::service::link'));
-        $this->assertTrue($operator->can('update_contact::message'));
-        $this->assertFalse($operator->can('create_contact::message'));
-        $this->assertFalse($operator->can('view_any_post'));
-        $this->assertFalse($operator->can('view_any_redirect'));
-        $this->assertFalse($operator->can('view_any_audit::log'));
-        $this->assertFalse($operator->can('view_any_user'));
+        $this->assertTrue($admin->can('view_any_flight::schedule'));
+        $this->assertTrue($admin->can('update_public::service::link'));
+        $this->assertTrue($admin->can('update_contact::message'));
+        $this->assertTrue($admin->can('view_any_post'));
+        $this->assertTrue($admin->can('create_post'));
+        $this->assertFalse($admin->can('view_any_redirect'));
+        $this->assertFalse($admin->can('view_any_audit::log'));
+        $this->assertFalse($admin->can('view_any_user'));
     }
 }

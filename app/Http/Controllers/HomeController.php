@@ -35,7 +35,7 @@ class HomeController extends Controller
             'Kami terus berkomitmen memberikan pelayanan terbaik dengan mengutamakan keselamatan, keamanan, dan kenyamanan pengguna jasa penerbangan. Melalui website ini, masyarakat dapat mengakses informasi penerbangan, layanan publik, berita, kontak, serta kanal pengaduan secara lebih terarah.',
             'Kami mengundang masyarakat untuk memanfaatkan situs ini sebagai sarana informasi dan komunikasi. Masukan yang konstruktif akan menjadi bagian penting dalam meningkatkan kualitas pelayanan Bandara Kalimarau bagi Kabupaten Berau dan wilayah sekitarnya.',
         ],
-        'foto' => 'images/people/kepala-bandara.JPG',
+        'foto' => 'images/people/kepala-bandara.jpg',
     ];
 
     protected const MITRA = [

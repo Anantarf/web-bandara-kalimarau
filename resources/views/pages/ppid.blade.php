@@ -118,7 +118,7 @@
                         return "<{$tag}{$attrs}>{$content}</{$tag}>";
                     }, $pageContent);
 
-                    if ($page->slug === 'struktur-organisasi-ppid-pelaksana-upt' || in_array($currentSub, ['struktur-organisasi', 'struktur-organisasi-pelaksana-upt'])) {
+                    if ($page->slug === 'struktur-organisasi-ppid-pelaksana-upt') {
                         $headings[] = [
                             'id' => 'struktur-ppid',
                             'text' => 'Struktur Organisasi PPID'
@@ -196,7 +196,7 @@
                             <div class="prose prose-lg md:prose-xl prose-blue max-w-none prose-headings:font-bold prose-headings:text-navy-dark prose-a:text-blue-600 prose-img:rounded-xl">
                                 {!! $contentWithIds !!}
 
-                                @if($page->slug === 'struktur-organisasi-ppid-pelaksana-upt' || in_array($currentSub, ['struktur-organisasi', 'struktur-organisasi-pelaksana-upt']))
+                                @if($page->slug === 'struktur-organisasi-ppid-pelaksana-upt')
                                     <h2 id="struktur-ppid" class="text-2xl font-extrabold leading-tight text-navy-dark not-prose mt-12 mb-4 scroll-mt-32 border-b-2 border-gray-100 pb-2">Struktur Organisasi PPID</h2>
                                     <p class="not-prose text-base md:text-lg leading-relaxed text-gray-700 mt-4 mb-6">
                                         Berikut adalah bagan susunan Struktur Organisasi Pejabat Pengelola Informasi dan Dokumentasi (PPID) serta susunan Dewan Pengawas pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.

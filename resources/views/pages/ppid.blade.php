@@ -1,12 +1,5 @@
 @php
-    $groups = [
-        'Tentang PPID' => ['profil', 'visi-misi', 'tugas-dan-fungsi', 'struktur-organisasi', 'struktur-organisasi-pelaksana-upt', 'regulasi', 'maklumat-pelayanan-standar-biaya'],
-        'Informasi Publik' => ['informasi-berkala', 'informasi-setiap-saat', 'informasi-serta-merta', 'formulir-pengajuan-informasi'],
-        'Pelayanan' => ['prosedur-permohonan-informasi', 'prosedur-keberatan-informasi', 'prosedur-sengketa-informasi-publik'],
-        'Kritik dan Saran' => ['kritik-saran'],
-    ];
     $currentSub = array_search($page->slug, $ppidMap, true) ?: null;
-    $activeGroup = collect($groups)->search(fn ($subs) => in_array($currentSub, $subs)) ?: 'Informasi Publik';
 @endphp
 
 <x-layouts.public

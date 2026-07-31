@@ -28,7 +28,7 @@ class LegacyImportPages extends Command
      */
     public const PPID_TEMPLATE_IDS = [
         2811, 2908, 3802, 3846, 3763, 2799, 2492, 2684,
-        2835, 2807, 2825, 2787, 2768, 2749, 2761, 314,
+        2835, 2807, 2825, 2787, 2768, 2749, 2761,
     ];
 
     public const WHITELIST = [
@@ -88,11 +88,30 @@ class LegacyImportPages extends Command
 
             $featuredImage = $mediaImporter->resolve($thumbnailId ? (int) $thumbnailId : null);
 
+            $content = $mediaImporter->rewriteInlineImages(LegacyContentCleaner::clean($row->post_content));
+            if ($legacyId === 314) {
+                $content = str_replace(
+                    'Berikut adalah bagan susunan Struktur Organisasi Pejabat Pengelola Informasi dan Dokumentasi (PPID) serta susunan Dewan Pengawas pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.',
+                    'Berikut adalah bagan susunan Struktur Organisasi serta susunan Dewan Pengawas pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.',
+                    $content
+                );
+                $content = str_replace(
+                    '<h2>Struktur Organisasi PPID</h2>',
+                    '<h2>Struktur Organisasi Bandara Kalimarau</h2>',
+                    $content
+                );
+                $content = str_replace(
+                    'Bagan Struktur Organisasi PPID BLU Kantor UPBU Kelas I Kalimarau',
+                    'Bagan Struktur Organisasi BLU Kantor UPBU Kelas I Kalimarau',
+                    $content
+                );
+            }
+
             $attributes = [
                 'featured_image' => $featuredImage?->path,
                 'title' => html_entity_decode($row->post_title, ENT_QUOTES),
                 'slug' => $overrides['slug'] ?? $row->post_name,
-                'content' => $mediaImporter->rewriteInlineImages(LegacyContentCleaner::clean($row->post_content)),
+                'content' => $content,
                 'status' => 'published',
                 'template' => in_array($legacyId, self::PPID_TEMPLATE_IDS, true) ? 'ppid' : 'default',
                 'published_at' => $row->post_date,

@@ -20,6 +20,10 @@ const jobs = [
 
     // Logo displayed at ~28-56px tall but exported at 3375x3375.
     { in: 'public/images/ppid/logo-ppid.png', out: 'public/images/ppid/logo-ppid.png', width: 400, png: true },
+
+    // Survey Posters
+    { in: 'public/images/survei-internal.jpeg', out: 'public/images/survei-internal.jpeg', width: 1200, quality: 85 },
+    { in: 'public/images/survei-kementerian-placeholder.png', out: 'public/images/survei-kementerian-placeholder.png', width: 1200, png: true },
 ];
 
 // All 22 facility photos, displayed at grid-card/modal size, not full camera res.

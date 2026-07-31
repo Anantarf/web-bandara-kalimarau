@@ -16,7 +16,7 @@
             ['label' => 'Berita Terkini', 'route' => 'posts.index'],
             ['label' => 'FAQ Lengkap', 'route' => 'faq'],
         ],
-        'Pengaduan' => [
+        'Survey dan Pengaduan' => [
             ['label' => 'Survey Kepuasan', 'slug' => 'survey-kepuasan-masyarakat-internal'],
             ['label' => 'SIMADU', 'slug' => 'simadu'],
             ['label' => 'SP4N Lapor', 'slug' => 'sp4n-lapor'],
@@ -25,10 +25,10 @@
     ];
 
     $ppidGroups = [
-        ['label' => 'Profil PPID', 'slug' => 'profile-ppid'],
-        ['label' => 'Struktur Organisasi PPID', 'slug' => 'struktur-organisasi-ppid-pelaksana-upt'],
+        ['label' => 'Profil PPID', 'sub' => 'profil'],
+        ['label' => 'Struktur Organisasi PPID', 'sub' => 'struktur-organisasi'],
         ['label' => 'Layanan Informasi', 'slug' => 'layanan-informasi'],
-        ['label' => 'Regulasi & Prosedur', 'slug' => 'regulasi'],
+        ['label' => 'Regulasi & Prosedur', 'sub' => 'regulasi'],
     ];
 @endphp
 <header class="w-full fixed top-0 z-50 transition-all duration-500 ease-out"
@@ -99,7 +99,7 @@
                           x-transition:leave-end="opacity-0 translate-y-2"
                           class="absolute top-full right-0 mt-3 bg-white border border-navy/5 rounded-2xl shadow-[0_15px_50px_-10px_rgba(20,35,58,0.15)] py-2.5 min-w-64 z-50 overflow-hidden" style="display: none;">
                         @foreach($ppidGroups as $item)
-                            <a href="{{ route('pages.show', $item['slug']) }}"
+                            <a href="{{ isset($item['sub']) ? route('ppid.show', $item['sub']) : route('pages.show', $item['slug']) }}"
                                class="group/item flex items-center px-5 py-2.5 text-[14px] font-semibold text-navy/80 hover:bg-[#f5f7fa] hover:text-navy transition-all duration-350">
                                 <span class="w-1.5 h-1.5 rounded-full bg-gold opacity-0 -translate-x-2 mr-0 w-0 transition-all duration-300 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:w-2 group-hover/item:mr-2"></span>
                                 <span>{{ $item['label'] }}</span>
@@ -164,7 +164,7 @@
                 </button>
                 <div x-show="expanded === 'PPID'" class="pl-4 pb-1 space-y-0.5" style="display: none;">
                     @foreach($ppidGroups as $item)
-                        <a href="{{ route('pages.show', $item['slug']) }}"
+                        <a href="{{ isset($item['sub']) ? route('ppid.show', $item['sub']) : route('pages.show', $item['slug']) }}"
                            class="flex items-center px-3 py-2 text-sm text-text-muted hover:text-navy rounded-md">
                             {{ $item['label'] }}
                         </a>

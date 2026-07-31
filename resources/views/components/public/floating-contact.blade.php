@@ -2,6 +2,53 @@
     $waNumber = '6285262146214';
     $waMessage = rawurlencode('Halo, saya ingin menanyakan informasi mengenai Bandara Kalimarau.');
 @endphp
+<style>
+@keyframes heartbeat-button {
+  0%, 100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.05);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.05);
+  }
+  56%, 100% {
+    transform: scale(1);
+  }
+}
+@keyframes heartbeat-glow {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  14% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+  28% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  42% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+  56%, 100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+.animate-heartbeat-btn {
+  animation: heartbeat-button 3.5s infinite ease-in-out;
+}
+.animate-heartbeat-glow {
+  animation: heartbeat-glow 3.5s infinite ease-in-out;
+}
+</style>
 <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"
      x-data="{ open: false, showHint: false, hasUnread: !sessionStorage.getItem('kalimarau_chat_opened') }"
      x-init="if (!sessionStorage.getItem('kalimarau_hint_shown_v2')) {
@@ -86,36 +133,36 @@
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 translate-y-4 scale-95"
-         class="relative flex items-center gap-3 bg-white rounded-2xl shadow-[0_12px_40px_-12px_rgba(12,45,107,0.3)] border border-gray-100 py-3 pl-4 pr-3 cursor-pointer hover:shadow-[0_16px_50px_-12px_rgba(12,45,107,0.4)] hover:-translate-y-1 transition-all duration-300 group"
+         class="relative flex items-center gap-4 bg-white rounded-full shadow-[0_10px_35px_-5px_rgba(12,45,107,0.15),0_8px_16px_-6px_rgba(12,45,107,0.1)] border border-gray-100 py-3.5 pl-4 pr-4 cursor-pointer hover:shadow-[0_15px_45px_-5px_rgba(12,45,107,0.25)] transition-all duration-300 group"
          style="display: none;"
          @click="open = true; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')">
 
-        <div class="flex items-center justify-center bg-gold-light/20 w-10 h-10 rounded-full shrink-0 group-hover:scale-110 transition-transform duration-300">
-            <span class="text-xl origin-bottom-right group-hover:animate-[wiggle_1s_ease-in-out_infinite]">👋</span>
+        <div class="flex items-center justify-center bg-[#FEF6E0] w-12 h-12 rounded-full shrink-0 group-hover:scale-105 transition-transform duration-300">
+            <span class="text-2xl origin-bottom-right group-hover:animate-[wiggle_1s_ease-in-out_infinite]">👋</span>
         </div>
-        <div class="flex flex-col pr-2">
-            <span class="text-[15px] font-bold text-navy-dark leading-tight">Halo! Butuh bantuan?</span>
-            <span class="text-xs text-gray-500 mt-0.5">Tim kami siap membantu.</span>
+        <div class="flex flex-col pr-1 justify-center">
+            <span class="text-[16px] font-bold text-navy-dark leading-tight">Halo! Butuh bantuan?</span>
+            <span class="text-xs text-gray-400 mt-1">Tim kami siap membantu.</span>
         </div>
-        <button @click.stop="showHint = false" aria-label="Tutup notifikasi" class="p-1.5 -mt-4 -mr-1 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors">
+        <button @click.stop="showHint = false" aria-label="Tutup notifikasi" class="p-1 text-gray-300 hover:text-gray-500 rounded-full transition-colors ml-2 self-start mt-0.5">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
     </div>
 
     <!-- Toggle button -->
     <div class="relative hover:-translate-y-1 transition-all duration-300">
-        <button @click="open = !open; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')" :aria-label="open ? 'Tutup kontak' : 'Hubungi kami'" class="relative w-14 h-14 rounded-full bg-navy hover:bg-navy-dark text-white shadow-[0_8px_30px_rgba(12,45,107,0.3)] hover:shadow-[0_12px_40px_rgba(12,45,107,0.5)] flex items-center justify-center group overflow-hidden border-2 border-white/20">
+        <!-- Heartbeat background glow -->
+        <div x-show="hasUnread && !open" class="absolute inset-0 rounded-full bg-navy/20 animate-heartbeat-glow -z-10" style="display: none;"></div>
+
+        <button @click="open = !open; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')" 
+                :aria-label="open ? 'Tutup kontak' : 'Hubungi kami'" 
+                class="relative w-14 h-14 rounded-full bg-navy hover:bg-navy-dark text-white shadow-[0_8px_30px_rgba(12,45,107,0.3)] flex items-center justify-center group overflow-hidden ring-[6px] ring-navy/20 transition-all duration-300"
+                :class="hasUnread && !open ? 'animate-heartbeat-btn' : ''">
             <!-- Shine effect on hover -->
             <div class="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
             
             <svg x-show="!open" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110"><path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/></svg>
             <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-90" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-
-        <!-- Notification Dot -->
-        <span x-show="hasUnread && !open" class="absolute top-0 right-0 flex h-3.5 w-3.5 translate-x-0.5 -translate-y-0.5 z-10 pointer-events-none" style="display: none;">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-white"></span>
-        </span>
     </div>
 </div>

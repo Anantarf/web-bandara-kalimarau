@@ -23,7 +23,7 @@ const jobs = [
 
     // Survey Posters
     { in: 'public/images/survei-internal.jpeg', out: 'public/images/survei-internal.jpeg', width: 1200, quality: 85 },
-    { in: 'public/images/survei-kementerian-placeholder.png', out: 'public/images/survei-kementerian-placeholder.png', width: 1200, png: true },
+    { in: 'public/images/survei-kemenhub.png', out: 'public/images/survei-kemenhub.png', width: 1200, png: true },
 ];
 
 // All 22 facility photos, displayed at grid-card/modal size, not full camera res.

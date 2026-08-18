@@ -56,6 +56,7 @@ class PostResource extends Resource
                                 Forms\Components\FileUpload::make('featured_image')
                                     ->hiddenLabel()
                                     ->image()
+                                    ->disk('public')
                                     ->maxSize(5120)
                                     ->helperText('Maksimal 5MB. Kompres foto dulu kalau ukurannya besar.')
                                     ->directory('featured-images')

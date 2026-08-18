@@ -85,8 +85,8 @@
     <!-- Section: Sambutan -->
     <section class="bg-surface py-12 lg:py-14 relative z-0">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="flex flex-col-reverse lg:grid lg:grid-cols-[minmax(0,70ch)_300px] gap-8 lg:gap-12 items-start scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out">
-                <div>
+            <div class="flex flex-col-reverse lg:grid lg:grid-cols-[1fr_300px] gap-8 lg:gap-12 items-start scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out">
+                <div class="max-w-[70ch]">
                     <h2 class="font-sans text-lg md:text-xl font-bold text-navy uppercase tracking-wide mb-5">Sambutan dari Kepala Bandar Udara</h2>
 
                     <div class="space-y-5 text-text-muted">

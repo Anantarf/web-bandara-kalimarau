@@ -69,7 +69,7 @@
                             </div>
                             <div>
                                 <h3 class="font-semibold text-gray-900">Email</h3>
-                                <p class="text-gray-600 mt-1">info@kalimarau-airport.com</p>
+                                <p class="text-gray-600 mt-1">bandarakalimaraucantik@gmail.com</p>
                             </div>
                         </div>
                     </div>

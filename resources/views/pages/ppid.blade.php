@@ -159,7 +159,7 @@
                     @endif
                     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
                         @if($currentSub)
-                            <h2 class="subsection-title mb-6">{{ $page->title }}</h2>
+                            <h2 class="subsection-title mb-6 scroll-mt-32" @if($page->slug === 'struktur-organisasi-ppid-pelaksana-upt') id="struktur-ppid" @endif>{{ $page->title }}</h2>
                         @endif
 
 
@@ -186,7 +186,7 @@
                                     figure-class="not-prose max-w-2xl mx-auto" />
                             </div>
 
-                        @elseif(trim(strip_tags($pageContent)) === '')
+                        @elseif(trim(strip_tags($pageContent)) === '' && $page->slug !== 'struktur-organisasi-ppid-pelaksana-upt')
                             <div class="p-12 text-center bg-gray-50 rounded-lg">
                                 <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                                 <h3 class="text-lg font-semibold text-gray-800 mb-1">Belum ada konten</h3>
@@ -197,7 +197,6 @@
                                 {!! $contentWithIds !!}
 
                                 @if($page->slug === 'struktur-organisasi-ppid-pelaksana-upt')
-                                    <h2 id="struktur-ppid" class="text-2xl font-extrabold leading-tight text-navy-dark not-prose mt-12 mb-4 scroll-mt-32 border-b-2 border-gray-100 pb-2">Struktur Organisasi PPID</h2>
                                     <p class="not-prose text-base md:text-lg leading-relaxed text-gray-700 mt-4 mb-6">
                                         Berikut adalah bagan susunan Struktur Organisasi Pejabat Pengelola Informasi dan Dokumentasi (PPID) serta susunan Dewan Pengawas pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.
                                     </p>

@@ -24,8 +24,10 @@ class AddSecurityHeaders
         $response->headers->set('Content-Security-Policy', implode('; ', [
             "default-src 'self'",
             "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-            "font-src 'self' https://fonts.gstatic.com",
+            "worker-src 'self' blob:",
+            "child-src 'self' blob:",
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.bunny.net",
+            "font-src 'self' https://fonts.gstatic.com https://fonts.bunny.net",
             "img-src 'self' data: https: blob:",
             "connect-src 'self' https://api.open-meteo.com",
             'frame-src https://docs.google.com https://drive.google.com https://maps.google.com https://www.google.com',

@@ -130,12 +130,16 @@ class AdminPanelProvider extends PanelProvider
                             text-align: center !important;
                         }
                         .fi-simple-main .fi-logo img {
-                            height: 4.5rem !important; /* Make it even larger when stacked */
+                            height: 4.5rem !important;
                             width: auto !important;
                         }
                         .fi-simple-main .fi-logo .text-xl {
                             font-size: 1.5rem !important;
                             line-height: 1.2 !important;
+                        }
+                        /* Paksa tampilkan nama brand di login (x-show sidebar tidak aktif di sini) */
+                        .fi-simple-main .fi-logo [x-show] {
+                            display: flex !important;
                         }
 
                         /* Retouch Sidebar Background */

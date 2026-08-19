@@ -20,6 +20,18 @@ class Login extends BaseLogin
             ->extraInputAttributes(['tabindex' => 1]);
     }
 
+    protected function getPasswordFormComponent(): Component
+    {
+        return TextInput::make('password')
+            ->label('Kata Sandi')
+            ->placeholder('Masukkan kata sandi')
+            ->password()
+            ->revealable(filament()->arePasswordsRevealable())
+            ->required()
+            ->autocomplete('current-password')
+            ->extraInputAttributes(['tabindex' => 2]);
+    }
+
     protected function getCredentialsFromFormData(array $data): array
     {
         return [

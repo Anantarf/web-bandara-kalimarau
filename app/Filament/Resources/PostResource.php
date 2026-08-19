@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PostResource\Pages;
 use App\Models\Category;
 use App\Models\Post;
+use AwCodes\TiptapEditor\TiptapEditor;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -46,19 +47,31 @@ class PostResource extends Resource
                                     ->label('Ringkasan Singkat')
                                     ->helperText('Opsional. Jika dikosongkan, sistem akan mengambil ringkasan dari isi berita.')
                                     ->columnSpanFull(),
-                                Forms\Components\RichEditor::make('content')
+                                TiptapEditor::make('content')
                                     ->label('Isi Berita')
                                     ->required()
-                                    ->columnSpanFull(),
+                                    ->columnSpanFull()
+                                    ->tools([
+                                        'heading', '|',
+                                        'bold', 'italic', 'underline', 'strike',
+                                        'superscript', 'subscript', 'color', 'highlight', '|',
+                                        'align-left', 'align-center', 'align-right', '|',
+                                        'link', 'media', 'table', '|',
+                                        'bullet-list', 'ordered-list', 'checked-list', '|',
+                                        'blockquote', 'code', 'code-block', '|',
+                                        'source',
+                                    ]),
                             ])->columns(2),
                         Forms\Components\Section::make('Gambar Utama')
                             ->schema([
                                 Forms\Components\FileUpload::make('featured_image')
                                     ->hiddenLabel()
                                     ->image()
+                                    ->imageEditor()
+                                    ->imageCropAspectRatio('16:9')
                                     ->disk('public')
                                     ->maxSize(5120)
-                                    ->helperText('Maksimal 5MB. Kompres foto dulu kalau ukurannya besar.')
+                                    ->helperText('Maksimal 5MB. Gunakan editor foto bawaan untuk menyesuaikan rasio ke 16:9 agar tampilan berita rapi.')
                                     ->directory('featured-images')
                                     ->columnSpanFull(),
                             ]),

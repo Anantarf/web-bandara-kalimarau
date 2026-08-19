@@ -201,6 +201,47 @@ class AdminPanelProvider extends PanelProvider
                             transform: translateY(-1px);
                             box-shadow: 0 0 0 3px rgba(30, 111, 181, 0.2) !important;
                         }
+
+                        /* =========================================
+                           TIPTAP WYSIWYG REALTIME EDITOR STYLING
+                           ========================================= */
+                        .tiptap-wrapper .tiptap h1 {
+                            font-size: 2rem !important;
+                            font-weight: 800 !important;
+                            color: #0c2d6b !important;
+                            margin-top: 1.25rem !important;
+                            margin-bottom: 0.5rem !important;
+                        }
+                        .tiptap-wrapper .tiptap h2 {
+                            font-size: 1.5rem !important;
+                            font-weight: 700 !important;
+                            color: #0c2d6b !important;
+                            margin-top: 1rem !important;
+                            margin-bottom: 0.5rem !important;
+                        }
+                        .tiptap-wrapper .tiptap h3 {
+                            font-size: 1.25rem !important;
+                            font-weight: 600 !important;
+                            color: #0c2d6b !important;
+                            margin-top: 0.75rem !important;
+                            margin-bottom: 0.5rem !important;
+                        }
+                        .tiptap-wrapper .tiptap p {
+                            font-size: 1rem !important;
+                            font-weight: 400 !important;
+                            color: #334155 !important;
+                            line-height: 1.6 !important;
+                            margin-bottom: 0.75rem !important;
+                        }
+                        .tiptap-wrapper .tiptap p.lead {
+                            font-size: 1.15rem !important;
+                            font-weight: 500 !important;
+                            color: #1e293b !important;
+                        }
+                        .tiptap-wrapper .tiptap small {
+                            font-size: 0.875rem !important;
+                            color: #64748b !important;
+                        }
                     </style>
                     HTML),
             )

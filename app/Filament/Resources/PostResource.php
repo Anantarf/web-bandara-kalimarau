@@ -52,7 +52,7 @@ class PostResource extends Resource
                                     ->required()
                                     ->columnSpanFull()
                                     ->tools([
-                                        'heading', '|',
+                                        'heading', 'paragraph', '|',
                                         'bold', 'italic', 'underline', 'strike', '|',
                                         'lead', 'small', '|',
                                         'link', 'media', '|',

@@ -54,12 +54,11 @@ class PostResource extends Resource
                                     ->tools([
                                         'heading', 'paragraph', '|',
                                         'bold', 'italic', 'underline', 'strike', '|',
-                                        'lead', 'small', '|',
                                         'link', 'media', '|',
                                         'bullet-list', 'ordered-list', '|',
                                         'blockquote',
                                     ])
-                                    ->bubbleMenuTools(['bold', 'italic', 'underline', 'lead', 'small', 'link']),
+                                    ->bubbleMenuTools(['bold', 'italic', 'underline', 'link']),
                             ])->columns(2),
                         Forms\Components\Section::make('Gambar Utama')
                             ->schema([

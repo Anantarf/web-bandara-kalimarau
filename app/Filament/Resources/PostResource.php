@@ -53,13 +53,10 @@ class PostResource extends Resource
                                     ->columnSpanFull()
                                     ->tools([
                                         'heading', '|',
-                                        'bold', 'italic', 'underline', 'strike',
-                                        'superscript', 'subscript', 'color', 'highlight', '|',
-                                        'align-left', 'align-center', 'align-right', '|',
-                                        'link', 'media', 'table', '|',
-                                        'bullet-list', 'ordered-list', 'checked-list', '|',
-                                        'blockquote', 'code', 'code-block', '|',
-                                        'source',
+                                        'bold', 'italic', 'underline', 'strike', '|',
+                                        'link', 'media', '|',
+                                        'bullet-list', 'ordered-list', '|',
+                                        'blockquote',
                                     ]),
                             ])->columns(2),
                         Forms\Components\Section::make('Gambar Utama')

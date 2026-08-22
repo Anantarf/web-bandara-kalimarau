@@ -21,9 +21,11 @@ const jobs = [
     // Logo displayed at ~28-56px tall but exported at 3375x3375.
     { in: 'public/images/ppid/logo-ppid.png', out: 'public/images/ppid/logo-ppid.png', width: 400, png: true },
 
-    // Survey Posters
+    // Survey Posters & Maklumat
     { in: 'public/images/survei-internal.jpeg', out: 'public/images/survei-internal.jpeg', width: 1200, quality: 85 },
     { in: 'public/images/survei-kemenhub.png', out: 'public/images/survei-kemenhub.png', width: 1200, png: true },
+    { in: 'public/images/maklumat-pelayanan-2026.jpeg', out: 'public/images/maklumat-pelayanan-2026.jpeg', width: 1600, quality: 88 },
+    { in: 'public/images/jam-pelayanan-operasional.jpeg', out: 'public/images/jam-pelayanan-operasional.jpeg', width: 1200, quality: 85 },
 ];
 
 // All 22 facility photos, displayed at grid-card/modal size, not full camera res.

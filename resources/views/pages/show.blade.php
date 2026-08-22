@@ -126,8 +126,8 @@
                             <div class="mb-12">
                                 <h3 id="maklumat-pelayanan" class="text-2xl font-extrabold leading-tight text-navy-dark border-b border-gray-100 pb-2 mb-6 scroll-mt-32">Maklumat Pelayanan</h3>
                                 <x-lightbox-image
-                                    src="{{ asset('images/ppid/maklumat-ppid-page-1.jpg') }}"
-                                    alt="Maklumat Pelayanan PPID Bandar Udara Kalimarau"
+                                    src="{{ asset('images/maklumat-pelayanan-2026.jpeg') }}"
+                                    alt="Maklumat Pelayanan Bandar Udara Kalimarau 2026"
                                     figure-class="not-prose max-w-2xl mx-auto" />
                             </div>
 

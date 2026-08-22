@@ -22,7 +22,7 @@
                 @if($loop->last)
                     <span class="text-gray-800 font-medium {{ $item['class'] ?? '' }}" aria-current="page">{{ $item['label'] }}</span>
                 @elseif(!empty($item['url']))
-                    <a href="{{ $item['url'] }}" class="text-gray-600 hover:text-navy transition-colors">{{ $item['label'] }}</a>
+                    <a href="{{ $item['url'] }}" class="text-gray-500 hover:text-navy transition-colors">{{ $item['label'] }}</a>
                 @else
                     <span class="text-gray-800 font-medium">{{ $item['label'] }}</span>
                 @endif

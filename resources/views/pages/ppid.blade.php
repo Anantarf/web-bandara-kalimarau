@@ -67,75 +67,22 @@
 
                 <!-- Content Area -->
                 @php
-                    $pageContent = $page->content;
-                    $isMaklumatStandarBiaya = $currentSub === 'maklumat-pelayanan-standar-biaya'
-                        || (\Illuminate\Support\Str::contains($page->slug, 'maklumat-pelayanan')
-                            && \Illuminate\Support\Str::contains($page->title, 'Standar Biaya'));
-
-                    if ($currentSub === 'regulasi') {
-                        $pageContent = preg_replace(
-                            '/<div\\b[^>]*>.*?Draft.*?perlu ditinjau tim PPID.*?<\\/div>/isu',
-                            '',
-                            $pageContent
-                        );
-                    }
-
-                    $headings = [];
-                    preg_match_all('/<(h[234])[^>]*>(.*?)<\/\1>/i', $pageContent, $matches);
-                    
-                    if (!empty($matches[2])) {
-                        foreach ($matches[2] as $index => $text) {
-                            $cleanText = html_entity_decode(strip_tags($text), ENT_QUOTES, 'UTF-8');
-                            $id = \Illuminate\Support\Str::slug($cleanText);
-                            if (strlen($cleanText) > 2 && strlen($cleanText) < 60) {
-                                $headings[] = [
-                                    'id' => $id,
-                                    'text' => $cleanText
-                                ];
-                            }
-                        }
-                    }
-                    
-                    $contentWithIds = preg_replace_callback('/<(h[234])([^>]*)>(.*?)<\/\1>/i', function($m) {
-                        $tag = $m[1];
-                        $existingAttrs = $m[2];
-                        $content = $m[3];
-                        
-                        $id = \Illuminate\Support\Str::slug(strip_tags($content));
-                        
-                        $newClasses = 'scroll-mt-32';
-                        
-                        if (strpos($existingAttrs, 'id="') === false) {
-                            $existingAttrs .= ' id="' . $id . '"';
-                        }
-                        
-                        if (strpos($existingAttrs, 'class="') !== false) {
-                            $attrs = preg_replace('/class="/', 'class="' . $newClasses . ' ', $existingAttrs);
-                        } else {
-                            $attrs = $existingAttrs . ' class="' . $newClasses . '"';
-                        }
-                        
-                        return "<{$tag}{$attrs}>{$content}</{$tag}>";
-                    }, $pageContent);
-
-                    if ($page->slug === 'struktur-organisasi-ppid-pelaksana-upt') {
-                        $headings[] = [
-                            'id' => 'struktur-ppid',
-                            'text' => 'Struktur Organisasi PPID'
-                        ];
-                    }
-
-                    if ($currentSub === 'maklumat-pelayanan-standar-biaya' || $page->slug === 'maklumat-pelayanan-dan-standar-biaya') {
-                        $headings[] = [
-                            'id' => 'maklumat-pelayanan',
-                            'text' => 'Maklumat Pelayanan'
-                        ];
-                        $headings[] = [
-                            'id' => 'standar-biaya',
-                            'text' => 'Standar Biaya'
-                        ];
-                    }
-
+                    $pageContent = $currentSub === 'regulasi'
+                        ? \App\Support\PageContent::withoutRegulasiDraftNotice($page->content)
+                        : $page->content;
+                    $isMaklumatStandarBiaya = \App\Support\PageContent::isMaklumatStandarBiaya($page->slug, $page->title, $currentSub);
+                    $extraHeadings = match (true) {
+                        $page->slug === 'struktur-organisasi-ppid-pelaksana-upt' => [
+                            ['id' => 'struktur-ppid', 'text' => 'Struktur Organisasi PPID'],
+                        ],
+                        $currentSub === 'maklumat-pelayanan-standar-biaya' || $page->slug === 'maklumat-pelayanan-dan-standar-biaya' => [
+                            ['id' => 'maklumat-pelayanan', 'text' => 'Maklumat Pelayanan'],
+                            ['id' => 'standar-biaya', 'text' => 'Standar Biaya'],
+                        ],
+                        default => [],
+                    };
+                    $headings = \App\Support\PageContent::headings($pageContent, '234', $extraHeadings, 60);
+                    $contentWithIds = \App\Support\PageContent::withHeadingIds($pageContent, '234', 'scroll-mt-32');
                     $showToc = count($headings) > 0;
                 @endphp
 
@@ -197,13 +144,7 @@
                                 {!! $contentWithIds !!}
 
                                 @if($page->slug === 'struktur-organisasi-ppid-pelaksana-upt')
-                                    <p class="not-prose text-base md:text-lg leading-relaxed text-gray-700 mt-4 mb-6">
-                                        Berikut adalah bagan susunan Struktur Organisasi Pejabat Pengelola Informasi dan Dokumentasi (PPID) serta susunan Dewan Pengawas pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.
-                                    </p>
-                                    <x-lightbox-image
-                                        src="{{ asset('images/ppid/struktur-ppid.jpeg') }}"
-                                        alt="Struktur Organisasi PPID dan Dewan Pengawas BLU Bandara Kalimarau"
-                                        figure-class="not-prose" />
+                                    <x-page-structure-image type="ppid" :show-heading="false" />
                                 @endif
                             </div>
                         @endif
@@ -233,4 +174,3 @@
         </div>
     </div>
 </x-layouts.public>
-

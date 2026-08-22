@@ -44,6 +44,7 @@ class AuditLogResource extends Resource
                         'created' => 'Dibuat',
                         'updated' => 'Diubah',
                         'deleted' => 'Dihapus',
+                        default => Str::headline($state),
                     }),
                 Infolists\Components\TextEntry::make('auditable_type')
                     ->label('Data')
@@ -92,11 +93,13 @@ class AuditLogResource extends Resource
                         'created' => 'success',
                         'updated' => 'warning',
                         'deleted' => 'danger',
+                        default => 'gray',
                     })
                     ->formatStateUsing(fn (string $state): string => match ($state) {
                         'created' => 'Dibuat',
                         'updated' => 'Diubah',
                         'deleted' => 'Dihapus',
+                        default => Str::headline($state),
                     }),
                 Tables\Columns\TextColumn::make('auditable_type')
                     ->label('Data')

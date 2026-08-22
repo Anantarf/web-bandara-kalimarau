@@ -67,7 +67,7 @@ class UserResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('roles')
                                     ->label('Hak Akses')
-                                    ->relationship('roles', 'name')
+                                    ->relationship('roles', 'name', fn ($query) => $query->whereIn('name', array_keys(self::$roleLabels)))
                                     ->getOptionLabelFromRecordUsing(fn (Role $record): string => self::$roleLabels[$record->name] ?? str($record->name)->replace('_', ' ')->title()->toString())
                                     ->preload()
                                     ->helperText('Pengelola Utama dapat mengatur semua data. Admin Konten & Layanan hanya mengelola konten website dan data layanan.')

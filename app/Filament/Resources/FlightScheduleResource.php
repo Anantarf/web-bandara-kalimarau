@@ -63,7 +63,7 @@ class FlightScheduleResource extends Resource
                                     ->placeholder('Contoh: ID 6431'),
                                 Forms\Components\TextInput::make('route_from')
                                     ->label('Asal')
-                                    ->default('Bandara Kalimarau - Berau')
+                                    ->default(FlightSchedule::KALIMARAU_ROUTE)
                                     ->required()
                                     ->disabled(fn (Forms\Get $get): bool => $get('type') === 'keberangkatan')
                                     ->helperText(fn (Forms\Get $get) => $get('type') === 'keberangkatan' ? 'Terkunci: penerbangan Keberangkatan selalu berasal dari Bandara Kalimarau.' : null)
@@ -113,9 +113,11 @@ class FlightScheduleResource extends Resource
                                     ->live()
                                     ->afterStateUpdated(function (string $state, Forms\Set $set) {
                                         if ($state === 'kedatangan') {
-                                            $set('route_to', 'Bandara Kalimarau - Berau');
+                                            $set('route_to', FlightSchedule::KALIMARAU_ROUTE);
+                                            $set('departure_time', null);
                                         } elseif ($state === 'keberangkatan') {
-                                            $set('route_from', 'Bandara Kalimarau - Berau');
+                                            $set('route_from', FlightSchedule::KALIMARAU_ROUTE);
+                                            $set('arrival_time', null);
                                         }
                                     }),
                                 Forms\Components\Toggle::make('is_active')

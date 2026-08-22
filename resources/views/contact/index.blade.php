@@ -14,12 +14,29 @@
         </div>
     </div>
 
-    <!-- Header -->
-    <div class="pt-12 pb-12 bg-white" x-show="loaded" x-transition:enter="transition-all ease-out duration-1000 delay-100" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
+    <!-- Header (Golden Standard) -->
+    <div class="pt-12 pb-12 bg-white">
         <div class="container mx-auto px-4 max-w-7xl text-center md:text-left">
-            <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-4">Pengaduan & Kontak</h1>
-            <div class="h-1.5 w-20 bg-gold-light mx-auto md:mx-0 rounded-full mb-6" x-show="loaded" x-transition:enter="transition-all ease-out duration-1000 delay-300" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0"></div>
-            <p class="text-lg text-gray-500 text-pretty max-w-3xl mx-auto md:mx-0" x-show="loaded" x-transition:enter="transition-all ease-out duration-1000 delay-500" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">Hubungi kami atau sampaikan pengaduan layanan secara online melalui formulir di bawah ini.</p>
+            <h1 x-show="loaded" 
+                x-transition:enter="transition-all ease-out duration-1000 delay-100" 
+                x-transition:enter-start="opacity-0 translate-y-8" 
+                x-transition:enter-end="opacity-100 translate-y-0" 
+                style="display: none;"
+                class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">Pengaduan & Kontak</h1>
+            
+            <div x-show="loaded" 
+                 x-transition:enter="transition-all ease-out duration-1000 delay-300" 
+                 x-transition:enter-start="opacity-0 scale-0" 
+                 x-transition:enter-end="opacity-100 scale-100" 
+                 style="display: none;"
+                 class="h-1.5 w-20 bg-gold-light mx-auto md:mx-0 rounded-full mb-6 origin-left"></div>
+            
+            <p x-show="loaded" 
+               x-transition:enter="transition-all ease-out duration-1000 delay-500" 
+               x-transition:enter-start="opacity-0 translate-y-4" 
+               x-transition:enter-end="opacity-100 translate-y-0" 
+               style="display: none;"
+               class="text-lg text-gray-500 text-pretty max-w-3xl mx-auto md:mx-0">Hubungi kami atau sampaikan pengaduan layanan secara online melalui formulir di bawah ini.</p>
         </div>
     </div>
 

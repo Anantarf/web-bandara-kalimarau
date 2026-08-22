@@ -68,4 +68,23 @@ class AdminPanelSmokeTest extends TestCase
 
         $this->assertSame('admin.konten@kalimarau.local', $user->email);
     }
+
+    public function test_audit_log_detail_handles_unknown_event_names(): void
+    {
+        $admin = User::factory()->create(['is_active' => true]);
+        $admin->syncRoles(['super_admin']);
+
+        $auditLog = AuditLog::query()->create([
+            'user_id' => $admin->id,
+            'event' => 'restored',
+            'auditable_type' => User::class,
+            'auditable_id' => $admin->id,
+            'new_values' => ['name' => $admin->name],
+        ]);
+
+        $this->actingAs($admin)
+            ->get("/admin/audit-logs/{$auditLog->id}")
+            ->assertOk()
+            ->assertSee('Restored');
+    }
 }

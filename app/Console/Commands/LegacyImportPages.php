@@ -92,7 +92,12 @@ class LegacyImportPages extends Command
             if ($legacyId === 314) {
                 $content = str_replace(
                     'Berikut adalah bagan susunan Struktur Organisasi Pejabat Pengelola Informasi dan Dokumentasi (PPID) serta susunan Dewan Pengawas pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.',
-                    'Berikut adalah bagan susunan Struktur Organisasi serta susunan Dewan Pengawas pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.',
+                    'Berikut adalah bagan susunan Struktur Organisasi pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.',
+                    $content
+                );
+                $content = str_replace(
+                    'serta susunan Dewan Pengawas ',
+                    '',
                     $content
                 );
                 $content = str_replace(

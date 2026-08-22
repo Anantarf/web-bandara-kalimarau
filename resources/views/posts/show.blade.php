@@ -48,8 +48,19 @@
              :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
              
             <header class="mb-10 text-center md:text-left">
-                <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">{{ $post->title }}</h1>
-                <div class="h-1.5 w-20 bg-gold-light rounded-full mb-6 mx-auto md:mx-0"></div>
+                <h1 x-show="loaded" 
+                    x-transition:enter="transition-all ease-out duration-1000 delay-100" 
+                    x-transition:enter-start="opacity-0 translate-y-8" 
+                    x-transition:enter-end="opacity-100 translate-y-0" 
+                    style="display: none;"
+                    class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">{{ $post->title }}</h1>
+                
+                <div x-show="loaded" 
+                     x-transition:enter="transition-all ease-out duration-1000 delay-300" 
+                     x-transition:enter-start="opacity-0 scale-0" 
+                     x-transition:enter-end="opacity-100 scale-100" 
+                     style="display: none;"
+                     class="h-1.5 w-20 bg-gold-light rounded-full mb-6 mx-auto md:mx-0 origin-left"></div>
                 
                 <div class="flex flex-wrap items-center justify-center md:justify-start text-sm text-gray-500 gap-4 pb-6 border-b border-gray-100">
                     <div class="flex items-center">

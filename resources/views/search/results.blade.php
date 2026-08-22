@@ -5,6 +5,16 @@
     :withHeaderPadding="true"
     robots="noindex, follow"
 >
+    <!-- Breadcrumb -->
+    <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 lg:px-6">
+            <x-breadcrumb :items="[
+                ['label' => 'Beranda', 'url' => route('home')],
+                ['label' => 'Pencarian Informasi'],
+            ]" />
+        </div>
+    </div>
+
     <!-- Search Header -->
     <div class="relative bg-navy-dark pt-20 pb-16 lg:pt-28 lg:pb-24 overflow-hidden border-b border-white/10">
         <!-- Background Elements -->

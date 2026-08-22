@@ -73,71 +73,26 @@
 
             <!-- Content Area with Table of Contents -->
             @php
-                $isMaklumatStandarBiaya = \Illuminate\Support\Str::contains($page->slug, 'maklumat-pelayanan')
-                    && \Illuminate\Support\Str::contains($page->title, 'Standar Biaya');
-
-                // Extract H2 and H3 headings for Table of Contents
-                preg_match_all('/<(h[23])[^>]*>(.*?)<\/\1>/i', $page->content, $matches);
-                $headings = [];
-                if (!empty($matches[2])) {
-                    foreach($matches[2] as $headingText) {
-                        $headings[] = [
-                            'text' => html_entity_decode(strip_tags($headingText), ENT_QUOTES, 'UTF-8'),
-                            'id' => \Illuminate\Support\Str::slug(strip_tags($headingText))
-                        ];
-                    }
-                }
-                
-                // Inject Maklumat Pelayanan & Penghargaan to TOC if on the right page
-                if ($page->slug === 'profil-bandara-kalimarau') {
-                    $headings[] = [
-                        'id' => 'maklumat-pelayanan',
-                        'text' => 'Maklumat Pelayanan'
-                    ];
-                    $headings[] = [
-                        'id' => 'penghargaan-prestasi',
-                        'text' => 'Penghargaan & Prestasi'
-                    ];
-                }
-                if ($page->slug === 'struktur-organisasi-ppid-pelaksana-upt') {
-                    $headings[] = [
-                        'text' => 'Struktur Organisasi Bandara Kalimarau',
-                        'id' => 'struktur-ppid'
-                    ];
-                }
-                if ($page->slug === 'maklumat-pelayanan-dan-standar-biaya') {
-                    $headings[] = [
-                        'id' => 'maklumat-pelayanan',
-                        'text' => 'Maklumat Pelayanan'
-                    ];
-                    $headings[] = [
-                        'id' => 'standar-biaya',
-                        'text' => 'Standar Biaya'
-                    ];
-                }
-                
-                // Add IDs to H2 and H3 tags in the content so we can link to them
-                $contentWithIds = preg_replace_callback('/<(h[23])([^>]*)>(.*?)<\/\1>/i', function($m) {
-                    $tag = $m[1];
-                    $existingAttrs = $m[2];
-                    $content = $m[3];
-                    $id = \Illuminate\Support\Str::slug(strip_tags($content));
-                    
-                    // Add standard classes
-                    $newClasses = 'scroll-mt-32 border-b-2 border-gray-100 pb-2';
-                    
-                    if (strpos($existingAttrs, 'id="') === false) {
-                        $existingAttrs .= ' id="' . $id . '"';
-                    }
-                    
-                    if (strpos($existingAttrs, 'class="') !== false) {
-                        $attrs = preg_replace('/class="/', 'class="' . $newClasses . ' ', $existingAttrs);
-                    } else {
-                        $attrs = $existingAttrs . ' class="' . $newClasses . '"';
-                    }
-                    
-                    return "<{$tag}{$attrs}>{$content}</{$tag}>";
-                }, $page->content);
+                $isMaklumatStandarBiaya = \App\Support\PageContent::isMaklumatStandarBiaya($page->slug, $page->title);
+                $extraHeadings = match ($page->slug) {
+                    'profil-bandara-kalimarau' => [
+                        ['id' => 'maklumat-pelayanan', 'text' => 'Maklumat Pelayanan'],
+                        ['id' => 'penghargaan-prestasi', 'text' => 'Penghargaan & Prestasi'],
+                    ],
+                    'struktur-organisasi' => [
+                        ['id' => 'struktur-organisasi-bandara-kalimarau', 'text' => 'Struktur Organisasi Bandara Kalimarau'],
+                    ],
+                    'struktur-organisasi-ppid-pelaksana-upt' => [
+                        ['id' => 'struktur-ppid', 'text' => 'Struktur Organisasi PPID'],
+                    ],
+                    'maklumat-pelayanan-dan-standar-biaya' => [
+                        ['id' => 'maklumat-pelayanan', 'text' => 'Maklumat Pelayanan'],
+                        ['id' => 'standar-biaya', 'text' => 'Standar Biaya'],
+                    ],
+                    default => [],
+                };
+                $headings = \App\Support\PageContent::headings($page->content, '23', $extraHeadings);
+                $contentWithIds = \App\Support\PageContent::withHeadingIds($page->content);
             @endphp
 
             @if($page->slug === 'fasilitas-bandara')
@@ -467,15 +422,10 @@
                                         prose-li:marker:text-gold prose-ul:space-y-1">
                                 {!! $contentWithIds !!}
 
-                                @if($page->slug === 'struktur-organisasi-ppid-pelaksana-upt')
-                                    <h2 id="struktur-ppid" class="text-2xl font-extrabold leading-tight text-navy-dark not-prose mt-12 mb-4 scroll-mt-32 border-b-2 border-gray-100 pb-2">Struktur Organisasi Bandara Kalimarau</h2>
-                                    <p class="not-prose text-base md:text-lg leading-relaxed text-gray-700 mt-4 mb-6">
-                                        Berikut adalah bagan susunan Struktur Organisasi Bandara Kalimarau serta susunan Dewan Pengawas pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.
-                                    </p>
-                                    <x-lightbox-image
-                                        src="{{ asset('images/ppid/struktur-ppid.jpeg') }}"
-                                        alt="Struktur Organisasi Bandara Kalimarau dan Dewan Pengawas BLU Bandara Kalimarau"
-                                        figure-class="not-prose" />
+                                @if($page->slug === 'struktur-organisasi')
+                                    <x-page-structure-image type="airport" />
+                                @elseif($page->slug === 'struktur-organisasi-ppid-pelaksana-upt')
+                                    <x-page-structure-image type="ppid" />
                                 @endif
                             </div>
                         @endif

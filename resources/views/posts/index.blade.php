@@ -13,13 +13,30 @@
         </div>
     </div>
 
-    <div class="pt-12 pb-8 bg-white border-b border-gray-100">
+    <div class="pt-12 pb-8 bg-white border-b border-gray-100" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
         <div class="container mx-auto px-4 max-w-7xl">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div class="text-center md:text-left">
-                    <h1 class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-4">Berita Terkini</h1>
-                    <div class="h-1.5 w-20 bg-gold-light rounded-full mb-4 mx-auto md:mx-0"></div>
-                    <p class="text-lg text-gray-500 text-pretty">Informasi dan pengumuman terbaru dari Bandara Kalimarau.</p>
+                    <h1 x-show="loaded" 
+                        x-transition:enter="transition-all ease-out duration-1000 delay-100" 
+                        x-transition:enter-start="opacity-0 translate-y-8" 
+                        x-transition:enter-end="opacity-100 translate-y-0" 
+                        style="display: none;"
+                        class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">Berita Terkini</h1>
+                    
+                    <div x-show="loaded" 
+                         x-transition:enter="transition-all ease-out duration-1000 delay-300" 
+                         x-transition:enter-start="opacity-0 scale-0" 
+                         x-transition:enter-end="opacity-100 scale-100" 
+                         style="display: none;"
+                         class="h-1.5 w-20 bg-gold-light rounded-full mb-6 mx-auto md:mx-0 origin-left"></div>
+                    
+                    <p x-show="loaded" 
+                       x-transition:enter="transition-all ease-out duration-1000 delay-500" 
+                       x-transition:enter-start="opacity-0 translate-y-4" 
+                       x-transition:enter-end="opacity-100 translate-y-0" 
+                       style="display: none;"
+                       class="text-lg text-gray-500 text-pretty">Informasi dan pengumuman terbaru dari Bandara Kalimarau.</p>
                 </div>
                 
                 <!-- Search & Filter Form -->

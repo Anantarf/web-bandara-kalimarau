@@ -36,4 +36,36 @@ class FlightScheduleVisibilityTest extends TestCase
             ->assertSee('Aktif Air')
             ->assertDontSee('Nonaktif Air');
     }
+
+    public function test_flight_schedule_routes_are_normalized_when_type_changes(): void
+    {
+        $schedule = FlightSchedule::create([
+            'airline' => 'Test Air',
+            'route_from' => 'Balikpapan',
+            'route_to' => 'Surabaya',
+            'type' => 'keberangkatan',
+            'departure_time' => '09:30',
+            'arrival_time' => '10:30',
+            'is_active' => true,
+            'days' => ['senin'],
+        ]);
+
+        $this->assertSame(FlightSchedule::KALIMARAU_ROUTE, $schedule->refresh()->route_from);
+        $this->assertNull($schedule->arrival_time);
+
+        $schedule->update([
+            'type' => 'kedatangan',
+            'route_from' => 'Balikpapan',
+            'route_to' => 'Surabaya',
+            'departure_time' => '09:30',
+            'arrival_time' => '10:30',
+        ]);
+
+        $schedule->refresh();
+
+        $this->assertSame('Balikpapan', $schedule->route_from);
+        $this->assertSame(FlightSchedule::KALIMARAU_ROUTE, $schedule->route_to);
+        $this->assertNull($schedule->departure_time);
+        $this->assertNotNull($schedule->arrival_time);
+    }
 }

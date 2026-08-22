@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class FlightSchedule extends Model
 {
+    public const KALIMARAU_ROUTE = 'Bandara Kalimarau - Berau';
+
     protected $fillable = [
         'airline',
         'flight_number',
@@ -20,6 +22,21 @@ class FlightSchedule extends Model
         'notes',
         'sort_order',
     ];
+
+    protected static function booted(): void
+    {
+        static::saving(function (FlightSchedule $flightSchedule): void {
+            if ($flightSchedule->type === 'keberangkatan') {
+                $flightSchedule->route_from = self::KALIMARAU_ROUTE;
+                $flightSchedule->arrival_time = null;
+            }
+
+            if ($flightSchedule->type === 'kedatangan') {
+                $flightSchedule->route_to = self::KALIMARAU_ROUTE;
+                $flightSchedule->departure_time = null;
+            }
+        });
+    }
 
     protected function casts(): array
     {

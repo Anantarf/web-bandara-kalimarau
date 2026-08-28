@@ -48,30 +48,30 @@
 
         <!-- Desktop nav -->
         <nav class="hidden lg:flex flex-1 justify-center items-center gap-2 xl:gap-3" :class="(transparent && !scrolled) ? 'text-white' : 'text-navy'">
-            <a href="{{ route('home') }}" class="group relative px-2 py-2 text-[15px] font-bold hover:text-gold transition-colors tracking-wide">
+            <a href="{{ route('home') }}" class="group relative px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
                 Beranda
                 <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-[calc(100%-1.5rem)] rounded-full"></span>
             </a>
 
                 @foreach($navGroups as $groupLabel => $items)
                 <div class="relative group/dropdown" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" @click.outside="open = false" @keydown.escape.window="open = false">
-                    <button type="button" @click="open = !open" :aria-expanded="open.toString()" aria-haspopup="true" class="group relative flex items-center gap-1 px-2 py-2 text-[15px] font-bold hover:text-gold transition-colors tracking-wide">
+                    <button type="button" @click="open = !open" :aria-expanded="open.toString()" aria-haspopup="true" class="group relative flex items-center gap-1 px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
                         {{ $groupLabel }}
                         <svg class="w-4 h-4 transition-transform duration-300 group-hover/dropdown:-rotate-180 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-[calc(100%-1.5rem)] rounded-full"></span>
                     </button>
-                        <div x-show="open" 
-                             x-transition:enter="transition ease-out duration-250" 
-                             x-transition:enter-start="opacity-0 translate-y-3" 
+                        <div x-show="open"
+                             x-transition:enter="transition ease-out duration-250"
+                             x-transition:enter-start="opacity-0 translate-y-3"
                              x-transition:enter-end="opacity-100 translate-y-0"
-                             x-transition:leave="transition ease-in duration-150" 
-                             x-transition:leave-start="opacity-100 translate-y-0" 
+                             x-transition:leave="transition ease-in duration-150"
+                             x-transition:leave-start="opacity-100 translate-y-0"
                              x-transition:leave-end="opacity-0 translate-y-2"
                              class="absolute top-full left-0 mt-3 bg-white border border-navy/5 rounded-2xl shadow-[0_15px_50px_-10px_rgba(20,35,58,0.15)] py-2.5 min-w-60 z-50 overflow-hidden" style="display: none;">
                             @foreach($items as $item)
                                 <a href="{{ isset($item['route']) ? route($item['route']) : (isset($item['url']) ? $item['url'] : route('pages.show', $item['slug'])) }}"
                                    @if($item['external'] ?? false) target="_blank" rel="noopener noreferrer" @endif
-                                   class="group/item flex items-center px-5 py-2.5 text-[14px] font-semibold text-navy/80 hover:bg-[#f5f7fa] hover:text-navy transition-all duration-350">
+                                   class="group/item flex items-center px-5 py-2.5 text-sm font-semibold text-navy/80 hover:bg-[#f5f7fa] hover:text-navy transition-all duration-350">
                                     <span class="w-1.5 h-1.5 rounded-full bg-gold opacity-0 -translate-x-2 mr-0 w-0 transition-all duration-300 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:w-2 group-hover/item:mr-2"></span>
                                     <span>{{ $item['label'] }}</span>
                                     @if($item['external'] ?? false)
@@ -85,22 +85,22 @@
 
             <!-- PPID Dropdown (Single Level) -->
             <div class="relative group/ppid" x-data="{ openPpid: false }" @mouseenter="openPpid = true" @mouseleave="openPpid = false" @click.outside="openPpid = false" @keydown.escape.window="openPpid = false">
-                <button type="button" @click="openPpid = !openPpid" :aria-expanded="openPpid.toString()" aria-haspopup="true" class="group relative flex items-center gap-1 px-2 py-2 text-[15px] font-bold hover:text-gold transition-colors tracking-wide">
+                <button type="button" @click="openPpid = !openPpid" :aria-expanded="openPpid.toString()" aria-haspopup="true" class="group relative flex items-center gap-1 px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
                     PPID
                     <svg class="w-4 h-4 transition-transform duration-300 group-hover/ppid:-rotate-180 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-[calc(100%-1.5rem)] rounded-full"></span>
                 </button>
-                    <div x-show="openPpid" 
-                          x-transition:enter="transition ease-out duration-250" 
-                          x-transition:enter-start="opacity-0 translate-y-3" 
+                    <div x-show="openPpid"
+                          x-transition:enter="transition ease-out duration-250"
+                          x-transition:enter-start="opacity-0 translate-y-3"
                           x-transition:enter-end="opacity-100 translate-y-0"
-                          x-transition:leave="transition ease-in duration-150" 
-                          x-transition:leave-start="opacity-100 translate-y-0" 
+                          x-transition:leave="transition ease-in duration-150"
+                          x-transition:leave-start="opacity-100 translate-y-0"
                           x-transition:leave-end="opacity-0 translate-y-2"
                           class="absolute top-full right-0 mt-3 bg-white border border-navy/5 rounded-2xl shadow-[0_15px_50px_-10px_rgba(20,35,58,0.15)] py-2.5 min-w-64 z-50 overflow-hidden" style="display: none;">
                         @foreach($ppidGroups as $item)
                             <a href="{{ isset($item['sub']) ? route('ppid.show', $item['sub']) : route('pages.show', $item['slug']) }}"
-                               class="group/item flex items-center px-5 py-2.5 text-[14px] font-semibold text-navy/80 hover:bg-[#f5f7fa] hover:text-navy transition-all duration-350">
+                               class="group/item flex items-center px-5 py-2.5 text-sm font-semibold text-navy/80 hover:bg-[#f5f7fa] hover:text-navy transition-all duration-350">
                                 <span class="w-1.5 h-1.5 rounded-full bg-gold opacity-0 -translate-x-2 mr-0 w-0 transition-all duration-300 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:w-2 group-hover/item:mr-2"></span>
                                 <span>{{ $item['label'] }}</span>
                             </a>
@@ -108,7 +108,7 @@
                     </div>
                 </div>
 
-                <a href="{{ route('contact.index') }}" class="group relative px-2 py-2 text-[15px] font-bold hover:text-gold transition-colors tracking-wide">
+                <a href="{{ route('contact.index') }}" class="group relative px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
                     Kontak
                     <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-[calc(100%-1.5rem)] rounded-full"></span>
                 </a>
@@ -124,7 +124,7 @@
         </div>
 
     <!-- Mobile drawer -->
-    <div id="mobile-navigation" x-show="mobileOpen" 
+    <div id="mobile-navigation" x-show="mobileOpen"
          x-transition:enter="transition ease-out duration-300 transform origin-top"
          x-transition:enter-start="opacity-0 -translate-y-4 scale-y-95"
          x-transition:enter-end="opacity-100 translate-y-0 scale-y-100"

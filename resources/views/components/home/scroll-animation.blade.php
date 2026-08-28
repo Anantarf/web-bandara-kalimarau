@@ -21,10 +21,10 @@
                                     let progress = (timestamp - start) / duration;
                                     if (progress > 1) progress = 1;
                                     const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-                                    
+
                                     const currentVal = Math.floor(easeProgress * target);
                                     entry.target.innerText = new Intl.NumberFormat('id-ID').format(currentVal);
-                                    
+
                                     if (progress < 1) {
                                         window.requestAnimationFrame(step);
                                     } else {

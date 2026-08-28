@@ -4,45 +4,19 @@
     :canonical="route('contact.index')"
 >
     <div x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 50)" class="w-full">
-    <!-- Breadcrumb -->
-    <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
-        <div class="container mx-auto px-4 max-w-7xl">
-            <x-breadcrumb :items="[
-                ['label' => 'Beranda', 'url' => route('home')],
-                ['label' => 'Pengaduan & Kontak'],
-            ]" />
-        </div>
-    </div>
+    <x-page-header
+        title="Pengaduan & Kontak"
+        description="Hubungi kami atau sampaikan pengaduan layanan secara online melalui formulir di bawah ini."
+        container-class="container mx-auto px-4 max-w-7xl"
+        :loaded-delay="50"
+        :breadcrumbs="[
+            ['label' => 'Beranda', 'url' => route('home')],
+            ['label' => 'Pengaduan & Kontak'],
+        ]" />
 
-    <!-- Header (Golden Standard) -->
-    <div class="pt-12 pb-12 bg-white">
-        <div class="container mx-auto px-4 max-w-7xl text-center md:text-left">
-            <h1 x-show="loaded" 
-                x-transition:enter="transition-all ease-out duration-1000 delay-100" 
-                x-transition:enter-start="opacity-0 translate-y-8" 
-                x-transition:enter-end="opacity-100 translate-y-0" 
-                style="display: none;"
-                class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">Pengaduan & Kontak</h1>
-            
-            <div x-show="loaded" 
-                 x-transition:enter="transition-all ease-out duration-1000 delay-300" 
-                 x-transition:enter-start="opacity-0 scale-0" 
-                 x-transition:enter-end="opacity-100 scale-100" 
-                 style="display: none;"
-                 class="h-1.5 w-20 bg-gold-light mx-auto md:mx-0 rounded-full mb-6 origin-left"></div>
-            
-            <p x-show="loaded" 
-               x-transition:enter="transition-all ease-out duration-1000 delay-500" 
-               x-transition:enter-start="opacity-0 translate-y-4" 
-               x-transition:enter-end="opacity-100 translate-y-0" 
-               style="display: none;"
-               class="text-lg text-gray-500 text-pretty max-w-3xl mx-auto md:mx-0">Hubungi kami atau sampaikan pengaduan layanan secara online melalui formulir di bawah ini.</p>
-        </div>
-    </div>
-
-    <div class="py-8 bg-gray-50" x-show="loaded" x-transition:enter="transition-all ease-out duration-1000 delay-700" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
+    <div class="py-8 bg-gray-50" x-show="loaded" x-transition:enter="transition-all ease-out duration-500 delay-400" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
         <div class="container mx-auto px-4 max-w-7xl">
-            
+
             @if(session('success'))
             <div class="bg-green-50 border border-green-200 text-green-800 rounded-lg p-6 mb-8 flex items-start">
                 <svg class="w-6 h-6 mr-3 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -58,35 +32,35 @@
                 <div class="w-full lg:w-1/3 space-y-6">
                     <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
                         <h2 class="card-title mb-6">Informasi Kontak</h2>
-                        
+
                         <div class="flex items-start mb-6">
                             <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             </div>
                             <div>
                                 <h3 class="font-semibold text-gray-900">Alamat</h3>
-                                <p class="text-gray-600 mt-1">Jl. Kalimarau, Teluk Bayur, Kabupaten Berau, Kalimantan Timur 77315</p>
+                                <p class="text-text-muted mt-1">Jl. Kalimarau, Teluk Bayur, Kabupaten Berau, Kalimantan Timur 77315</p>
                             </div>
                         </div>
-                        
+
                         <div class="flex items-start mb-6">
                             <div class="w-10 h-10 bg-green-50 text-green-600 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                             </div>
                             <div>
                                 <h3 class="font-semibold text-gray-900">WhatsApp Resmi</h3>
-                                <p class="text-gray-600 mt-1">0852 6214 6214</p>
+                                <p class="text-text-muted mt-1">0852 6214 6214</p>
                                 <a href="https://wa.me/6285262146214" target="_blank" class="text-green-600 hover:text-green-700 font-medium text-sm mt-1 inline-block">Hubungi via WhatsApp</a>
                             </div>
                         </div>
-                        
+
                         <div class="flex items-start">
                             <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             </div>
                             <div>
                                 <h3 class="font-semibold text-gray-900">Email</h3>
-                                <p class="text-gray-600 mt-1">bandarakalimaraucantik@gmail.com</p>
+                                <p class="text-text-muted mt-1">bandarakalimaraucantik@gmail.com</p>
                             </div>
                         </div>
                     </div>
@@ -98,7 +72,7 @@
                             </div>
                             <div>
                                 <h2 class="text-xl font-extrabold text-navy-dark">Jam Pelayanan Operasional</h2>
-                                <p class="text-sm text-gray-500">Bandara Kalimarau</p>
+                                <p class="text-sm text-text-muted">Bandara Kalimarau</p>
                             </div>
                         </div>
 
@@ -106,7 +80,7 @@
                             <p class="text-xl md:text-2xl font-extrabold tracking-wide text-navy-dark">07.00 - 20.00 WITA</p>
                         </div>
 
-                        <p class="mt-4 text-gray-600 leading-relaxed">Kami berkomitmen memberikan pelayanan yang nyaman, profesional, aman, dan terpercaya bagi seluruh pengguna jasa bandara.</p>
+                        <p class="mt-4 text-text-muted leading-relaxed">Kami berkomitmen memberikan pelayanan yang nyaman, profesional, aman, dan terpercaya bagi seluruh pengguna jasa bandara.</p>
 
                         @if(file_exists(public_path('images/jam-pelayanan-operasional.jpeg')))
                             <x-lightbox-image
@@ -121,10 +95,10 @@
                 <div class="w-full lg:w-2/3">
                     <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
                         <h2 class="card-title mb-6">Kirim Pesan atau Pengaduan</h2>
-                        
+
                         <form action="{{ route('contact.store') }}" method="POST" x-data="{ submitting: false }" @submit="submitting = true">
                             @csrf
-                            
+
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <div>
                                     <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
@@ -133,7 +107,7 @@
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                
+
                                 <div>
                                     <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Alamat Email <span class="text-red-500">*</span></label>
                                     <input type="email" id="email" name="email" value="{{ old('email') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('email') border-red-500 @enderror" required>
@@ -142,7 +116,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            
+
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <div>
                                     <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Nomor HP/Telepon <span class="text-red-500">*</span></label>
@@ -151,7 +125,7 @@
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
-                                
+
                                 <div>
                                     <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subjek Pesan <span class="text-red-500">*</span></label>
                                     <input type="text" id="subject" name="subject" value="{{ old('subject') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('subject') border-red-500 @enderror" required>
@@ -160,7 +134,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            
+
                             <div class="mb-6">
                                 <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Isi Pesan/Pengaduan <span class="text-red-500">*</span></label>
                                 <textarea id="message" name="message" rows="6" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('message') border-red-500 @enderror" required>{{ old('message') }}</textarea>
@@ -168,7 +142,7 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                            
+
                             <div class="flex justify-end">
                                 <button type="submit" :disabled="submitting" :class="{ 'opacity-60 cursor-not-allowed': submitting }" class="bg-navy hover:bg-navy-dark text-white font-semibold py-3 px-8 rounded-md transition-colors shadow-sm inline-flex items-center">
                                     <svg x-show="!submitting" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>

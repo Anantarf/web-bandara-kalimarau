@@ -56,28 +56,28 @@
          setTimeout(() => { showHint = false }, 12000);
      }">
     <!-- Popup card -->
-    <div x-show="open" 
+    <div x-show="open"
          x-transition:enter="transition ease-out duration-200"
          x-transition:enter-start="opacity-0 translate-y-4 scale-95"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 translate-y-4 scale-95"
-         class="bg-white rounded-3xl shadow-2xl border border-border-soft w-[calc(100vw-3rem)] max-w-[340px] overflow-hidden"
+         class="bg-white rounded-2xl shadow-xl border border-border-soft w-[calc(100vw-3rem)] max-w-[340px] overflow-hidden"
          style="display: none;">
-        
+
         <!-- Header -->
         <div class="relative p-6 pb-7 bg-navy text-white overflow-hidden">
             <!-- Decorative circles -->
             <div class="absolute -right-6 -top-6 w-32 h-32 rounded-full bg-white/5"></div>
             <div class="absolute right-12 top-10 w-16 h-16 rounded-full bg-white/5"></div>
-            
+
             <div class="relative flex items-start justify-between mb-2">
                 <div class="flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
                         <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/></svg>
                     </div>
-                    <h3 class="text-lg font-bold tracking-wide">Pusat Bantuan</h3>
+                    <h3 class="text-lg font-bold">Pusat Bantuan</h3>
                 </div>
                 <button @click="open = false" class="p-1.5 -mr-1.5 -mt-1 text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -100,7 +100,7 @@
                     </div>
                     <svg class="w-4 h-4 text-text-muted group-hover:text-[#25D366] group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
                 </a>
-                
+
                 <!-- Action 2 -->
                 <a href="{{ route('contact.index') }}" class="group flex items-center gap-4 p-4 hover:bg-surface focus-visible:bg-surface focus-visible:outline-none transition-colors duration-300">
                     <div class="w-10 h-10 rounded-full bg-navy/5 flex items-center justify-center shrink-0 group-hover:bg-navy transition-colors duration-300">
@@ -121,7 +121,7 @@
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </span>
-            <span class="text-[10px] font-bold text-navy/60 uppercase tracking-widest">Online (08.00–16.00 WITA)</span>
+            <span class="text-xs font-bold text-navy/60 uppercase tracking-wide">Online (08.00–16.00 WITA)</span>
         </div>
     </div>
 
@@ -141,26 +141,26 @@
             <span class="text-2xl origin-bottom-right group-hover:animate-[wiggle_1s_ease-in-out_infinite]">👋</span>
         </div>
         <div class="flex flex-col pr-1 justify-center">
-            <span class="text-[16px] font-bold text-navy-dark leading-tight">Halo! Butuh bantuan?</span>
-            <span class="text-xs text-gray-400 mt-1">Tim kami siap membantu.</span>
+            <span class="text-base font-bold text-navy-dark leading-tight">Halo! Butuh bantuan?</span>
+            <span class="text-xs text-text-muted/70 mt-1">Tim kami siap membantu.</span>
         </div>
-        <button @click.stop="showHint = false" aria-label="Tutup notifikasi" class="p-1 text-gray-300 hover:text-gray-500 rounded-full transition-colors ml-2 self-start mt-0.5">
+        <button @click.stop="showHint = false" aria-label="Tutup notifikasi" class="p-1 text-text-muted/50 hover:text-text-muted rounded-full transition-colors ml-2 self-start mt-0.5">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
     </div>
 
     <!-- Toggle button -->
-    <div class="relative hover:-translate-y-1 transition-all duration-300">
+    <div class="relative hover:-translate-y-0.5 transition-all duration-300">
         <!-- Heartbeat background glow -->
         <div x-show="hasUnread && !open" class="absolute inset-0 rounded-full bg-navy/20 animate-heartbeat-glow -z-10" style="display: none;"></div>
 
-        <button @click="open = !open; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')" 
-                :aria-label="open ? 'Tutup kontak' : 'Hubungi kami'" 
+        <button @click="open = !open; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')"
+                :aria-label="open ? 'Tutup kontak' : 'Hubungi kami'"
                 class="relative w-14 h-14 rounded-full bg-navy hover:bg-navy-dark text-white shadow-[0_8px_30px_rgba(12,45,107,0.3)] flex items-center justify-center group overflow-hidden ring-[6px] ring-navy/20 transition-all duration-300"
                 :class="hasUnread && !open ? 'animate-heartbeat-btn' : ''">
             <!-- Shine effect on hover -->
             <div class="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
-            
+
             <svg x-show="!open" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110"><path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/></svg>
             <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-90" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>

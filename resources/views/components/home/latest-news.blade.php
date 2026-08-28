@@ -4,14 +4,14 @@
     <section class="py-16 lg:py-24 bg-navy-dark">
         <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out delay-100">
             <div class="text-center mb-12">
-                <h2 class="font-sans text-3xl font-extrabold tracking-tight text-white mb-2">Kabar Terbaru dari Gerbang Udara Anda</h2>
+                <h2 class="font-sans text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">Kabar Terbaru dari Gerbang Udara Anda</h2>
                 <p class="text-white/70 text-base mt-2 max-w-2xl mx-auto">Ikuti terus informasi, acara, dan pengembangan terbaru langsung dari Bandar Udara Kalimarau.</p>
             </div>
 
             @if($latestPosts->count() > 0)
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($latestPosts->take(3) as $post)
-                        <div class="bg-black/20 backdrop-blur-sm rounded-xl overflow-hidden flex flex-col hover:-translate-y-1 hover:shadow-xl hover:shadow-black/30 transition-all duration-300 border border-white/10">
+                        <div class="bg-black/20 backdrop-blur-sm rounded-xl overflow-hidden flex flex-col hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/30 transition-all duration-300 border border-white/10">
                             <div class="relative overflow-hidden bg-navy-dark aspect-[16/10] shrink-0">
                                 @if($post->featured_image_url)
                                     <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" loading="lazy" decoding="async" class="w-full h-full object-cover">
@@ -30,7 +30,7 @@
                                 </h3>
                                 <p class="text-white/60 text-sm leading-relaxed line-clamp-2 mb-6 flex-1">{{ $post->excerpt }}</p>
                                 <div class="text-gold font-semibold text-sm flex items-center gap-1 group w-fit mt-auto relative z-10">
-                                    Baca Selengkapnya 
+                                    Baca Selengkapnya
                                     <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
                                 </div>
                             </div>

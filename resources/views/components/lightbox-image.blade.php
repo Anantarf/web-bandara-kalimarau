@@ -12,7 +12,7 @@
     </div>
 
     @if($caption ?? $alt)
-        <figcaption class="mt-4 text-sm text-gray-500 italic">{{ $caption ?? $alt }} (Klik untuk perbesar)</figcaption>
+        <figcaption class="mt-4 text-sm text-text-muted italic">{{ $caption ?? $alt }} (Klik untuk perbesar)</figcaption>
     @endif
 
     <template x-teleport="body">
@@ -31,7 +31,7 @@
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
 
-                <img src="{{ $src }}" alt="{{ $alt }}" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl" @click.stop>
+                <img src="{{ $src }}" alt="{{ $alt }}" class="max-w-full max-h-full object-contain rounded-xl shadow-xl" @click.stop>
             </div>
         </div>
     </template>

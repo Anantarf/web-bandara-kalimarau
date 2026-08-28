@@ -29,7 +29,7 @@
 
             <!-- Section Title -->
             <div class="text-center mb-8">
-                <h2 class="font-sans text-3xl font-extrabold tracking-tight text-white mb-2">Jadwal Penerbangan</h2>
+                <h2 class="font-sans text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">Jadwal Penerbangan</h2>
                 <p class="text-white/70 text-base mt-2">Informasi keberangkatan dan kedatangan terkini</p>
             </div>
 
@@ -50,7 +50,7 @@
             <div class="overflow-x-auto">
                 <div class="min-w-[720px]">
                     <!-- Table Header -->
-                    <div class="hidden md:grid grid-cols-[1.3fr_2.6fr_1fr_1fr] gap-4 px-8 py-3 text-white/50 text-[11px] font-bold tracking-wider uppercase mb-2">
+                    <div class="hidden md:grid grid-cols-[1.3fr_2.6fr_1fr_1fr] gap-4 px-8 py-3 text-white/50 text-xs font-bold tracking-wide uppercase mb-2">
                         <div>Maskapai</div>
                         <div x-text="tab === 'kedatangan' ? 'Dari' : 'Tujuan'"></div>
                         <div>Nomor</div>
@@ -82,7 +82,7 @@
 
                                     <!-- Rute -->
                                     <div class="font-bold text-white text-base md:text-base leading-snug flex-1 min-w-0">
-                                        <div class="md:hidden text-white/40 text-[10px] font-medium uppercase tracking-wider mb-0.5" x-text="tab === 'kedatangan' ? 'Kedatangan Dari' : 'Keberangkatan Ke'"></div>
+                                        <div class="md:hidden text-white/45 text-xs font-medium uppercase tracking-wide mb-0.5" x-text="tab === 'kedatangan' ? 'Kedatangan Dari' : 'Keberangkatan Ke'"></div>
                                         <span class="truncate block" x-text="flight.route"></span>
                                     </div>
                                 </div>
@@ -94,13 +94,13 @@
                                 <div class="flex items-center justify-between w-full md:contents">
                                     <!-- Nomor -->
                                     <div class="text-white/70 text-sm md:text-base font-medium whitespace-nowrap">
-                                        <span class="md:hidden text-white/40 text-[10px] font-medium uppercase tracking-wider block mb-0.5">Nomor Penerbangan</span>
+                                        <span class="md:hidden text-white/45 text-xs font-medium uppercase tracking-wide block mb-0.5">Nomor Penerbangan</span>
                                         <span x-text="flight.flight_number"></span>
                                     </div>
 
                                     <!-- Waktu -->
                                     <div class="font-bold text-white tabular-nums whitespace-nowrap text-right md:text-left">
-                                        <span class="md:hidden text-white/40 text-[10px] font-medium uppercase tracking-wider block mb-0.5">Waktu</span>
+                                        <span class="md:hidden text-white/45 text-xs font-medium uppercase tracking-wide block mb-0.5">Waktu</span>
                                         <span class="text-xl md:text-base text-gold md:text-white" x-text="flight.time"></span>
                                     </div>
                                 </div>

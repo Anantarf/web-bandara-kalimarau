@@ -4,7 +4,7 @@
     <section class="bg-white py-16 lg:py-24">
         <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out">
             <div class="text-center mb-12">
-                <h2 class="font-sans text-3xl font-extrabold tracking-tight text-navy mb-2">Aktivitas Bandara</h2>
+                <h2 class="font-sans text-3xl md:text-4xl font-extrabold tracking-tight text-navy mb-2">Aktivitas Bandara</h2>
                 <p class="text-text-muted text-base mt-2">Statistik pergerakan periode {{ $airportStat->period_name }}</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">

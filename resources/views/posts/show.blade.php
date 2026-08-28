@@ -44,31 +44,31 @@
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 
     <article class="pt-12 pb-24 bg-white" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl transition-all duration-1000 ease-out transform"
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl transition-all duration-500 ease-out transform"
              :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
-             
+
             <header class="mb-10 text-center md:text-left">
-                <h1 x-show="loaded" 
-                    x-transition:enter="transition-all ease-out duration-1000 delay-100" 
-                    x-transition:enter-start="opacity-0 translate-y-8" 
-                    x-transition:enter-end="opacity-100 translate-y-0" 
+                <h1 x-show="loaded"
+                    x-transition:enter="transition-all ease-out duration-500 delay-100"
+                    x-transition:enter-start="opacity-0 translate-y-8"
+                    x-transition:enter-end="opacity-100 translate-y-0"
                     style="display: none;"
                     class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">{{ $post->title }}</h1>
-                
-                <div x-show="loaded" 
-                     x-transition:enter="transition-all ease-out duration-1000 delay-300" 
-                     x-transition:enter-start="opacity-0 scale-0" 
-                     x-transition:enter-end="opacity-100 scale-100" 
+
+                <div x-show="loaded"
+                     x-transition:enter="transition-all ease-out duration-500 delay-200"
+                     x-transition:enter-start="opacity-0 scale-0"
+                     x-transition:enter-end="opacity-100 scale-100"
                      style="display: none;"
                      class="h-1.5 w-20 bg-gold-light rounded-full mb-6 mx-auto md:mx-0 origin-left"></div>
-                
-                <div class="flex flex-wrap items-center justify-center md:justify-start text-sm text-gray-500 gap-4 pb-6 border-b border-gray-100">
+
+                <div class="flex flex-wrap items-center justify-center md:justify-start text-sm text-text-muted gap-4 pb-6 border-b border-gray-100">
                     <div class="flex items-center">
-                        <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <svg class="w-5 h-5 mr-2 text-text-muted/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         {{ $post->published_at?->translatedFormat('d F Y') ?? 'Belum dipublikasikan' }}
                     </div>
                     <div class="flex items-center">
-                        <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        <svg class="w-5 h-5 mr-2 text-text-muted/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         {{ $post->author->name ?? 'Admin Kalimarau' }}
                     </div>
                     <div class="flex items-center ml-auto">
@@ -90,7 +90,7 @@
             <div class="prose prose-lg prose-blue max-w-none text-gray-800">
                 {!! $post->content !!}
             </div>
-            
+
             <!-- Simple Share Buttons -->
             <div class="mt-12 pt-6 border-t border-gray-200 flex items-center">
                 <span class="font-medium text-gray-700 mr-4">Bagikan:</span>
@@ -126,7 +126,7 @@
                         @endif
                     </a>
                     <div class="p-4">
-                        <span class="text-xs text-gray-500 mb-2 block">{{ $related->published_at->translatedFormat('d M Y') }}</span>
+                        <span class="text-xs text-text-muted mb-2 block">{{ $related->published_at->translatedFormat('d M Y') }}</span>
                         <a href="{{ route('posts.show', $related->slug) }}" class="block">
                             <h3 class="font-bold text-navy group-hover:text-sky transition-colors line-clamp-2 text-sm">{{ $related->title }}</h3>
                         </a>

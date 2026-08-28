@@ -8,8 +8,8 @@
                         <img src="{{ asset('images/logo-blu.png') }}" alt="Bandara Kalimarau" class="h-12 w-auto object-contain" onerror="this.src='https://placehold.co/150x50?text=Kalimarau'">
                     </div>
                     <div>
-                        <div class="text-white font-extrabold text-xl tracking-wide leading-tight">Bandara Kalimarau</div>
-                        <div class="text-gold-light/90 font-medium text-xs mt-1 uppercase tracking-wider">Kab. Berau, Kaltim</div>
+                        <div class="text-white font-extrabold text-xl leading-tight">Bandara Kalimarau</div>
+                        <div class="text-gold-light/90 font-medium text-xs mt-1 uppercase tracking-wide">Kab. Berau, Kaltim</div>
                     </div>
                 </div>
                 <address class="not-italic text-sm leading-relaxed mb-4">
@@ -25,7 +25,7 @@
 
             <!-- Navigasi -->
             <div>
-                <h4 class="text-white font-bold text-base tracking-wide mb-3">Navigasi</h4>
+                <h4 class="text-white font-bold text-base mb-3">Navigasi</h4>
                 <div class="h-1 w-10 bg-gold-light rounded-full mb-6"></div>
                 <ul class="space-y-3.5 text-sm">
                     <li><a href="{{ route('home') }}" class="hover:text-gold-light hover:translate-x-1 inline-block transition-all duration-300">Beranda</a></li>
@@ -39,7 +39,7 @@
 
             <!-- Layanan -->
             <div>
-                <h4 class="text-white font-bold text-base tracking-wide mb-3">Layanan</h4>
+                <h4 class="text-white font-bold text-base mb-3">Layanan</h4>
                 <div class="h-1 w-10 bg-gold-light rounded-full mb-6"></div>
                 <ul class="space-y-3.5 text-sm">
                     <li><a href="{{ route('flights.index') }}" class="hover:text-gold-light hover:translate-x-1 inline-block transition-all duration-300">Jadwal Penerbangan</a></li>
@@ -50,7 +50,7 @@
 
             <!-- Tautan Eksternal -->
             <div>
-                <h4 class="text-white font-bold text-base tracking-wide mb-3">Tautan Eksternal</h4>
+                <h4 class="text-white font-bold text-base mb-3">Tautan Eksternal</h4>
                 <div class="h-1 w-10 bg-gold-light rounded-full mb-6"></div>
                 <ul class="space-y-3.5 text-sm">
                     @foreach([
@@ -82,7 +82,7 @@
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                         </div>
                         <div class="flex flex-col">
-                            <span class="text-[10px] font-medium uppercase tracking-wider text-white/50 leading-none mb-1">Total Pengunjung</span>
+                            <span class="text-xs font-medium uppercase tracking-wide text-white/50 leading-none mb-1">Total Pengunjung</span>
                             <span class="text-white/90 font-bold text-sm leading-none">{{ number_format($visitorStats['total'], 0, ',', '.') }}</span>
                         </div>
                     </div>

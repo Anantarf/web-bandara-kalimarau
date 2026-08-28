@@ -1,8 +1,8 @@
 @props(['images' => []])
 
 @if(count($images) > 0)
-<div class="w-full" x-data="{ 
-    activeSlide: 0, 
+<div class="w-full" x-data="{
+    activeSlide: 0,
     slides: {{ json_encode($images) }},
     isModalOpen: false,
     autoplayInterval: null,
@@ -42,7 +42,7 @@
                  @click="openModal()">
 
                 <!-- White mat card so the certificate reads as mounted, not floating -->
-                <div class="bg-white rounded-lg shadow-xl p-2.5 sm:p-3 max-w-full max-h-full transition-transform duration-700 group-hover/track:scale-[1.03]">
+                <div class="bg-white rounded-lg shadow-xl p-2.5 sm:p-3 max-w-full max-h-full transition-transform duration-500 group-hover/track:scale-[1.03]">
                     <img :src="slide" loading="lazy" class="max-w-full max-h-[13rem] sm:max-h-[15rem] md:max-h-[17rem] object-contain rounded" alt="Penghargaan">
                 </div>
 
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </template>
-        
+
         <!-- Previous Button -->
         <button @click="prev" class="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/90 hover:bg-white text-navy flex items-center justify-center shadow-[0_2px_10px_rgba(0,0,0,0.08)] backdrop-blur transition-all duration-300 transform hover:scale-110 z-20 group" aria-label="Previous">
             <svg class="w-5 h-5 md:w-6 md:h-6 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -64,12 +64,12 @@
         <button @click="next" class="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/90 hover:bg-white text-navy flex items-center justify-center shadow-[0_2px_10px_rgba(0,0,0,0.08)] backdrop-blur transition-all duration-300 transform hover:scale-110 z-20 group" aria-label="Next">
             <svg class="w-5 h-5 md:w-6 md:h-6 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </button>
-        
+
         <!-- Indicators -->
         <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-20 bg-white/70 backdrop-blur-md px-3.5 py-2 rounded-full shadow-sm border border-gray-100/50" role="tablist">
             <template x-for="(slide, index) in slides" :key="index">
-                <button @click="activeSlide = index" 
-                        :class="activeSlide === index ? 'bg-navy w-6' : 'bg-gray-400 hover:bg-navy/70 w-2'" 
+                <button @click="activeSlide = index"
+                        :class="activeSlide === index ? 'bg-navy w-6' : 'bg-gray-400 hover:bg-navy/70 w-2'"
                         class="h-2 rounded-full transition-all duration-500 ease-out" :aria-label="'Go to slide ' + (index + 1)" role="tab" :aria-selected="activeSlide === index"></button>
             </template>
         </div>
@@ -78,7 +78,7 @@
     <!-- Fullscreen Modal -->
     <template x-teleport="body">
         <div x-cloak
-             x-show="isModalOpen" 
+             x-show="isModalOpen"
              x-transition:enter="transition ease-out duration-300"
              x-transition:enter-start="opacity-0 backdrop-blur-none"
              x-transition:enter-end="opacity-100 backdrop-blur-sm"
@@ -91,17 +91,17 @@
              @keydown.escape.window="closeModal()"
              @keydown.arrow-right.window="if(isModalOpen) next()"
              @keydown.arrow-left.window="if(isModalOpen) prev()">
-             
+
             <button @click="closeModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white hover:text-gray-300 bg-black/50 rounded-full p-2 z-50">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-        
+
             <button @click.stop="prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition z-50" aria-label="Previous">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
             </button>
 
             <div class="relative max-w-5xl w-full flex items-center justify-center p-4">
-                <img :src="slides[activeSlide]" loading="lazy" class="w-auto h-auto max-h-[85vh] object-contain select-none rounded-xl shadow-2xl ring-1 ring-white/20" alt="Penghargaan Zoom">
+                <img :src="slides[activeSlide]" loading="lazy" class="w-auto h-auto max-h-[85vh] object-contain select-none rounded-xl shadow-xl ring-1 ring-white/20" alt="Penghargaan Zoom">
             </div>
 
             <button @click.stop="next" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition z-50" aria-label="Next">

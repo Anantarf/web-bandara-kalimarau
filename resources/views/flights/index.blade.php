@@ -3,41 +3,14 @@
     description="Informasi jadwal keberangkatan dan kedatangan pesawat di Bandara Kalimarau."
     :canonical="route('flights.index')"
 >
-    <!-- Breadcrumb -->
-    <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4">
-            <x-breadcrumb :items="[
-                ['label' => 'Beranda', 'url' => route('home')],
-                ['label' => 'Jadwal Penerbangan'],
-            ]" />
-        </div>
-    </div>
-
-    <!-- Header (Golden Standard) -->
-    <div class="pt-12 pb-12 bg-white" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
-        <div class="max-w-7xl mx-auto px-4 text-center md:text-left">
-            <h1 x-show="loaded" 
-                x-transition:enter="transition-all ease-out duration-1000 delay-100" 
-                x-transition:enter-start="opacity-0 translate-y-8" 
-                x-transition:enter-end="opacity-100 translate-y-0" 
-                style="display: none;"
-                class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">Jadwal Penerbangan</h1>
-            
-            <div x-show="loaded" 
-                 x-transition:enter="transition-all ease-out duration-1000 delay-300" 
-                 x-transition:enter-start="opacity-0 scale-0" 
-                 x-transition:enter-end="opacity-100 scale-100" 
-                 style="display: none;"
-                 class="h-1.5 w-20 bg-gold-light rounded-full mb-6 mx-auto md:mx-0 origin-left"></div>
-            
-            <p x-show="loaded" 
-               x-transition:enter="transition-all ease-out duration-1000 delay-500" 
-               x-transition:enter-start="opacity-0 translate-y-4" 
-               x-transition:enter-end="opacity-100 translate-y-0" 
-               style="display: none;"
-               class="text-lg text-gray-500 text-pretty max-w-3xl mx-auto md:mx-0">Informasi jadwal keberangkatan dan kedatangan pesawat di Bandara Kalimarau.</p>
-        </div>
-    </div>
+    <x-page-header
+        title="Jadwal Penerbangan"
+        description="Informasi jadwal keberangkatan dan kedatangan pesawat di Bandara Kalimarau."
+        container-class="max-w-7xl mx-auto px-4"
+        :breadcrumbs="[
+            ['label' => 'Beranda', 'url' => route('home')],
+            ['label' => 'Jadwal Penerbangan'],
+        ]" />
 
     <div class="py-12 bg-surface min-h-[500px]">
         <div class="max-w-7xl mx-auto px-4">
@@ -50,7 +23,7 @@
                 };
             @endphp
 
-            <div class="bg-navy-dark rounded-2xl overflow-hidden shadow-xl transition-all duration-700 ease-out transform"
+            <div class="bg-navy-dark rounded-2xl overflow-hidden shadow-xl transition-all duration-500 ease-out transform"
                  x-data="{ tab: 'kedatangan', loaded: false }" x-init="setTimeout(() => loaded = true, 100)"
                  :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'">
                 <!-- Pill toggle -->
@@ -79,7 +52,7 @@
                         <div class="overflow-x-auto">
                             <table class="w-full text-left border-collapse min-w-[720px]">
                                 <thead>
-                                    <tr class="text-white/50 text-xs uppercase tracking-widest">
+                                    <tr class="text-white/50 text-xs uppercase tracking-wide">
                                         <th class="py-4 px-6 font-semibold">Maskapai</th>
                                         <th class="py-4 px-6 font-semibold">Dari</th>
                                         <th class="py-4 px-6 font-semibold">Nomor</th>
@@ -103,7 +76,7 @@
                                                 </div>
                                             </td>
                                             <td class="py-4 px-6 font-bold text-white uppercase text-sm">{{ $flight->route_from }}</td>
-                                            <td class="py-4 px-6 text-white/50 font-mono text-sm">{{ $flight->flight_number ?: '-' }}</td>
+                                            <td class="py-4 px-6 text-white/60 tabular-nums text-sm font-medium">{{ $flight->flight_number ?: '-' }}</td>
                                             <td class="py-4 px-6 font-bold text-white tabular-nums">{{ $flight->arrival_time?->format('H:i') ?? '-' }} <span class="text-white/40 text-xs font-normal">WITA</span></td>
                                             <td class="py-4 px-6 text-white/50 text-sm">{{ $operatingDays($flight) }}</td>
                                             <td class="py-4 px-6 text-right">
@@ -131,7 +104,7 @@
                         <div class="overflow-x-auto">
                             <table class="w-full text-left border-collapse min-w-[720px]">
                                 <thead>
-                                    <tr class="text-white/50 text-xs uppercase tracking-widest">
+                                    <tr class="text-white/50 text-xs uppercase tracking-wide">
                                         <th class="py-4 px-6 font-semibold">Maskapai</th>
                                         <th class="py-4 px-6 font-semibold">Tujuan</th>
                                         <th class="py-4 px-6 font-semibold">Nomor</th>
@@ -155,7 +128,7 @@
                                                 </div>
                                             </td>
                                             <td class="py-4 px-6 font-bold text-white uppercase text-sm">{{ $flight->route_to }}</td>
-                                            <td class="py-4 px-6 text-white/50 font-mono text-sm">{{ $flight->flight_number ?: '-' }}</td>
+                                            <td class="py-4 px-6 text-white/60 tabular-nums text-sm font-medium">{{ $flight->flight_number ?: '-' }}</td>
                                             <td class="py-4 px-6 font-bold text-white tabular-nums">{{ $flight->departure_time?->format('H:i') ?? '-' }} <span class="text-white/40 text-xs font-normal">WITA</span></td>
                                             <td class="py-4 px-6 text-white/50 text-sm">{{ $operatingDays($flight) }}</td>
                                             <td class="py-4 px-6 text-right">

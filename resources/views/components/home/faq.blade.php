@@ -23,11 +23,11 @@
 
         <div class="flex flex-col sm:flex-row justify-center gap-4 mt-12">
             <a href="{{ route('faq') }}" class="inline-flex justify-center items-center gap-3 px-8 py-3.5 bg-white text-navy border-2 border-navy rounded-full shadow-md hover:bg-navy hover:text-white hover:-translate-y-0.5 transition-all duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
-                <span class="text-sm font-semibold tracking-wide">Lihat Semua FAQ</span>
+                <span class="text-sm font-semibold">Lihat Semua FAQ</span>
                 <x-icon-arrow class="w-4 h-4 text-navy group-hover:text-gold-light group-hover:translate-x-1 transition-all" />
             </a>
-            <a href="{{ route('contact.index') }}" class="inline-flex justify-center items-center gap-3 px-8 py-3.5 bg-navy text-white rounded-full shadow-lg shadow-navy/20 hover:bg-navy-dark hover:-translate-y-0.5 hover:shadow-xl transition-all duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
-                <span class="text-sm font-semibold tracking-wide">Punya pertanyaan lain? Hubungi Kami</span>
+            <a href="{{ route('contact.index') }}" class="inline-flex justify-center items-center gap-3 px-8 py-3.5 bg-navy text-white rounded-full shadow-md shadow-navy/15 hover:bg-navy-dark hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
+                <span class="text-sm font-semibold">Punya pertanyaan lain? Hubungi Kami</span>
             </a>
         </div>
     </div>

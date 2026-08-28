@@ -3,8 +3,13 @@ $categories = \App\Models\Facility::query()
     ->orderBy('order')
     ->get()
     ->groupBy('category')
+    ->sortBy(fn ($items, $title) => $title === 'Aksesibilitas' ? 0 : 1)
     ->map(fn ($items, $title) => [
-        'title' => $title,
+        'title' => $title === 'Aksesibilitas' ? 'Sarana Bagi Kelompok Rentan' : $title,
+        'description' => $title === 'Aksesibilitas'
+            ? 'Fasilitas aksesibilitas untuk mendukung difabel, lansia, ibu hamil, anak-anak, dan pengguna jasa yang membutuhkan pendampingan.'
+            : null,
+        'is_featured_accessibility' => $title === 'Aksesibilitas',
         'items' => $items->map(fn ($facility) => [
             'name' => $facility->name,
             'image' => $facility->image_url,
@@ -63,11 +68,20 @@ $categories = \App\Models\Facility::query()
              style="display: none;">
             @foreach($categories as $index => $category)
                 <div class="facility-category scroll-mt-24">
-                    <div class="flex items-center mb-8">
-                        <div class="w-10 h-10 rounded-xl bg-navy/10 text-navy flex items-center justify-center mr-4">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    <div class="mb-8">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-xl bg-navy/10 text-navy flex items-center justify-center mr-4">
+                                @if($category['is_featured_accessibility'])
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
+                                @else
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                @endif
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-bold text-navy-dark">{{ $category['title'] }}</h3>
                         </div>
-                        <h3 class="text-2xl md:text-3xl font-bold text-navy-dark">{{ $category['title'] }}</h3>
+                        @if($category['description'])
+                            <p class="mt-3 max-w-3xl text-text-muted leading-relaxed">{{ $category['description'] }}</p>
+                        @endif
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">

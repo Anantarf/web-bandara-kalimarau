@@ -55,27 +55,38 @@ class RedirectResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('no')
                     ->label('No.')
-                    ->rowIndex(),
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('old_path')
-                    ->label('Path Lama')
-                    ->searchable(),
+                    ->label('Path URL Lama')
+                    ->searchable()
+                    ->weight('medium')
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('new_path')
-                    ->label('Tujuan')
-                    ->searchable(),
+                    ->label('Tujuan Redirect')
+                    ->searchable()
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('status_code')
-                    ->label('Kode')
-                    ->badge(),
-                Tables\Columns\IconColumn::make('is_active')
+                    ->label('Kode Status')
+                    ->badge()
+                    ->alignCenter()
+                    ->size('sm'),
+                Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Aktif')
-                    ->boolean(),
+                    ->alignCenter(),
             ])
             ->filters([
-                Tables\Filters\TernaryFilter::make('is_active'),
+                Tables\Filters\TernaryFilter::make('is_active')
+                    ->label('Status Aktif'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),
+                Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
+            ->emptyStateHeading('Belum Ada Aturan Pengalihan (Redirect)')
+            ->emptyStateDescription('Tambahkan aturan pengalihan URL lama ke URL baru.')
+            ->emptyStateIcon('heroicon-o-arrow-right-start-on-rectangle')
             ->bulkActions([]);
     }
 

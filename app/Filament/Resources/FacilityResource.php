@@ -59,37 +59,54 @@ class FacilityResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->striped()
             ->columns([
-                Tables\Columns\TextColumn::make('category')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No.')
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\ImageColumn::make('image')
-                    ->disk('public'),
-                Tables\Columns\TextColumn::make('order')
-                    ->numeric()
+                    ->label('Foto')
+                    ->disk('public')
+                    ->circular()
+                    ->alignCenter(),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Nama Fasilitas')
+                    ->description(fn (Facility $record): string => "Kategori: {$record->category}")
+                    ->searchable(['name', 'category'])
+                    ->weight('medium')
+                    ->size('sm')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                Tables\Columns\TextColumn::make('category')
+                    ->label('Kategori')
+                    ->badge()
+                    ->alignCenter()
+                    ->size('sm')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('order')
+                    ->label('Urutan')
+                    ->numeric()
                     ->sortable()
+                    ->alignCenter()
+                    ->size('sm')
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat')
+                    ->dateTime('d/m/Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('order')
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),
+                Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->emptyStateHeading('Belum Ada Fasilitas')
+            ->emptyStateDescription('Tambahkan data fasilitas bandara untuk ditampilkan di website.')
+            ->emptyStateIcon('heroicon-o-building-office')
+            ->bulkActions([]);
     }
 
     public static function getRelations(): array

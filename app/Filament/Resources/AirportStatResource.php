@@ -11,9 +11,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -85,46 +83,60 @@ class AirportStatResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->striped()
             ->columns([
+                TextColumn::make('no')
+                    ->label('No.')
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->size('sm'),
                 TextColumn::make('period_name')
-                    ->label('Periode')
-                    ->searchable(),
+                    ->label('Periode Bulan')
+                    ->searchable()
+                    ->weight('medium')
+                    ->size('sm'),
                 TextColumn::make('period_date')
-                    ->label('Tanggal')
-                    ->date('M Y')
+                    ->label('Tanggal Acuan')
+                    ->date('d/m/Y')
+                    ->alignCenter()
+                    ->size('sm')
                     ->sortable(),
                 TextColumn::make('passenger_count')
                     ->label('Penumpang')
                     ->numeric(locale: 'id')
+                    ->alignCenter()
+                    ->size('sm')
                     ->sortable(),
                 TextColumn::make('flight_count')
                     ->label('Pesawat')
                     ->numeric(locale: 'id')
+                    ->alignCenter()
+                    ->size('sm')
                     ->sortable(),
                 TextColumn::make('cargo_count')
-                    ->label('Kargo')
+                    ->label('Kargo (Kg)')
                     ->numeric(locale: 'id')
+                    ->alignCenter()
+                    ->size('sm')
                     ->sortable(),
                 ToggleColumn::make('is_active')
-                    ->label('Tampil?'),
+                    ->label('Tampil')
+                    ->alignCenter(),
                 TextColumn::make('updated_at')
                     ->label('Terakhir Diubah')
-                    ->dateTime('d M Y H:i')
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
-                EditAction::make()->label('Edit Data'),
-                DeleteAction::make()->label('Hapus'),
+                EditAction::make()->label('Edit Data')->iconButton(),
+                DeleteAction::make()->label('Hapus')->iconButton(),
             ])
-            ->bulkActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make()->label('Hapus yang dipilih'),
-                ]),
-            ]);
+            ->emptyStateHeading('Belum Ada Data Statistik')
+            ->emptyStateDescription('Tambahkan angka pergerakan penumpang, pesawat, dan kargo bulanan.')
+            ->emptyStateIcon('heroicon-o-chart-bar')
+            ->bulkActions([]);
     }
 
     public static function getPages(): array

@@ -48,32 +48,51 @@ class MediaResource extends Resource
         return $table
             ->striped()
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No.')
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\ImageColumn::make('path')
                     ->label('Pratinjau')
-                    ->disk('public'),
+                    ->disk('public')
+                    ->square()
+                    ->alignCenter(),
                 Tables\Columns\TextColumn::make('filename')
                     ->label('Nama Berkas')
-                    ->searchable(),
+                    ->searchable()
+                    ->weight('medium')
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('mime_type')
                     ->label('Tipe')
-                    ->badge(),
+                    ->badge()
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('alt_text')
                     ->label('Alt Text')
-                    ->limit(40),
+                    ->size('sm')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('size')
                     ->label('Ukuran')
-                    ->formatStateUsing(fn (?int $state): string => $state ? number_format($state / 1024, 1).' KB' : '-'),
+                    ->formatStateUsing(fn (?int $state): string => $state ? number_format($state / 1024, 1).' KB' : '-')
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Diunggah')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i')
+                    ->alignCenter()
+                    ->size('sm')
                     ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),
+                Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
+            ->emptyStateHeading('Belum Ada Berkas Media')
+            ->emptyStateDescription('Unggah foto atau dokumen baru ke galeri media.')
+            ->emptyStateIcon('heroicon-o-photo')
             ->bulkActions([]);
     }
 

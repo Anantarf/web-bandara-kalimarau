@@ -93,10 +93,15 @@ class PageResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('no')
                     ->label('No.')
-                    ->rowIndex(),
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul Halaman')
-                    ->searchable()
+                    ->description(fn (Page $record): string => "Slug: {$record->slug}")
+                    ->searchable(['title', 'slug'])
+                    ->weight('medium')
+                    ->size('sm')
                     ->wrap()
                     ->lineClamp(2),
                 Tables\Columns\TextColumn::make('slug')
@@ -104,7 +109,10 @@ class PageResource extends Resource
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
                     ->badge()
+                    ->alignCenter()
+                    ->size('sm')
                     ->color(fn (string $state, Page $record) => $state === 'published' && $record->published_at?->isFuture() ? 'info' : match ($state) {
                         'published' => 'success',
                         'archived' => 'gray',
@@ -121,11 +129,13 @@ class PageResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('published_at')
                     ->label('Tanggal Publikasi')
-                    ->dateTime('d M Y')
+                    ->dateTime('d/m/Y')
+                    ->alignCenter()
+                    ->size('sm')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Diubah')
-                    ->dateTime()
+                    ->dateTime('d/m/Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -135,9 +145,12 @@ class PageResource extends Resource
                     ->options(['draft' => 'Draf', 'published' => 'Diterbitkan', 'archived' => 'Diarsipkan']),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),
+                Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
+            ->emptyStateHeading('Belum Ada Halaman')
+            ->emptyStateDescription('Buat halaman statis baru untuk portal web bandara.')
+            ->emptyStateIcon('heroicon-o-document-text')
             ->bulkActions([]);
     }
 

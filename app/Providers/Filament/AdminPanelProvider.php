@@ -106,6 +106,12 @@ class AdminPanelProvider extends PanelProvider
                             transition: background-color 9999s ease-in-out 0s;
                         }
 
+                        @keyframes loginGradientShift {
+                            0% { background-position: 0% 50%; }
+                            50% { background-position: 100% 50%; }
+                            100% { background-position: 0% 50%; }
+                        }
+
                         /* Premium Login Page Background */
                         .fi-simple-layout {
                             background: url('/images/hero1.jpg') center/cover no-repeat fixed !important;
@@ -116,7 +122,9 @@ class AdminPanelProvider extends PanelProvider
                             content: '';
                             position: absolute;
                             inset: 0;
-                            background: linear-gradient(135deg, rgba(12, 45, 107, 0.75) 0%, rgba(15, 23, 42, 0.85) 50%, rgba(200, 134, 10, 0.5) 100%);
+                            background: linear-gradient(-45deg, rgba(12, 45, 107, 0.88), rgba(15, 23, 42, 0.92), rgba(200, 134, 10, 0.5), rgba(12, 45, 107, 0.82)) !important;
+                            background-size: 300% 300% !important;
+                            animation: loginGradientShift 15s ease infinite !important;
                             z-index: 0;
                         }
                         .fi-simple-main {

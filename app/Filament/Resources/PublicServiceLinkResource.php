@@ -85,9 +85,8 @@ class PublicServiceLinkResource extends Resource
                 Tables\Columns\TextColumn::make('category')
                     ->label('Kategori')
                     ->badge(),
-                Tables\Columns\IconColumn::make('is_active')
-                    ->label('Tampil')
-                    ->boolean(),
+                Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Tampil'),
                 Tables\Columns\TextColumn::make('url')
                     ->label('URL Link')
                     ->searchable()

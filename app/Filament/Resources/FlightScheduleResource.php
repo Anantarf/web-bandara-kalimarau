@@ -175,9 +175,8 @@ class FlightScheduleResource extends Resource
                         'kedatangan' => $record->arrival_time ? substr($record->arrival_time, 0, 5).' WITA (Tiba)' : '-',
                         default => '-',
                     }),
-                Tables\Columns\IconColumn::make('is_active')
-                    ->label('Tampil')
-                    ->boolean(),
+                Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Tampil'),
                 Tables\Columns\TextColumn::make('flight_number')
                     ->label('Nomor Penerbangan')
                     ->searchable()

@@ -120,9 +120,8 @@ class PpidDocumentResource extends Resource
                     ->label('Tanggal Publikasi')
                     ->dateTime('d M Y')
                     ->sortable(),
-                Tables\Columns\IconColumn::make('is_active')
-                    ->label('Tampil')
-                    ->boolean(),
+                Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Tampil'),
                 Tables\Columns\TextColumn::make('sort_order')
                     ->label('Urutan')
                     ->numeric()

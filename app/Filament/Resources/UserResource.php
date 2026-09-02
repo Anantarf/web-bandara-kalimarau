@@ -110,9 +110,9 @@ class UserResource extends Resource
                         default => 'gray',
                     })
                     ->formatStateUsing(fn (string $state): string => self::$roleLabels[$state] ?? str($state)->replace('_', ' ')->title()->toString()),
-                Tables\Columns\IconColumn::make('is_active')
+                Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Aktif')
-                    ->boolean(),
+                    ->disabled(fn (User $record): bool => auth()->id() === $record->id),
                 Tables\Columns\TextColumn::make('last_login_at')
                     ->label('Terakhir Masuk')
                     ->dateTime('d M Y H:i')

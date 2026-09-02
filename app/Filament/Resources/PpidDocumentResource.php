@@ -105,23 +105,32 @@ class PpidDocumentResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('no')
                     ->label('No.')
-                    ->rowIndex(),
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul Dokumen')
                     ->searchable()
+                    ->weight('medium')
+                    ->size('sm')
                     ->wrap()
                     ->lineClamp(2),
                 Tables\Columns\TextColumn::make('category')
                     ->label('Kategori')
                     ->badge()
+                    ->alignCenter()
+                    ->size('sm')
                     ->formatStateUsing(fn (string $state): string => PpidDocument::CATEGORIES[$state] ?? str($state)->replace('-', ' ')->title()->toString())
                     ->searchable(),
                 Tables\Columns\TextColumn::make('published_at')
                     ->label('Tanggal Publikasi')
-                    ->dateTime('d M Y')
+                    ->dateTime('d/m/Y')
+                    ->alignCenter()
+                    ->size('sm')
                     ->sortable(),
                 Tables\Columns\ToggleColumn::make('is_active')
-                    ->label('Tampil'),
+                    ->label('Tampil')
+                    ->alignCenter(),
                 Tables\Columns\TextColumn::make('sort_order')
                     ->label('Urutan')
                     ->numeric()

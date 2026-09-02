@@ -80,11 +80,15 @@ class ContactMessageResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('no')
                     ->label('No.')
-                    ->rowIndex(),
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Pengirim')
                     ->description(fn (ContactMessage $record): ?string => implode(' • ', array_filter([$record->email, $record->phone])))
                     ->searchable(['name', 'email', 'phone'])
+                    ->weight('medium')
+                    ->size('sm')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
@@ -97,11 +101,14 @@ class ContactMessageResource extends Resource
                 Tables\Columns\TextColumn::make('subject')
                     ->label('Subjek')
                     ->searchable()
+                    ->size('sm')
                     ->wrap()
                     ->lineClamp(2),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
                     ->badge()
+                    ->alignCenter()
+                    ->size('sm')
                     ->color(fn (string $state): string => match ($state) {
                         'new' => 'danger',
                         'read' => 'warning',
@@ -118,7 +125,9 @@ class ContactMessageResource extends Resource
                     }),
                 Tables\Columns\TextColumn::make('submitted_at')
                     ->label('Waktu Dikirim')
-                    ->dateTime('d M Y, H:i')
+                    ->dateTime('d/m/Y H:i')
+                    ->alignCenter()
+                    ->size('sm')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')

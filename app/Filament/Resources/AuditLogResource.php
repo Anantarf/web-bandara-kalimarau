@@ -80,19 +80,27 @@ class AuditLogResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('no')
                     ->label('No.')
-                    ->rowIndex(),
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Waktu Log')
-                    ->dateTime('d M Y, H:i:s')
+                    ->dateTime('d/m/Y H:i:s')
+                    ->alignCenter()
+                    ->size('sm')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Pengguna')
                     ->placeholder('Sistem')
                     ->description(fn (AuditLog $record): ?string => $record->ip_address ? "IP: {$record->ip_address}" : null)
+                    ->weight('medium')
+                    ->size('sm')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('event')
                     ->label('Aksi')
                     ->badge()
+                    ->alignCenter()
+                    ->size('sm')
                     ->color(fn (string $state): string => match ($state) {
                         'created' => 'success',
                         'updated' => 'warning',
@@ -107,6 +115,7 @@ class AuditLogResource extends Resource
                     }),
                 Tables\Columns\TextColumn::make('auditable_type')
                     ->label('Objek Data')
+                    ->size('sm')
                     ->formatStateUsing(fn (string $state, AuditLog $record): string => Str::headline(class_basename($state))." #{$record->auditable_id}"),
                 Tables\Columns\TextColumn::make('auditable_id')
                     ->label('ID Data')

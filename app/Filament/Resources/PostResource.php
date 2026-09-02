@@ -125,19 +125,26 @@ class PostResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('no')
                     ->label('No.')
-                    ->rowIndex(),
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul Berita')
                     ->description(fn (Post $record): ?string => $record->author?->name ? "Penulis: {$record->author->name}" : null)
                     ->searchable()
+                    ->weight('medium')
+                    ->size('sm')
                     ->wrap()
                     ->lineClamp(2),
                 Tables\Columns\TextColumn::make('author.name')
                     ->label('Penulis')
                     ->sortable()
+                    ->size('sm')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
+                    ->alignCenter()
+                    ->size('sm')
                     ->color(fn (string $state, Post $record) => $state === 'published' && $record->published_at?->isFuture() ? 'info' : match ($state) {
                         'published' => 'success',
                         'archived' => 'gray',
@@ -151,7 +158,9 @@ class PostResource extends Resource
                     }),
                 Tables\Columns\TextColumn::make('published_at')
                     ->label('Tanggal Publikasi')
-                    ->dateTime('d M Y')
+                    ->dateTime('d/m/Y')
+                    ->alignCenter()
+                    ->size('sm')
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_featured')
                     ->label('Unggulan')

@@ -145,15 +145,21 @@ class FlightScheduleResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('no')
                     ->label('No.')
-                    ->rowIndex(),
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('airline')
                     ->label('Maskapai')
                     ->description(fn (FlightSchedule $record): string => $record->flight_number ?: '-')
                     ->searchable(['airline', 'flight_number'])
+                    ->weight('medium')
+                    ->size('sm')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('type')
                     ->label('Jenis')
                     ->badge()
+                    ->alignCenter()
+                    ->size('sm')
                     ->formatStateUsing(fn (string $state): string => match ($state) {
                         'keberangkatan' => 'Keberangkatan',
                         'kedatangan' => 'Kedatangan',
@@ -167,16 +173,20 @@ class FlightScheduleResource extends Resource
                 Tables\Columns\TextColumn::make('route')
                     ->label('Rute Penerbangan')
                     ->state(fn (FlightSchedule $record): string => "{$record->route_from} ➔ {$record->route_to}")
-                    ->searchable(['route_from', 'route_to']),
+                    ->searchable(['route_from', 'route_to'])
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('flight_time')
                     ->label('Waktu')
                     ->state(fn (FlightSchedule $record): string => match ($record->type) {
                         'keberangkatan' => $record->departure_time ? substr($record->departure_time, 0, 5).' WITA (Berangkat)' : '-',
                         'kedatangan' => $record->arrival_time ? substr($record->arrival_time, 0, 5).' WITA (Tiba)' : '-',
                         default => '-',
-                    }),
+                    })
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\ToggleColumn::make('is_active')
-                    ->label('Tampil'),
+                    ->label('Tampil')
+                    ->alignCenter(),
                 Tables\Columns\TextColumn::make('flight_number')
                     ->label('Nomor Penerbangan')
                     ->searchable()

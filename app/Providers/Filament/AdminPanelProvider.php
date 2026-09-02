@@ -106,26 +106,52 @@ class AdminPanelProvider extends PanelProvider
                             transition: background-color 9999s ease-in-out 0s;
                         }
 
-                        @keyframes loginGradientShift {
-                            0% { background-position: 0% 50%; }
-                            50% { background-position: 100% 50%; }
-                            100% { background-position: 0% 50%; }
+                        @keyframes floatOrb1 {
+                            0% { transform: translate(0px, 0px) scale(1); }
+                            33% { transform: translate(140px, -90px) scale(1.25); }
+                            66% { transform: translate(-80px, 70px) scale(0.85); }
+                            100% { transform: translate(0px, 0px) scale(1); }
+                        }
+
+                        @keyframes floatOrb2 {
+                            0% { transform: translate(0px, 0px) scale(1); }
+                            33% { transform: translate(-120px, 110px) scale(1.2); }
+                            66% { transform: translate(90px, -60px) scale(0.8); }
+                            100% { transform: translate(0px, 0px) scale(1); }
                         }
 
                         /* Premium Login Page Background */
                         .fi-simple-layout {
-                            background: url('/images/hero1.jpg') center/cover no-repeat fixed !important;
+                            background: #091f4a url('/images/hero1.jpg') center/cover no-repeat fixed !important;
                             position: relative;
                             min-height: 100vh !important;
+                            overflow: hidden !important;
                         }
                         .fi-simple-layout::before {
                             content: '';
                             position: absolute;
-                            inset: 0;
-                            background: linear-gradient(-45deg, rgba(12, 45, 107, 0.88), rgba(15, 23, 42, 0.92), rgba(200, 134, 10, 0.5), rgba(12, 45, 107, 0.82)) !important;
-                            background-size: 300% 300% !important;
-                            animation: loginGradientShift 15s ease infinite !important;
+                            top: -15%;
+                            left: -15%;
+                            width: 65vw;
+                            height: 65vw;
+                            background: radial-gradient(circle, rgba(12, 45, 107, 0.85) 0%, rgba(12, 45, 107, 0) 70%) !important;
+                            filter: blur(50px) !important;
+                            animation: floatOrb1 10s ease-in-out infinite !important;
                             z-index: 0;
+                            pointer-events: none;
+                        }
+                        .fi-simple-layout::after {
+                            content: '';
+                            position: absolute;
+                            bottom: -15%;
+                            right: -15%;
+                            width: 70vw;
+                            height: 70vw;
+                            background: radial-gradient(circle, rgba(200, 134, 10, 0.6) 0%, rgba(200, 134, 10, 0) 70%) !important;
+                            filter: blur(60px) !important;
+                            animation: floatOrb2 13s ease-in-out infinite !important;
+                            z-index: 0;
+                            pointer-events: none;
                         }
                         .fi-simple-main {
                             position: relative;

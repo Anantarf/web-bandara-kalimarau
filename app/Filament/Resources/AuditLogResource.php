@@ -78,13 +78,17 @@ class AuditLogResource extends Resource
         return $table
             ->striped()
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No.')
+                    ->rowIndex(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Waktu')
-                    ->dateTime()
+                    ->label('Waktu Log')
+                    ->dateTime('d M Y, H:i:s')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Pengguna')
                     ->placeholder('Sistem')
+                    ->description(fn (AuditLog $record): ?string => $record->ip_address ? "IP: {$record->ip_address}" : null)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('event')
                     ->label('Aksi')
@@ -102,11 +106,12 @@ class AuditLogResource extends Resource
                         default => Str::headline($state),
                     }),
                 Tables\Columns\TextColumn::make('auditable_type')
-                    ->label('Data')
-                    ->formatStateUsing(fn (string $state): string => Str::headline(class_basename($state))),
+                    ->label('Objek Data')
+                    ->formatStateUsing(fn (string $state, AuditLog $record): string => Str::headline(class_basename($state))." #{$record->auditable_id}"),
                 Tables\Columns\TextColumn::make('auditable_id')
-                    ->label('ID')
-                    ->sortable(),
+                    ->label('ID Data')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('ip_address')
                     ->label('Alamat IP')
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -122,7 +127,7 @@ class AuditLogResource extends Resource
                     ]),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()->label('Lihat Detail'),
+                Tables\Actions\ViewAction::make()->label('Lihat Detail')->iconButton(),
             ]);
     }
 

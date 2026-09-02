@@ -127,7 +127,8 @@ class PostResource extends Resource
                     ->label('No.')
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('title')
-                    ->label('Judul')
+                    ->label('Judul Berita')
+                    ->description(fn (Post $record): ?string => $record->author?->name ? "Penulis: {$record->author->name}" : null)
                     ->searchable()
                     ->wrap()
                     ->lineClamp(2),
@@ -147,8 +148,11 @@ class PostResource extends Resource
                         $state === 'published' => 'Diterbitkan',
                         $state === 'archived' => 'Diarsipkan',
                         default => 'Draf',
-                    })
-                    ->toggleable(),
+                    }),
+                Tables\Columns\TextColumn::make('published_at')
+                    ->label('Tanggal Publikasi')
+                    ->dateTime('d M Y')
+                    ->sortable(),
                 Tables\Columns\IconColumn::make('is_featured')
                     ->label('Unggulan')
                     ->boolean()
@@ -157,12 +161,8 @@ class PostResource extends Resource
                     ->label('Disematkan')
                     ->boolean()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('published_at')
-                    ->label('Tanggal Publikasi')
-                    ->dateTime('d M Y')
-                    ->sortable()
-                    ->toggleable(),
             ])
+            ->defaultSort('published_at', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->label('Status Publikasi')
@@ -177,10 +177,11 @@ class PostResource extends Resource
                     ->label('Pratinjau')
                     ->icon('heroicon-o-eye')
                     ->color('info')
+                    ->iconButton()
                     ->url(fn (Post $record): string => route('posts.show', $record->slug))
                     ->openUrlInNewTab(),
-                Tables\Actions\EditAction::make()->label('Ubah'),
-                Tables\Actions\DeleteAction::make()->label('Hapus'),
+                Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),
+                Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
             ->bulkActions([]);
     }

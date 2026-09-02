@@ -82,17 +82,23 @@ class ContactMessageResource extends Resource
                     ->label('No.')
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Nama Pengirim')
-                    ->searchable(),
+                    ->label('Pengirim')
+                    ->description(fn (ContactMessage $record): ?string => implode(' • ', array_filter([$record->email, $record->phone])))
+                    ->searchable(['name', 'email', 'phone'])
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('phone')
                     ->label('No. Telepon')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('subject')
                     ->label('Subjek')
-                    ->searchable(),
+                    ->searchable()
+                    ->wrap()
+                    ->lineClamp(2),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
                     ->badge()
@@ -112,16 +118,16 @@ class ContactMessageResource extends Resource
                     }),
                 Tables\Columns\TextColumn::make('submitted_at')
                     ->label('Waktu Dikirim')
-                    ->dateTime()
+                    ->dateTime('d M Y, H:i')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
-                    ->dateTime()
+                    ->dateTime('d M Y, H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Diubah')
-                    ->dateTime()
+                    ->dateTime('d M Y, H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -132,8 +138,8 @@ class ContactMessageResource extends Resource
                     ->options(['new' => 'Baru', 'read' => 'Dibaca', 'replied' => 'Dibalas', 'archived' => 'Diarsipkan']),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label('Ubah Status'),
-                Tables\Actions\DeleteAction::make()->label('Hapus'),
+                Tables\Actions\EditAction::make()->label('Ubah Status')->iconButton(),
+                Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
             ->bulkActions([]);
     }

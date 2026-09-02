@@ -107,7 +107,7 @@ class PpidDocumentResource extends Resource
                     ->label('No.')
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('title')
-                    ->label('Judul')
+                    ->label('Judul Dokumen')
                     ->searchable()
                     ->wrap()
                     ->lineClamp(2),
@@ -126,7 +126,13 @@ class PpidDocumentResource extends Resource
                 Tables\Columns\TextColumn::make('sort_order')
                     ->label('Urutan')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat')
+                    ->dateTime('d M Y, H:i')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('sort_order')
             ->filters([
@@ -141,10 +147,11 @@ class PpidDocumentResource extends Resource
                     ->label('Lihat File')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->color('info')
+                    ->iconButton()
                     ->url(fn (PpidDocument $record): string => $record->file_url)
                     ->openUrlInNewTab(),
-                Tables\Actions\EditAction::make()->label('Ubah'),
-                Tables\Actions\DeleteAction::make()->label('Hapus'),
+                Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),
+                Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
             ->bulkActions([]);
     }

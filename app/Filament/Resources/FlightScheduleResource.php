@@ -146,34 +146,63 @@ class FlightScheduleResource extends Resource
                 Tables\Columns\TextColumn::make('no')
                     ->label('No.')
                     ->rowIndex(),
-                Tables\Columns\TextColumn::make('type')
-                    ->label('Jenis')
-                    ->badge(),
                 Tables\Columns\TextColumn::make('airline')
                     ->label('Maskapai')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('flight_number')
-                    ->label('Nomor Penerbangan')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('route_from')
-                    ->label('Asal')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('route_to')
-                    ->label('Tujuan')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('departure_time')
-                    ->label('Jam Berangkat')
-                    ->time(),
-                Tables\Columns\TextColumn::make('arrival_time')
-                    ->label('Jam Tiba')
-                    ->time(),
+                    ->description(fn (FlightSchedule $record): string => $record->flight_number ?: '-')
+                    ->searchable(['airline', 'flight_number'])
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('type')
+                    ->label('Jenis')
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'keberangkatan' => 'Keberangkatan',
+                        'kedatangan' => 'Kedatangan',
+                        default => ucfirst($state),
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        'keberangkatan' => 'info',
+                        'kedatangan' => 'success',
+                        default => 'gray',
+                    }),
+                Tables\Columns\TextColumn::make('route')
+                    ->label('Rute Penerbangan')
+                    ->state(fn (FlightSchedule $record): string => "{$record->route_from} ➔ {$record->route_to}")
+                    ->searchable(['route_from', 'route_to']),
+                Tables\Columns\TextColumn::make('flight_time')
+                    ->label('Waktu')
+                    ->state(fn (FlightSchedule $record): string => match ($record->type) {
+                        'keberangkatan' => $record->departure_time ? substr($record->departure_time, 0, 5).' WITA (Berangkat)' : '-',
+                        'kedatangan' => $record->arrival_time ? substr($record->arrival_time, 0, 5).' WITA (Tiba)' : '-',
+                        default => '-',
+                    }),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Tampil')
                     ->boolean(),
+                Tables\Columns\TextColumn::make('flight_number')
+                    ->label('Nomor Penerbangan')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('route_from')
+                    ->label('Kota Asal')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('route_to')
+                    ->label('Kota Tujuan')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('departure_time')
+                    ->label('Jam Berangkat')
+                    ->time()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('arrival_time')
+                    ->label('Jam Tiba')
+                    ->time()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('sort_order')
                     ->label('Urutan')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('sort_order')
             ->filters([
@@ -184,8 +213,8 @@ class FlightScheduleResource extends Resource
                     ->label('Tampil di Website'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label('Ubah'),
-                Tables\Actions\DeleteAction::make()->label('Hapus'),
+                Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),
+                Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
             ->bulkActions([]);
     }

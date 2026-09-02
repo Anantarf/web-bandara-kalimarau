@@ -16,7 +16,7 @@ class ContactMessageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
 
-    protected static ?string $navigationGroup = 'Pesan & Pengaduan';
+    protected static ?string $navigationGroup = 'Layanan Operasional';
 
     protected static ?int $navigationSort = 1;
 

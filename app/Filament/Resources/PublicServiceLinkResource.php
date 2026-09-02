@@ -16,7 +16,9 @@ class PublicServiceLinkResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-link';
 
-    protected static ?string $navigationGroup = 'Layanan & Operasional';
+    protected static ?string $navigationGroup = 'Layanan Operasional';
+
+    protected static bool $shouldRegisterNavigation = false;
 
     protected static ?int $navigationSort = 3;
 

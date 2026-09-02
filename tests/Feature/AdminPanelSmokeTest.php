@@ -26,7 +26,7 @@ class AdminPanelSmokeTest extends TestCase
         $admin->syncRoles(['super_admin']);
 
         $resources = [
-            'posts', 'flight-schedules', 'contact-messages', 'airport-stats', 'audit-logs', 'users',
+            'posts', 'flight-schedules', 'contact-messages', 'airport-stats', 'ppid-documents', 'audit-logs', 'users',
         ];
 
         foreach ($resources as $resource) {

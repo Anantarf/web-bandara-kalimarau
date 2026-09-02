@@ -16,7 +16,7 @@ class RedirectResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-top-right-on-square';
 
-    protected static ?string $navigationGroup = '⚙️ Pengaturan & Keamanan';
+    protected static ?string $navigationGroup = 'Pengaturan Sistem';
 
     protected static ?int $navigationSort = 2;
 

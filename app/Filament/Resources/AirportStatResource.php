@@ -29,7 +29,7 @@ class AirportStatResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
 
-    protected static ?string $navigationGroup = '🌐 Halaman Statis & Tampilan Web';
+    protected static ?string $navigationGroup = 'Halaman & Media';
 
     protected static ?int $navigationSort = 2;
 

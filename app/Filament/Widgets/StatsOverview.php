@@ -20,22 +20,22 @@ class StatsOverview extends BaseWidget
         return [
             Stat::make('Penerbangan Aktif', FlightSchedule::query()->where('is_active', true)->count())
                 ->description('Rute aktif di website')
-                ->descriptionIcon('heroicon-m-paper-airplane')
+                ->descriptionIcon('heroicon-o-paper-airplane')
                 ->color('success'),
 
             Stat::make('Berita Diterbitkan', Post::query()->where('status', 'published')->count())
                 ->description('Total artikel terpublikasi')
-                ->descriptionIcon('heroicon-m-newspaper')
+                ->descriptionIcon('heroicon-o-newspaper')
                 ->color('info'),
 
             Stat::make('Pengaduan Baru', $unreadMessagesCount)
                 ->description($unreadMessagesCount > 0 ? "{$unreadMessagesCount} pesan belum dibaca" : 'Semua pesan sudah dibaca')
-                ->descriptionIcon('heroicon-m-envelope')
+                ->descriptionIcon('heroicon-o-envelope')
                 ->color($unreadMessagesCount > 0 ? 'danger' : 'gray'),
 
             Stat::make('Dokumen PPID', PpidDocument::query()->where('is_published', true)->count())
                 ->description('Dokumen publik aktif')
-                ->descriptionIcon('heroicon-m-document-text')
+                ->descriptionIcon('heroicon-o-document-text')
                 ->color('primary'),
         ];
     }

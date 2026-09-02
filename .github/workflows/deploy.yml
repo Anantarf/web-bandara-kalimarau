@@ -78,10 +78,21 @@ jobs:
             unzip -o ~/deploy.zip -d "$DEST"
             rm ~/deploy.zip
 
-            # Sync compiled Vite assets (CSS/JS) to public_html if public_html is separate
+            # Fix directory permissions for Laravel storage & cache
+            chmod -R 775 "$DEST/storage" "$DEST/bootstrap/cache" 2>/dev/null || true
+
+            # Sync compiled assets & adjust index.php paths for cPanel public_html
             if [ -d "$PUBLIC_HTML" ] && [ ! -L "$PUBLIC_HTML" ]; then
-              echo "Syncing public assets to public_html..."
+              echo "Syncing public assets and configuring public_html/index.php..."
               cp -rf "$DEST/public/"* "$PUBLIC_HTML/" 2>/dev/null || true
+
+              # Adjust paths in public_html/index.php to point to project folder (/kalimarau)
+              PROJECT_NAME=$(basename "$DEST")
+              if [ -f "$PUBLIC_HTML/index.php" ]; then
+                sed -i "s|__DIR__.'/\.\./vendor/autoload.php'|__DIR__.'/\.\./${PROJECT_NAME}/vendor/autoload.php'|g" "$PUBLIC_HTML/index.php" || true
+                sed -i "s|__DIR__.'/\.\./bootstrap/app.php'|__DIR__.'/\.\./${PROJECT_NAME}/bootstrap/app.php'|g" "$PUBLIC_HTML/index.php" || true
+                sed -i "s|__DIR__.'/\.\./storage/|__DIR__.'/\.\./${PROJECT_NAME}/storage/|g" "$PUBLIC_HTML/index.php" || true
+              fi
             fi
 
             cd "$DEST"

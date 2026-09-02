@@ -5,6 +5,7 @@ namespace App\Filament\Widgets;
 use App\Models\ContactMessage;
 use App\Models\FlightSchedule;
 use App\Models\Post;
+use App\Models\PpidDocument;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -14,21 +15,28 @@ class StatsOverview extends BaseWidget
 
     protected function getStats(): array
     {
-        return [
-            Stat::make('Penerbangan Aktif', FlightSchedule::count())
-                ->description('Total jadwal penerbangan')
-                ->descriptionIcon('heroicon-m-paper-airplane')
-                ->color('primary'),
+        $unreadMessagesCount = ContactMessage::query()->where('is_read', false)->count();
 
-            Stat::make('Berita Diterbitkan', Post::count())
-                ->description('Total berita/artikel')
-                ->descriptionIcon('heroicon-m-newspaper')
+        return [
+            Stat::make('Penerbangan Aktif', FlightSchedule::query()->where('is_active', true)->count())
+                ->description('Rute aktif di website')
+                ->descriptionIcon('heroicon-m-paper-airplane')
                 ->color('success'),
 
-            Stat::make('Pesan Masuk', ContactMessage::count())
-                ->description('Total pesan kontak')
+            Stat::make('Berita Diterbitkan', Post::query()->where('status', 'published')->count())
+                ->description('Total artikel terpublikasi')
+                ->descriptionIcon('heroicon-m-newspaper')
+                ->color('info'),
+
+            Stat::make('Pengaduan Baru', $unreadMessagesCount)
+                ->description($unreadMessagesCount > 0 ? "{$unreadMessagesCount} pesan belum dibaca" : 'Semua pesan sudah dibaca')
                 ->descriptionIcon('heroicon-m-envelope')
-                ->color('warning'),
+                ->color($unreadMessagesCount > 0 ? 'danger' : 'gray'),
+
+            Stat::make('Dokumen PPID', PpidDocument::query()->where('is_published', true)->count())
+                ->description('Dokumen publik aktif')
+                ->descriptionIcon('heroicon-m-document-text')
+                ->color('primary'),
         ];
     }
 }

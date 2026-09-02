@@ -41,9 +41,9 @@ class LatestMessagesWidget extends BaseWidget
             ])
             ->actions([
                 Tables\Actions\Action::make('view')
-                    ->label('Buka Pesan')
-                    ->icon('heroicon-o-eye')
-                    ->url(fn (ContactMessage $record): string => ContactMessageResource::getUrl('edit', ['record' => $record])),
+                    ->label('Lihat Semua Pesan')
+                    ->icon('heroicon-o-envelope')
+                    ->url(fn (): string => ContactMessageResource::getUrl('index')),
             ])
             ->paginated(false);
     }

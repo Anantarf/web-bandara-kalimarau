@@ -8,6 +8,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\View\PanelsRenderHook;
@@ -41,6 +42,14 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogoHeight('3rem')
             ->favicon(asset('images/logo-blu.png'))
             ->sidebarFullyCollapsibleOnDesktop()
+            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label('Lihat Portal Utama')
+                    ->url('/')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->openUrlInNewTab(),
+            ])
             ->darkMode(false)
             ->font('Plus Jakarta Sans')
             ->colors([

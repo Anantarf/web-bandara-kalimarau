@@ -108,19 +108,24 @@ class AdminPanelProvider extends PanelProvider
 
                         /* Premium Login Page Background */
                         .fi-simple-layout {
-                            background: url('/images/hero1.jpg') center/cover no-repeat !important;
+                            background: url('/images/hero1.jpg') center/cover no-repeat fixed !important;
                             position: relative;
+                            min-height: 100vh !important;
                         }
                         .fi-simple-layout::before {
                             content: '';
                             position: absolute;
                             inset: 0;
-                            background: linear-gradient(135deg, rgba(12, 45, 107, 0.85) 0%, rgba(200, 134, 10, 0.6) 100%);
+                            background: linear-gradient(135deg, rgba(12, 45, 107, 0.75) 0%, rgba(15, 23, 42, 0.85) 50%, rgba(200, 134, 10, 0.5) 100%);
                             z-index: 0;
                         }
                         .fi-simple-main {
                             position: relative;
                             z-index: 1;
+                            border-radius: 1.5rem !important;
+                            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4) !important;
+                            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                            overflow: hidden !important;
                         }
                         
                         /* Center and stack logo on login page */

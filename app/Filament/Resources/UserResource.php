@@ -93,12 +93,14 @@ class UserResource extends Resource
                     ->label('No.')
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Nama')
-                    ->searchable(),
+                    ->label('Pengguna')
+                    ->description(fn (User $record): string => "@{$record->username}")
+                    ->searchable(['name', 'username', 'email'])
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('username')
                     ->label('Username')
                     ->searchable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('roles.name')
                     ->label('Hak Akses')
                     ->badge()
@@ -116,7 +118,7 @@ class UserResource extends Resource
                     ->dateTime('d M Y H:i')
                     ->placeholder('Belum pernah')
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\TernaryFilter::make('is_active')
@@ -126,9 +128,10 @@ class UserResource extends Resource
                     ->falseLabel('Nonaktif'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label('Ubah'),
+                Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),
                 Tables\Actions\DeleteAction::make()
                     ->label('Hapus')
+                    ->iconButton()
                     ->visible(fn (User $record): bool => auth()->id() !== $record->id),
             ])
             ->bulkActions([]);

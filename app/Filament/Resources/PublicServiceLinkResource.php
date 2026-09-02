@@ -77,21 +77,26 @@ class PublicServiceLinkResource extends Resource
                     ->label('No.')
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('title')
-                    ->label('Judul')
-                    ->searchable(),
+                    ->label('Nama Layanan')
+                    ->description(fn (PublicServiceLink $record): string => $record->url ?: '-')
+                    ->searchable(['title', 'url'])
+                    ->wrap()
+                    ->lineClamp(2),
                 Tables\Columns\TextColumn::make('category')
                     ->label('Kategori')
                     ->badge(),
-                Tables\Columns\TextColumn::make('url')
-                    ->label('URL')
-                    ->limit(40),
                 Tables\Columns\IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label('Tampil')
                     ->boolean(),
+                Tables\Columns\TextColumn::make('url')
+                    ->label('URL Link')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('sort_order')
                     ->label('Urutan')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('sort_order')
             ->filters([
@@ -99,8 +104,8 @@ class PublicServiceLinkResource extends Resource
                     ->label('Tampil di Website'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),
+                Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
             ->bulkActions([]);
     }

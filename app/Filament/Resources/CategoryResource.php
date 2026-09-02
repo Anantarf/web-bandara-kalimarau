@@ -57,32 +57,34 @@ class CategoryResource extends Resource
                     ->rowIndex(),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama Kategori')
-                    ->searchable(),
+                    ->description(fn (Category $record): string => "Slug: {$record->slug}")
+                    ->searchable(['name', 'slug'])
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->label('Slug (URL)')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('sort_order')
                     ->label('Urutan')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
-                    ->dateTime()
+                    ->dateTime('d M Y, H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Diubah')
-                    ->dateTime()
+                    ->dateTime('d M Y, H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
             ->defaultSort('sort_order')
+            ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),
+                Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
             ->bulkActions([]);
     }

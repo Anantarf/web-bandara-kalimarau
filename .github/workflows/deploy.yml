@@ -93,6 +93,9 @@ jobs:
                 sed -i "s|__DIR__.'/\.\./bootstrap/app.php'|__DIR__.'/\.\./${PROJECT_NAME}/bootstrap/app.php'|g" "$PUBLIC_HTML/index.php" || true
                 sed -i "s|__DIR__.'/\.\./storage/|__DIR__.'/\.\./${PROJECT_NAME}/storage/|g" "$PUBLIC_HTML/index.php" || true
               fi
+
+              # Symlink storage in public_html to storage/app/public for uploaded media/images
+              ln -sfn "$DEST/storage/app/public" "$PUBLIC_HTML/storage" 2>/dev/null || true
             fi
 
             cd "$DEST"

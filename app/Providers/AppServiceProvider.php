@@ -35,6 +35,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if ($this->app->environment('production') || request()->server('HTTP_X_FORWARDED_PROTO') === 'https') {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+
         $observer = app(AuditLogObserver::class);
 
         foreach ([Category::class, ContactMessage::class, FlightSchedule::class, Media::class, Page::class, Post::class, PublicServiceLink::class, Redirect::class, User::class] as $model) {

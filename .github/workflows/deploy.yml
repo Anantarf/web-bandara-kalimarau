@@ -47,9 +47,7 @@ jobs:
           echo "CLEAN_HOST=${CLEAN_HOST}" >> $GITHUB_ENV
 
           mkdir -p ~/.ssh
-          cat << 'EOF' > ~/.ssh/id_rsa
-          ${SSH_KEY}
-          EOF
+          printf "%s\n" "${SSH_KEY}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -p ${SSH_PORT:-2223} -H "${CLEAN_HOST}" >> ~/.ssh/known_hosts || true
 

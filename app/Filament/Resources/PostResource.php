@@ -34,7 +34,9 @@ class PostResource extends Resource
             ->schema([
                 Forms\Components\Group::make()
                     ->schema([
-                        Forms\Components\Section::make('Konten Utama')
+                        Forms\Components\Section::make('Konten Berita Utama')
+                            ->description('Isi judul, ringkasan, dan isi artikel berita utama.')
+                            ->icon('heroicon-o-document-text')
                             ->schema([
                                 Forms\Components\TextInput::make('title')
                                     ->label('Judul')
@@ -60,7 +62,9 @@ class PostResource extends Resource
                                     ])
                                     ->bubbleMenuTools(['bold', 'italic', 'underline', 'link']),
                             ])->columns(2),
-                        Forms\Components\Section::make('Gambar Utama')
+                        Forms\Components\Section::make('Gambar Utama / Cover')
+                            ->description('Upload foto sampul berasio 16:9.')
+                            ->icon('heroicon-o-photo')
                             ->schema([
                                 Forms\Components\FileUpload::make('featured_image')
                                     ->hiddenLabel()
@@ -84,6 +88,8 @@ class PostResource extends Resource
                 Forms\Components\Group::make()
                     ->schema([
                         Forms\Components\Section::make('Status & Publikasi')
+                            ->description('Pengaturan status terbit dan waktu tayang.')
+                            ->icon('heroicon-o-clock')
                             ->schema([
                                 Forms\Components\Select::make('status')
                                     ->label('Status')
@@ -106,6 +112,8 @@ class PostResource extends Resource
                         Forms\Components\Hidden::make('author_id')
                             ->default(fn () => auth()->id()),
                         Forms\Components\Section::make('Atribut Tambahan')
+                            ->description('Opsi berita unggulan & penyematan.')
+                            ->icon('heroicon-o-star')
                             ->schema([
                                 Forms\Components\Toggle::make('is_featured')
                                     ->label('Berita Unggulan'),

@@ -17,6 +17,7 @@ class RoleSeeder extends Seeder
         'flight::schedule',
         'contact::message',
         'airport::stat',
+        'ppid::document',
     ];
 
     protected const ADMIN_ACTIONS = [

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use App\Models\PpidDocument;
 use App\Models\Redirect as RedirectModel;
 use Illuminate\Http\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,7 +50,7 @@ class PageController extends Controller
     /**
      * Old URLs that no longer match any route (posts moved under /berita,
      * pages that changed slug, etc) fall back to the redirects table before
-     * 404ing — never overrides a route that already resolved normally.
+     * 404ing - never overrides a route that already resolved normally.
      */
     protected function redirectOrFail(string $oldPath): Response|RedirectResponse
     {
@@ -69,11 +70,18 @@ class PageController extends Controller
         $page = Page::published()->where('slug', $realSlug)->firstOrFail();
 
         $titles = Page::published()->whereIn('slug', self::PPID_MAP)->pluck('title', 'slug');
+        $ppidDocuments = PpidDocument::query()
+            ->published()
+            ->where('category', $sub)
+            ->orderBy('sort_order')
+            ->latest('published_at')
+            ->get();
 
         return view('pages.ppid', [
             'page' => $page,
             'ppidMap' => self::PPID_MAP,
             'ppidTitles' => collect(self::PPID_MAP)->mapWithKeys(fn ($realSlug, $sub) => [$sub => $titles[$realSlug] ?? $sub]),
+            'ppidDocuments' => $ppidDocuments,
         ]);
     }
 }

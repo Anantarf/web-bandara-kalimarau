@@ -135,6 +135,48 @@
                                 @endif
                             </div>
                         @endif
+
+                        @if($ppidDocuments->isNotEmpty())
+                            <div class="not-prose mt-10 border-t border-gray-100 pt-8">
+                                <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-5">
+                                    <div>
+                                        <h3 class="text-xl md:text-2xl font-extrabold text-navy-dark">Dokumen {{ $page->title }}</h3>
+                                        <p class="text-sm text-text-muted mt-1">Dokumen resmi PPID yang dapat dilihat atau diunduh publik.</p>
+                                    </div>
+                                </div>
+
+                                <div class="divide-y divide-gray-100 border border-gray-200 rounded-xl bg-white overflow-hidden">
+                                    @foreach($ppidDocuments as $document)
+                                        <article class="p-5 md:p-6 hover:bg-gray-50 transition-colors">
+                                            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                                                <div class="min-w-0">
+                                                    <div class="flex flex-wrap items-center gap-2 mb-2">
+                                                        <span class="inline-flex items-center rounded-full bg-gold/10 px-3 py-1 text-xs font-bold text-gold-dark">{{ $document->category_label }}</span>
+                                                        @if($document->published_at)
+                                                            <span class="text-xs text-text-muted">{{ $document->published_at->translatedFormat('d F Y') }}</span>
+                                                        @endif
+                                                    </div>
+                                                    <h4 class="text-lg font-bold text-navy-dark leading-snug">{{ $document->title }}</h4>
+                                                    @if($document->description)
+                                                        <p class="text-sm md:text-base text-text-muted leading-relaxed mt-2">{{ $document->description }}</p>
+                                                    @endif
+                                                </div>
+                                                <a href="{{ $document->file_url }}" target="_blank" rel="noopener" class="inline-flex shrink-0 items-center justify-center rounded-lg bg-navy px-4 py-2.5 text-sm font-bold text-white hover:bg-navy-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2">
+                                                    Unduh Dokumen
+                                                </a>
+                                            </div>
+                                        </article>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @elseif($currentSub && array_key_exists($currentSub, \App\Models\PpidDocument::CATEGORIES))
+                            <div class="not-prose mt-10 border-t border-gray-100 pt-8">
+                                <div class="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-6 text-center">
+                                    <h3 class="text-base font-bold text-navy-dark">Belum ada dokumen PPID yang tersedia.</h3>
+                                    <p class="text-sm text-text-muted mt-1">Dokumen untuk kategori ini akan tampil setelah dipublikasikan melalui CMS.</p>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </main>
 

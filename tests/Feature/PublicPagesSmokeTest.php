@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Facility;
 use App\Models\Page;
 use App\Models\Post;
+use App\Models\PpidDocument;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -80,6 +81,60 @@ class PublicPagesSmokeTest extends TestCase
 
         $this->get(route('ppid.show', 'profil'))->assertOk()->assertSee('Profil PPID');
         $this->get(route('ppid.show', 'sub-yang-tidak-ada'))->assertStatus(404);
+    }
+
+    public function test_ppid_sub_page_renders_only_published_documents_for_current_category(): void
+    {
+        Page::create([
+            'title' => 'Informasi Berkala',
+            'slug' => 'informasi-berkala',
+            'content' => '<p>Konten informasi berkala.</p>',
+            'status' => 'published',
+            'published_at' => now(),
+        ]);
+
+        PpidDocument::create([
+            'title' => 'Laporan Kinerja 2026',
+            'description' => 'Dokumen kinerja tahunan.',
+            'category' => 'informasi-berkala',
+            'file_path' => 'ppid-documents/laporan-kinerja-2026.pdf',
+            'is_active' => true,
+            'published_at' => now()->subDay(),
+            'sort_order' => 1,
+        ]);
+
+        PpidDocument::create([
+            'title' => 'Dokumen Nonaktif',
+            'category' => 'informasi-berkala',
+            'file_path' => 'ppid-documents/nonaktif.pdf',
+            'is_active' => false,
+            'published_at' => now()->subDay(),
+        ]);
+
+        PpidDocument::create([
+            'title' => 'Dokumen Kategori Lain',
+            'category' => 'regulasi',
+            'file_path' => 'ppid-documents/regulasi.pdf',
+            'is_active' => true,
+            'published_at' => now()->subDay(),
+        ]);
+
+        PpidDocument::create([
+            'title' => 'Dokumen Terjadwal',
+            'category' => 'informasi-berkala',
+            'file_path' => 'ppid-documents/terjadwal.pdf',
+            'is_active' => true,
+            'published_at' => now()->addDay(),
+        ]);
+
+        $this->get(route('ppid.show', 'informasi-berkala'))
+            ->assertOk()
+            ->assertSee('Laporan Kinerja 2026')
+            ->assertSee('Dokumen kinerja tahunan.')
+            ->assertSee('storage/ppid-documents/laporan-kinerja-2026.pdf', false)
+            ->assertDontSee('Dokumen Nonaktif')
+            ->assertDontSee('Dokumen Kategori Lain')
+            ->assertDontSee('Dokumen Terjadwal');
     }
 
     public function test_static_page_loads_by_slug(): void

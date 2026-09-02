@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: Build & Deploy to cPanel
+    name: Build & Deploy to cPanel via SSH
     runs-on: ubuntu-latest
 
     steps:
@@ -51,7 +51,7 @@ jobs:
           ${SSH_KEY}
           EOF
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -p ${SSH_PORT:-22} -H "${CLEAN_HOST}" >> ~/.ssh/known_hosts || true
+          ssh-keyscan -p ${SSH_PORT:-2223} -H "${CLEAN_HOST}" >> ~/.ssh/known_hosts || true
 
       - name: Deploy Files to cPanel via rsync
         env:
@@ -59,7 +59,7 @@ jobs:
           SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
           REMOTE_TARGET: ${{ secrets.REMOTE_TARGET }}
         run: |
-          rsync -avz --delete -e "ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-22} -o StrictHostKeyChecking=no" \
+          rsync -avz --delete -e "ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no" \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='.codex' \
@@ -82,7 +82,7 @@ jobs:
           SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
           REMOTE_TARGET: ${{ secrets.REMOTE_TARGET }}
         run: |
-          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-22} -o StrictHostKeyChecking=no ${SSH_USERNAME}@${CLEAN_HOST} << 'EOF'
+          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no ${SSH_USERNAME}@${CLEAN_HOST} << 'EOF'
             cd ${REMOTE_TARGET}
             php artisan migrate --force
             php artisan storage:link 2>/dev/null || true

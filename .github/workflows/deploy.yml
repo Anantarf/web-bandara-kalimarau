@@ -78,13 +78,16 @@ jobs:
             unzip -o ~/deploy.zip -d "$DEST"
             rm ~/deploy.zip
 
-            # Fix directory permissions for Laravel storage & cache
-            chmod -R 775 "$DEST/storage" "$DEST/bootstrap/cache" 2>/dev/null || true
+            # Fix directory & file permissions for cPanel suPHP compliance
+            chmod -R 755 "$DEST/storage" "$DEST/bootstrap/cache" 2>/dev/null || true
+            find "$DEST/storage" "$DEST/bootstrap/cache" -type f -exec chmod 644 {} + 2>/dev/null || true
 
             # Sync compiled assets & adjust index.php paths for cPanel public_html
             if [ -d "$PUBLIC_HTML" ] && [ ! -L "$PUBLIC_HTML" ]; then
               echo "Syncing public assets and configuring public_html/index.php..."
               cp -rf "$DEST/public/"* "$PUBLIC_HTML/" 2>/dev/null || true
+              chmod -R 755 "$PUBLIC_HTML" 2>/dev/null || true
+              find "$PUBLIC_HTML" -type f -exec chmod 644 {} + 2>/dev/null || true
 
               # Adjust paths in public_html/index.php to point to project folder (/kalimarau)
               PROJECT_NAME=$(basename "$DEST")
@@ -103,6 +106,7 @@ jobs:
             php artisan migrate --force
             php artisan db:seed --force 2>/devnull || true
             php artisan storage:link 2>/devnull || true
-            php artisan optimize
+            php artisan config:cache
+            php artisan view:cache
             echo "SUCCESSFUL_DEPLOYMENT"
           EOF

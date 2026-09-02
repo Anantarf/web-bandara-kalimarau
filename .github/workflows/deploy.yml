@@ -36,10 +36,26 @@ jobs:
       - name: Build Frontend Assets (Vite)
         run: npm run build
 
-      - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_KEY }}
+      - name: Configure SSH Key & Hostname
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          CLEAN_HOST=$(echo "${SSH_HOST}" | sed -e 's|^https://||' -e 's|^http://||' -e 's|/.*$||')
+          echo "CLEAN_HOST=${CLEAN_HOST}" >> $GITHUB_ENV
+
+          mkdir -p ~/.ssh
+          printf "%s\n" "${SSH_KEY}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+          # If passphrase is provided, decrypt the key automatically
+          if [ -n "${SSH_PASSPHRASE}" ]; then
+            ssh-keygen -p -P "${SSH_PASSPHRASE}" -N "" -f ~/.ssh/id_rsa || true
+          fi
+
+          ssh-keyscan -p ${SSH_PORT:-2223} -H "${CLEAN_HOST}" >> ~/.ssh/known_hosts || true
 
       - name: Deploy Files to cPanel via rsync
         env:
@@ -49,7 +65,7 @@ jobs:
           REMOTE_TARGET: ${{ secrets.REMOTE_TARGET }}
         run: |
           CLEAN_HOST=$(echo "${SSH_HOST}" | sed -e 's|^https://||' -e 's|^http://||' -e 's|/.*$||')
-          rsync -avz --delete -e "ssh -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no" \
+          rsync -avz --delete -e "ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no" \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='.codex' \
@@ -74,10 +90,10 @@ jobs:
           REMOTE_TARGET: ${{ secrets.REMOTE_TARGET }}
         run: |
           CLEAN_HOST=$(echo "${SSH_HOST}" | sed -e 's|^https://||' -e 's|^http://||' -e 's|/.*$||')
-          ssh -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no ${SSH_USERNAME}@${CLEAN_HOST} << 'EOF'
+          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no ${SSH_USERNAME}@${CLEAN_HOST} << 'EOF'
             cd ${REMOTE_TARGET}
             php artisan migrate --force
-            php artisan storage:link 2>/dev/null || true
+            php artisan storage:link 2>/devnull || true
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache

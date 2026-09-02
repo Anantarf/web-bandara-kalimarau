@@ -137,6 +137,12 @@ class PpidDocumentResource extends Resource
                     ->label('Tampil di Website'),
             ])
             ->actions([
+                Tables\Actions\Action::make('download')
+                    ->label('Lihat File')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('info')
+                    ->url(fn (PpidDocument $record): string => $record->file_url)
+                    ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make()->label('Ubah'),
                 Tables\Actions\DeleteAction::make()->label('Hapus'),
             ])

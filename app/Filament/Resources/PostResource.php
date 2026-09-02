@@ -163,13 +163,22 @@ class PostResource extends Resource
                     ->sortable()
                     ->toggleable(),
             ])
-            ->defaultSort('published_at', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
-                    ->label('Status')
+                    ->label('Status Publikasi')
                     ->options(['draft' => 'Draf', 'published' => 'Diterbitkan', 'archived' => 'Diarsipkan']),
+                Tables\Filters\TernaryFilter::make('is_featured')
+                    ->label('Berita Unggulan'),
+                Tables\Filters\TernaryFilter::make('is_pinned')
+                    ->label('Disematkan'),
             ])
             ->actions([
+                Tables\Actions\Action::make('preview')
+                    ->label('Pratinjau')
+                    ->icon('heroicon-o-eye')
+                    ->color('info')
+                    ->url(fn (Post $record): string => route('posts.show', $record->slug))
+                    ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make()->label('Ubah'),
                 Tables\Actions\DeleteAction::make()->label('Hapus'),
             ])

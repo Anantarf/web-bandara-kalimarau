@@ -15,7 +15,7 @@ class StatsOverview extends BaseWidget
 
     protected function getStats(): array
     {
-        $unreadMessagesCount = ContactMessage::query()->where('is_read', false)->count();
+        $unreadMessagesCount = ContactMessage::query()->where('status', 'new')->count();
 
         return [
             Stat::make('Penerbangan Aktif', FlightSchedule::query()->where('is_active', true)->count())
@@ -30,7 +30,7 @@ class StatsOverview extends BaseWidget
                 ->description($unreadMessagesCount > 0 ? "{$unreadMessagesCount} pesan belum dibaca" : 'Semua pesan dibaca')
                 ->color($unreadMessagesCount > 0 ? 'warning' : 'gray'),
 
-            Stat::make('Dokumen PPID', PpidDocument::query()->where('is_published', true)->count())
+            Stat::make('Dokumen PPID', PpidDocument::query()->where('is_active', true)->count())
                 ->description('Dokumen publik aktif')
                 ->color('primary'),
         ];

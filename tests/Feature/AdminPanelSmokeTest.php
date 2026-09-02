@@ -2,7 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Filament\Widgets\StatsOverview;
 use App\Models\AuditLog;
+use App\Models\ContactMessage;
+use App\Models\PpidDocument;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
@@ -46,6 +49,29 @@ class AdminPanelSmokeTest extends TestCase
         ]);
 
         $this->actingAs($admin)->get("/admin/audit-logs/{$auditLog->id}")->assertOk();
+    }
+
+    public function test_dashboard_stats_widget_uses_existing_schema_columns(): void
+    {
+        ContactMessage::query()->create([
+            'name' => 'Pesan Baru',
+            'email' => 'pengirim@example.com',
+            'message' => 'Mohon informasi.',
+            'status' => 'new',
+            'submitted_at' => now(),
+        ]);
+
+        PpidDocument::query()->create([
+            'title' => 'Dokumen Aktif',
+            'category' => 'informasi-berkala',
+            'file_path' => 'ppid-documents/dokumen-aktif.pdf',
+            'is_active' => true,
+            'published_at' => now(),
+        ]);
+
+        $method = new \ReflectionMethod(StatsOverview::class, 'getStats');
+
+        $this->assertCount(4, $method->invoke(new StatsOverview));
     }
 
     public function test_inactive_user_cannot_access_panel(): void

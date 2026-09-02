@@ -16,3 +16,4 @@ Schedule::command('model:prune')->daily();
 // (see docs/GO-LIVE.md) — this alone does nothing without that cron entry.
 Schedule::command('backup:run')->daily()->at('01:00');
 Schedule::command('backup:clean')->daily()->at('01:30');
+Schedule::command('sanctum:prune-expired')->daily();

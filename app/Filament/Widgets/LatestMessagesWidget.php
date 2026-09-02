@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Filament\Resources\ContactMessageResource;
 use App\Models\ContactMessage;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -42,7 +43,7 @@ class LatestMessagesWidget extends BaseWidget
                 Tables\Actions\Action::make('view')
                     ->label('Buka Pesan')
                     ->icon('heroicon-o-eye')
-                    ->url(fn (ContactMessage $record): string => route('filament.admin.resources.contact-messages.edit', $record)),
+                    ->url(fn (ContactMessage $record): string => ContactMessageResource::getUrl('edit', ['record' => $record])),
             ])
             ->paginated(false);
     }

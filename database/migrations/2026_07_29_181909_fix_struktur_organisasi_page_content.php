@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -11,7 +9,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $page = \DB::table('pages')->where('slug', 'struktur-organisasi')->first();
+        $page = DB::table('pages')->where('slug', 'struktur-organisasi')->first();
         if ($page) {
             $content = $page->content;
             $content = str_replace(
@@ -29,7 +27,7 @@ return new class extends Migration
                 'Bagan Struktur Organisasi BLU Kantor UPBU Kelas I Kalimarau',
                 $content
             );
-            \DB::table('pages')->where('slug', 'struktur-organisasi')->update(['content' => $content]);
+            DB::table('pages')->where('slug', 'struktur-organisasi')->update(['content' => $content]);
         }
     }
 
@@ -38,7 +36,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $page = \DB::table('pages')->where('slug', 'struktur-organisasi')->first();
+        $page = DB::table('pages')->where('slug', 'struktur-organisasi')->first();
         if ($page) {
             $content = $page->content;
             $content = str_replace(
@@ -56,7 +54,7 @@ return new class extends Migration
                 'Bagan Struktur Organisasi PPID BLU Kantor UPBU Kelas I Kalimarau',
                 $content
             );
-            \DB::table('pages')->where('slug', 'struktur-organisasi')->update(['content' => $content]);
+            DB::table('pages')->where('slug', 'struktur-organisasi')->update(['content' => $content]);
         }
     }
 };

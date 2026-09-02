@@ -72,9 +72,18 @@ jobs:
           ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no ${SSH_USERNAME}@${TARGET_HOST} << 'EOF'
             set -e
             DEST="${REMOTE_TARGET:-/home/band2936/kalimarau}"
+            PUBLIC_HTML="/home/${SSH_USERNAME:-band2936}/public_html"
+
             mkdir -p "$DEST"
             unzip -o ~/deploy.zip -d "$DEST"
             rm ~/deploy.zip
+
+            # Sync compiled Vite assets (CSS/JS) to public_html if public_html is separate
+            if [ -d "$PUBLIC_HTML" ] && [ ! -L "$PUBLIC_HTML" ]; then
+              echo "Syncing public assets to public_html..."
+              cp -rf "$DEST/public/"* "$PUBLIC_HTML/" 2>/dev/null || true
+            fi
+
             cd "$DEST"
             php artisan migrate --force
             php artisan storage:link 2>/devnull || true

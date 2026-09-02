@@ -16,9 +16,9 @@ class FlightScheduleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
 
-    protected static ?string $navigationGroup = null;
+    protected static ?string $navigationGroup = '✈️ Layanan & Operasional Bandara';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'flight_number';
 

@@ -16,13 +16,13 @@ class RedirectResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-top-right-on-square';
 
-    protected static ?string $navigationGroup = 'Sistem & Akses';
+    protected static ?string $navigationGroup = '⚙️ Pengaturan & Keamanan';
 
-    protected static ?int $navigationSort = 9;
+    protected static ?int $navigationSort = 2;
 
-    protected static ?string $modelLabel = 'Redirect';
+    protected static ?string $modelLabel = 'Pengalihan URL (Redirect)';
 
-    protected static ?string $pluralModelLabel = 'Redirect';
+    protected static ?string $pluralModelLabel = 'Pengalihan URL (Redirect)';
 
     public static function form(Form $form): Form
     {

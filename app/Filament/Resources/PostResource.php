@@ -18,7 +18,7 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
-    protected static ?string $navigationGroup = null;
+    protected static ?string $navigationGroup = '📰 Berita & Publikasi';
 
     protected static ?string $recordTitleAttribute = 'title';
 

@@ -17,9 +17,9 @@ class AuditLogResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
-    protected static ?string $navigationGroup = null;
+    protected static ?string $navigationGroup = '⚙️ Pengaturan & Keamanan';
 
-    protected static ?int $navigationSort = 6;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $navigationLabel = 'Riwayat Aktivitas';
 

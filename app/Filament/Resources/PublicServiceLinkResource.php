@@ -16,13 +16,13 @@ class PublicServiceLinkResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-link';
 
-    protected static ?string $navigationGroup = 'Layanan & Data';
+    protected static ?string $navigationGroup = '✈️ Layanan & Operasional Bandara';
 
-    protected static ?int $navigationSort = 7;
+    protected static ?int $navigationSort = 3;
 
-    protected static ?string $modelLabel = 'Layanan Publik';
+    protected static ?string $modelLabel = 'Layanan Publik (SP4N, SIMADU, IDPAS)';
 
-    protected static ?string $pluralModelLabel = 'Layanan Publik';
+    protected static ?string $pluralModelLabel = 'Layanan Publik (SP4N, SIMADU, IDPAS)';
 
     public static function form(Form $form): Form
     {

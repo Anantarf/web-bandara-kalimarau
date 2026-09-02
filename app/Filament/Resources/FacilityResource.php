@@ -16,7 +16,13 @@ class FacilityResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Layanan & Data';
+    protected static ?string $navigationGroup = '✈️ Layanan & Operasional Bandara';
+
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $modelLabel = 'Fasilitas Bandara';
+
+    protected static ?string $pluralModelLabel = 'Fasilitas Bandara';
 
     public static function form(Form $form): Form
     {

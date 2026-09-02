@@ -29,9 +29,9 @@ class AirportStatResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
 
-    protected static ?string $navigationGroup = null;
+    protected static ?string $navigationGroup = '🌐 Halaman Statis & Tampilan Web';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

@@ -16,13 +16,13 @@ class MediaResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
-    protected static ?string $navigationGroup = 'Konten Website';
+    protected static ?string $navigationGroup = '🌐 Halaman Statis & Tampilan Web';
 
-    protected static ?int $navigationSort = 8;
+    protected static ?int $navigationSort = 3;
 
-    protected static ?string $modelLabel = 'Media';
+    protected static ?string $modelLabel = 'Galeri Media & Foto';
 
-    protected static ?string $pluralModelLabel = 'Media';
+    protected static ?string $pluralModelLabel = 'Galeri Media & Foto';
 
     public static function form(Form $form): Form
     {

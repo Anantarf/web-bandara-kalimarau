@@ -16,13 +16,13 @@ class ContactMessageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
 
-    protected static ?string $navigationGroup = null;
+    protected static ?string $navigationGroup = '📩 Pesan & Masukan Publik';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 1;
 
-    protected static ?string $modelLabel = 'Pesan Masuk';
+    protected static ?string $modelLabel = 'Pesan Pengaduan / Kontak';
 
-    protected static ?string $pluralModelLabel = 'Pesan Masuk';
+    protected static ?string $pluralModelLabel = 'Pesan Pengaduan / Kontak';
 
     public static function getNavigationBadge(): ?string
     {

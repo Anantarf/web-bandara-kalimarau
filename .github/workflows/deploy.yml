@@ -9,6 +9,12 @@ jobs:
   deploy:
     name: Build & Deploy to cPanel via SSH
     runs-on: ubuntu-latest
+    env:
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_PORT: ${{ secrets.SSH_PORT }}
+      SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+      SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
+      REMOTE_TARGET: ${{ secrets.REMOTE_TARGET }}
 
     steps:
       - name: Checkout Repository
@@ -39,12 +45,9 @@ jobs:
       - name: Configure SSH Key & Hostname
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
-          SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
-          CLEAN_HOST=$(echo "${SSH_HOST}" | sed -e 's|^https://||' -e 's|^http://||' -e 's|/.*$||')
-          echo "CLEAN_HOST=${CLEAN_HOST}" >> $GITHUB_ENV
+          TARGET_HOST=$(echo "${SSH_HOST:-colorado.iixcp.rumahweb.net}" | sed -e 's|^https://||' -e 's|^http://||' -e 's|/.*$||')
+          echo "TARGET_HOST=${TARGET_HOST}" >> $GITHUB_ENV
 
           mkdir -p ~/.ssh
           printf "%s\n" "${SSH_KEY}" > ~/.ssh/id_rsa
@@ -54,32 +57,25 @@ jobs:
             ssh-keygen -p -P "${SSH_PASSPHRASE}" -N "" -f ~/.ssh/id_rsa || true
           fi
 
-          ssh-keyscan -p ${SSH_PORT:-2223} -H "${CLEAN_HOST}" >> ~/.ssh/known_hosts || true
+          ssh-keyscan -p ${SSH_PORT:-2223} -H "${TARGET_HOST}" >> ~/.ssh/known_hosts || true
 
       - name: Package Application Archive (Zip)
         run: |
           zip -q -r deploy.zip . -x ".git/*" ".github/*" ".codex/*" ".vscode/*" "node_modules/*" ".env" ".env.*" "tests/*" "phpunit.xml" "storage/logs/*"
 
       - name: Transfer Archive to cPanel via SCP
-        env:
-          SSH_PORT: ${{ secrets.SSH_PORT }}
-          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
         run: |
-          scp -i ~/.ssh/id_rsa -P ${SSH_PORT:-2223} -o StrictHostKeyChecking=no deploy.zip ${SSH_USERNAME}@${CLEAN_HOST}:~/deploy.zip
+          scp -i ~/.ssh/id_rsa -P ${SSH_PORT:-2223} -o StrictHostKeyChecking=no deploy.zip ${SSH_USERNAME}@${TARGET_HOST}:~/deploy.zip
 
       - name: Extract & Execute Artisan Commands on cPanel
-        env:
-          SSH_PORT: ${{ secrets.SSH_PORT }}
-          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-          REMOTE_TARGET: ${{ secrets.REMOTE_TARGET }}
         run: |
-          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no ${SSH_USERNAME}@${CLEAN_HOST} << 'EOF'
+          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no ${SSH_USERNAME}@${TARGET_HOST} << 'EOF'
             set -e
-            TARGET="${REMOTE_TARGET:-/home/band2936/kalimarau}"
-            mkdir -p "$TARGET"
-            unzip -o ~/deploy.zip -d "$TARGET"
+            DEST="${REMOTE_TARGET:-/home/band2936/kalimarau}"
+            mkdir -p "$DEST"
+            unzip -o ~/deploy.zip -d "$DEST"
             rm ~/deploy.zip
-            cd "$TARGET"
+            cd "$DEST"
             php artisan migrate --force
             php artisan storage:link 2>/devnull || true
             php artisan config:cache

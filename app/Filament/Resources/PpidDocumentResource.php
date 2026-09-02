@@ -153,6 +153,9 @@ class PpidDocumentResource extends Resource
                 Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),
                 Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
+            ->emptyStateHeading('Belum Ada Dokumen PPID')
+            ->emptyStateDescription('Unggah dokumen informasi publik baru untuk diunduh publik.')
+            ->emptyStateIcon('heroicon-o-document-text')
             ->bulkActions([]);
     }
 

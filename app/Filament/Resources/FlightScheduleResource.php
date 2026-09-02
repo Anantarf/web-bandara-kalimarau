@@ -216,6 +216,9 @@ class FlightScheduleResource extends Resource
                 Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),
                 Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
+            ->emptyStateHeading('Belum Ada Jadwal Penerbangan')
+            ->emptyStateDescription('Tambahkan rute keberangkatan atau kedatangan pesawat baru.')
+            ->emptyStateIcon('heroicon-o-paper-airplane')
             ->bulkActions([]);
     }
 

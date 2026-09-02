@@ -141,6 +141,9 @@ class ContactMessageResource extends Resource
                 Tables\Actions\EditAction::make()->label('Ubah Status')->iconButton(),
                 Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
+            ->emptyStateHeading('Belum Ada Pesan Masuk')
+            ->emptyStateDescription('Pesan dari form kontak pengunjung akan tampil secara otomatis di sini.')
+            ->emptyStateIcon('heroicon-o-envelope')
             ->bulkActions([]);
     }
 

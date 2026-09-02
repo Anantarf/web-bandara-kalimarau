@@ -183,6 +183,9 @@ class PostResource extends Resource
                 Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),
                 Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
+            ->emptyStateHeading('Belum Ada Berita')
+            ->emptyStateDescription('Buat artikel berita baru untuk ditampilkan di portal bandara.')
+            ->emptyStateIcon('heroicon-o-newspaper')
             ->bulkActions([]);
     }
 

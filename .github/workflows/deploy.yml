@@ -37,7 +37,7 @@ jobs:
         run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Install NPM Dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Build Frontend Assets (Vite)
         run: npm run build

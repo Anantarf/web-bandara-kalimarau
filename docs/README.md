@@ -24,7 +24,7 @@ Status: **live-ready, siap disiapkan untuk go-live.** Migrasi dari WordPress ke 
 - **Audit log**: perubahan admin (kecuali data sensitif) tercatat lewat `AuditLogObserver`.
 - **Backup otomatis**: `spatie/laravel-backup`, terjadwal harian (butuh cron `schedule:run` di server — lihat `GO-LIVE.md`).
 - **Error tracking**: `sentry/sentry-laravel` terpasang, aktif setelah `SENTRY_LARAVEL_DSN` diisi di server.
-- **CI**: GitHub Actions (`.github/workflows/ci.yml`) menjalankan test + style check di tiap push/PR ke `main`.
+- **CI/CD**: GitHub Actions (`.github/workflows/ci.yml` & `.github/workflows/deploy.yml`) menjalankan test + style check serta otomatisasi deploy SSH ke cPanel di tiap push ke `main`.
 
 ## Struktur Dokumen
 
@@ -49,6 +49,6 @@ npm run optimize:images
 ## Catatan Penting
 
 - **Upload (Facility, PPID Document, Media, featured image) 100% disk lokal server** — belum ada disk cloud (S3 dkk) yang benar-benar dipakai. Aman untuk 1 server, berisiko kalau nanti scale ke banyak instance/container. Mitigasi saat ini: backup otomatis harian.
-- **Tidak ada CI/CD deploy otomatis** — CI cuma menjalankan test, deploy tetap manual mengikuti `GO-LIVE.md`.
+- **Otomatisasi Deploy (CI/CD)**: Deployment diatur secara otomatis via GitHub Actions (`deploy.yml`) ke cPanel server pada setiap push ke branch `main`. Rincian variabel `.env` dan setup awal server tetap mengikuti petunjuk di `GO-LIVE.md`.
 - **Filament (v3) dan Laravel (v11) beberapa versi mayor di belakang rilis terbaru** — bukan penghalang launch, tapi rencanakan jadwal upgrade beberapa bulan setelah go-live.
 - Folder generated/local (`vendor`, `node_modules`, `.env`, dump foto mentah) diabaikan Git — lihat `.gitignore` di root proyek. **`public/build/` sengaja TIDAK diabaikan** (beda dari default Laravel) karena alur deploy cPanel proyek ini meng-upload hasil build langsung tanpa menjalankan `npm run build` di server — jalankan `npm run build` dan commit hasilnya sebelum deploy.

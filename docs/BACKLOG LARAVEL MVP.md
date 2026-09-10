@@ -121,7 +121,7 @@ Status 2026-07-22: hardening aplikasi + backup otomatis + CSP + error tracking s
 - [X] Instal `sentry/sentry-laravel`, di-wire di `bootstrap/app.php`, inert sampai `SENTRY_LARAVEL_DSN` diisi.
 - [X] Dokumentasikan `LOG_CHANNEL=daily` untuk production di `docs/GO-LIVE.md`.
 - [ ] Upgrade Filament v3 → v5 dan Laravel v11 → v12 (tidak mendesak untuk launch, tapi rencanakan — v3/v11 makin jauh dari rilis terbaru).
-- [ ] Setup CI (GitHub Actions atau setara) untuk otomatis jalankan `php artisan test` di setiap push — saat ini 100% bergantung manusia menjalankan manual.
+- [X] Setup CI (GitHub Actions) untuk otomatis jalankan `php artisan test` & lint di setiap push (`.github/workflows/ci.yml` & `deploy.yml`).
 - [ ] Pertimbangkan disk `s3`/cloud storage untuk upload (Facility, PPID Document, Media, featured image) — saat ini 100% disk lokal server, berisiko hilang saat redeploy/scale ke banyak instance.
 
 ## Sprint 5.6 - Automated Test Minimal
@@ -132,7 +132,7 @@ Status 2026-07-22: hardening aplikasi + backup otomatis + CSP + error tracking s
 - [X] Feature test admin login hanya untuk user aktif. (`tests/Feature/AdminPanelSmokeTest.php`)
 - [X] Unit/feature test published scope untuk posts/pages. (`tests/Feature/ScheduledContentTest.php`)
 - [X] Unit/feature test hanya jadwal aktif yang tampil publik. (`tests/Feature/FlightScheduleVisibilityTest.php`)
-- [ ] Jalankan `php artisan test` sebelum staging dan production. (proses manual, belum ada CI — lihat item baru di bawah)
+- [X] Automated test dijalankan otomatis oleh CI pada tiap push (`.github/workflows/ci.yml`).
 
 ## Sprint 6 - QA dan Launch
 

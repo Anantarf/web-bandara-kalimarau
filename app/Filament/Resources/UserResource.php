@@ -38,6 +38,7 @@ class UserResource extends Resource
                 Forms\Components\Group::make()
                     ->schema([
                         Forms\Components\Section::make('Informasi Pengguna')
+                            ->icon('heroicon-o-user')
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->label('Nama Lengkap')
@@ -64,6 +65,7 @@ class UserResource extends Resource
                 Forms\Components\Group::make()
                     ->schema([
                         Forms\Components\Section::make('Akses & Status')
+                            ->icon('heroicon-o-shield-check')
                             ->schema([
                                 Forms\Components\Select::make('roles')
                                     ->label('Hak Akses')
@@ -91,11 +93,15 @@ class UserResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('no')
                     ->label('No.')
-                    ->rowIndex(),
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Pengguna')
                     ->description(fn (User $record): string => "@{$record->username}")
                     ->searchable(['name', 'username', 'email'])
+                    ->weight('medium')
+                    ->size('sm')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('username')
                     ->label('Username')
@@ -104,6 +110,8 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('roles.name')
                     ->label('Hak Akses')
                     ->badge()
+                    ->alignCenter()
+                    ->size('sm')
                     ->color(fn (string $state): string => match ($state) {
                         'super_admin' => 'danger',
                         'admin' => 'success',
@@ -112,10 +120,13 @@ class UserResource extends Resource
                     ->formatStateUsing(fn (string $state): string => self::$roleLabels[$state] ?? str($state)->replace('_', ' ')->title()->toString()),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Aktif')
+                    ->alignCenter()
                     ->disabled(fn (User $record): bool => auth()->id() === $record->id),
                 Tables\Columns\TextColumn::make('last_login_at')
                     ->label('Terakhir Masuk')
                     ->dateTime('d M Y H:i')
+                    ->alignCenter()
+                    ->size('sm')
                     ->placeholder('Belum pernah')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

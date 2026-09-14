@@ -241,16 +241,22 @@ class AdminPanelProvider extends PanelProvider
                             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
                         }
 
-                        /* 5. Inputs - Glow effect & Overflow Prevention */
+                        /* 5. Inputs - Glow effect & Stacking Context Fix */
                         .fi-fo-field-wrp, .fi-input-wrp {
                             min-width: 0 !important;
                         }
                         .fi-input-wrp {
-                            transition: all 0.2s ease-in-out !important;
+                            transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out !important;
                         }
                         .fi-input-wrp:focus-within {
-                            transform: translateY(-1px);
                             box-shadow: 0 0 0 3px rgba(30, 111, 181, 0.2) !important;
+                        }
+
+                        /* Fix Dropdown & Popover Overlapping */
+                        .fi-dropdown-panel,
+                        .fi-select-input-options-ctn,
+                        [x-ref="panel"] {
+                            z-index: 99999 !important;
                         }
 
                         /* =========================================

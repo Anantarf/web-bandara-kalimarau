@@ -31,25 +31,23 @@ class FacilityResource extends Resource
                 Forms\Components\Section::make('Informasi Fasilitas Bandara')
                     ->description('Kelola data fasilitas bandara yang akan ditampilkan pada halaman web publik.')
                     ->icon('heroicon-o-building-office')
+                    ->columns(2)
                     ->schema([
-                        Forms\Components\Grid::make(2)
-                            ->schema([
-                                Forms\Components\Select::make('category')
-                                    ->label('Kategori Fasilitas')
-                                    ->options([
-                                        'Fasilitas Sisi Udara' => 'Fasilitas Sisi Udara',
-                                        'Fasilitas Sisi Darat' => 'Fasilitas Sisi Darat',
-                                        'Fasilitas Umum' => 'Fasilitas Umum',
-                                    ])
-                                    ->placeholder('Pilih Kategori Fasilitas')
-                                    ->required()
-                                    ->native(false),
-                                Forms\Components\TextInput::make('name')
-                                    ->label('Nama Fasilitas')
-                                    ->placeholder('Contoh: Terminal Penumpang Utama')
-                                    ->required()
-                                    ->maxLength(255),
-                            ]),
+                        Forms\Components\Select::make('category')
+                            ->label('Kategori Fasilitas')
+                            ->options([
+                                'Fasilitas Sisi Udara' => 'Fasilitas Sisi Udara',
+                                'Fasilitas Sisi Darat' => 'Fasilitas Sisi Darat',
+                                'Fasilitas Umum' => 'Fasilitas Umum',
+                            ])
+                            ->placeholder('Pilih Kategori Fasilitas')
+                            ->required()
+                            ->native(false),
+                        Forms\Components\TextInput::make('name')
+                            ->label('Nama Fasilitas')
+                            ->placeholder('Contoh: Terminal Penumpang Utama')
+                            ->required()
+                            ->maxLength(255),
                         Forms\Components\FileUpload::make('image')
                             ->label('Foto / Gambar Fasilitas')
                             ->image()

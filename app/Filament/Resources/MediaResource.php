@@ -32,6 +32,7 @@ class MediaResource extends Resource
             ->schema([
                 Forms\Components\Section::make('Unggah & Informasi Media')
                     ->icon('heroicon-o-photo')
+                    ->columns(2)
                     ->schema([
                         Forms\Components\FileUpload::make('path')
                             ->label('Berkas Gambar / Foto')
@@ -42,16 +43,13 @@ class MediaResource extends Resource
                             ->columnSpanFull()
                             ->required(fn (string $operation): bool => $operation === 'create')
                             ->visible(fn (string $operation): bool => $operation === 'create'),
-                        Forms\Components\Grid::make(2)
-                            ->schema([
-                                Forms\Components\TextInput::make('alt_text')
-                                    ->label('Teks Alternatif (Alt)')
-                                    ->placeholder('Deskripsi singkat foto')
-                                    ->helperText('Deskripsi gambar untuk aksesibilitas dan SEO.'),
-                                Forms\Components\TextInput::make('caption')
-                                    ->label('Keterangan Foto')
-                                    ->placeholder('Judul / keterangan foto'),
-                            ]),
+                        Forms\Components\TextInput::make('alt_text')
+                            ->label('Teks Alternatif (Alt)')
+                            ->placeholder('Deskripsi singkat foto')
+                            ->helperText('Deskripsi gambar untuk aksesibilitas dan SEO.'),
+                        Forms\Components\TextInput::make('caption')
+                            ->label('Keterangan Foto')
+                            ->placeholder('Judul / keterangan foto'),
                     ]),
             ]);
     }

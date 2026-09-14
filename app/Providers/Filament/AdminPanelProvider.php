@@ -241,7 +241,10 @@ class AdminPanelProvider extends PanelProvider
                             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
                         }
 
-                        /* 5. Inputs - Glow effect */
+                        /* 5. Inputs - Glow effect & Overflow Prevention */
+                        .fi-fo-field-wrp, .fi-input-wrp {
+                            min-width: 0 !important;
+                        }
                         .fi-input-wrp {
                             transition: all 0.2s ease-in-out !important;
                         }

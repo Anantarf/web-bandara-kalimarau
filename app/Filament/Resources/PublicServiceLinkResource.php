@@ -30,43 +30,56 @@ class PublicServiceLinkResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->label('Judul')
-                    ->required()
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(fn (string $operation, $state, callable $set) => $operation === 'create' ? $set('slug', str($state)->slug()) : null),
-                Forms\Components\TextInput::make('slug')
-                    ->label('Slug (URL)')
-                    ->required()
-                    ->unique(ignoreRecord: true),
-                Forms\Components\Textarea::make('description')
-                    ->label('Deskripsi')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('url')
-                    ->label('URL Tujuan')
-                    ->url()
-                    ->required(),
-                Forms\Components\TextInput::make('category')
-                    ->label('Kategori')
-                    ->helperText('Gunakan penulisan yang sama persis dengan link lain di kategori yang sama (huruf besar/kecil dan spasi berpengaruh).')
-                    ->datalist(fn () => PublicServiceLink::query()->distinct()->orderBy('category')->pluck('category')->all())
-                    ->required()
-                    ->maxLength(40),
-                Forms\Components\TextInput::make('icon')
-                    ->label('Ikon')
-                    ->helperText('Nama ikon Heroicon, contoh: heroicon-o-link'),
-                Forms\Components\TextInput::make('sort_order')
-                    ->label('Urutan Tampil')
-                    ->numeric()
-                    ->default(0)
-                    ->required(),
-                Forms\Components\Toggle::make('is_external')
-                    ->label('Tautan Eksternal')
-                    ->default(true),
-                Forms\Components\Toggle::make('is_active')
-                    ->label('Aktif / Tampilkan')
-                    ->default(true)
-                    ->required(),
+                Forms\Components\Section::make('Informasi Tautan Layanan Publik')
+                    ->icon('heroicon-o-link')
+                    ->schema([
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('title')
+                                    ->label('Nama Layanan')
+                                    ->required()
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn (string $operation, $state, callable $set) => $operation === 'create' ? $set('slug', str($state)->slug()) : null),
+                                Forms\Components\TextInput::make('slug')
+                                    ->label('Slug (URL)')
+                                    ->required()
+                                    ->unique(ignoreRecord: true),
+                            ]),
+                        Forms\Components\Textarea::make('description')
+                            ->label('Deskripsi')
+                            ->columnSpanFull(),
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('url')
+                                    ->label('URL Tujuan')
+                                    ->url()
+                                    ->required(),
+                                Forms\Components\TextInput::make('category')
+                                    ->label('Kategori')
+                                    ->helperText('Gunakan penulisan yang sama persis dengan link lain di kategori yang sama.')
+                                    ->datalist(fn () => PublicServiceLink::query()->distinct()->orderBy('category')->pluck('category')->all())
+                                    ->required()
+                                    ->maxLength(40),
+                                Forms\Components\TextInput::make('icon')
+                                    ->label('Ikon')
+                                    ->helperText('Nama ikon Heroicon, contoh: heroicon-o-link'),
+                                Forms\Components\TextInput::make('sort_order')
+                                    ->label('Urutan Tampil')
+                                    ->numeric()
+                                    ->default(0)
+                                    ->required(),
+                            ]),
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\Toggle::make('is_external')
+                                    ->label('Tautan Eksternal')
+                                    ->default(true),
+                                Forms\Components\Toggle::make('is_active')
+                                    ->label('Aktif / Tampilkan')
+                                    ->default(true)
+                                    ->required(),
+                            ]),
+                    ]),
             ]);
     }
 

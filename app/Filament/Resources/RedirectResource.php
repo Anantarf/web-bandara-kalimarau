@@ -30,23 +30,35 @@ class RedirectResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('old_path')
-                    ->label('Path Lama')
-                    ->helperText('Contoh: /berita-lama/judul-artikel')
-                    ->required()
-                    ->unique(ignoreRecord: true),
-                Forms\Components\TextInput::make('new_path')
-                    ->label('Path/URL Tujuan')
-                    ->required(),
-                Forms\Components\Select::make('status_code')
-                    ->label('Kode Status')
-                    ->options([301 => '301 - Permanen', 302 => '302 - Sementara'])
-                    ->default(301)
-                    ->required(),
-                Forms\Components\Toggle::make('is_active')
-                    ->label('Aktif')
-                    ->default(true)
-                    ->required(),
+                Forms\Components\Section::make('Aturan Pengalihan URL')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->schema([
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('old_path')
+                                    ->label('Path URL Lama')
+                                    ->placeholder('/halaman-lama')
+                                    ->helperText('Contoh: /berita-lama/judul-artikel')
+                                    ->required()
+                                    ->unique(ignoreRecord: true),
+                                Forms\Components\TextInput::make('new_path')
+                                    ->label('Path / URL Tujuan')
+                                    ->placeholder('/halaman-baru')
+                                    ->required(),
+                            ]),
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\Select::make('status_code')
+                                    ->label('Kode Status HTTP')
+                                    ->options([301 => '301 - Permanen (Recommended)', 302 => '302 - Sementara'])
+                                    ->default(301)
+                                    ->required(),
+                                Forms\Components\Toggle::make('is_active')
+                                    ->label('Status Aktif')
+                                    ->default(true)
+                                    ->required(),
+                            ]),
+                    ]),
             ]);
     }
 

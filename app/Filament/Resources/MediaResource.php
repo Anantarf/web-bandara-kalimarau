@@ -30,18 +30,29 @@ class MediaResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('path')
-                    ->label('Berkas')
-                    ->disk('public')
-                    ->directory('media')
-                    ->image()
-                    ->required(fn (string $operation): bool => $operation === 'create')
-                    ->visible(fn (string $operation): bool => $operation === 'create'),
-                Forms\Components\TextInput::make('alt_text')
-                    ->label('Teks Alternatif (Alt)')
-                    ->helperText('Deskripsi gambar untuk aksesibilitas dan SEO.'),
-                Forms\Components\TextInput::make('caption')
-                    ->label('Keterangan'),
+                Forms\Components\Section::make('Unggah & Informasi Media')
+                    ->icon('heroicon-o-photo')
+                    ->schema([
+                        Forms\Components\FileUpload::make('path')
+                            ->label('Berkas Gambar / Foto')
+                            ->disk('public')
+                            ->directory('media')
+                            ->image()
+                            ->maxSize(5120)
+                            ->columnSpanFull()
+                            ->required(fn (string $operation): bool => $operation === 'create')
+                            ->visible(fn (string $operation): bool => $operation === 'create'),
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('alt_text')
+                                    ->label('Teks Alternatif (Alt)')
+                                    ->placeholder('Deskripsi singkat foto')
+                                    ->helperText('Deskripsi gambar untuk aksesibilitas dan SEO.'),
+                                Forms\Components\TextInput::make('caption')
+                                    ->label('Keterangan Foto')
+                                    ->placeholder('Judul / keterangan foto'),
+                            ]),
+                    ]),
             ]);
     }
 

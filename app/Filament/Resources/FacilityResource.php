@@ -28,31 +28,51 @@ class FacilityResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('category')
-                    ->options([
-                        'Fasilitas Sisi Udara' => 'Fasilitas Sisi Udara',
-                        'Fasilitas Sisi Darat' => 'Fasilitas Sisi Darat',
-                        'Fasilitas Umum' => 'Fasilitas Umum',
-                    ])
-                    ->required()
-                    ->native(false),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('image')
-                    ->image()
-                    ->disk('public')
-                    ->directory('facilities'),
-                Forms\Components\Textarea::make('details')
-                    ->label('Detail (satu poin per baris)')
-                    ->rows(4)
-                    ->columnSpanFull()
-                    ->dehydrateStateUsing(fn (?string $state) => collect(explode("\n", (string) $state))->map(fn ($line) => trim($line))->filter()->values()->all())
-                    ->afterStateHydrated(fn (Forms\Components\Textarea $component, $state) => $component->state(is_array($state) ? implode("\n", $state) : $state)),
-                Forms\Components\TextInput::make('order')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
+                Forms\Components\Section::make('Informasi Fasilitas Bandara')
+                    ->description('Kelola data fasilitas bandara yang akan ditampilkan pada halaman web publik.')
+                    ->icon('heroicon-o-building-office')
+                    ->schema([
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\Select::make('category')
+                                    ->label('Kategori Fasilitas')
+                                    ->options([
+                                        'Fasilitas Sisi Udara' => 'Fasilitas Sisi Udara',
+                                        'Fasilitas Sisi Darat' => 'Fasilitas Sisi Darat',
+                                        'Fasilitas Umum' => 'Fasilitas Umum',
+                                    ])
+                                    ->placeholder('Pilih Kategori Fasilitas')
+                                    ->required()
+                                    ->native(false),
+                                Forms\Components\TextInput::make('name')
+                                    ->label('Nama Fasilitas')
+                                    ->placeholder('Contoh: Terminal Penumpang Utama')
+                                    ->required()
+                                    ->maxLength(255),
+                            ]),
+                        Forms\Components\FileUpload::make('image')
+                            ->label('Foto / Gambar Fasilitas')
+                            ->image()
+                            ->imageEditor()
+                            ->disk('public')
+                            ->directory('facilities')
+                            ->maxSize(5120)
+                            ->columnSpanFull()
+                            ->helperText('Format foto JPG/PNG, maksimal 5MB. Gunakan gambar berkualitas baik.'),
+                        Forms\Components\Textarea::make('details')
+                            ->label('Detail & Spesifikasi (satu poin per baris)')
+                            ->placeholder("Luas area: 12.000 m²\nKapasitas: 1,5 juta penumpang/tahun\nDilengkapi AC & Ruang Menyusui")
+                            ->rows(4)
+                            ->columnSpanFull()
+                            ->dehydrateStateUsing(fn (?string $state) => collect(explode("\n", (string) $state))->map(fn ($line) => trim($line))->filter()->values()->all())
+                            ->afterStateHydrated(fn (Forms\Components\Textarea $component, $state) => $component->state(is_array($state) ? implode("\n", $state) : $state)),
+                        Forms\Components\TextInput::make('order')
+                            ->label('Urutan Tampil')
+                            ->helperText('Angka lebih kecil akan ditampilkan lebih awal di daftar.')
+                            ->required()
+                            ->numeric()
+                            ->default(0),
+                    ]),
             ]);
     }
 

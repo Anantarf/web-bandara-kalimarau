@@ -30,22 +30,30 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Nama Kategori')
-                    ->required()
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(fn (string $operation, $state, callable $set) => $operation === 'create' ? $set('slug', str($state)->slug()) : null),
-                Forms\Components\TextInput::make('slug')
-                    ->label('Slug (URL)')
-                    ->helperText('Bagian alamat website untuk kategori ini, terisi otomatis dari nama. Contoh: berita-terkini')
-                    ->required()
-                    ->unique(ignoreRecord: true),
-                Forms\Components\TextInput::make('sort_order')
-                    ->label('Urutan Tampil')
-                    ->helperText('Angka lebih kecil tampil lebih dulu.')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
+                Forms\Components\Section::make('Informasi Kategori Berita')
+                    ->icon('heroicon-o-tag')
+                    ->schema([
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->label('Nama Kategori')
+                                    ->placeholder('Contoh: Berita Utama')
+                                    ->required()
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn (string $operation, $state, callable $set) => $operation === 'create' ? $set('slug', str($state)->slug()) : null),
+                                Forms\Components\TextInput::make('slug')
+                                    ->label('Slug (URL)')
+                                    ->helperText('Dihasilkan otomatis dari nama kategori.')
+                                    ->required()
+                                    ->unique(ignoreRecord: true),
+                            ]),
+                        Forms\Components\TextInput::make('sort_order')
+                            ->label('Urutan Tampil')
+                            ->helperText('Angka lebih kecil tampil lebih dulu.')
+                            ->required()
+                            ->numeric()
+                            ->default(0),
+                    ]),
             ]);
     }
 

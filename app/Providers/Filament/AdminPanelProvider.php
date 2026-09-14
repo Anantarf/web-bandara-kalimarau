@@ -33,7 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(fn () => new HtmlString('
                 <div class="flex items-center gap-3">
                     <img src="'.asset('images/logo-blu.png').'" alt="Logo" class="h-8">
-                    <div class="flex flex-col text-left" x-data="{}" x-show="$store.sidebar.isOpen" x-transition>
+                    <div class="kalimarau-brand-text flex flex-col text-left">
                         <span class="text-xl font-bold leading-none" style="color: #0c2d6b;">Bandara Kalimarau</span>
                         <span class="text-sm font-medium text-gray-500 mt-1 leading-none">Kab. Berau, Kaltim</span>
                     </div>
@@ -122,7 +122,7 @@ class AdminPanelProvider extends PanelProvider
 
                         /* Premium Login Page Background */
                         .fi-simple-layout {
-                            background: #091f4a url('/images/hero1.jpg') center/cover no-repeat fixed !important;
+                            background: #091f4a url('/images/hero/hero1.jpg') center/cover no-repeat fixed !important;
                             position: relative;
                             min-height: 100vh !important;
                             overflow: hidden !important;
@@ -195,6 +195,9 @@ class AdminPanelProvider extends PanelProvider
                             background-color: #f5f7fb !important; /* gray.50 (custom palette) */
                             border-right: 1px solid #e2e7f0;
                         }
+                        aside.fi-sidebar:not(.fi-sidebar-open) .kalimarau-brand-text {
+                            display: none !important;
+                        }
 
                         /* =========================================
                            MICRO ANIMATIONS & INTERACTIVE EFFECTS
@@ -229,15 +232,12 @@ class AdminPanelProvider extends PanelProvider
                             box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
                         }
 
-                        /* 4. Table Rows - Highlight and subtle scale */
+                        /* 4. Table Rows - Highlight */
                         .fi-ta-row {
-                            transition: all 0.2s ease-in-out !important;
+                            transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out !important;
                         }
                         .fi-ta-row:hover {
                             background-color: #f5f7fb !important;
-                            transform: scale(1.002);
-                            z-index: 10;
-                            position: relative;
                             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
                         }
 

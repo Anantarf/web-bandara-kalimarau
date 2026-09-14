@@ -18,7 +18,7 @@
     <!-- Search Header -->
     <div class="relative bg-navy-dark pt-20 pb-16 lg:pt-28 lg:pb-24 overflow-hidden border-b border-white/10">
         <!-- Background Elements -->
-        <div class="absolute inset-0 bg-[url('{{ asset('images/pattern-bg.png') }}')] opacity-5"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.14),_transparent_34%),radial-gradient(circle_at_bottom_right,_rgba(200,134,10,0.18),_transparent_32%)]"></div>
         <div class="relative max-w-3xl mx-auto px-4 text-center">
             <h1 class="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-8">Pencarian Informasi</h1>
 

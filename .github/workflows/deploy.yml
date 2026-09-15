@@ -61,15 +61,15 @@ jobs:
 
       - name: Package Application Archive (Zip)
         run: |
-          zip -q -r deploy.zip . -x ".git/*" ".github/*" ".codex/*" ".vscode/*" "node_modules/*" ".env" ".env.*" "tests/*" "phpunit.xml" "storage/logs/*"
+          zip -q -r deploy.zip . -x ".git/*" ".github/*" ".codex/*" ".vscode/*" "node_modules/*" ".env" ".env.*" "tests/*" "phpunit.xml" "deploy-artifacts/*" "fasilitas/*" "PPID/*" "logo maskapai/*" "output/*" "docs/*" "graphify-out/*" ".playwright-cli/*" "storage/framework/cache/*" "storage/framework/sessions/*" "storage/framework/views/*" "storage/logs/*"
 
       - name: Transfer Archive to cPanel via SCP
         run: |
-          scp -i ~/.ssh/id_rsa -P ${SSH_PORT:-2223} -o StrictHostKeyChecking=no deploy.zip ${SSH_USERNAME}@${TARGET_HOST}:~/deploy.zip
+          scp -C -i ~/.ssh/id_rsa -P ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ServerAliveInterval=15 -o ServerAliveCountMax=4 deploy.zip ${SSH_USERNAME}@${TARGET_HOST}:~/deploy.zip
 
       - name: Extract & Execute Artisan Commands on cPanel
         run: |
-          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no ${SSH_USERNAME}@${TARGET_HOST} << 'EOF'
+          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ServerAliveInterval=15 -o ServerAliveCountMax=4 ${SSH_USERNAME}@${TARGET_HOST} << 'EOF'
             set -e
             DEST="${REMOTE_TARGET:-/home/band2936/kalimarau}"
             PUBLIC_HTML="/home/${SSH_USERNAME:-band2936}/public_html"

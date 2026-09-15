@@ -61,7 +61,7 @@ jobs:
 
       - name: Package Application Archive (Zip)
         run: |
-          zip -q -r deploy.zip . -x "*.git*" "*.github*" "*.codex*" "*.vscode*" "*node_modules*" "*vendor*" "*.env*" "*tests*" "phpunit.xml" "*deploy-artifacts*" "*fasilitas*" "*PPID*" "*logo maskapai*" "*output*" "*docs*" "*graphify-out*" "*.playwright-cli*" "*storage/framework/cache*" "*storage/framework/sessions*" "*storage/framework/views*" "*storage/logs*"
+          zip -q -r deploy.zip app bootstrap config database lang public resources routes storage artisan composer.json composer.lock package.json -x "storage/logs/*" "storage/framework/cache/*" "storage/framework/sessions/*" "storage/framework/views/*"
 
       - name: Transfer Archive to cPanel via SCP
         run: |

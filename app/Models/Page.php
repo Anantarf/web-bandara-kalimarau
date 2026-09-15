@@ -5,9 +5,16 @@ namespace App\Models;
 use App\Models\Concerns\CleansUpFeaturedImage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Page extends Model
 {
+    public const STATUSES = [
+        'draft' => 'Draf',
+        'published' => 'Diterbitkan',
+        'archived' => 'Diarsipkan',
+    ];
+
     use CleansUpFeaturedImage;
 
     protected $fillable = [
@@ -29,6 +36,15 @@ class Page extends Model
         return [
             'published_at' => 'datetime',
         ];
+    }
+
+    protected static function booted(): void
+    {
+        static::saving(function (Page $page): void {
+            if (filled($page->slug)) {
+                $page->slug = Str::slug($page->slug);
+            }
+        });
     }
 
     public function scopePublished(Builder $query): Builder

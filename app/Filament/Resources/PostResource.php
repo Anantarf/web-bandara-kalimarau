@@ -93,7 +93,7 @@ class PostResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('status')
                                     ->label('Status')
-                                    ->options(['draft' => 'Draf', 'published' => 'Diterbitkan', 'archived' => 'Diarsipkan'])
+                                    ->options(Post::STATUSES)
                                     ->default('draft')
                                     ->live()
                                     ->afterStateUpdated(function (?string $state, Forms\Set $set, Forms\Get $get): void {
@@ -183,7 +183,7 @@ class PostResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->label('Status Publikasi')
-                    ->options(['draft' => 'Draf', 'published' => 'Diterbitkan', 'archived' => 'Diarsipkan']),
+                    ->options(Post::STATUSES),
                 Tables\Filters\TernaryFilter::make('is_featured')
                     ->label('Berita Unggulan'),
                 Tables\Filters\TernaryFilter::make('is_pinned')

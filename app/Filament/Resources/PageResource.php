@@ -18,8 +18,6 @@ class PageResource extends Resource
 
     protected static ?string $navigationGroup = 'Layanan Operasional';
 
-    protected static bool $shouldRegisterNavigation = false;
-
     protected static ?int $navigationSort = 1;
 
     protected static ?string $modelLabel = 'Halaman Statis Web';
@@ -44,7 +42,7 @@ class PageResource extends Resource
 
                         Forms\Components\Select::make('status')
                             ->label('Status')
-                            ->options(['draft' => 'Draf', 'published' => 'Diterbitkan', 'archived' => 'Diarsipkan'])
+                            ->options(Page::STATUSES)
                             ->default('draft')
                             ->required(),
 
@@ -144,7 +142,7 @@ class PageResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->label('Status')
-                    ->options(['draft' => 'Draf', 'published' => 'Diterbitkan', 'archived' => 'Diarsipkan']),
+                    ->options(Page::STATUSES),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label('Ubah')->iconButton(),

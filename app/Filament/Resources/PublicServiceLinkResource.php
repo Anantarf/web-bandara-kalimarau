@@ -18,8 +18,6 @@ class PublicServiceLinkResource extends Resource
 
     protected static ?string $navigationGroup = 'Layanan Operasional';
 
-    protected static bool $shouldRegisterNavigation = false;
-
     protected static ?int $navigationSort = 3;
 
     protected static ?string $modelLabel = 'Layanan Publik (SP4N, SIMADU, IDPAS)';
@@ -50,12 +48,12 @@ class PublicServiceLinkResource extends Resource
                             ->label('URL Tujuan')
                             ->url()
                             ->required(),
-                        Forms\Components\TextInput::make('category')
+                        Forms\Components\Select::make('category')
                             ->label('Kategori')
-                            ->helperText('Gunakan penulisan yang sama persis dengan link lain di kategori yang sama.')
-                            ->datalist(fn () => PublicServiceLink::query()->distinct()->orderBy('category')->pluck('category')->all())
+                            ->options(PublicServiceLink::CATEGORIES)
+                            ->placeholder('Pilih kategori layanan')
                             ->required()
-                            ->maxLength(40),
+                            ->native(false),
                         Forms\Components\TextInput::make('icon')
                             ->label('Ikon')
                             ->helperText('Nama ikon Heroicon, contoh: heroicon-o-link'),

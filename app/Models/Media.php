@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\Storage;
 
 class Media extends Model
 {
+    protected static function booted(): void
+    {
+        static::deleted(function (Media $media): void {
+            if ($media->disk && $media->path) {
+                Storage::disk($media->disk)->delete($media->path);
+            }
+        });
+    }
+
     protected $fillable = [
         'legacy_id',
         'disk',

@@ -35,11 +35,7 @@ class FacilityResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('category')
                             ->label('Kategori Fasilitas')
-                            ->options([
-                                'Fasilitas Sisi Udara' => 'Fasilitas Sisi Udara',
-                                'Fasilitas Sisi Darat' => 'Fasilitas Sisi Darat',
-                                'Fasilitas Umum' => 'Fasilitas Umum',
-                            ])
+                            ->options(Facility::CATEGORIES)
                             ->placeholder('Pilih Kategori Fasilitas')
                             ->required()
                             ->native(false),
@@ -91,13 +87,14 @@ class FacilityResource extends Resource
                     ->alignCenter(),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama Fasilitas')
-                    ->description(fn (Facility $record): string => "Kategori: {$record->category}")
+                    ->description(fn (Facility $record): string => "Kategori: {$record->category_label}")
                     ->searchable(['name', 'category'])
                     ->weight('medium')
                     ->size('sm')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('category')
                     ->label('Kategori')
+                    ->formatStateUsing(fn (Facility $record): string => $record->category_label)
                     ->badge()
                     ->alignCenter()
                     ->size('sm')

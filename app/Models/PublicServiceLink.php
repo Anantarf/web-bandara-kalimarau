@@ -4,9 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class PublicServiceLink extends Model
 {
+    public const CATEGORIES = [
+        'Pengaduan' => 'Pengaduan',
+        'Layanan Bandara' => 'Layanan Bandara',
+        'Survei' => 'Survei',
+    ];
+
+    protected static function booted(): void
+    {
+        static::saving(function (PublicServiceLink $link): void {
+            if (filled($link->slug)) {
+                $link->slug = Str::slug($link->slug);
+            }
+        });
+    }
+
     protected $fillable = [
         'title',
         'slug',

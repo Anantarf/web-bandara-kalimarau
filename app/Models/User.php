@@ -25,11 +25,16 @@ class User extends Authenticatable implements FilamentUser
     protected static function booted(): void
     {
         static::saving(function (User $user): void {
-            if ($user->username && ! $user->email) {
-                $user->email = str($user->username)
+            if ($user->username) {
+                $user->username = str($user->username)
                     ->lower()
                     ->replaceMatches('/[^a-z0-9._-]+/', '.')
                     ->trim('.')
+                    ->toString();
+            }
+
+            if ($user->username && ! $user->email) {
+                $user->email = str($user->username)
                     ->append('@kalimarau.local')
                     ->toString();
             }

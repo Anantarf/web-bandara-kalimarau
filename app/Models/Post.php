@@ -6,6 +6,7 @@ use App\Models\Concerns\CleansUpFeaturedImage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 /**
  * @property int $author_id
@@ -14,6 +15,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Post extends Model
 {
+    public const STATUSES = [
+        'draft' => 'Draf',
+        'published' => 'Diterbitkan',
+        'archived' => 'Diarsipkan',
+    ];
+
     use CleansUpFeaturedImage;
 
     protected $fillable = [
@@ -40,6 +47,15 @@ class Post extends Model
             'is_pinned' => 'boolean',
             'published_at' => 'datetime',
         ];
+    }
+
+    protected static function booted(): void
+    {
+        static::saving(function (Post $post): void {
+            if (filled($post->slug)) {
+                $post->slug = Str::slug($post->slug);
+            }
+        });
     }
 
     public function scopePublished(Builder $query): Builder

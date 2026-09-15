@@ -22,6 +22,21 @@ class PpidDocument extends Model
         'prosedur-sengketa-informasi-publik' => 'Prosedur Sengketa Informasi Publik',
     ];
 
+    protected static function booted(): void
+    {
+        static::updating(function (PpidDocument $document): void {
+            if ($document->isDirty('file_path') && $document->getOriginal('file_path')) {
+                Storage::disk('public')->delete($document->getOriginal('file_path'));
+            }
+        });
+
+        static::deleted(function (PpidDocument $document): void {
+            if ($document->file_path) {
+                Storage::disk('public')->delete($document->file_path);
+            }
+        });
+    }
+
     protected $fillable = [
         'title',
         'description',

@@ -61,7 +61,7 @@ jobs:
 
       - name: Package Application Archive (Zip)
         run: |
-          zip -q -r deploy.zip app bootstrap config database lang public resources routes storage artisan composer.json composer.lock package.json -x "storage/logs/*" "storage/framework/cache/*" "storage/framework/sessions/*" "storage/framework/views/*"
+          zip -q -r deploy.zip app bootstrap config database lang public resources routes storage vendor artisan composer.json composer.lock package.json -x "public/storage/*" "storage/app/*" "storage/logs/*" "storage/framework/*"
 
       - name: Transfer Archive to cPanel via SCP
         run: |
@@ -102,20 +102,6 @@ jobs:
             fi
 
             cd "$DEST"
-
-            # Install Composer Dependencies on cPanel Server (Fast local datacenter connection)
-            echo "Installing Composer dependencies on server..."
-            if command -v composer &>/dev/null; then
-              composer install --no-dev --optimize-autoloader --no-interaction
-            elif [ -f "composer.phar" ]; then
-              php composer.phar install --no-dev --optimize-autoloader --no-interaction
-            else
-              php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-              php composer-setup.php
-              php -r "unlink('composer-setup.php');"
-              php composer.phar install --no-dev --optimize-autoloader --no-interaction
-            fi
-
             php artisan optimize:clear 2>/dev/null || true
             php artisan migrate --force
             php artisan db:seed --class=PpidDocumentSeeder --force || true

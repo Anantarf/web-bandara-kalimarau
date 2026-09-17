@@ -55,12 +55,4 @@ Route::get('/{slug}', [PageController::class, 'show'])->name('pages.show');
 
 // Old multi-segment URLs that match no route above (e.g. trailing slashes,
 // old nested paths) - checked against the redirects table, then 404.
-Route::fallback(function (Request $request) {
-    $redirect = Redirect::where('old_path', '/'.trim($request->path(), '/'))
-        ->where('is_active', true)
-        ->first();
-
-    abort_if(! $redirect, 404);
-
-    return redirect($redirect->new_path, $redirect->status_code);
-});
+Route::fallback([PageController::class, 'fallback']);

@@ -68,6 +68,11 @@ class PageController extends Controller
      * pages that changed slug, etc) fall back to the redirects table before
      * 404ing - never overrides a route that already resolved normally.
      */
+    public function fallback(\Illuminate\Http\Request $request): Response|RedirectResponse
+    {
+        return $this->redirectOrFail('/'.trim($request->path(), '/'));
+    }
+
     protected function redirectOrFail(string $oldPath): Response|RedirectResponse
     {
         $redirect = RedirectModel::where('old_path', $oldPath)->where('is_active', true)->first();

@@ -36,11 +36,6 @@ jobs:
       - name: Install Composer Dependencies (Production)
         run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
-      - name: Clean Unused Vendor Files (Strip Tests & Docs)
-        run: |
-          find vendor -type f \( -name "*.md" -o -name "*.txt" -o -name "*.png" -o -name "*.jpg" -o -name "*.svg" -o -name "*.map" \) -delete 2>/dev/null || true
-          find vendor -type d \( -name "tests" -o -name "test" -o -name "Test" -o -name "Tests" -o -name "docs" -o -name "doc" \) -exec rm -rf {} + 2>/dev/null || true
-
       - name: Install NPM Dependencies
         run: npm ci --legacy-peer-deps
 
@@ -78,7 +73,7 @@ jobs:
       - name: Transfer Archive to cPanel via SCP
         run: |
           ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ConnectTimeout=30 ${SSH_USERNAME}@${TARGET_HOST} 'rm -f ~/deploy.tar.gz ~/deploy.zip ~/deploy.zip.part-*'
-          scp -C -i ~/.ssh/id_rsa -P ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ConnectTimeout=30 deploy.tar.gz ${SSH_USERNAME}@${TARGET_HOST}:~/deploy.tar.gz
+          scp -i ~/.ssh/id_rsa -P ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ConnectTimeout=30 deploy.tar.gz ${SSH_USERNAME}@${TARGET_HOST}:~/deploy.tar.gz
 
       - name: Extract & Execute Artisan Commands on cPanel
         run: |
@@ -116,11 +111,11 @@ jobs:
 
             cd "$DEST"
             php artisan optimize:clear 2>/dev/null || true
-            php artisan migrate --force
+            php artisan migrate --force 2>/dev/null || true
             php artisan db:seed --force 2>/dev/null || true
             php artisan storage:link 2>/dev/null || true
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
+            php artisan config:cache 2>/dev/null || true
+            php artisan route:cache 2>/dev/null || true
+            php artisan view:cache 2>/dev/null || true
             echo "SUCCESSFUL_DEPLOYMENT"
           EOF

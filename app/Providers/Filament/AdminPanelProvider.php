@@ -367,12 +367,12 @@ class AdminPanelProvider extends PanelProvider
             ->renderHook(
                 PanelsRenderHook::AUTH_LOGIN_FORM_AFTER,
                 fn (): HtmlString => new HtmlString('
-                    <div class="text-center mt-3">
+                    <div class="text-center mt-2.5">
                         <a href="/" class="text-xs font-medium text-gray-500 hover:text-primary-600 transition-colors inline-flex items-center gap-1.5 fi-btn-link">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                             Kembali ke Beranda Web
                         </a>
-                        <div class="mt-3 pt-2.5 border-t border-gray-100 text-[11px] text-gray-400 font-medium">
+                        <div class="mt-2 pt-2 border-t border-gray-100/80 text-[10px] text-gray-400 font-normal tracking-tight">
                             &copy; 2026 Bandara Kalimarau - UPT Kementerian Perhubungan RI
                         </div>
                     </div>

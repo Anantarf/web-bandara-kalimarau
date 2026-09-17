@@ -100,7 +100,19 @@ jobs:
             # Sync compiled assets & adjust index.php paths for cPanel public_html
             if [ -d "$PUBLIC_HTML" ] && [ ! -L "$PUBLIC_HTML" ]; then
               echo "Syncing public assets and configuring public_html/index.php..."
-              cp -rf "$DEST/public/"* "$PUBLIC_HTML/"
+              SOURCE_PUBLIC=$(realpath "$DEST/public")
+              TARGET_PUBLIC=$(realpath "$PUBLIC_HTML")
+              if [ "$SOURCE_PUBLIC" != "$TARGET_PUBLIC" ]; then
+                find "$SOURCE_PUBLIC" -mindepth 1 -maxdepth 1 ! -name storage -exec sh -c '
+                  target_dir="$1"
+                  shift
+                  for source_path do
+                    target_path="$target_dir/$(basename "$source_path")"
+                    rm -rf "$target_path"
+                    cp -a "$source_path" "$target_dir/"
+                  done
+                ' sh "$TARGET_PUBLIC" {} +
+              fi
               chmod -R 755 "$PUBLIC_HTML"
               find "$PUBLIC_HTML" -type f -exec chmod 644 {} +
 

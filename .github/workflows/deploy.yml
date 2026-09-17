@@ -46,6 +46,8 @@ jobs:
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
         run: |
+          : "${SSH_USERNAME:?SSH_USERNAME secret is required}"
+          : "${SSH_KEY:?SSH_KEY secret is required}"
           TARGET_HOST=$(echo "${SSH_HOST:-colorado.iixcp.rumahweb.net}" | sed -e 's|^https://||' -e 's|^http://||' -e 's|/.*$||')
           echo "TARGET_HOST=${TARGET_HOST}" >> $GITHUB_ENV
 
@@ -77,46 +79,51 @@ jobs:
 
       - name: Extract & Execute Artisan Commands on cPanel
         run: |
-          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ServerAliveInterval=15 -o ServerAliveCountMax=4 ${SSH_USERNAME}@${TARGET_HOST} << EOF
-            set -e
-            DEST="${REMOTE_TARGET:-/home/${SSH_USERNAME}/kalimarau}"
-            PUBLIC_HTML="/home/${SSH_USERNAME}/public_html"
+          REMOTE_DEST="${REMOTE_TARGET:-/home/${SSH_USERNAME}/kalimarau}"
+          REMOTE_PUBLIC_HTML="/home/${SSH_USERNAME}/public_html"
 
-            mkdir -p "\$DEST"
-            tar -xzf ~/deploy.tar.gz -C "\$DEST"
+          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ServerAliveInterval=15 -o ServerAliveCountMax=4 ${SSH_USERNAME}@${TARGET_HOST} "bash -s" -- "$REMOTE_DEST" "$REMOTE_PUBLIC_HTML" << 'REMOTE_SCRIPT'
+            set -euo pipefail
+            DEST="$1"
+            PUBLIC_HTML="$2"
+
+            mkdir -p "$DEST"
+            tar -xzf ~/deploy.tar.gz -C "$DEST"
             rm -f ~/deploy.tar.gz
+            test -f "$DEST/artisan"
+            mkdir -p "$DEST/storage/app/public" "$DEST/storage/framework/cache" "$DEST/storage/framework/sessions" "$DEST/storage/framework/views" "$DEST/storage/logs" "$DEST/bootstrap/cache"
 
             # Fix directory & file permissions for cPanel suPHP compliance
-            chmod -R 755 "\$DEST/storage" "\$DEST/bootstrap/cache" 2>/dev/null || true
-            find "\$DEST/storage" "\$DEST/bootstrap/cache" -type f -exec chmod 644 {} + 2>/dev/null || true
+            chmod -R 755 "$DEST/storage" "$DEST/bootstrap/cache"
+            find "$DEST/storage" "$DEST/bootstrap/cache" -type f -exec chmod 644 {} +
 
             # Sync compiled assets & adjust index.php paths for cPanel public_html
-            if [ -d "\$PUBLIC_HTML" ] && [ ! -L "\$PUBLIC_HTML" ]; then
+            if [ -d "$PUBLIC_HTML" ] && [ ! -L "$PUBLIC_HTML" ]; then
               echo "Syncing public assets and configuring public_html/index.php..."
-              cp -rf "\$DEST/public/"* "\$PUBLIC_HTML/" 2>/dev/null || true
-              chmod -R 755 "\$PUBLIC_HTML" 2>/dev/null || true
-              find "\$PUBLIC_HTML" -type f -exec chmod 644 {} + 2>/dev/null || true
+              cp -rf "$DEST/public/"* "$PUBLIC_HTML/"
+              chmod -R 755 "$PUBLIC_HTML"
+              find "$PUBLIC_HTML" -type f -exec chmod 644 {} +
 
               # Adjust paths in public_html/index.php to point to project folder (/kalimarau)
-              PROJECT_NAME=\$(basename "\$DEST")
-              if [ -f "\$PUBLIC_HTML/index.php" ]; then
-                sed -i "s|__DIR__.'/\.\./vendor/autoload.php'|__DIR__.'/\.\./\${PROJECT_NAME}/vendor/autoload.php'|g" "\$PUBLIC_HTML/index.php" || true
-                sed -i "s|__DIR__.'/\.\./bootstrap/app.php'|__DIR__.'/\.\./\${PROJECT_NAME}/bootstrap/app.php'|g" "\$PUBLIC_HTML/index.php" || true
-                sed -i "s|__DIR__.'/\.\./storage/|__DIR__.'/\.\./\${PROJECT_NAME}/storage/|g" "\$PUBLIC_HTML/index.php" || true
+              PROJECT_NAME=$(basename "$DEST")
+              if [ -f "$PUBLIC_HTML/index.php" ]; then
+                sed -i "s|__DIR__.'/\.\./vendor/autoload.php'|__DIR__.'/\.\./${PROJECT_NAME}/vendor/autoload.php'|g" "$PUBLIC_HTML/index.php"
+                sed -i "s|__DIR__.'/\.\./bootstrap/app.php'|__DIR__.'/\.\./${PROJECT_NAME}/bootstrap/app.php'|g" "$PUBLIC_HTML/index.php"
+                sed -i "s|__DIR__.'/\.\./storage/|__DIR__.'/\.\./${PROJECT_NAME}/storage/|g" "$PUBLIC_HTML/index.php"
               fi
 
               # Symlink storage in public_html to storage/app/public for uploaded media/images
-              rm -rf "\$PUBLIC_HTML/storage" 2>/dev/null || true
-              ln -sfn "\$DEST/storage/app/public" "\$PUBLIC_HTML/storage" 2>/dev/null || true
+              rm -rf "$PUBLIC_HTML/storage"
+              ln -sfn "$DEST/storage/app/public" "$PUBLIC_HTML/storage"
             fi
 
-            cd "\$DEST"
-            php artisan optimize:clear 2>/dev/null || true
-            php artisan migrate --force 2>/dev/null || true
-            php artisan db:seed --force 2>/dev/null || true
+            cd "$DEST"
+            php artisan optimize:clear
+            php artisan migrate --force
+            php artisan db:seed --force
             php artisan storage:link 2>/dev/null || true
-            php artisan config:cache 2>/dev/null || true
-            php artisan route:cache 2>/dev/null || true
-            php artisan view:cache 2>/dev/null || true
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
             echo "SUCCESSFUL_DEPLOYMENT"
-EOF
+          REMOTE_SCRIPT

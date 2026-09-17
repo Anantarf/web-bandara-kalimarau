@@ -39,30 +39,31 @@ $categories = \App\Models\Facility::query()
 
         <div class="text-center mb-16">
             <h1 x-show="loaded"
+                x-cloak
                 x-transition:enter="transition ease-out duration-500 delay-100"
                 x-transition:enter-start="opacity-0 translate-y-8"
                 x-transition:enter-end="opacity-100 translate-y-0"
-
                 class="font-sans text-2xl md:text-3xl font-extrabold text-navy-dark leading-snug mb-3">Fasilitas Lengkap</h1>
 
             <div x-show="loaded"
+                 x-cloak
                  x-transition:enter="transition ease-out duration-500 delay-300"
                  x-transition:enter-start="opacity-0 scale-0"
                  x-transition:enter-end="opacity-100 scale-100"
-
                  class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
 
             <p x-show="loaded"
-               x-transition:enter="transition ease-out duration-500 delay-[500ms]"
+               x-cloak
+               x-transition:enter="transition ease-out duration-500 delay-500"
                x-transition:enter-start="opacity-0 translate-y-4"
                x-transition:enter-end="opacity-100 translate-y-0"
-
                class="text-xl text-text-muted max-w-2xl mx-auto leading-relaxed">Kami menyediakan berbagai fasilitas berstandar tinggi untuk memastikan kenyamanan, keamanan, dan kelancaran perjalanan seluruh pengguna jasa bandara.</p>
         </div>
 
         <div class="space-y-20"
              x-show="loaded"
-             x-transition:enter="transition ease-out duration-500 delay-[500ms]"
+             x-cloak
+             x-transition:enter="transition ease-out duration-500 delay-500"
              x-transition:enter-start="opacity-0 translate-y-12"
              x-transition:enter-end="opacity-100 translate-y-0"
              >

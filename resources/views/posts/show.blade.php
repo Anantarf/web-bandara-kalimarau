@@ -49,17 +49,17 @@
 
             <header class="mb-6 text-center md:text-left">
                 <h1 x-show="loaded"
+                    x-cloak
                     x-transition:enter="transition ease-out duration-500 delay-100"
                     x-transition:enter-start="opacity-0 translate-y-8"
                     x-transition:enter-end="opacity-100 translate-y-0"
-
                     class="font-sans text-2xl md:text-3xl font-extrabold text-navy-dark leading-snug mb-3">{{ $post->title }}</h1>
 
                 <div x-show="loaded"
+                     x-cloak
                      x-transition:enter="transition ease-out duration-500 delay-200"
                      x-transition:enter-start="opacity-0 scale-0"
                      x-transition:enter-end="opacity-100 scale-100"
-
                      class="h-1.5 w-20 bg-gold-light rounded-full mb-6 mx-auto md:mx-0 origin-left"></div>
 
                 <div class="flex flex-wrap items-center justify-center md:justify-start text-sm text-text-muted gap-4 pb-6 border-b border-border-soft/70">

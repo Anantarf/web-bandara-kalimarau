@@ -18,21 +18,22 @@
     <div class="py-12 md:py-16 bg-white border-b border-border-soft/70" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
         <div class="max-w-3xl mx-auto px-4 text-center">
             <h1 x-show="loaded"
+                x-cloak
                 x-transition:enter="transition ease-out duration-500 delay-100"
                 x-transition:enter-start="opacity-0 translate-y-8"
                 x-transition:enter-end="opacity-100 translate-y-0"
-
                 class="font-sans text-2xl md:text-3xl font-extrabold text-navy-dark leading-snug mb-3">Pencarian Informasi</h1>
 
             <div x-show="loaded"
+                 x-cloak
                  x-transition:enter="transition ease-out duration-500 delay-200"
                  x-transition:enter-start="opacity-0 scale-0"
                  x-transition:enter-end="opacity-100 scale-100"
-
                  class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
 
             <form action="{{ route('search') }}" method="GET" class="relative group mt-6"
                   x-show="loaded"
+                  x-cloak
                   x-transition:enter="transition ease-out duration-500 delay-300"
                   x-transition:enter-start="opacity-0 translate-y-4"
                   x-transition:enter-end="opacity-100 translate-y-0"
@@ -56,7 +57,7 @@
     <!-- Results Area -->
     <div class="py-12 bg-white min-h-[50vh]" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
         <div class="max-w-4xl mx-auto px-4"
-             x-show="loaded" x-transition:enter="transition ease-out duration-500"
+             x-show="loaded" x-cloak x-transition:enter="transition ease-out duration-500"
              x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0"
              >
 

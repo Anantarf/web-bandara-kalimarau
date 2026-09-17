@@ -46,7 +46,7 @@
 
     <div class="py-12 bg-white" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
         <div class="container mx-auto px-4 max-w-7xl"
-             x-show="loaded" x-transition:enter="transition ease-out duration-500"
+             x-show="loaded" x-cloak x-transition:enter="transition ease-out duration-500"
              x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0"
              >
             @if($posts->count() > 0)

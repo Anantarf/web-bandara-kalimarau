@@ -41,6 +41,7 @@ class PpidDocument extends Model
         'title',
         'description',
         'category',
+        'external_url',
         'file_path',
         'is_active',
         'published_at',
@@ -67,8 +68,25 @@ class PpidDocument extends Model
         return self::CATEGORIES[$this->category] ?? str($this->category)->replace('-', ' ')->title()->toString();
     }
 
+    public function hasFile(): bool
+    {
+        if (filled($this->external_url)) {
+            return true;
+        }
+
+        return filled($this->file_path) && Storage::disk('public')->exists($this->file_path);
+    }
+
     public function getFileUrlAttribute(): string
     {
-        return Storage::disk('public')->url($this->file_path);
+        if (filled($this->external_url)) {
+            return $this->external_url;
+        }
+
+        if (filled($this->file_path)) {
+            return Storage::disk('public')->url($this->file_path);
+        }
+
+        return '#';
     }
 }

@@ -1,13 +1,29 @@
 {
+  "node_modules/pdfjs-dist/build/pdf.worker.min.mjs": {
+    "file": "assets/pdf.worker.min-yatZIOMy.mjs",
+    "src": "node_modules/pdfjs-dist/build/pdf.worker.min.mjs"
+  },
   "resources/css/app.css": {
-    "file": "assets/app-BsxOV5e9.css",
+    "file": "assets/app-BT3y8HVL.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-BMeSQkgR.js",
+    "file": "assets/app-h4xG8S8D.js",
     "name": "app",
     "src": "resources/js/app.js",
-    "isEntry": true
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/pdf-engine.js"
+    ]
+  },
+  "resources/js/pdf-engine.js": {
+    "file": "assets/pdf-engine-CgctaXrs.js",
+    "name": "pdf-engine",
+    "src": "resources/js/pdf-engine.js",
+    "isDynamicEntry": true,
+    "assets": [
+      "assets/pdf.worker.min-yatZIOMy.mjs"
+    ]
   }
 }

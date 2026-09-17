@@ -6,7 +6,9 @@ use App\Models\Facility;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\PpidDocument;
+use Database\Seeders\PageSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class PublicPagesSmokeTest extends TestCase
@@ -58,13 +60,7 @@ class PublicPagesSmokeTest extends TestCase
 
     public function test_ppid_index_loads(): void
     {
-        Page::create([
-            'title' => 'PPID',
-            'slug' => 'ppid',
-            'content' => '<p>Konten PPID.</p>',
-            'status' => 'published',
-            'published_at' => now(),
-        ]);
+        $this->seed(PageSeeder::class);
 
         $this->get(route('ppid.show'))->assertOk();
     }
@@ -83,8 +79,52 @@ class PublicPagesSmokeTest extends TestCase
         $this->get(route('ppid.show', 'sub-yang-tidak-ada'))->assertStatus(404);
     }
 
+    public function test_consolidated_pages_redirect_with_301(): void
+    {
+        Page::create([
+            'title' => 'Hasil dan Tindak Lanjut',
+            'slug' => 'hasil-dan-tindak-lanjut',
+            'content' => '<p>Hasil</p>',
+            'status' => 'published',
+            'published_at' => now(),
+        ]);
+
+        $this->get(route('pages.show', 'hasil-dan-tindak-lanjut'))
+            ->assertStatus(301)
+            ->assertRedirect(route('pages.show', 'survey-kepuasan-masyarakat-internal').'#hasil-survei');
+
+        $this->get(route('ppid.show', 'visi-misi'))
+            ->assertStatus(301)
+            ->assertRedirect(route('ppid.show', 'profil').'#visi-misi');
+    }
+
+    public function test_simadu_and_sp4n_lapor_pages_load(): void
+    {
+        Page::create([
+            'title' => 'SIMADU',
+            'slug' => 'simadu',
+            'content' => '<p>SIMADU</p>',
+            'status' => 'published',
+            'published_at' => now(),
+        ]);
+
+        Page::create([
+            'title' => 'SP4N LAPOR',
+            'slug' => 'sp4n-lapor',
+            'content' => '<p>SP4N LAPOR</p>',
+            'status' => 'published',
+            'published_at' => now(),
+        ]);
+
+        $this->get(route('pages.show', 'simadu'))->assertOk();
+        $this->get(route('pages.show', 'sp4n-lapor'))->assertOk();
+    }
+
     public function test_ppid_sub_page_renders_only_published_documents_for_current_category(): void
     {
+        Storage::fake('public');
+        Storage::disk('public')->put('ppid-documents/laporan-kinerja-2026.pdf', 'pdf');
+
         Page::create([
             'title' => 'Informasi Berkala',
             'slug' => 'informasi-berkala',
@@ -135,6 +175,45 @@ class PublicPagesSmokeTest extends TestCase
             ->assertDontSee('Dokumen Nonaktif')
             ->assertDontSee('Dokumen Kategori Lain')
             ->assertDontSee('Dokumen Terjadwal');
+    }
+
+    public function test_ppid_sub_page_does_not_render_missing_document_files(): void
+    {
+        Storage::fake('public');
+
+        Page::create([
+            'title' => 'Informasi Berkala',
+            'slug' => 'informasi-berkala',
+            'content' => '<p>Konten informasi berkala.</p>',
+            'status' => 'published',
+            'published_at' => now(),
+        ]);
+
+        PpidDocument::create([
+            'title' => 'Dokumen Hilang',
+            'description' => 'Path file tidak tersedia.',
+            'category' => 'informasi-berkala',
+            'file_path' => 'ppid-documents/hilang.pdf',
+            'is_active' => true,
+            'published_at' => now()->subDay(),
+            'sort_order' => 1,
+        ]);
+
+        $this->get(route('ppid.show', 'informasi-berkala'))
+            ->assertOk()
+            ->assertDontSee('Dokumen Hilang')
+            ->assertDontSee('storage/ppid-documents/hilang.pdf', false)
+            ->assertSee('Belum ada dokumen PPID yang tersedia.');
+    }
+
+    public function test_standar_pelayanan_seeded_page_loads(): void
+    {
+        $this->seed(PageSeeder::class);
+
+        $this->get(route('pages.show', 'standar-pelayanan'))
+            ->assertOk()
+            ->assertSee('Standar Pelayanan')
+            ->assertSee('storage/media/legacy/2024/09/Standar-Pelayanan-2023.pdf', false);
     }
 
     public function test_static_page_loads_by_slug(): void

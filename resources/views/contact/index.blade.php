@@ -1,25 +1,25 @@
 <x-layouts.public
-    title="Pengaduan dan Kontak - Bandara Kalimarau"
-    description="Hubungi Bandara Kalimarau untuk informasi, saran, dan pengaduan layanan."
+    title="Kontak - Bandara Kalimarau"
+    description="Hubungi Bandara Kalimarau untuk informasi, saran, dan layanan penerbangan."
     :canonical="route('contact.index')"
 >
     <div x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 50)" class="w-full">
     <x-page-header
-        title="Pengaduan & Kontak"
-        description="Hubungi kami atau sampaikan pengaduan layanan secara online melalui formulir di bawah ini."
+        title="Kontak"
+        description="Hubungi kami melalui informasi kontak atau formulir pesan di bawah ini."
         container-class="container mx-auto px-4 max-w-7xl"
         :loaded-delay="50"
         :breadcrumbs="[
             ['label' => 'Beranda', 'url' => route('home')],
-            ['label' => 'Pengaduan & Kontak'],
+            ['label' => 'Kontak'],
         ]" />
 
-    <div class="py-8 bg-gray-50" x-show="loaded" x-transition:enter="transition-all ease-out duration-500 delay-400" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
+    <div class="pb-12 pt-4 bg-white" x-show="loaded" x-transition:enter="transition ease-out duration-500 delay-400" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
         <div class="container mx-auto px-4 max-w-7xl">
 
             @if(session('success'))
-            <div class="bg-green-50 border border-green-200 text-green-800 rounded-lg p-6 mb-8 flex items-start">
-                <svg class="w-6 h-6 mr-3 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <div class="bg-success-soft border border-success/30 text-success rounded-lg p-6 mb-8 flex items-start" role="status">
+                <svg class="w-6 h-6 mr-3 text-success flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <div>
                     <h3 class="font-bold text-lg mb-1">Pesan Berhasil Terkirim</h3>
                     <p>{{ session('success') }}</p>
@@ -30,7 +30,7 @@
             <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
                 <!-- Kontak Info -->
                 <div class="w-full lg:w-1/3 space-y-6">
-                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-border-soft">
                         <h2 class="card-title mb-6">Informasi Kontak</h2>
 
                         <div class="flex items-start mb-6">
@@ -38,19 +38,19 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-gray-900">Alamat</h3>
+                                <h3 class="font-semibold text-text-main">Alamat</h3>
                                 <p class="text-text-muted mt-1">Jl. Kalimarau, Teluk Bayur, Kabupaten Berau, Kalimantan Timur 77315</p>
                             </div>
                         </div>
 
                         <div class="flex items-start mb-6">
-                            <div class="w-10 h-10 bg-green-50 text-green-600 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
+                            <div class="w-10 h-10 bg-success-soft text-success rounded-full flex items-center justify-center flex-shrink-0 mr-4">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-gray-900">WhatsApp Resmi</h3>
+                                <h3 class="font-semibold text-text-main">WhatsApp Resmi</h3>
                                 <p class="text-text-muted mt-1">0852 6214 6214</p>
-                                <a href="https://wa.me/6285262146214" target="_blank" class="text-green-600 hover:text-green-700 font-medium text-sm mt-1 inline-block">Hubungi via WhatsApp</a>
+                                <a href="https://wa.me/6285262146214" target="_blank" rel="noopener noreferrer" class="text-success hover:text-success font-medium text-sm mt-1 inline-block">Hubungi via WhatsApp</a>
                             </div>
                         </div>
 
@@ -59,15 +59,15 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-gray-900">Email</h3>
+                                <h3 class="font-semibold text-text-main">Email</h3>
                                 <p class="text-text-muted mt-1">bandarakalimaraucantik@gmail.com</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-border-soft">
                         <div class="flex items-center gap-4 mb-5">
-                            <div class="w-12 h-12 bg-gold/10 text-gold-dark rounded-full flex items-center justify-center flex-shrink-0">
+                            <div class="w-12 h-12 bg-gold/10 text-gold-ink rounded-full flex items-center justify-center flex-shrink-0">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z"></path></svg>
                             </div>
                             <div>
@@ -93,7 +93,7 @@
 
                 <!-- Formulir Kontak -->
                 <div class="w-full lg:w-2/3">
-                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-gray-200">
+                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-border-soft">
                         <h2 class="card-title mb-6">Kirim Pesan atau Pengaduan</h2>
 
                         <form action="{{ route('contact.store') }}" method="POST" x-data="{ submitting: false }" @submit="submitting = true">
@@ -101,45 +101,45 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <div>
-                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
-                                    <input type="text" id="name" name="name" value="{{ old('name') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('name') border-red-500 @enderror" required>
+                                    <label for="name" class="block text-sm font-medium text-text-main mb-2">Nama Lengkap <span class="text-danger">*</span></label>
+                                    <input type="text" id="name" name="name" value="{{ old('name') }}" class="w-full px-4 py-2.5 bg-surface border border-border-soft rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('name') border-danger @enderror" required>
                                     @error('name')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                        <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                                 <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Alamat Email <span class="text-red-500">*</span></label>
-                                    <input type="email" id="email" name="email" value="{{ old('email') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('email') border-red-500 @enderror" required>
+                                    <label for="email" class="block text-sm font-medium text-text-main mb-2">Alamat Email <span class="text-danger">*</span></label>
+                                    <input type="email" id="email" name="email" value="{{ old('email') }}" class="w-full px-4 py-2.5 bg-surface border border-border-soft rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('email') border-danger @enderror" required>
                                     @error('email')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                        <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <div>
-                                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Nomor HP/Telepon <span class="text-red-500">*</span></label>
-                                    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('phone') border-red-500 @enderror" required>
+                                    <label for="phone" class="block text-sm font-medium text-text-main mb-2">Nomor HP/Telepon <span class="text-danger">*</span></label>
+                                    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" class="w-full px-4 py-2.5 bg-surface border border-border-soft rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('phone') border-danger @enderror" required>
                                     @error('phone')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                        <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                                 <div>
-                                    <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subjek Pesan <span class="text-red-500">*</span></label>
-                                    <input type="text" id="subject" name="subject" value="{{ old('subject') }}" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('subject') border-red-500 @enderror" required>
+                                    <label for="subject" class="block text-sm font-medium text-text-main mb-2">Subjek Pesan <span class="text-danger">*</span></label>
+                                    <input type="text" id="subject" name="subject" value="{{ old('subject') }}" class="w-full px-4 py-2.5 bg-surface border border-border-soft rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('subject') border-danger @enderror" required>
                                     @error('subject')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                        <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
 
                             <div class="mb-6">
-                                <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Isi Pesan/Pengaduan <span class="text-red-500">*</span></label>
-                                <textarea id="message" name="message" rows="6" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('message') border-red-500 @enderror" required>{{ old('message') }}</textarea>
+                                <label for="message" class="block text-sm font-medium text-text-main mb-2">Isi Pesan/Pengaduan <span class="text-danger">*</span></label>
+                                <textarea id="message" name="message" rows="6" class="w-full px-4 py-2.5 bg-surface border border-border-soft rounded-md focus:bg-white focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors @error('message') border-danger @enderror" required>{{ old('message') }}</textarea>
                                 @error('message')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    <p class="mt-1 text-sm text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
 
@@ -154,7 +154,7 @@
                     </div>
 
                     <!-- Maps Section -->
-                    <div class="mt-6 bg-white p-1.5 rounded-xl shadow-sm border border-gray-200 overflow-hidden relative" style="height: 625px;">
+                    <div class="mt-6 bg-white p-1.5 rounded-xl shadow-sm border border-border-soft overflow-hidden relative" style="height: 450px;">
                         <iframe :src="loaded ? 'https://www.google.com/maps?q=Bandar+Udara+Kalimarau,+Berau&output=embed' : ''" width="100%" height="100%" class="rounded-lg" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>

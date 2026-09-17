@@ -21,6 +21,7 @@ Route::get('/search', [SearchController::class, 'index'])
 
 // Jadwal Penerbangan
 Route::get('/jadwal-penerbangan', [FlightScheduleController::class, 'index'])->name('flights.index');
+Route::redirect('/penerbangan', '/jadwal-penerbangan', 301);
 
 // Kontak (with rate limit on POST)
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact.index');

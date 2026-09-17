@@ -17,121 +17,122 @@
             ['label' => 'FAQ Lengkap', 'route' => 'faq'],
         ],
         'Survey dan Pengaduan' => [
-            ['label' => 'Survey Kepuasan', 'slug' => 'survey-kepuasan-masyarakat-internal'],
+            ['label' => 'Survey Kepuasan & Hasil Tindak Lanjut', 'slug' => 'survey-kepuasan-masyarakat-internal'],
             ['label' => 'SIMADU', 'slug' => 'simadu'],
             ['label' => 'SP4N Lapor', 'slug' => 'sp4n-lapor'],
-            ['label' => 'Hasil & Tindak Lanjut', 'slug' => 'hasil-dan-tindak-lanjut'],
         ],
     ];
 
     $ppidGroups = [
-        ['label' => 'Profil PPID', 'sub' => 'profil'],
+        ['label' => 'Profil & Visi Misi PPID', 'sub' => 'profil'],
         ['label' => 'Struktur Organisasi PPID', 'sub' => 'struktur-organisasi'],
-        ['label' => 'Layanan Informasi', 'slug' => 'layanan-informasi'],
-        ['label' => 'Regulasi & Prosedur', 'sub' => 'regulasi'],
+        ['label' => 'Maklumat & Standar Biaya', 'sub' => 'maklumat-pelayanan-standar-biaya'],
+        ['label' => 'Regulasi PPID', 'sub' => 'regulasi'],
     ];
 @endphp
-<header class="w-full fixed top-0 z-50 transition-all duration-500 ease-out"
+<header class="fixed inset-x-0 top-0 z-50 w-full overflow-x-clip transition duration-500 ease-out"
         x-data="{ mobileOpen: false, scrolled: false, transparent: {{ $transparent ? 'true' : 'false' }} }"
         @scroll.window="scrolled = (window.pageYOffset > 10)"
         :class="(transparent && !scrolled) ? 'bg-transparent py-4' : 'bg-white shadow-md border-b border-border-soft py-2'">
 
-    <!-- Main header -->
-    <div class="max-w-7xl mx-auto px-4 lg:px-6 flex items-center justify-between h-16 md:h-20 transition-all duration-500 ease-out">
+    <x-public.announcement-banner />
 
-        <a href="{{ route('home') }}" class="flex items-center gap-3 shrink-0 group py-2">
+    <!-- Main header -->
+    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 transition duration-500 ease-out md:h-20 lg:px-6">
+
+        <a href="{{ route('home') }}" class="group flex min-w-0 shrink-0 items-center py-2">
             <img src="{{ asset('images/logo-as.png') }}" alt="Bandara Kalimarau"
-                    class="w-auto object-contain h-11 md:h-12 transition-transform duration-300 group-hover:scale-105 filter"
-                    :class="(transparent && !scrolled) ? 'brightness-0 invert drop-shadow-[0_2px_10px_rgba(0,0,0,0.75)]' : 'drop-shadow-md'"
-                    onerror="this.src='https://placehold.co/200x50?text=Kalimarau'">
+                    class="h-10 w-auto max-w-[11rem] object-contain transition-transform duration-300 group-hover:scale-[1.02] md:h-11 md:max-w-[13rem]"
+                    :class="(transparent && !scrolled) ? 'brightness-0 invert drop-shadow-md' : 'drop-shadow-md'"
+                    onerror="this.onerror=null;this.src='{{ asset('images/logo-header.png') }}'">
         </a>
 
         <!-- Desktop nav -->
-        <nav class="hidden lg:flex flex-1 justify-center items-center gap-2 xl:gap-3" :class="(transparent && !scrolled) ? 'text-white' : 'text-navy'">
+        <nav class="hidden min-w-0 flex-1 items-center justify-center gap-2 lg:flex xl:gap-4" :class="(transparent && !scrolled) ? 'text-white' : 'text-navy'">
             <a href="{{ route('home') }}" class="group relative px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
                 Beranda
-                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-[calc(100%-1.5rem)] rounded-full"></span>
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition duration-300 group-hover:w-[calc(100%-1.5rem)] rounded-full"></span>
             </a>
 
-                @foreach($navGroups as $groupLabel => $items)
+            @foreach($navGroups as $groupLabel => $items)
                 <div class="relative group/dropdown" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" @click.outside="open = false" @keydown.escape.window="open = false">
                     <button type="button" @click="open = !open" :aria-expanded="open.toString()" aria-haspopup="true" class="group relative flex items-center gap-1 px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
                         {{ $groupLabel }}
-                        <svg class="w-4 h-4 transition-transform duration-300 group-hover/dropdown:-rotate-180 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-[calc(100%-1.5rem)] rounded-full"></span>
+                        <svg class="w-4 h-4 transition-transform duration-300 opacity-70" :class="{ '-rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition duration-300 rounded-full" :class="open ? 'w-[calc(100%-1.5rem)]' : 'w-0 group-hover:w-[calc(100%-1.5rem)]'"></span>
                     </button>
-                        <div x-show="open"
-                             x-transition:enter="transition ease-out duration-250"
-                             x-transition:enter-start="opacity-0 translate-y-3"
-                             x-transition:enter-end="opacity-100 translate-y-0"
-                             x-transition:leave="transition ease-in duration-150"
-                             x-transition:leave-start="opacity-100 translate-y-0"
-                             x-transition:leave-end="opacity-0 translate-y-2"
-                             class="absolute top-full left-0 mt-3 bg-white border border-navy/5 rounded-2xl shadow-[0_15px_50px_-10px_rgba(20,35,58,0.15)] py-2.5 min-w-60 z-50 overflow-hidden" style="display: none;">
-                            @foreach($items as $item)
-                                <a href="{{ isset($item['route']) ? route($item['route']) : (isset($item['url']) ? $item['url'] : route('pages.show', $item['slug'])) }}"
-                                   @if($item['external'] ?? false) target="_blank" rel="noopener noreferrer" @endif
-                                   class="group/item flex items-center px-5 py-2.5 text-sm font-semibold text-navy/80 hover:bg-[#f5f7fa] hover:text-navy transition-all duration-350">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-gold opacity-0 -translate-x-2 mr-0 w-0 transition-all duration-300 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:w-2 group-hover/item:mr-2"></span>
-                                    <span>{{ $item['label'] }}</span>
-                                    @if($item['external'] ?? false)
-                                        <svg class="w-3.5 h-3.5 ml-1.5 text-text-muted transition-transform group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                                    @endif
-                                </a>
-                            @endforeach
-                        </div>
+                    <div x-cloak
+                         x-show="open"
+                         x-transition:enter="transition ease-out duration-250"
+                         x-transition:enter-start="opacity-0 translate-y-3"
+                         x-transition:enter-end="opacity-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 translate-y-2"
+                         class="absolute top-full left-0 mt-3 bg-white border border-navy/5 rounded-xl shadow-lg shadow-navy-dark/10 py-2 min-w-60 z-50 overflow-hidden">
+                        @foreach($items as $item)
+                            <a href="{{ isset($item['route']) ? route($item['route']) : (isset($item['url']) ? $item['url'] : route('pages.show', $item['slug'])) }}"
+                               @if($item['external'] ?? false) target="_blank" rel="noopener noreferrer" @endif
+                               class="group flex items-center px-5 py-2.5 text-sm font-semibold text-navy/80 hover:bg-surface hover:text-navy transition-colors duration-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-gold opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 mr-2 transition duration-200"></span>
+                                <span>{{ $item['label'] }}</span>
+                                @if($item['external'] ?? false)
+                                    <svg class="w-3.5 h-3.5 ml-1.5 text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                @endif
+                            </a>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
+            @endforeach
 
             <!-- PPID Dropdown (Single Level) -->
             <div class="relative group/ppid" x-data="{ openPpid: false }" @mouseenter="openPpid = true" @mouseleave="openPpid = false" @click.outside="openPpid = false" @keydown.escape.window="openPpid = false">
                 <button type="button" @click="openPpid = !openPpid" :aria-expanded="openPpid.toString()" aria-haspopup="true" class="group relative flex items-center gap-1 px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
                     PPID
-                    <svg class="w-4 h-4 transition-transform duration-300 group-hover/ppid:-rotate-180 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-[calc(100%-1.5rem)] rounded-full"></span>
+                    <svg class="w-4 h-4 transition-transform duration-300 opacity-70" :class="{ '-rotate-180': openPpid }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition duration-300 rounded-full" :class="openPpid ? 'w-[calc(100%-1.5rem)]' : 'w-0 group-hover:w-[calc(100%-1.5rem)]'"></span>
                 </button>
-                    <div x-show="openPpid"
-                          x-transition:enter="transition ease-out duration-250"
-                          x-transition:enter-start="opacity-0 translate-y-3"
-                          x-transition:enter-end="opacity-100 translate-y-0"
-                          x-transition:leave="transition ease-in duration-150"
-                          x-transition:leave-start="opacity-100 translate-y-0"
-                          x-transition:leave-end="opacity-0 translate-y-2"
-                          class="absolute top-full right-0 mt-3 bg-white border border-navy/5 rounded-2xl shadow-[0_15px_50px_-10px_rgba(20,35,58,0.15)] py-2.5 min-w-64 z-50 overflow-hidden" style="display: none;">
-                        @foreach($ppidGroups as $item)
-                            <a href="{{ isset($item['sub']) ? route('ppid.show', $item['sub']) : route('pages.show', $item['slug']) }}"
-                               class="group/item flex items-center px-5 py-2.5 text-sm font-semibold text-navy/80 hover:bg-[#f5f7fa] hover:text-navy transition-all duration-350">
-                                <span class="w-1.5 h-1.5 rounded-full bg-gold opacity-0 -translate-x-2 mr-0 w-0 transition-all duration-300 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:w-2 group-hover/item:mr-2"></span>
-                                <span>{{ $item['label'] }}</span>
-                            </a>
-                        @endforeach
-                    </div>
+                <div x-cloak
+                     x-show="openPpid"
+                     x-transition:enter="transition ease-out duration-250"
+                     x-transition:enter-start="opacity-0 translate-y-3"
+                     x-transition:enter-end="opacity-100 translate-y-0"
+                     x-transition:leave="transition ease-in duration-150"
+                     x-transition:leave-start="opacity-100 translate-y-0"
+                     x-transition:leave-end="opacity-0 translate-y-2"
+                     class="absolute top-full right-0 mt-3 bg-white border border-navy/5 rounded-xl shadow-lg shadow-navy-dark/10 py-2 min-w-64 z-50 overflow-hidden">
+                    @foreach($ppidGroups as $item)
+                        <a href="{{ isset($item['sub']) ? route('ppid.show', $item['sub']) : route('pages.show', $item['slug']) }}"
+                           class="group flex items-center px-5 py-2.5 text-sm font-semibold text-navy/80 hover:bg-surface hover:text-navy transition-colors duration-200">
+                            <span class="w-1.5 h-1.5 rounded-full bg-gold opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 mr-2 transition duration-200"></span>
+                            <span>{{ $item['label'] }}</span>
+                        </a>
+                    @endforeach
                 </div>
+            </div>
 
-                <a href="{{ route('contact.index') }}" class="group relative px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
-                    Kontak
-                    <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-[calc(100%-1.5rem)] rounded-full"></span>
-                </a>
-            </nav>
+            <a href="{{ route('contact.index') }}" class="group relative px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
+                Kontak
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition duration-300 group-hover:w-[calc(100%-1.5rem)] rounded-full"></span>
+            </a>
+        </nav>
 
-
-
-            <!-- Mobile menu button -->
-            <button type="button" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen.toString()" aria-controls="mobile-navigation" class="lg:hidden p-2.5 -mr-2.5 hover:bg-white/10 rounded-lg transition-colors" :class="(transparent && !scrolled) ? 'text-white' : 'text-navy'" aria-label="Menu">
-                <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-                <svg x-show="mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-        </div>
+        <!-- Mobile menu button -->
+        <button type="button" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen.toString()" aria-controls="mobile-navigation" class="lg:hidden p-2.5 -mr-2.5 hover:bg-white/10 rounded-lg transition-colors" :class="(transparent && !scrolled) ? 'text-white' : 'text-navy'" aria-label="Menu">
+            <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg x-show="mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+    </div>
 
     <!-- Mobile drawer -->
-    <div id="mobile-navigation" x-show="mobileOpen"
+    <div id="mobile-navigation" x-cloak x-show="mobileOpen"
          x-transition:enter="transition ease-out duration-300 transform origin-top"
          x-transition:enter-start="opacity-0 -translate-y-4 scale-y-95"
          x-transition:enter-end="opacity-100 translate-y-0 scale-y-100"
          x-transition:leave="transition ease-in duration-200 transform origin-top"
          x-transition:leave-start="opacity-100 translate-y-0 scale-y-100"
          x-transition:leave-end="opacity-0 -translate-y-4 scale-y-95"
-         @keydown.escape.window="mobileOpen = false" class="lg:hidden absolute top-full left-0 w-full bg-white border-b border-border-soft shadow-xl z-40" style="display: none;" x-data="{ expanded: null }">
+         @keydown.escape.window="mobileOpen = false" class="lg:hidden absolute top-full left-0 w-full bg-white border-b border-border-soft shadow-lg shadow-navy-dark/10 z-40" x-data="{ expanded: null }">
         <nav class="max-w-7xl mx-auto px-4 py-3 space-y-0.5 h-[calc(100vh-4rem)] overflow-y-auto">
             <a href="{{ route('home') }}" class="block px-3 py-2.5 text-sm font-medium text-text-main hover:text-navy rounded-md">Beranda</a>
 
@@ -141,7 +142,7 @@
                         <span>{{ $groupLabel }}</span>
                         <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': expanded === '{{ $groupLabel }}' }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
-                    <div x-show="expanded === '{{ $groupLabel }}'" class="pl-4 pb-1 space-y-0.5" style="display: none;">
+                    <div x-show="expanded === '{{ $groupLabel }}'" class="pl-4 pb-1 space-y-0.5">
                         @foreach($items as $item)
                             <a href="{{ isset($item['route']) ? route($item['route']) : (isset($item['url']) ? $item['url'] : route('pages.show', $item['slug'])) }}"
                                @if($item['external'] ?? false) target="_blank" rel="noopener noreferrer" @endif
@@ -162,7 +163,7 @@
                     <span>PPID</span>
                     <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': expanded === 'PPID' }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
-                <div x-show="expanded === 'PPID'" class="pl-4 pb-1 space-y-0.5" style="display: none;">
+                <div x-show="expanded === 'PPID'" class="pl-4 pb-1 space-y-0.5">
                     @foreach($ppidGroups as $item)
                         <a href="{{ isset($item['sub']) ? route('ppid.show', $item['sub']) : route('pages.show', $item['slug']) }}"
                            class="flex items-center px-3 py-2 text-sm text-text-muted hover:text-navy rounded-md">

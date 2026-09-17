@@ -7,8 +7,8 @@
     ];
 @endphp
 
-<section class="py-16 lg:py-24 bg-gray-50 border-t border-gray-100">
-    <div class="max-w-4xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out delay-100">
+<section class="py-16 lg:py-24 bg-surface border-t border-border-soft/70">
+    <div class="max-w-4xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition duration-[1000ms] ease-out delay-100">
         <div class="text-center mb-16">
             <h2 class="font-sans text-3xl md:text-4xl font-extrabold tracking-tight text-navy-dark mb-4">Pertanyaan Seputar Bandara</h2>
             <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
@@ -22,11 +22,11 @@
         </div>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4 mt-12">
-            <a href="{{ route('faq') }}" class="inline-flex justify-center items-center gap-3 px-8 py-3.5 bg-white text-navy border-2 border-navy rounded-full shadow-md hover:bg-navy hover:text-white hover:-translate-y-0.5 transition-all duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
+            <a href="{{ route('faq') }}" class="inline-flex justify-center items-center gap-3 px-8 py-3.5 bg-white text-navy border-2 border-navy rounded-full shadow-md hover:bg-navy hover:text-white hover:-translate-y-0.5 transition duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
                 <span class="text-sm font-semibold">Lihat Semua FAQ</span>
-                <x-icon-arrow class="w-4 h-4 text-navy group-hover:text-gold-light group-hover:translate-x-1 transition-all" />
+                <x-icon-arrow class="w-4 h-4 text-navy group-hover:text-gold-light group-hover:translate-x-1 transition" />
             </a>
-            <a href="{{ route('contact.index') }}" class="inline-flex justify-center items-center gap-3 px-8 py-3.5 bg-navy text-white rounded-full shadow-md shadow-navy/15 hover:bg-navy-dark hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
+            <a href="{{ route('contact.index') }}" class="inline-flex justify-center items-center gap-3 px-8 py-3.5 bg-navy text-white rounded-full shadow-md shadow-navy/15 hover:bg-navy-dark hover:-translate-y-0.5 hover:shadow-lg transition duration-300 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
                 <span class="text-sm font-semibold">Punya pertanyaan lain? Hubungi Kami</span>
             </a>
         </div>

@@ -2,11 +2,10 @@
     title="Pencarian - Bandara Kalimarau"
     description="Cari informasi, berita, dan halaman layanan Bandara Kalimarau."
     :canonical="route('search')"
-    :withHeaderPadding="true"
     robots="noindex, follow"
 >
     <!-- Breadcrumb -->
-    <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
+    <div class="bg-surface py-4 sm:py-6 border-b border-border-soft">
         <div class="max-w-7xl mx-auto px-4 lg:px-6">
             <x-breadcrumb :items="[
                 ['label' => 'Beranda', 'url' => route('home')],
@@ -15,36 +14,51 @@
         </div>
     </div>
 
-    <!-- Search Header -->
-    <div class="relative bg-navy-dark pt-20 pb-16 lg:pt-28 lg:pb-24 overflow-hidden border-b border-white/10">
-        <!-- Background Elements -->
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.14),_transparent_34%),radial-gradient(circle_at_bottom_right,_rgba(200,134,10,0.18),_transparent_32%)]"></div>
-        <div class="relative max-w-3xl mx-auto px-4 text-center">
-            <h1 class="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-8">Pencarian Informasi</h1>
+    <!-- Search Header (Golden Standard Compliant) -->
+    <div class="py-12 md:py-16 bg-white border-b border-border-soft/70" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
+        <div class="max-w-3xl mx-auto px-4 text-center">
+            <h1 x-show="loaded"
+                x-transition:enter="transition ease-out duration-500 delay-100"
+                x-transition:enter-start="opacity-0 translate-y-8"
+                x-transition:enter-end="opacity-100 translate-y-0"
 
-            <form action="{{ route('search') }}" method="GET" class="relative group">
-                <div class="absolute inset-y-0 left-0 flex items-center pl-6 pointer-events-none text-navy/40 group-focus-within:text-sky transition-colors">
+                class="font-sans text-2xl md:text-3xl font-extrabold text-navy-dark leading-snug mb-3">Pencarian Informasi</h1>
+
+            <div x-show="loaded"
+                 x-transition:enter="transition ease-out duration-500 delay-200"
+                 x-transition:enter-start="opacity-0 scale-0"
+                 x-transition:enter-end="opacity-100 scale-100"
+
+                 class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
+
+            <form action="{{ route('search') }}" method="GET" class="relative group mt-6"
+                  x-show="loaded"
+                  x-transition:enter="transition ease-out duration-500 delay-300"
+                  x-transition:enter-start="opacity-0 translate-y-4"
+                  x-transition:enter-end="opacity-100 translate-y-0"
+                  >
+                <div class="absolute inset-y-0 left-0 flex items-center pl-6 pointer-events-none text-text-muted/70 group-focus-within:text-navy transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
                 <input type="text" name="q" value="{{ $keyword }}" placeholder="Ketik kata kunci yang ingin Anda cari..."
-                       class="w-full bg-white text-navy font-medium text-lg rounded-2xl sm:rounded-full py-4 sm:py-5 pl-16 pr-32 sm:pr-40 shadow-md shadow-navy-dark/10 focus:outline-none focus:ring-4 focus:ring-sky/30 border-2 border-transparent focus:border-sky transition-all placeholder-navy/30"
+                       class="w-full bg-surface text-navy font-medium text-lg rounded-2xl sm:rounded-full py-4 sm:py-5 pl-16 pr-32 sm:pr-40 shadow-sm border border-border-soft focus:bg-white focus:outline-none focus:ring-2 focus:ring-gold focus:border-gold transition placeholder:text-text-muted"
                        required autocomplete="off">
-                <button type="submit" class="absolute inset-y-2 right-2 bg-navy hover:bg-navy-dark text-white px-6 sm:px-8 py-2 rounded-xl sm:rounded-full font-bold text-sm sm:text-base transition-all hover:shadow-md hover:-translate-y-0.5">
+                <button type="submit" class="absolute inset-y-2 right-2 bg-navy hover:bg-navy-dark text-white px-6 sm:px-8 py-2 rounded-xl sm:rounded-full font-bold text-sm sm:text-base transition shadow-sm hover:shadow-md">
                     Cari
                 </button>
             </form>
             @if(!empty($keyword))
-                <p class="mt-6 text-white/70 text-sm sm:text-base">Menampilkan hasil pencarian untuk: <strong class="text-white">"{{ $keyword }}"</strong></p>
+                <p class="mt-6 text-text-muted text-sm sm:text-base">Menampilkan hasil pencarian untuk: <strong class="text-navy-dark">"{{ $keyword }}"</strong></p>
             @endif
         </div>
     </div>
 
     <!-- Results Area -->
-    <div class="py-16 lg:py-24 bg-surface min-h-[50vh]" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
+    <div class="py-12 bg-white min-h-[50vh]" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
         <div class="max-w-4xl mx-auto px-4"
-             x-show="loaded" x-transition:enter="transition-all ease-out duration-500"
+             x-show="loaded" x-transition:enter="transition ease-out duration-500"
              x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0"
-             style="display: none;">
+             >
 
             @if(empty($keyword))
                 <!-- Initial Empty State -->
@@ -77,13 +91,13 @@
                                 </div>
                                 <div class="grid gap-4">
                                     @foreach($pages as $page)
-                                    <a href="{{ route('pages.show', $page->slug) }}" class="group block bg-white rounded-2xl p-6 border border-border-soft shadow-sm hover:shadow-lg hover:border-sky/50 hover:-translate-y-0.5 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
+                                    <a href="{{ route('pages.show', $page->slug) }}" class="group block bg-white rounded-2xl p-6 border border-border-soft shadow-sm hover:shadow-lg hover:border-gold/50 hover:-translate-y-0.5 transition duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
                                         <div class="flex items-start justify-between gap-4">
                                             <div>
-                                                <h3 class="text-lg font-bold text-navy group-hover:text-sky transition-colors mb-2">{{ $page->title }}</h3>
+                                                <h3 class="text-lg font-bold text-navy group-hover:text-gold-ink transition-colors mb-2">{{ $page->title }}</h3>
                                                 <p class="text-text-muted text-sm leading-relaxed line-clamp-2">{{ $page->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($page->content), 180) }}</p>
                                             </div>
-                                            <div class="w-10 h-10 rounded-full bg-surface shrink-0 flex items-center justify-center text-navy group-hover:bg-sky group-hover:text-white transition-colors">
+                                            <div class="w-10 h-10 rounded-full bg-surface shrink-0 flex items-center justify-center text-navy group-hover:bg-navy group-hover:text-gold transition-colors">
                                                 <svg class="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                             </div>
                                         </div>
@@ -101,10 +115,10 @@
                                 </div>
                                 <div class="grid gap-4">
                                     @foreach($posts as $post)
-                                    <a href="{{ route('posts.show', $post->slug) }}" class="group block bg-white rounded-2xl p-6 border border-border-soft shadow-sm hover:shadow-lg hover:border-sky/50 hover:-translate-y-0.5 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
+                                    <a href="{{ route('posts.show', $post->slug) }}" class="group block bg-white rounded-2xl p-6 border border-border-soft shadow-sm hover:shadow-lg hover:border-gold/50 hover:-translate-y-0.5 transition duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
                                         <div class="flex items-start justify-between gap-4">
                                             <div>
-                                                <h3 class="text-lg font-bold text-navy group-hover:text-sky transition-colors mb-1.5">{{ $post->title }}</h3>
+                                                <h3 class="text-lg font-bold text-navy group-hover:text-gold-ink transition-colors mb-1.5">{{ $post->title }}</h3>
                                                 <div class="flex items-center gap-2 mb-3">
                                                     <span class="text-xs font-semibold text-gold tracking-wide uppercase">Berita</span>
                                                     <span class="w-1 h-1 rounded-full bg-border-soft"></span>
@@ -112,7 +126,7 @@
                                                 </div>
                                                 <p class="text-text-muted text-sm leading-relaxed line-clamp-2">{{ $post->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($post->content), 180) }}</p>
                                             </div>
-                                            <div class="w-10 h-10 rounded-full bg-surface shrink-0 flex items-center justify-center text-navy group-hover:bg-sky group-hover:text-white transition-colors">
+                                            <div class="w-10 h-10 rounded-full bg-surface shrink-0 flex items-center justify-center text-navy group-hover:bg-navy group-hover:text-gold transition-colors">
                                                 <svg class="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                             </div>
                                         </div>
@@ -129,10 +143,10 @@
                                 </div>
                                 <div class="grid gap-4">
                                     @foreach($documents as $doc)
-                                    <a href="{{ \Illuminate\Support\Facades\Storage::url($doc->file_path) }}" target="_blank" class="group block bg-white rounded-2xl p-6 border border-border-soft shadow-sm hover:shadow-lg hover:border-sky/50 hover:-translate-y-0.5 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
+                                    <a href="{{ \Illuminate\Support\Facades\Storage::url($doc->file_path) }}" target="_blank" class="group block bg-white rounded-2xl p-6 border border-border-soft shadow-sm hover:shadow-lg hover:border-gold/50 hover:-translate-y-0.5 transition duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
                                         <div class="flex items-start justify-between gap-4">
                                             <div>
-                                                <h3 class="text-lg font-bold text-navy group-hover:text-sky transition-colors mb-1.5">{{ $doc->title }}</h3>
+                                                <h3 class="text-lg font-bold text-navy group-hover:text-gold-ink transition-colors mb-1.5">{{ $doc->title }}</h3>
                                                 <div class="flex items-center gap-2 mb-3">
                                                     <span class="text-xs font-semibold text-gold tracking-wide uppercase">Dokumen</span>
                                                     <span class="w-1 h-1 rounded-full bg-border-soft"></span>
@@ -140,7 +154,7 @@
                                                 </div>
                                                 <p class="text-text-muted text-sm leading-relaxed line-clamp-2">{{ $doc->description }}</p>
                                             </div>
-                                            <div class="w-10 h-10 rounded-full bg-surface shrink-0 flex items-center justify-center text-navy group-hover:bg-sky group-hover:text-white transition-colors">
+                                            <div class="w-10 h-10 rounded-full bg-surface shrink-0 flex items-center justify-center text-navy group-hover:bg-navy group-hover:text-gold transition-colors">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                             </div>
                                         </div>

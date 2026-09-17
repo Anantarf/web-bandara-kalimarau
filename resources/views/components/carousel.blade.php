@@ -48,7 +48,7 @@
 
                 <!-- Hover Hint (Magnifying Glass) -->
                 <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover/track:opacity-100 transition-opacity duration-300 pointer-events-none">
-                    <div class="bg-navy/90 text-white p-3.5 rounded-full shadow-xl backdrop-blur-md transform scale-90 group-hover/track:scale-100 transition-all duration-300">
+                    <div class="bg-navy/90 text-white p-3.5 rounded-full shadow-xl backdrop-blur-md transform scale-90 group-hover/track:scale-100 transition duration-300">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
                     </div>
                 </div>
@@ -56,21 +56,21 @@
         </template>
 
         <!-- Previous Button -->
-        <button @click="prev" class="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/90 hover:bg-white text-navy flex items-center justify-center shadow-[0_2px_10px_rgba(0,0,0,0.08)] backdrop-blur transition-all duration-300 transform hover:scale-110 z-20 group" aria-label="Previous">
+        <button @click="prev" class="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-11 w-11 md:h-12 md:w-12 rounded-full border border-border-soft bg-white text-navy flex items-center justify-center transition-colors duration-200 z-20 group" aria-label="Penghargaan sebelumnya">
             <svg class="w-5 h-5 md:w-6 md:h-6 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         </button>
 
         <!-- Next Button -->
-        <button @click="next" class="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/90 hover:bg-white text-navy flex items-center justify-center shadow-[0_2px_10px_rgba(0,0,0,0.08)] backdrop-blur transition-all duration-300 transform hover:scale-110 z-20 group" aria-label="Next">
+        <button @click="next" class="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 h-11 w-11 md:h-12 md:w-12 rounded-full border border-border-soft bg-white text-navy flex items-center justify-center transition-colors duration-200 z-20 group" aria-label="Penghargaan berikutnya">
             <svg class="w-5 h-5 md:w-6 md:h-6 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </button>
 
         <!-- Indicators -->
-        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-20 bg-white/70 backdrop-blur-md px-3.5 py-2 rounded-full shadow-sm border border-gray-100/50" role="tablist">
+        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-20 bg-white px-1 py-1 rounded-full border border-border-soft" role="tablist">
             <template x-for="(slide, index) in slides" :key="index">
                 <button @click="activeSlide = index"
-                        :class="activeSlide === index ? 'bg-navy w-6' : 'bg-gray-400 hover:bg-navy/70 w-2'"
-                        class="h-2 rounded-full transition-all duration-500 ease-out" :aria-label="'Go to slide ' + (index + 1)" role="tab" :aria-selected="activeSlide === index"></button>
+
+                        class="carousel-indicator -mx-2.5 h-11 w-11 rounded-full" :aria-label="'Tampilkan penghargaan ke-' + (index + 1)" role="tab" :aria-selected="activeSlide === index"></button>
             </template>
         </div>
     </div>
@@ -85,18 +85,18 @@
              x-transition:leave="transition ease-in duration-200"
              x-transition:leave-start="opacity-100 backdrop-blur-sm"
              x-transition:leave-end="opacity-0 backdrop-blur-none"
-             style="display: none; z-index: 9999;"
-             class="fixed inset-0 flex items-center justify-center bg-black/90 p-4 sm:p-10"
+
+             class="fixed inset-0 z-[70] flex items-center justify-center bg-black/90 p-4 sm:p-10" role="dialog" aria-modal="true" aria-label="Pratinjau penghargaan"
              @click.self="closeModal()"
              @keydown.escape.window="closeModal()"
              @keydown.arrow-right.window="if(isModalOpen) next()"
              @keydown.arrow-left.window="if(isModalOpen) prev()">
 
-            <button @click="closeModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white hover:text-gray-300 bg-black/50 rounded-full p-2 z-50">
+            <button @click="closeModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 inline-flex h-11 w-11 items-center justify-center text-navy hover:text-gold bg-white/90 hover:bg-white rounded-full transition-colors z-50" aria-label="Tutup pratinjau">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
 
-            <button @click.stop="prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition z-50" aria-label="Previous">
+            <button @click.stop="prev" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition z-50" aria-label="Penghargaan sebelumnya">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
             </button>
 
@@ -104,7 +104,7 @@
                 <img :src="slides[activeSlide]" loading="lazy" class="w-auto h-auto max-h-[85vh] object-contain select-none rounded-xl shadow-xl ring-1 ring-white/20" alt="Penghargaan Zoom">
             </div>
 
-            <button @click.stop="next" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition z-50" aria-label="Next">
+            <button @click.stop="next" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-black text-white flex items-center justify-center transition z-50" aria-label="Penghargaan berikutnya">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </button>
         </div>

@@ -38,14 +38,16 @@ class SearchController extends Controller
                 ->get();
 
             $documents = PpidDocument::query()
-                ->where('is_active', true)
+                ->published()
                 ->where(function ($q) use ($keyword) {
                     $q->where('title', 'like', "%{$keyword}%")
                         ->orWhere('description', 'like', "%{$keyword}%");
                 })
                 ->latest('published_at')
                 ->take(10)
-                ->get();
+                ->get()
+                ->filter(fn (PpidDocument $document): bool => $document->hasFile())
+                ->values();
         }
 
         return view('search.results', compact('keyword', 'posts', 'pages', 'documents'));

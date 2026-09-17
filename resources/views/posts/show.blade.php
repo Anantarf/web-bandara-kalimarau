@@ -9,7 +9,7 @@
     @if($preview ?? false)
         <div class="bg-amber-100 border-b border-amber-300 py-3 text-center text-sm font-medium text-amber-900">Pratinjau admin. Konten ini belum tersedia untuk publik.</div>
     @endif
-    <div class="bg-gray-50 py-4 sm:py-6 border-b border-gray-200">
+    <div class="bg-surface py-4 sm:py-6 border-b border-border-soft">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
             <!-- Breadcrumb -->
             <x-breadcrumb :items="[
@@ -43,26 +43,26 @@
         'mainEntityOfPage' => route('posts.show', $post->slug),
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 
-    <article class="pt-12 pb-24 bg-white" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl transition-all duration-500 ease-out transform"
+    <article class="pt-4 md:pt-6 pb-16 bg-white" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl transition duration-500 ease-out transform"
              :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'">
 
-            <header class="mb-10 text-center md:text-left">
+            <header class="mb-6 text-center md:text-left">
                 <h1 x-show="loaded"
-                    x-transition:enter="transition-all ease-out duration-500 delay-100"
+                    x-transition:enter="transition ease-out duration-500 delay-100"
                     x-transition:enter-start="opacity-0 translate-y-8"
                     x-transition:enter-end="opacity-100 translate-y-0"
-                    style="display: none;"
-                    class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">{{ $post->title }}</h1>
+
+                    class="font-sans text-2xl md:text-3xl font-extrabold text-navy-dark leading-snug mb-3">{{ $post->title }}</h1>
 
                 <div x-show="loaded"
-                     x-transition:enter="transition-all ease-out duration-500 delay-200"
+                     x-transition:enter="transition ease-out duration-500 delay-200"
                      x-transition:enter-start="opacity-0 scale-0"
                      x-transition:enter-end="opacity-100 scale-100"
-                     style="display: none;"
+
                      class="h-1.5 w-20 bg-gold-light rounded-full mb-6 mx-auto md:mx-0 origin-left"></div>
 
-                <div class="flex flex-wrap items-center justify-center md:justify-start text-sm text-text-muted gap-4 pb-6 border-b border-gray-100">
+                <div class="flex flex-wrap items-center justify-center md:justify-start text-sm text-text-muted gap-4 pb-6 border-b border-border-soft/70">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-2 text-text-muted/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         {{ $post->published_at?->translatedFormat('d F Y') ?? 'Belum dipublikasikan' }}
@@ -72,7 +72,7 @@
                         {{ $post->author->name ?? 'Admin Kalimarau' }}
                     </div>
                     <div class="flex items-center ml-auto">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-gold/10 text-gold-dark">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-gold/10 text-gold-ink">
                             Berita
                         </span>
                     </div>
@@ -81,19 +81,19 @@
 
             <!-- Featured Image -->
             @if($post->featured_image_url)
-                <figure class="mb-10 rounded-xl overflow-hidden bg-gray-100 border border-gray-100">
+                <figure class="mb-8 rounded-xl overflow-hidden bg-surface border border-border-soft/70">
                     <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" class="w-full h-auto object-cover max-h-[600px]">
                 </figure>
             @endif
 
             <!-- Content Area -->
-            <div class="prose prose-lg prose-blue max-w-none text-gray-800">
+            <div class="prose prose-lg max-w-none text-text-main prose-headings:text-navy-dark prose-a:text-navy hover:prose-a:text-gold-ink font-medium">
                 {!! $post->content !!}
             </div>
 
             <!-- Simple Share Buttons -->
-            <div class="mt-12 pt-6 border-t border-gray-200 flex items-center">
-                <span class="font-medium text-gray-700 mr-4">Bagikan:</span>
+            <div class="mt-12 pt-6 border-t border-border-soft flex items-center">
+                <span class="font-medium text-text-main mr-4">Bagikan:</span>
                 <div class="flex space-x-2">
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" target="_blank" class="w-11 h-11 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors" aria-label="Share to Facebook">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
@@ -110,17 +110,17 @@
     </article>
 
     @if($relatedPosts->count() > 0)
-    <section class="py-12 bg-gray-50 border-t border-gray-200">
+    <section class="py-12 bg-surface border-t border-border-soft">
         <div class="container mx-auto px-4 max-w-4xl">
             <h2 class="subsection-title mb-8">Berita Terkait</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @foreach($relatedPosts as $related)
-                <div class="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                    <a href="{{ route('posts.show', $related->slug) }}" class="block overflow-hidden bg-gray-100 aspect-video relative">
+                <div class="group bg-white rounded-xl shadow-sm border border-border-soft/70 overflow-hidden">
+                    <a href="{{ route('posts.show', $related->slug) }}" class="block overflow-hidden bg-surface aspect-video relative">
                         @if($related->featured_image_url)
                             <img src="{{ $related->featured_image_url }}" alt="{{ $related->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         @else
-                            <div class="w-full h-full flex items-center justify-center text-gray-300">
+                            <div class="w-full h-full flex items-center justify-center text-text-muted/50">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M14 8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             </div>
                         @endif
@@ -128,7 +128,7 @@
                     <div class="p-4">
                         <span class="text-xs text-text-muted mb-2 block">{{ $related->published_at->translatedFormat('d M Y') }}</span>
                         <a href="{{ route('posts.show', $related->slug) }}" class="block">
-                            <h3 class="font-bold text-navy group-hover:text-sky transition-colors line-clamp-2 text-sm">{{ $related->title }}</h3>
+                            <h3 class="font-bold text-navy group-hover:text-gold-ink transition-colors line-clamp-2 text-sm">{{ $related->title }}</h3>
                         </a>
                     </div>
                 </div>

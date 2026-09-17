@@ -67,4 +67,26 @@ class PageContent
             $content
         ) ?? $content;
     }
+
+    public static function withoutDuplicateTitleHeading(string $content, ?string $title = null, ?string $currentSub = null): string
+    {
+        if (empty(trim($content))) {
+            return $content;
+        }
+
+        $titlesToStrip = array_filter([
+            $title,
+            $title ? str_replace('Profile', 'Profil', $title) : null,
+            $title ? str_replace('Profil', 'Profile', $title) : null,
+            $currentSub ? ucwords(str_replace('-', ' ', $currentSub)) : null,
+            'Pejabat Pengelola Informasi dan Dokumentasi (PPID)',
+        ]);
+
+        foreach ($titlesToStrip as $t) {
+            $escaped = preg_quote($t, '/');
+            $content = preg_replace('/^\s*<h[12][^>]*>\s*' . $escaped . '\s*<\/h[12]>\s*/iu', '', $content) ?? $content;
+        }
+
+        return $content;
+    }
 }

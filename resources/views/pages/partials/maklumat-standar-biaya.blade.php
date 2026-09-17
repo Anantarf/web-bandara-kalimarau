@@ -5,7 +5,7 @@
 
                             <!-- Section 1: Maklumat Pelayanan -->
                             <div class="mb-12">
-                                <h3 id="maklumat-pelayanan" class="text-2xl font-extrabold leading-tight text-navy-dark border-b border-gray-100 pb-2 mb-6 scroll-mt-32">Maklumat Pelayanan</h3>
+                                <h3 id="maklumat-pelayanan" class="text-2xl font-extrabold leading-tight text-navy-dark border-b border-border-soft/70 pb-2 mb-6 scroll-mt-32">Maklumat Pelayanan</h3>
                                 <x-lightbox-image
                                     src="{{ asset('images/ppid/maklumat-ppid-page-1.jpg') }}"
                                     alt="Maklumat Pelayanan PPID Bandar Udara Kalimarau"
@@ -14,7 +14,7 @@
 
                             <!-- Section 2: Standar Biaya -->
                             <div class="mt-16">
-                                <h3 id="standar-biaya" class="text-2xl font-extrabold leading-tight text-navy-dark border-b border-gray-100 pb-2 mb-6 scroll-mt-32">Standar Biaya</h3>
+                                <h3 id="standar-biaya" class="text-2xl font-extrabold leading-tight text-navy-dark border-b border-border-soft/70 pb-2 mb-6 scroll-mt-32">Standar Biaya</h3>
                                 <x-lightbox-image
                                     src="{{ asset('images/ppid/standar-biaya-page-1.jpg') }}"
                                     alt="Standar Biaya Layanan Informasi PPID Bandar Udara Kalimarau"

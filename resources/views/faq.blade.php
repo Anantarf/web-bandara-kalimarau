@@ -8,7 +8,7 @@
         description="Temukan jawaban cepat untuk berbagai pertanyaan seputar layanan, fasilitas, dan prosedur di Bandara Kalimarau."
         container-class="max-w-4xl mx-auto px-4"
         align="center"
-        header-class="pt-16 pb-12 bg-white"
+        header-class="py-6 md:py-8 bg-white"
         :breadcrumbs="[
             ['label' => 'Beranda', 'url' => route('home')],
             ['label' => 'Informasi'],
@@ -16,23 +16,24 @@
         ]" />
 
     <!-- FAQ Content Section -->
-    <section class="bg-gray-50 py-16">
-        <div class="max-w-4xl mx-auto px-4" x-data="{ activeAccordion: null, searchQuery: '', loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
+    <section class="bg-white pb-12">
+        <div class="max-w-4xl mx-auto px-4" x-data="{ activeAccordion: null, searchQuery: '', loaded: true }">
 
             <!-- Live Search Bar -->
-            <div class="mb-12 relative max-w-2xl mx-auto"
+            <div class="mb-8 relative max-w-2xl mx-auto"
                  x-show="loaded"
-                 x-transition:enter="transition-all ease-out duration-500 delay-400"
+                 x-transition:enter="transition ease-out duration-500 delay-400"
                  x-transition:enter-start="opacity-0 translate-y-4"
                  x-transition:enter-end="opacity-100 translate-y-0"
-                 style="display: none;">
-                <input type="text" x-model="searchQuery" placeholder="Cari pertanyaan atau kata kunci..."
-                       class="w-full bg-white border-2 border-gray-100 rounded-full py-4 pl-14 pr-6 text-navy focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all shadow-sm font-medium">
-                <svg class="w-6 h-6 text-text-muted/70 absolute left-5 top-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                 >
+                <label for="faq-search" class="sr-only">Cari pertanyaan FAQ</label>
+                <input id="faq-search" type="search" x-model="searchQuery" placeholder="Cari pertanyaan atau kata kunci..."
+                       class="w-full bg-white border border-border-soft rounded-xl py-3.5 pl-14 pr-6 text-navy focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition shadow-sm font-medium">
+                <svg class="w-6 h-6 text-text-muted/70 absolute left-5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
 
             <!-- Category: Persiapan Keberangkatan -->
-            <h2 class="text-2xl font-bold text-navy-dark mb-6 mt-8 flex items-center gap-2">
+            <h2 class="text-xl md:text-2xl font-extrabold text-navy-dark mb-4 mt-6 flex items-center gap-2">
                 <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 Persiapan Keberangkatan
             </h2>
@@ -45,20 +46,18 @@
                     ];
                 @endphp
                 @foreach($faqsCategory1 as $index => $faq)
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-md"
+                    <div class="surface-card overflow-hidden"
                          x-show="searchQuery === '' || '{{ strtolower(addslashes($faq['q'] . ' ' . $faq['a'])) }}'.includes(searchQuery.toLowerCase())">
-                        <button @click="activeAccordion = activeAccordion === 'cat1_{{ $index }}' ? null : 'cat1_{{ $index }}'"
+                        <button id="faq-question-cat1_{{ $index }}" @click="activeAccordion = activeAccordion === 'cat1_{{ $index }}' ? null : 'cat1_{{ $index }}'" :aria-expanded="(activeAccordion === 'cat1_{{ $index }}').toString()" aria-controls="faq-answer-cat1_{{ $index }}"
                                 class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-gold relative">
-                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gold transition-transform duration-300 transform origin-left"
-                                 :class="activeAccordion === 'cat1_{{ $index }}' ? 'scale-y-100' : 'scale-y-0'"></div>
-                            <span class="font-bold text-navy-dark text-lg" :class="activeAccordion === 'cat1_{{ $index }}' ? 'text-gold' : ''">{{ $faq['q'] }}</span>
-                            <span class="bg-gray-50 rounded-full p-2 transition-transform duration-300"
+                            <span class="font-bold text-navy-dark text-base md:text-lg">{{ $faq['q'] }}</span>
+                            <span class="bg-surface rounded-full p-2 transition-transform duration-200"
                                   :class="activeAccordion === 'cat1_{{ $index }}' ? 'rotate-180 bg-gold/10 text-gold' : 'text-text-muted/70'">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </button>
-                        <div x-show="activeAccordion === 'cat1_{{ $index }}'" x-collapse>
-                            <div class="px-6 pb-6 pt-2 text-text-muted leading-relaxed border-t border-gray-50">
+                        <div id="faq-answer-cat1_{{ $index }}" x-show="activeAccordion === 'cat1_{{ $index }}'" x-collapse role="region" aria-labelledby="faq-question-cat1_{{ $index }}">
+                            <div class="px-6 pb-6 pt-2 text-text-muted leading-relaxed border-t border-border-soft/70 text-sm md:text-base">
                                 {{ $faq['a'] }}
                             </div>
                         </div>
@@ -67,7 +66,7 @@
             </div>
 
             <!-- Category: Fasilitas & Layanan -->
-            <h2 class="text-2xl font-bold text-navy-dark mb-6 mt-12 flex items-center gap-2">
+            <h2 class="text-xl md:text-2xl font-extrabold text-navy-dark mb-4 mt-8 flex items-center gap-2">
                 <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                 Fasilitas & Layanan
             </h2>
@@ -80,20 +79,18 @@
                     ];
                 @endphp
                 @foreach($faqsCategory2 as $index => $faq)
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-md"
+                    <div class="surface-card overflow-hidden"
                          x-show="searchQuery === '' || '{{ strtolower(addslashes($faq['q'] . ' ' . $faq['a'])) }}'.includes(searchQuery.toLowerCase())">
-                        <button @click="activeAccordion = activeAccordion === 'cat2_{{ $index }}' ? null : 'cat2_{{ $index }}'"
+                        <button id="faq-question-cat2_{{ $index }}" @click="activeAccordion = activeAccordion === 'cat2_{{ $index }}' ? null : 'cat2_{{ $index }}'" :aria-expanded="(activeAccordion === 'cat2_{{ $index }}').toString()" aria-controls="faq-answer-cat2_{{ $index }}"
                                 class="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-gold relative">
-                            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gold transition-transform duration-300 transform origin-left"
-                                 :class="activeAccordion === 'cat2_{{ $index }}' ? 'scale-y-100' : 'scale-y-0'"></div>
-                            <span class="font-bold text-navy-dark text-lg" :class="activeAccordion === 'cat2_{{ $index }}' ? 'text-gold' : ''">{{ $faq['q'] }}</span>
-                            <span class="bg-gray-50 rounded-full p-2 transition-transform duration-300"
+                            <span class="font-bold text-navy-dark text-base md:text-lg">{{ $faq['q'] }}</span>
+                            <span class="bg-surface rounded-full p-2 transition-transform duration-200"
                                   :class="activeAccordion === 'cat2_{{ $index }}' ? 'rotate-180 bg-gold/10 text-gold' : 'text-text-muted/70'">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </button>
-                        <div x-show="activeAccordion === 'cat2_{{ $index }}'" x-collapse>
-                            <div class="px-6 pb-6 pt-2 text-text-muted leading-relaxed border-t border-gray-50">
+                        <div id="faq-answer-cat2_{{ $index }}" x-show="activeAccordion === 'cat2_{{ $index }}'" x-collapse role="region" aria-labelledby="faq-question-cat2_{{ $index }}">
+                            <div class="px-6 pb-6 pt-2 text-text-muted leading-relaxed border-t border-border-soft/70 text-sm md:text-base">
                                 {{ $faq['a'] }}
                             </div>
                         </div>
@@ -118,13 +115,13 @@
             <script type="application/ld+json">{!! json_encode($faqJsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 
             <!-- CTA Section -->
-            <div class="mt-16 text-center bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
-                <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 text-sky">
+            <div class="mt-10 text-center bg-white p-6 rounded-2xl border border-border-soft/70 shadow-sm">
+                <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4 text-gold-ink">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                 </div>
                 <h3 class="text-xl font-bold text-navy-dark mb-2">Punya pertanyaan lain?</h3>
                 <p class="text-text-muted mb-6">Tim layanan pelanggan kami siap membantu Anda 24/7.</p>
-                <a href="{{ route('contact.index') }}" class="inline-flex items-center justify-center bg-navy hover:bg-navy-dark text-white px-8 py-3 rounded-full font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                <a href="{{ route('contact.index') }}" class="inline-flex items-center justify-center bg-navy hover:bg-navy-dark text-white px-8 py-3 rounded-full font-bold transition-colors duration-200">
                     Hubungi Kami
                 </a>
             </div>

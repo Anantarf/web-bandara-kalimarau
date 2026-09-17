@@ -5,6 +5,13 @@
   display: none !important;
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-serif: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -16,12 +23,17 @@
   --color-gold: #F2A900;
   --color-gold-light: #FFC627;
   --color-gold-dark: #C08700;
+  --color-gold-ink: #805600;
   --color-sky: #1e6fb5;
   --color-sky-dark: #154f82;
   --color-surface: #f5f7fb;
   --color-border-soft: #e2e7f0;
   --color-text-main: #1a1e2c;
   --color-text-muted: #5c657a;
+  --color-success: #087443;
+  --color-success-soft: #e7f6ee;
+  --color-danger: #b42318;
+  --color-danger-soft: #fdf0ef;
 
   /* blue-* dipetakan ke palet navy yang sama, supaya markup lama (bg-blue-900 dst) ikut konsisten */
   --color-blue-50: #eef2f8;
@@ -55,20 +67,46 @@
 }
 
 .subsection-title {
-  @apply text-2xl font-bold text-navy-dark;
+  @apply text-xl md:text-2xl font-extrabold text-navy-dark;
+}
+
+.surface-card {
+  @apply rounded-xl border border-border-soft bg-white;
+}
+
+.surface-card--interactive {
+  @apply transition-colors duration-200 hover:border-gold/60;
+}
+
+.carousel-indicator::before {
+  content: '';
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: auto;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-text-muted) 55%, transparent);
+}
+
+.carousel-indicator[aria-selected=true]::before {
+  background: var(--color-navy);
+}
+
+.carousel-indicator:hover::before {
+  background: var(--color-navy-light);
 }
 
 /* Custom Typography Styling for Content */
 .prose img {
-  @apply rounded-xl shadow-md mx-auto my-8 border border-gray-100 object-contain max-h-[600px];
+  @apply rounded-xl shadow-md mx-auto my-6 border border-gray-100 object-contain max-h-[600px];
 }
 
 .prose iframe {
-  @apply w-full aspect-video rounded-xl shadow-md my-8;
+  @apply w-full aspect-video rounded-xl shadow-md my-6;
 }
 
 .prose h2, .prose h3 {
-  @apply text-navy-dark mt-10 mb-4 font-bold;
+  @apply text-navy-dark mt-6 mb-3 font-bold;
 }
 
 .partner-marquee {

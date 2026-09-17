@@ -8,7 +8,7 @@
         $flightLogos = collect($mitra)->pluck('logo', 'nama')->toArray();
     @endphp
     <section class="bg-navy-dark py-16 lg:py-24 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition-all duration-[1000ms] ease-out delay-100"
+        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition duration-[1000ms] ease-out delay-100"
              x-data="{
                 tab: 'kedatangan',
                 flights: {{ \Illuminate\Support\Js::from($flightSchedules->map(function ($f) use ($flightLogos) {
@@ -36,11 +36,11 @@
             <!-- Header Toggle -->
             <div class="flex justify-center mb-10">
                 <div class="inline-flex rounded-full p-1 bg-white/5 border border-white/10 shadow-inner">
-                    <button type="button" @click="tab = 'kedatangan'" :class="tab === 'kedatangan' ? 'bg-gold text-navy-dark shadow-md' : 'text-white/70 hover:text-white'" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
+                    <button type="button" @click="tab = 'kedatangan'" :class="tab === 'kedatangan' ? 'bg-gold text-navy-dark shadow-md' : 'text-white/70 hover:text-white'" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
                         <x-icon-arrow class="w-4 h-4 transform rotate-45" />
                         Kedatangan
                     </button>
-                    <button type="button" @click="tab = 'keberangkatan'" :class="tab === 'keberangkatan' ? 'bg-gold text-navy-dark shadow-md' : 'text-white/70 hover:text-white'" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
+                    <button type="button" @click="tab = 'keberangkatan'" :class="tab === 'keberangkatan' ? 'bg-gold text-navy-dark shadow-md' : 'text-white/70 hover:text-white'" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
                         <x-icon-arrow class="w-4 h-4 transform -rotate-45" />
                         Keberangkatan
                     </button>
@@ -57,7 +57,7 @@
                         <div>Waktu</div>
                     </div>
 
-                    <div x-show="filteredFlights.length === 0" style="display: none;" class="px-6 py-12 text-center text-white/50 bg-white/5 rounded-2xl border border-white/10">
+                    <div x-show="filteredFlights.length === 0"  class="px-6 py-12 text-center text-white/50 bg-white/5 rounded-2xl border border-white/10">
                         <p class="text-base font-medium">Belum ada jadwal aktif saat ini.</p>
                     </div>
 

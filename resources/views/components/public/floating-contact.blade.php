@@ -64,7 +64,7 @@
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 translate-y-4 scale-95"
          class="bg-white rounded-2xl shadow-xl border border-border-soft w-[calc(100vw-3rem)] max-w-[340px] overflow-hidden"
-         style="display: none;">
+         >
 
         <!-- Header -->
         <div class="relative p-6 pb-7 bg-navy text-white overflow-hidden">
@@ -98,7 +98,7 @@
                         <div class="text-sm font-bold text-navy group-hover:text-[#25D366] transition-colors duration-300">Chat WhatsApp</div>
                         <div class="text-xs text-text-muted mt-0.5">Respons cepat</div>
                     </div>
-                    <svg class="w-4 h-4 text-text-muted group-hover:text-[#25D366] group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+                    <svg class="w-4 h-4 text-text-muted group-hover:text-[#25D366] group-hover:translate-x-1 transition duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
                 </a>
 
                 <!-- Action 2 -->
@@ -110,7 +110,7 @@
                         <div class="text-sm font-bold text-navy transition-colors duration-300">Formulir Pengaduan</div>
                         <div class="text-xs text-text-muted mt-0.5">Sampaikan keluhan resmi</div>
                     </div>
-                    <svg class="w-4 h-4 text-text-muted group-hover:text-navy group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+                    <svg class="w-4 h-4 text-text-muted group-hover:text-navy group-hover:translate-x-1 transition duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
                 </a>
             </div>
         </div>
@@ -121,7 +121,7 @@
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </span>
-            <span class="text-xs font-bold text-navy/60 uppercase tracking-wide">Online (08.00–16.00 WITA)</span>
+            <span class="text-xs font-bold text-navy/70 uppercase tracking-wide">Jam Pelayanan Informasi: 08.00–16.00 WITA</span>
         </div>
     </div>
 
@@ -133,8 +133,8 @@
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 translate-y-4 scale-95"
-         class="relative flex items-center gap-4 bg-white rounded-full shadow-[0_10px_35px_-5px_rgba(12,45,107,0.15),0_8px_16px_-6px_rgba(12,45,107,0.1)] border border-gray-100 py-3.5 pl-4 pr-4 cursor-pointer hover:shadow-[0_15px_45px_-5px_rgba(12,45,107,0.25)] transition-all duration-300 group"
-         style="display: none;"
+         class="relative flex items-center gap-4 bg-white rounded-full shadow-[0_10px_35px_-5px_rgba(12,45,107,0.15),0_8px_16px_-6px_rgba(12,45,107,0.1)] border border-border-soft/70 py-3.5 pl-4 pr-4 cursor-pointer hover:shadow-[0_15px_45px_-5px_rgba(12,45,107,0.25)] transition duration-300 group"
+
          @click="open = true; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')">
 
         <div class="flex items-center justify-center bg-[#FEF6E0] w-12 h-12 rounded-full shrink-0 group-hover:scale-105 transition-transform duration-300">
@@ -150,19 +150,19 @@
     </div>
 
     <!-- Toggle button -->
-    <div class="relative hover:-translate-y-0.5 transition-all duration-300">
+    <div class="relative hover:-translate-y-0.5 transition duration-300">
         <!-- Heartbeat background glow -->
-        <div x-show="hasUnread && !open" class="absolute inset-0 rounded-full bg-navy/20 animate-heartbeat-glow -z-10" style="display: none;"></div>
+        <div x-show="hasUnread && !open" class="absolute inset-0 rounded-full bg-navy/20 animate-heartbeat-glow -z-10" ></div>
 
         <button @click="open = !open; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')"
                 :aria-label="open ? 'Tutup kontak' : 'Hubungi kami'"
-                class="relative w-14 h-14 rounded-full bg-navy hover:bg-navy-dark text-white shadow-[0_8px_30px_rgba(12,45,107,0.3)] flex items-center justify-center group overflow-hidden ring-[6px] ring-navy/20 transition-all duration-300"
+                class="relative w-14 h-14 rounded-full bg-navy hover:bg-navy-dark text-white shadow-[0_8px_30px_rgba(12,45,107,0.3)] flex items-center justify-center group overflow-hidden ring-[6px] ring-navy/20 transition duration-300"
                 :class="hasUnread && !open ? 'animate-heartbeat-btn' : ''">
             <!-- Shine effect on hover -->
             <div class="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
 
             <svg x-show="!open" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110"><path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/></svg>
-            <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-90" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <svg x-show="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="w-6 h-6 transition-transform duration-300 group-hover:rotate-90" ><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
     </div>
 </div>

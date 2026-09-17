@@ -12,7 +12,7 @@
             ['label' => 'Jadwal Penerbangan'],
         ]" />
 
-    <div class="py-12 bg-surface min-h-[500px]">
+    <div class="pb-12 pt-4 bg-white min-h-[500px]">
         <div class="max-w-7xl mx-auto px-4">
             @php
                 $dayLabels = ['senin' => 'Sen', 'selasa' => 'Sel', 'rabu' => 'Rab', 'kamis' => 'Kam', 'jumat' => 'Jum', 'sabtu' => 'Sab', 'minggu' => 'Min'];
@@ -23,16 +23,16 @@
                 };
             @endphp
 
-            <div class="bg-navy-dark rounded-2xl overflow-hidden shadow-xl transition-all duration-500 ease-out transform"
+            <div class="bg-navy-dark rounded-2xl overflow-hidden shadow-xl transition duration-500 ease-out transform"
                  x-data="{ tab: 'kedatangan', loaded: false }" x-init="setTimeout(() => loaded = true, 100)"
                  :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'">
                 <!-- Pill toggle -->
                 <div class="flex justify-center gap-3 py-6 px-4 border-b border-white/10">
-                    <button type="button" @click="tab = 'kedatangan'" :class="tab === 'kedatangan' ? 'bg-gold text-navy-dark' : 'bg-white/5 text-white/70 hover:bg-white/10'" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-colors">
+                    <button type="button" @click="tab = 'kedatangan'" :class="tab === 'kedatangan' ? 'bg-gold text-navy-dark' : 'bg-white/5 text-white/70 hover:bg-white/10'" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
                         <svg class="w-4 h-4 rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         Kedatangan
                     </button>
-                    <button type="button" @click="tab = 'keberangkatan'" :class="tab === 'keberangkatan' ? 'bg-gold text-navy-dark' : 'bg-white/5 text-white/70 hover:bg-white/10'" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-colors">
+                    <button type="button" @click="tab = 'keberangkatan'" :class="tab === 'keberangkatan' ? 'bg-gold text-navy-dark' : 'bg-white/5 text-white/70 hover:bg-white/10'" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
                         <svg class="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         Keberangkatan
                     </button>
@@ -40,7 +40,7 @@
 
                 <!-- Kedatangan -->
                 <div x-show="tab === 'kedatangan'" class="w-full"
-                     x-transition:enter="transition-all ease-out duration-300"
+                     x-transition:enter="transition ease-out duration-300"
                      x-transition:enter-start="opacity-0 translate-y-2"
                      x-transition:enter-end="opacity-100 translate-y-0">
                     @if($arrivals->isEmpty())
@@ -49,6 +49,10 @@
                             <p class="text-white/50 max-w-md mx-auto">Data jadwal kedatangan penerbangan sedang dalam proses pembaruan dari maskapai terkait.</p>
                         </div>
                     @else
+                        <div class="md:hidden px-4 py-2 text-right text-xs text-gold/80 font-medium flex items-center justify-end gap-1 border-b border-white/5">
+                            <span>Geser tabel ke samping</span>
+                            <svg class="w-3.5 h-3.5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </div>
                         <div class="overflow-x-auto">
                             <table class="w-full text-left border-collapse min-w-[720px]">
                                 <thead>
@@ -80,7 +84,7 @@
                                             <td class="py-4 px-6 font-bold text-white tabular-nums">{{ $flight->arrival_time?->format('H:i') ?? '-' }} <span class="text-white/40 text-xs font-normal">WITA</span></td>
                                             <td class="py-4 px-6 text-white/50 text-sm">{{ $operatingDays($flight) }}</td>
                                             <td class="py-4 px-6 text-right">
-                                                <span class="inline-block bg-emerald-500/20 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full">Terjadwal</span>
+                                                <span class="inline-block bg-success/15 text-success-soft text-xs font-bold px-3 py-1 rounded-full">Terjadwal</span>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -91,8 +95,8 @@
                 </div>
 
                 <!-- Keberangkatan -->
-                <div x-show="tab === 'keberangkatan'" style="display: none;" class="w-full"
-                     x-transition:enter="transition-all ease-out duration-300"
+                <div x-show="tab === 'keberangkatan'"  class="w-full"
+                     x-transition:enter="transition ease-out duration-300"
                      x-transition:enter-start="opacity-0 translate-y-2"
                      x-transition:enter-end="opacity-100 translate-y-0">
                     @if($departures->isEmpty())
@@ -101,6 +105,10 @@
                             <p class="text-white/50 max-w-md mx-auto">Data jadwal keberangkatan penerbangan sedang dalam proses pembaruan dari maskapai terkait.</p>
                         </div>
                     @else
+                        <div class="md:hidden px-4 py-2 text-right text-xs text-gold/80 font-medium flex items-center justify-end gap-1 border-b border-white/5">
+                            <span>Geser tabel ke samping</span>
+                            <svg class="w-3.5 h-3.5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </div>
                         <div class="overflow-x-auto">
                             <table class="w-full text-left border-collapse min-w-[720px]">
                                 <thead>
@@ -132,7 +140,7 @@
                                             <td class="py-4 px-6 font-bold text-white tabular-nums">{{ $flight->departure_time?->format('H:i') ?? '-' }} <span class="text-white/40 text-xs font-normal">WITA</span></td>
                                             <td class="py-4 px-6 text-white/50 text-sm">{{ $operatingDays($flight) }}</td>
                                             <td class="py-4 px-6 text-right">
-                                                <span class="inline-block bg-emerald-500/20 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full">Terjadwal</span>
+                                                <span class="inline-block bg-success/15 text-success-soft text-xs font-bold px-3 py-1 rounded-full">Terjadwal</span>
                                             </td>
                                         </tr>
                                     @endforeach

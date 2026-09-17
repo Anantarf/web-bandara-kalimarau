@@ -54,10 +54,19 @@ class PpidDocumentResource extends Resource
                                     ->rows(4)
                                     ->columnSpanFull(),
                             ])->columns(2),
-                        Forms\Components\Section::make('File Dokumen')
+                        Forms\Components\Section::make('Berkas / Tautan Dokumen')
+                            ->description('Pilih untuk mengunggah berkas langsung atau memasukkan tautan Google Drive / Eksternal.')
                             ->schema([
+                                Forms\Components\TextInput::make('external_url')
+                                    ->label('Tautan Google Drive / Dokumen Eksternal')
+                                    ->placeholder('https://drive.google.com/... atau https://...')
+                                    ->url()
+                                    ->maxLength(500)
+                                    ->helperText('Jika dokumen sudah di Google Drive atau cloud eksternal, masukkan linknya di sini.')
+                                    ->columnSpanFull(),
+
                                 Forms\Components\FileUpload::make('file_path')
-                                    ->label('Upload File')
+                                    ->label('Upload File (PDF / Dokumen)')
                                     ->disk('public')
                                     ->directory('ppid-documents')
                                     ->acceptedFileTypes([
@@ -70,8 +79,8 @@ class PpidDocumentResource extends Resource
                                     ->maxSize(10240)
                                     ->downloadable()
                                     ->openable()
-                                    ->required()
-                                    ->helperText('Maksimal 10MB. Utamakan PDF untuk dokumen publik.')
+                                    ->required(fn (Forms\Get $get): bool => blank($get('external_url')))
+                                    ->helperText('Maksimal 10MB. Wajib diisi jika tautan eksternal tidak diisi.')
                                     ->columnSpanFull(),
                             ]),
                     ])
@@ -122,6 +131,13 @@ class PpidDocumentResource extends Resource
                     ->size('sm')
                     ->formatStateUsing(fn (string $state): string => PpidDocument::CATEGORIES[$state] ?? str($state)->replace('-', ' ')->title()->toString())
                     ->searchable(),
+                Tables\Columns\TextColumn::make('source')
+                    ->label('Tipe Berkas')
+                    ->state(fn (PpidDocument $record): string => filled($record->external_url) ? 'Link Eksternal' : 'File Upload')
+                    ->badge()
+                    ->color(fn (string $state): string => $state === 'Link Eksternal' ? 'warning' : 'success')
+                    ->alignCenter()
+                    ->size('sm'),
                 Tables\Columns\TextColumn::make('published_at')
                     ->label('Tanggal Publikasi')
                     ->dateTime('d/m/Y')

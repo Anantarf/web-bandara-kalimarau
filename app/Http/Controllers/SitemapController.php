@@ -35,19 +35,31 @@ class SitemapController extends Controller
             ->map(fn (Page $page) => (object) [
                 'loc' => $this->pageCanonicalUrl($page),
                 'lastmod' => $page->updated_at?->toAtomString(),
-            ]);
+            ])
+            ->unique('loc')
+            ->values();
 
         return response()
-            ->view('sitemap', ['urls' => $urls->merge($postUrls)->merge($pageUrls)])
+            ->view('sitemap', ['urls' => $urls->merge($postUrls)->merge($pageUrls)->unique('loc')->values()])
             ->header('Content-Type', 'application/xml');
     }
 
     protected function pageCanonicalUrl(Page $page): string
     {
+        if ($page->slug === 'hasil-dan-tindak-lanjut') {
+            return route('pages.show', 'survey-kepuasan-masyarakat-internal');
+        }
+
         $ppidSub = PageController::ppidSubForPageSlug($page->slug);
 
-        return $ppidSub
-            ? route('ppid.show', $ppidSub)
-            : route('pages.show', $page->slug);
+        if ($ppidSub) {
+            if (in_array($ppidSub, ['visi-misi', 'tugas-dan-fungsi'], true)) {
+                return route('ppid.show', 'profil');
+            }
+
+            return route('ppid.show', $ppidSub);
+        }
+
+        return route('pages.show', $page->slug);
     }
 }

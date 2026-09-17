@@ -3,7 +3,7 @@
     'index',
 ])
 
-<div class="group relative overflow-hidden border border-gray-200/60 rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300"
+<div class="group relative overflow-hidden border border-border-soft/60 rounded-2xl bg-white shadow-sm hover:shadow-md transition duration-300"
      :class="{ 'ring-1 ring-gold-light/50 shadow-md': active === {{ $index }} }">
     <div class="absolute left-0 top-0 bottom-0 w-1 bg-gold-light transition-transform duration-300 origin-top"
          :class="active === {{ $index }} ? 'scale-y-100' : 'scale-y-0'"></div>
@@ -14,22 +14,22 @@
             {{ $faq['q'] }}
         </span>
         <span class="relative shrink-0 w-6 h-6 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)]"
-              :class="active === {{ $index }} ? 'rotate-180 text-gold' : 'text-gray-400 group-hover:text-gold'">
+              :class="active === {{ $index }} ? 'rotate-180 text-gold' : 'text-text-muted/70 group-hover:text-gold'">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
         </span>
     </button>
 
     <div x-show="active === {{ $index }}"
-         x-transition:enter="transition-all ease-out duration-300"
+         x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0 max-h-0"
          x-transition:enter-end="opacity-100 max-h-[500px]"
-         x-transition:leave="transition-all ease-in duration-200"
+         x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100 max-h-[500px]"
          x-transition:leave-end="opacity-0 max-h-0"
          class="overflow-hidden"
-         style="display: none;">
+         >
         <div class="px-5 md:px-6 pb-5 md:pb-6 text-text-muted text-sm md:text-base leading-relaxed">
-            <div class="w-full h-px bg-gray-100 mb-4 md:mb-5"></div>
+            <div class="w-full h-px bg-border-soft/70 mb-4 md:mb-5"></div>
             {{ $faq['a'] }}
         </div>
     </div>

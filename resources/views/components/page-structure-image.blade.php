@@ -11,7 +11,7 @@
             'description' => null,
             'src' => asset('images/struktur-organisasi.jpg'),
             'alt' => 'Struktur Organisasi Bandara Kalimarau',
-            'headingClass' => 'mt-10 mb-6 border-b border-gray-100',
+            'headingClass' => 'mt-10 mb-6 border-b border-border-soft/70',
         ],
         'ppid' => [
             'heading' => 'Struktur Organisasi PPID',
@@ -19,7 +19,7 @@
             'description' => 'Berikut adalah bagan susunan Struktur Organisasi Pejabat Pengelola Informasi dan Dokumentasi (PPID) pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.',
             'src' => asset('images/ppid/struktur-ppid.jpeg'),
             'alt' => 'Struktur Organisasi PPID BLU Bandara Kalimarau',
-            'headingClass' => 'mt-12 mb-4 border-b-2 border-gray-100',
+            'headingClass' => 'mt-12 mb-4 border-b-2 border-border-soft/70',
         ],
     ];
 
@@ -34,7 +34,7 @@
     @endif
 
     @if($item['description'])
-        <p class="not-prose text-base md:text-lg leading-relaxed text-gray-700 mt-4 mb-6">
+        <p class="not-prose text-base md:text-lg leading-relaxed text-text-main mt-4 mb-6">
             {{ $item['description'] }}
         </p>
     @endif
@@ -42,5 +42,5 @@
     <x-lightbox-image
         :src="$item['src']"
         :alt="$item['alt']"
-        figure-class="not-prose" />
+        figure-class="not-prose max-w-2xl mx-auto text-center" />
 @endif

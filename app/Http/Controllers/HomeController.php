@@ -28,7 +28,7 @@ class HomeController extends Controller
     ];
 
     protected const SAMBUTAN = [
-        'nama' => 'Bapak Patah Atabri, S.Si.T., M.M.',
+        'nama' => 'Patah Atabri, S.Si.T., M.M.',
         'jabatan' => 'Kepala BLU Kantor UPBU Kelas I Kalimarau',
         'teks' => [
             'Selamat datang di portal resmi Bandara Kalimarau. Di tengah kebutuhan informasi yang semakin cepat, kami menghadirkan website ini sebagai kanal resmi untuk membantu masyarakat memperoleh informasi layanan bandara secara mudah, jelas, dan tepercaya.',

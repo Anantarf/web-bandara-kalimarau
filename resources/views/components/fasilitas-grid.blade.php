@@ -39,33 +39,33 @@ $categories = \App\Models\Facility::query()
 
         <div class="text-center mb-16">
             <h1 x-show="loaded"
-                x-transition:enter="transition-all ease-out duration-500 delay-[200ms]"
+                x-transition:enter="transition ease-out duration-500 delay-100"
                 x-transition:enter-start="opacity-0 translate-y-8"
                 x-transition:enter-end="opacity-100 translate-y-0"
-                style="display: none;"
-                class="font-sans text-3xl md:text-5xl font-extrabold text-navy-dark leading-tight mb-6">Fasilitas Lengkap</h1>
+
+                class="font-sans text-2xl md:text-3xl font-extrabold text-navy-dark leading-snug mb-3">Fasilitas Lengkap</h1>
 
             <div x-show="loaded"
-                 x-transition:enter="transition-all ease-out duration-500 delay-[300ms]"
+                 x-transition:enter="transition ease-out duration-500 delay-300"
                  x-transition:enter-start="opacity-0 scale-0"
                  x-transition:enter-end="opacity-100 scale-100"
-                 style="display: none;"
+
                  class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
 
             <p x-show="loaded"
-               x-transition:enter="transition-all ease-out duration-500 delay-[400ms]"
+               x-transition:enter="transition ease-out duration-500 delay-[500ms]"
                x-transition:enter-start="opacity-0 translate-y-4"
                x-transition:enter-end="opacity-100 translate-y-0"
-               style="display: none;"
+
                class="text-xl text-text-muted max-w-2xl mx-auto leading-relaxed">Kami menyediakan berbagai fasilitas berstandar tinggi untuk memastikan kenyamanan, keamanan, dan kelancaran perjalanan seluruh pengguna jasa bandara.</p>
         </div>
 
         <div class="space-y-20"
              x-show="loaded"
-             x-transition:enter="transition-all ease-out duration-500 delay-[500ms]"
+             x-transition:enter="transition ease-out duration-500 delay-[500ms]"
              x-transition:enter-start="opacity-0 translate-y-12"
              x-transition:enter-end="opacity-100 translate-y-0"
-             style="display: none;">
+             >
             @foreach($categories as $index => $category)
                 <div class="facility-category scroll-mt-24">
                     <div class="mb-8">
@@ -87,13 +87,13 @@ $categories = \App\Models\Facility::query()
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                         @foreach($category['items'] as $item)
                             <button @click="openModal({{ json_encode($item) }})"
-                                    class="group relative bg-white rounded-2xl overflow-hidden shadow border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-gold text-left h-full flex flex-col">
+                                    class="group relative surface-card overflow-hidden surface-card--interactive transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gold text-left h-full flex flex-col">
 
-                                <div class="relative h-40 sm:h-48 w-full overflow-hidden bg-gray-100">
-                                    <img src="{{ $item['image'] }}" loading="lazy" alt="{{ $item['name'] }}" onerror="this.onerror=null;this.src='https://placehold.co/400x300?text=Fasilitas'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                <div class="relative h-40 sm:h-48 w-full overflow-hidden bg-surface">
+                                    <img src="{{ $item['image'] }}" loading="lazy" alt="{{ $item['name'] }}" onerror="this.onerror=null;this.src='{{ asset('images/logo-header.png') }}'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                 </div>
-                                <div class="p-4 flex-grow flex items-center justify-center border-t border-gray-50">
-                                    <h4 class="font-bold text-gray-800 text-center text-sm sm:text-base leading-snug group-hover:text-blue-700 transition-colors">{{ $item['name'] }}</h4>
+                                <div class="p-4 flex-grow flex items-center justify-center border-t border-border-soft/70">
+                                    <h4 class="font-bold text-text-main text-center text-sm sm:text-base leading-snug group-hover:text-navy transition-colors">{{ $item['name'] }}</h4>
                                 </div>
                             </button>
                         @endforeach
@@ -113,16 +113,16 @@ $categories = \App\Models\Facility::query()
              x-transition:leave="transition ease-in duration-200"
              x-transition:leave-start="opacity-100"
              x-transition:leave-end="opacity-0"
-             style="display: none; z-index: 9999;"
-             class="fixed inset-0 flex items-center justify-center bg-black/80 p-4 sm:p-6 lg:p-12"
+
+             class="fixed inset-0 z-[70] flex items-center justify-center bg-black/80 p-4 sm:p-6 lg:p-12" role="dialog" aria-modal="true" aria-label="Detail fasilitas"
              @click.self="closeModal()"
              @keydown.escape.window="closeModal()">
 
-            <button @click="closeModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-gray-300 hover:text-white bg-black/40 hover:bg-black/60 rounded-full p-2.5 transition-all z-50">
+            <button @click="closeModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 inline-flex h-11 w-11 items-center justify-center text-navy hover:text-gold bg-white/90 hover:bg-white rounded-full transition-colors z-50" aria-label="Tutup detail fasilitas">
                 <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
 
-            <div class="relative w-full max-w-4xl bg-white rounded-2xl shadow-xl flex flex-col md:flex-row transform transition-all max-h-[90vh] overflow-y-auto"
+            <div class="relative w-full max-w-4xl bg-white rounded-xl shadow-lg flex flex-col md:flex-row max-h-[90vh] overflow-y-auto"
                  x-show="modalOpen"
                  x-transition:enter="transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 scale-95"
@@ -133,9 +133,9 @@ $categories = \App\Models\Facility::query()
                  @click.stop>
 
                 <!-- Modal Image Section -->
-                <div class="w-full md:w-3/5 lg:w-2/3 h-64 md:h-auto bg-gray-100 relative">
+                <div class="w-full md:w-3/5 lg:w-2/3 h-64 md:h-auto bg-surface relative">
                     <template x-if="activeFacility">
-                        <img :src="activeFacility.image" :alt="activeFacility.name" x-on:error="$el.src = 'https://placehold.co/400x300?text=Fasilitas'" class="w-full h-full object-cover">
+                        <img :src="activeFacility.image" :alt="activeFacility.name" x-on:error="$el.onerror = null; $el.src = '{{ asset('images/logo-header.png') }}'" class="w-full h-full object-cover">
                     </template>
                 </div>
 
@@ -143,7 +143,7 @@ $categories = \App\Models\Facility::query()
                 <div class="w-full md:w-2/5 lg:w-1/3 p-6 sm:p-8 md:p-10 flex flex-col justify-center">
                     <template x-if="activeFacility">
                         <div>
-                            <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gold/10 text-gold-dark mb-6">
+                            <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gold/10 text-gold-ink mb-6">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </div>
 

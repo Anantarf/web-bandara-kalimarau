@@ -106,20 +106,6 @@ class AdminPanelProvider extends PanelProvider
                             transition: background-color 9999s ease-in-out 0s;
                         }
 
-                        @keyframes floatOrb1 {
-                            0% { transform: translate(0px, 0px) scale(1); }
-                            33% { transform: translate(100px, -60px) scale(1.15); }
-                            66% { transform: translate(-60px, 50px) scale(0.9); }
-                            100% { transform: translate(0px, 0px) scale(1); }
-                        }
-
-                        @keyframes floatOrb2 {
-                            0% { transform: translate(0px, 0px) scale(1); }
-                            33% { transform: translate(-90px, 80px) scale(1.1); }
-                            66% { transform: translate(70px, -40px) scale(0.85); }
-                            100% { transform: translate(0px, 0px) scale(1); }
-                        }
-
                         /* Compact 1-Page Non-Scrollable Login Layout with Ambient Background */
                         html,
                         body.fi-body-has-no-sidebar {
@@ -165,52 +151,15 @@ class AdminPanelProvider extends PanelProvider
                             align-items: center !important;
                             position: relative !important;
                             isolation: isolate !important;
-                            background: linear-gradient(135deg, rgba(245, 247, 251, 0.28) 0%, rgba(255, 255, 255, 0.18) 100%) !important;
+                            background: rgba(245, 247, 251, 0.18) !important;
                         }
-
-                        /* Floating Ambient Glow Orbs (Subtle background accents) */
-                        .fi-simple-layout::before {
-                            content: '';
-                            position: absolute;
-                            top: -10%;
-                            left: -10%;
-                            width: 50vw;
-                            height: 50vw;
-                            max-width: 550px;
-                            max-height: 550px;
-                            background: radial-gradient(circle, rgba(30, 111, 181, 0.45) 0%, rgba(30, 111, 181, 0) 70%) !important;
-                            filter: blur(50px) !important;
-                            animation: floatOrb1 12s ease-in-out infinite !important;
-                            z-index: 0;
-                            pointer-events: none;
-                            opacity: 0.65;
-                        }
-                        .fi-simple-layout::after {
-                            content: '';
-                            position: absolute;
-                            bottom: -10%;
-                            right: -10%;
-                            width: 50vw;
-                            height: 50vw;
-                            max-width: 550px;
-                            max-height: 550px;
-                            background: radial-gradient(circle, rgba(200, 134, 10, 0.4) 0%, rgba(200, 134, 10, 0) 70%) !important;
-                            filter: blur(55px) !important;
-                            animation: floatOrb2 15s ease-in-out infinite !important;
-                            z-index: 0;
-                            pointer-events: none;
-                            opacity: 0.55;
-                        }
-
                         .fi-simple-main {
                             position: relative;
                             z-index: 10;
                             background-color: rgba(255, 255, 255, 0.96) !important;
-                            backdrop-filter: blur(12px) !important;
-                            -webkit-backdrop-filter: blur(12px) !important;
                             border-radius: 1rem !important;
-                            box-shadow: 0 1.625rem 3.25rem -1rem rgba(5, 19, 48, 0.42), 0 0 0 1px rgba(255, 255, 255, 0.36) !important;
-                            border: 1px solid rgba(255, 255, 255, 0.42) !important;
+                            box-shadow: 0 1rem 2rem -1rem rgba(5, 19, 48, 0.38), 0 0 0 1px rgba(226, 231, 240, 0.9) !important;
+                            border: 1px solid rgba(226, 231, 240, 0.92) !important;
                             overflow: hidden !important;
                             padding: 1.625rem !important;
                             max-height: calc(100vh - 2rem) !important;
@@ -327,28 +276,26 @@ class AdminPanelProvider extends PanelProvider
                             transition: all 0.2s ease-in-out !important;
                         }
                         .fi-sidebar-item > a:hover, .fi-sidebar-item > button:hover {
-                            transform: translateX(4px);
+                            background-color: #eef2f8;
                         }
 
-                        /* 2. Buttons - Slight scale & lift */
+                        /* 2. Buttons - restrained feedback */
                         .fi-btn {
                             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
                         }
                         .fi-btn:hover {
-                            transform: translateY(-1px) scale(1.02);
-                            box-shadow: 0 10px 15px -3px rgba(12, 45, 107, 0.15), 0 4px 6px -4px rgba(12, 45, 107, 0.1);
+                            box-shadow: 0 4px 10px -6px rgba(12, 45, 107, 0.28);
                         }
                         .fi-btn:active {
-                            transform: scale(0.97);
+                            transform: translateY(0);
                         }
 
-                        /* 3. Cards / Widgets - Float effect */
+                        /* 3. Cards / Widgets - restrained feedback */
                         .fi-wi-stats-overview-stat, .fi-section, .fi-ta-record {
                             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
                         }
                         .fi-wi-stats-overview-stat:hover {
-                            transform: translateY(-4px);
-                            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+                            box-shadow: 0 8px 14px -12px rgba(5, 19, 48, 0.22);
                         }
 
                         /* 4. Table Rows - Highlight */
@@ -357,7 +304,7 @@ class AdminPanelProvider extends PanelProvider
                         }
                         .fi-ta-row:hover {
                             background-color: #f5f7fb !important;
-                            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+                            box-shadow: inset 3px 0 0 #f2a900;
                         }
 
                         /* 5. Inputs - Glow effect & Stacking Context Fix */
@@ -375,7 +322,7 @@ class AdminPanelProvider extends PanelProvider
                         .fi-dropdown-panel,
                         .fi-select-input-options-ctn,
                         [x-ref="panel"] {
-                            z-index: 99999 !important;
+                            z-index: 80 !important;
                         }
 
                         /* =========================================

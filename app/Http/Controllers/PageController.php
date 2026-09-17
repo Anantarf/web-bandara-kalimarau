@@ -37,6 +37,10 @@ class PageController extends Controller
 
     public function show($slug): Response|RedirectResponse
     {
+        if ($slug === 'hasil-dan-tindak-lanjut') {
+            return redirect(route('pages.show', 'survey-kepuasan-masyarakat-internal').'#hasil-survei', 301);
+        }
+
         if ($ppidSub = self::ppidSubForPageSlug($slug)) {
             return redirect()->route('ppid.show', $ppidSub, 301);
         }
@@ -87,6 +91,10 @@ class PageController extends Controller
 
     public function ppid(?string $sub = null)
     {
+        if (in_array($sub, ['visi-misi', 'tugas-dan-fungsi'], true)) {
+            return redirect(route('ppid.show', 'profil').'#'.$sub, 301);
+        }
+
         $realSlug = $sub === null ? 'ppid' : (self::PPID_MAP[$sub] ?? abort(404));
 
         $page = Page::published()->where('slug', $realSlug)->firstOrFail();
@@ -97,7 +105,9 @@ class PageController extends Controller
             ->where('category', $sub)
             ->orderBy('sort_order')
             ->latest('published_at')
-            ->get();
+            ->get()
+            ->filter(fn (PpidDocument $document): bool => $document->hasFile())
+            ->values();
 
         return view('pages.ppid', [
             'page' => $page,

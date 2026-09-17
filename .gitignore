@@ -38,3 +38,5 @@ _ide_helper_models.php
 # Local deployment build output (zip archives for manual cPanel upload).
 /deploy-artifacts
 *.zip
+/.playwright-cli
+

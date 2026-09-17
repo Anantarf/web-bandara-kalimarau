@@ -72,7 +72,7 @@
         </div>
 
         <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/40">
-            <span>&copy; {{ date('Y') }} Bandara Kalimarau — UPT Kementerian Perhubungan RI</span>
+            <span>&copy; {{ date('Y') }} Bandara Kalimarau - UPT Kementerian Perhubungan RI</span>
             <div class="flex flex-wrap items-center gap-4 sm:gap-6">
                 <!-- Visitor Counter -->
                 @if(isset($visitorStats))

@@ -310,6 +310,9 @@ class AdminPanelProvider extends PanelProvider
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                             Kembali ke Beranda Web
                         </a>
+                        <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-400 font-medium">
+                            &copy; 2026 Bandara Kalimarau - UPT Kementerian Perhubungan RI
+                        </div>
                     </div>
                 ')
             );

@@ -181,8 +181,8 @@ class PageSeeder extends Seeder
             [
                 'title' => 'Pengajuan Pas Bandara',
                 'slug' => 'pengajuan-pas-bandara',
-                'excerpt' => 'Informasi lengkap alur, mekanisme, dan persyaratan permohonan penerbitan kartu Pas Masuk Bandara (Airport Pass) di UPBU Kelas I Kalimarau.',
-                'content' => '<h2>Alur Pembuatan Pas Bandara</h2><p>Informasi dan panduan resmi alur pengajuan pembuatan Pas Masuk Bandara (Airport Pass) di Bandar Udara Kelas I Kalimarau Berau.</p>',
+                'excerpt' => null,
+                'content' => '<p class="text-gray-700 text-base md:text-lg leading-relaxed mb-8">Berikut adalah bagan alur resmi tata cara pengajuan dan penerbitan Pas Masuk Bandar Udara (Airport Pass) pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.</p>',
                 'template' => 'default',
             ],
         ];

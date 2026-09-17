@@ -108,80 +108,97 @@ class AdminPanelProvider extends PanelProvider
 
                         @keyframes floatOrb1 {
                             0% { transform: translate(0px, 0px) scale(1); }
-                            33% { transform: translate(140px, -90px) scale(1.25); }
-                            66% { transform: translate(-80px, 70px) scale(0.85); }
+                            33% { transform: translate(100px, -60px) scale(1.15); }
+                            66% { transform: translate(-60px, 50px) scale(0.9); }
                             100% { transform: translate(0px, 0px) scale(1); }
                         }
 
                         @keyframes floatOrb2 {
                             0% { transform: translate(0px, 0px) scale(1); }
-                            33% { transform: translate(-120px, 110px) scale(1.2); }
-                            66% { transform: translate(90px, -60px) scale(0.8); }
+                            33% { transform: translate(-90px, 80px) scale(1.1); }
+                            66% { transform: translate(70px, -40px) scale(0.85); }
                             100% { transform: translate(0px, 0px) scale(1); }
                         }
 
-                        /* Compact 1-Page Non-Scrollable Login Layout with Animated Orbs */
+                        /* Compact 1-Page Non-Scrollable Login Layout with Ambient Background */
+                        html,
                         body.fi-body-has-no-sidebar {
-                            background: #051330 url('/images/hero/hero1.jpg') center/cover no-repeat fixed !important;
-                            height: 100vh !important;
+                            height: 100% !important;
                             max-height: 100vh !important;
                             overflow: hidden !important;
                             margin: 0 !important;
                             padding: 0 !important;
+                            background: #051330 url('/images/hero/hero1.jpg') center/cover no-repeat fixed !important;
                         }
+
                         body.fi-body-has-no-sidebar .fi-simple-layout {
                             height: 100vh !important;
                             max-height: 100vh !important;
+                            width: 100% !important;
+                            max-width: 100% !important;
                             overflow: hidden !important;
                             margin: 0 !important;
-                            padding: 0 !important;
+                            padding: 1rem !important;
+                            box-sizing: border-box !important;
                             display: flex !important;
                             flex-direction: column !important;
                             justify-content: center !important;
                             align-items: center !important;
-                            backdrop-filter: blur(3px) brightness(0.88) !important;
-                            -webkit-backdrop-filter: blur(3px) brightness(0.88) !important;
-                            background-color: rgba(5, 19, 48, 0.45) !important;
-                            position: relative;
-                            width: 100vw !important;
+                            position: relative !important;
+                            background: linear-gradient(135deg, rgba(5, 19, 48, 0.58) 0%, rgba(9, 31, 74, 0.48) 100%) !important;
+                            backdrop-filter: blur(2.5px) brightness(0.92) !important;
+                            -webkit-backdrop-filter: blur(2.5px) brightness(0.92) !important;
                         }
+
+                        /* Floating Ambient Glow Orbs (Subtle background accents) */
                         .fi-simple-layout::before {
                             content: '';
                             position: absolute;
-                            top: -15%;
-                            left: -15%;
-                            width: 65vw;
-                            height: 65vw;
-                            background: radial-gradient(circle, rgba(12, 45, 107, 0.75) 0%, rgba(12, 45, 107, 0) 70%) !important;
-                            filter: blur(40px) !important;
-                            animation: floatOrb1 10s ease-in-out infinite !important;
+                            top: -10%;
+                            left: -10%;
+                            width: 50vw;
+                            height: 50vw;
+                            max-width: 550px;
+                            max-height: 550px;
+                            background: radial-gradient(circle, rgba(30, 111, 181, 0.45) 0%, rgba(30, 111, 181, 0) 70%) !important;
+                            filter: blur(50px) !important;
+                            animation: floatOrb1 12s ease-in-out infinite !important;
                             z-index: 0;
                             pointer-events: none;
+                            opacity: 0.65;
                         }
                         .fi-simple-layout::after {
                             content: '';
                             position: absolute;
-                            bottom: -15%;
-                            right: -15%;
-                            width: 70vw;
-                            height: 70vw;
-                            background: radial-gradient(circle, rgba(200, 134, 10, 0.55) 0%, rgba(200, 134, 10, 0) 70%) !important;
-                            filter: blur(50px) !important;
-                            animation: floatOrb2 13s ease-in-out infinite !important;
+                            bottom: -10%;
+                            right: -10%;
+                            width: 50vw;
+                            height: 50vw;
+                            max-width: 550px;
+                            max-height: 550px;
+                            background: radial-gradient(circle, rgba(200, 134, 10, 0.4) 0%, rgba(200, 134, 10, 0) 70%) !important;
+                            filter: blur(55px) !important;
+                            animation: floatOrb2 15s ease-in-out infinite !important;
                             z-index: 0;
                             pointer-events: none;
+                            opacity: 0.55;
                         }
+
                         .fi-simple-main {
                             position: relative;
-                            z-index: 1;
+                            z-index: 10;
+                            background-color: rgba(255, 255, 255, 0.96) !important;
+                            backdrop-filter: blur(12px) !important;
+                            -webkit-backdrop-filter: blur(12px) !important;
                             border-radius: 1.25rem !important;
-                            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.45) !important;
-                            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+                            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.3) !important;
+                            border: 1px solid rgba(255, 255, 255, 0.4) !important;
                             overflow: hidden !important;
                             padding: 1.5rem 1.75rem !important;
                             max-height: calc(100vh - 2rem) !important;
                             width: 100% !important;
                             max-width: 26.5rem !important;
+                            box-sizing: border-box !important;
                         }
                         
                         /* Center and stack logo on login page */

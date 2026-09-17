@@ -95,7 +95,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
-                fn (): HtmlString => new HtmlString(<<<'HTML'
+                fn (): HtmlString => new HtmlString('
                     <style>
                         input:-webkit-autofill,
                         input:-webkit-autofill:hover,
@@ -107,55 +107,57 @@ class AdminPanelProvider extends PanelProvider
                         }
 
                         /* Compact 1-Page Non-Scrollable Login Layout with Airport View Background */
-                        html,
-                        body.fi-body-has-no-sidebar {
-                            height: 100% !important;
+                        body:has(.fi-simple-layout),
+                        .fi-simple-layout {
+                            height: 100vh !important;
+                            min-height: 100vh !important;
                             max-height: 100vh !important;
                             overflow: hidden !important;
                             margin: 0 !important;
                             padding: 0 !important;
                             background: #061838 !important;
-                        }
-                        body.fi-body-has-no-sidebar::before {
-                            content: '';
-                            position: fixed;
-                            inset: -1.5rem;
-                            z-index: 0;
-                            pointer-events: none;
-                            background: url('/images/hero/hero1.jpg') center/cover no-repeat;
-                            filter: blur(4px) brightness(0.65) saturate(1.2);
-                            transform: scale(1.05);
-                            opacity: 0.85;
-                        }
-                        body.fi-body-has-no-sidebar::after {
-                            content: '';
-                            position: fixed;
-                            inset: 0;
-                            z-index: 0;
-                            pointer-events: none;
-                            background: linear-gradient(135deg, rgba(6, 24, 56, 0.72) 0%, rgba(12, 45, 107, 0.5) 50%, rgba(6, 24, 56, 0.78) 100%);
+                            position: relative !important;
                         }
 
-                        body.fi-body-has-no-sidebar .fi-simple-layout {
-                            height: 100vh !important;
-                            max-height: 100vh !important;
-                            width: 100% !important;
-                            max-width: 100% !important;
-                            overflow: hidden !important;
-                            margin: 0 !important;
-                            padding: 1rem !important;
-                            box-sizing: border-box !important;
+                        .fi-simple-layout {
                             display: flex !important;
                             flex-direction: column !important;
                             justify-content: center !important;
                             align-items: center !important;
-                            position: relative !important;
+                            padding: 1rem !important;
+                            box-sizing: border-box !important;
                             isolation: isolate !important;
-                            background: transparent !important;
                         }
+
+                        .fi-simple-layout::before {
+                            content: "" !important;
+                            position: fixed !important;
+                            inset: -20px !important;
+                            z-index: 0 !important;
+                            pointer-events: none !important;
+                            background: url("'.asset('images/hero/hero1.jpg').'") center/cover no-repeat !important;
+                            filter: blur(4px) brightness(0.65) saturate(1.2) !important;
+                            transform: scale(1.05) !important;
+                            opacity: 0.85 !important;
+                        }
+
+                        .fi-simple-layout::after {
+                            content: "" !important;
+                            position: fixed !important;
+                            inset: 0 !important;
+                            z-index: 0 !important;
+                            pointer-events: none !important;
+                            background: linear-gradient(135deg, rgba(6, 24, 56, 0.72) 0%, rgba(12, 45, 107, 0.5) 50%, rgba(6, 24, 56, 0.78) 100%) !important;
+                        }
+
+                        .fi-simple-layout > * {
+                            position: relative !important;
+                            z-index: 10 !important;
+                        }
+
                         .fi-simple-main {
-                            position: relative;
-                            z-index: 10;
+                            position: relative !important;
+                            z-index: 10 !important;
                             background-color: rgba(255, 255, 255, 0.96) !important;
                             border-radius: 1rem !important;
                             box-shadow: 0 1.25rem 2.5rem -0.75rem rgba(2, 6, 23, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.25) !important;
@@ -366,7 +368,7 @@ class AdminPanelProvider extends PanelProvider
                             color: #64748b !important;
                         }
                     </style>
-                    HTML),
+                '),
             )
             ->renderHook(
                 PanelsRenderHook::AUTH_LOGIN_FORM_AFTER,

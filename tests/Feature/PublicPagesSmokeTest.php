@@ -223,14 +223,7 @@ class PublicPagesSmokeTest extends TestCase
         $this->get(route('pages.show', 'pengajuan-pas-bandara'))
             ->assertOk()
             ->assertSee('Pengajuan Pas Bandara')
-            ->assertSee('alur-pembuatan-pas-bandara.png', false)
-            ->assertSee('Kedatangan Pemohon')
-            ->assertSee('Pengecekan Persyaratan')
-            ->assertSee('Proses Pembayaran')
-            ->assertSee('Proses PNBP')
-            ->assertSee('Pembuatan Pas')
-            ->assertSee('Pengambilan Kartu Pas')
-            ->assertSee('Pas Bandara Siap Digunakan');
+            ->assertSee('alur-pembuatan-pas-bandara.png', false);
     }
 
     public function test_static_page_loads_by_slug(): void

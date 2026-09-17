@@ -32,20 +32,40 @@ class DatabaseSeeder extends Seeder
         );
 
         $adminEmail = env('SEED_ADMIN_EMAIL', 'admin@kalimarau.local');
+        $adminUsername = env('SEED_ADMIN_USERNAME', 'superadmin');
         $adminPassword = env('SEED_ADMIN_PASSWORD');
 
-        if (app()->isProduction() && blank($adminPassword)) {
+        if (app()->isProduction() && blank($adminPassword) && ! User::query()->where('username', $adminUsername)->orWhere('email', $adminEmail)->exists()) {
             throw new RuntimeException('SEED_ADMIN_PASSWORD must be set before seeding the production admin user.');
         }
 
-        $admin = User::updateOrCreate([
-            'email' => $adminEmail,
-        ], [
-            'name' => env('SEED_ADMIN_NAME', 'Super Admin'),
-            'username' => env('SEED_ADMIN_USERNAME', 'superadmin'),
-            'password' => Hash::make($adminPassword ?: 'password'),
-            'is_active' => true,
-        ]);
+        $admin = User::query()
+            ->where('username', $adminUsername)
+            ->orWhere('email', $adminEmail)
+            ->first();
+
+        if ($admin) {
+            $updateData = [
+                'name' => env('SEED_ADMIN_NAME', 'Super Admin'),
+                'username' => $adminUsername,
+                'email' => $adminEmail,
+                'is_active' => true,
+            ];
+
+            if (filled($adminPassword)) {
+                $updateData['password'] = Hash::make($adminPassword);
+            }
+
+            $admin->update($updateData);
+        } else {
+            $admin = User::create([
+                'name' => env('SEED_ADMIN_NAME', 'Super Admin'),
+                'username' => $adminUsername,
+                'email' => $adminEmail,
+                'password' => Hash::make($adminPassword ?: 'password'),
+                'is_active' => true,
+            ]);
+        }
 
         $admin->syncRoles(['super_admin']);
     }

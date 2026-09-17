@@ -75,6 +75,35 @@ class SeoAndRedirectTest extends TestCase
             ->assertDontSee(route('search'), false);
     }
 
+    public function test_ppid_legacy_page_urls_redirect_to_nested_canonical_urls(): void
+    {
+        Page::create([
+            'title' => 'Profil PPID',
+            'slug' => 'profile-ppid',
+            'status' => 'published',
+            'published_at' => now(),
+        ]);
+
+        $this->get('/profile-ppid')
+            ->assertStatus(301)
+            ->assertRedirect(route('ppid.show', 'profil'));
+    }
+
+    public function test_sitemap_uses_nested_ppid_canonical_urls(): void
+    {
+        Page::create([
+            'title' => 'Profil PPID',
+            'slug' => 'profile-ppid',
+            'status' => 'published',
+            'published_at' => now(),
+        ]);
+
+        $this->get(route('sitemap'))
+            ->assertOk()
+            ->assertSee(route('ppid.show', 'profil'), false)
+            ->assertDontSee(route('pages.show', 'profile-ppid'), false);
+    }
+
     public function test_fallback_redirect_does_not_override_valid_routes(): void
     {
         Redirect::create([

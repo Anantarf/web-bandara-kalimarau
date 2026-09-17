@@ -33,12 +33,21 @@ class SitemapController extends Controller
             ->latest('updated_at')
             ->get()
             ->map(fn (Page $page) => (object) [
-                'loc' => route('pages.show', $page->slug),
+                'loc' => $this->pageCanonicalUrl($page),
                 'lastmod' => $page->updated_at?->toAtomString(),
             ]);
 
         return response()
             ->view('sitemap', ['urls' => $urls->merge($postUrls)->merge($pageUrls)])
             ->header('Content-Type', 'application/xml');
+    }
+
+    protected function pageCanonicalUrl(Page $page): string
+    {
+        $ppidSub = PageController::ppidSubForPageSlug($page->slug);
+
+        return $ppidSub
+            ? route('ppid.show', $ppidSub)
+            : route('pages.show', $page->slug);
     }
 }

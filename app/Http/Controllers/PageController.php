@@ -36,6 +36,10 @@ class PageController extends Controller
 
     public function show($slug): Response|RedirectResponse
     {
+        if ($ppidSub = self::ppidSubForPageSlug($slug)) {
+            return redirect()->route('ppid.show', $ppidSub, 301);
+        }
+
         $page = Page::query()
             ->published()
             ->where('slug', $slug)
@@ -50,6 +54,13 @@ class PageController extends Controller
             : collect();
 
         return response(view('pages.show', compact('page', 'profileAwards')));
+    }
+
+    public static function ppidSubForPageSlug(string $slug): ?string
+    {
+        $sub = array_search($slug, self::PPID_MAP, true);
+
+        return $sub === false ? null : $sub;
     }
 
     /**

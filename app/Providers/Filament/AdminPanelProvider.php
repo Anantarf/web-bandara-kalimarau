@@ -120,66 +120,119 @@ class AdminPanelProvider extends PanelProvider
                             100% { transform: translate(0px, 0px) scale(1); }
                         }
 
-                        /* Premium Login Page Background with Blur & Soft Opacity */
-                        .fi-simple-layout {
-                            background-color: #051330 !important;
-                            position: relative;
-                            min-height: 100vh !important;
+                        /* Compact 1-Page Non-Scrollable Login Layout with Animated Orbs */
+                        body.fi-body-has-no-sidebar {
+                            background: #051330 url('/images/hero/hero1.jpg') center/cover no-repeat fixed !important;
+                            height: 100vh !important;
+                            max-height: 100vh !important;
                             overflow: hidden !important;
+                            margin: 0 !important;
+                            padding: 0 !important;
+                        }
+                        body.fi-body-has-no-sidebar .fi-simple-layout {
+                            height: 100vh !important;
+                            max-height: 100vh !important;
+                            overflow: hidden !important;
+                            margin: 0 !important;
+                            padding: 0 !important;
+                            display: flex !important;
+                            flex-direction: column !important;
+                            justify-content: center !important;
+                            align-items: center !important;
+                            backdrop-filter: blur(3px) brightness(0.88) !important;
+                            -webkit-backdrop-filter: blur(3px) brightness(0.88) !important;
+                            background-color: rgba(5, 19, 48, 0.45) !important;
+                            position: relative;
+                            width: 100vw !important;
                         }
                         .fi-simple-layout::before {
                             content: '';
                             position: absolute;
-                            inset: -20px;
-                            background: url('/images/hero/hero1.jpg') center/cover no-repeat fixed !important;
-                            filter: blur(6px) brightness(0.85);
-                            opacity: 0.75;
+                            top: -15%;
+                            left: -15%;
+                            width: 65vw;
+                            height: 65vw;
+                            background: radial-gradient(circle, rgba(12, 45, 107, 0.75) 0%, rgba(12, 45, 107, 0) 70%) !important;
+                            filter: blur(40px) !important;
+                            animation: floatOrb1 10s ease-in-out infinite !important;
                             z-index: 0;
                             pointer-events: none;
                         }
                         .fi-simple-layout::after {
                             content: '';
                             position: absolute;
-                            inset: 0;
-                            background: radial-gradient(circle at 50% 50%, rgba(12, 45, 107, 0.35) 0%, rgba(5, 19, 48, 0.65) 100%) !important;
+                            bottom: -15%;
+                            right: -15%;
+                            width: 70vw;
+                            height: 70vw;
+                            background: radial-gradient(circle, rgba(200, 134, 10, 0.55) 0%, rgba(200, 134, 10, 0) 70%) !important;
+                            filter: blur(50px) !important;
+                            animation: floatOrb2 13s ease-in-out infinite !important;
                             z-index: 0;
                             pointer-events: none;
                         }
                         .fi-simple-main {
                             position: relative;
                             z-index: 1;
-                            border-radius: 1.5rem !important;
-                            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4) !important;
-                            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                            border-radius: 1.25rem !important;
+                            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.45) !important;
+                            border: 1px solid rgba(255, 255, 255, 0.25) !important;
                             overflow: hidden !important;
+                            padding: 1.5rem 1.75rem !important;
+                            max-height: calc(100vh - 2rem) !important;
+                            width: 100% !important;
+                            max-width: 26.5rem !important;
                         }
                         
                         /* Center and stack logo on login page */
                         .fi-simple-main .fi-logo {
                             height: auto !important;
-                            margin-bottom: 1rem !important;
+                            margin-bottom: 0.5rem !important;
                         }
                         .fi-simple-main .fi-logo > div {
                             flex-direction: column !important;
                             justify-content: center !important;
                             align-items: center !important;
-                            gap: 0.75rem !important;
+                            gap: 0.35rem !important;
                         }
                         .fi-simple-main .fi-logo .flex-col {
                             align-items: center !important;
                             text-align: center !important;
                         }
                         .fi-simple-main .fi-logo img {
-                            height: 4.5rem !important;
+                            height: 3.5rem !important;
                             width: auto !important;
                         }
                         .fi-simple-main .fi-logo .text-xl {
-                            font-size: 1.5rem !important;
+                            font-size: 1.3rem !important;
                             line-height: 1.2 !important;
                         }
-                        /* Paksa tampilkan nama brand di login (x-show sidebar tidak aktif di sini) */
+                        .fi-simple-main .fi-logo .text-sm {
+                            font-size: 0.8rem !important;
+                        }
+                        /* Paksa tampilkan nama brand di login */
                         .fi-simple-main .fi-logo [x-show] {
                             display: flex !important;
+                        }
+
+                        /* Compact Form Headings & Controls */
+                        .fi-simple-main h1,
+                        .fi-simple-main h2,
+                        .fi-simple-main .fi-simple-header-heading {
+                            font-size: 1.25rem !important;
+                            margin-top: 0.25rem !important;
+                            margin-bottom: 0.75rem !important;
+                            line-height: 1.3 !important;
+                        }
+                        .fi-simple-main form {
+                            gap: 0.75rem !important;
+                        }
+                        .fi-simple-main .fi-form-actions {
+                            margin-top: 0.75rem !important;
+                        }
+                        .fi-simple-main .fi-btn {
+                            padding-top: 0.55rem !important;
+                            padding-bottom: 0.55rem !important;
                         }
 
                         /* Retouch Sidebar Background */
@@ -297,12 +350,12 @@ class AdminPanelProvider extends PanelProvider
             ->renderHook(
                 PanelsRenderHook::AUTH_LOGIN_FORM_AFTER,
                 fn (): HtmlString => new HtmlString('
-                    <div class="text-center mt-4">
-                        <a href="/" class="text-sm font-medium text-gray-500 hover:text-primary-600 transition-colors inline-flex items-center gap-2 fi-btn-link">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <div class="text-center mt-3">
+                        <a href="/" class="text-xs font-medium text-gray-500 hover:text-primary-600 transition-colors inline-flex items-center gap-1.5 fi-btn-link">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                             Kembali ke Beranda Web
                         </a>
-                        <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-400 font-medium">
+                        <div class="mt-3 pt-2.5 border-t border-gray-100 text-[11px] text-gray-400 font-medium">
                             &copy; 2026 Bandara Kalimarau - UPT Kementerian Perhubungan RI
                         </div>
                     </div>

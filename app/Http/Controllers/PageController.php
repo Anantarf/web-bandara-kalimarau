@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Award;
 use App\Models\Page;
 use App\Models\PpidDocument;
 use App\Models\Redirect as RedirectModel;
@@ -44,7 +45,11 @@ class PageController extends Controller
             return $this->redirectOrFail('/'.$slug);
         }
 
-        return response(view('pages.show', compact('page')));
+        $profileAwards = $page->slug === 'profil-bandara-kalimarau'
+            ? Award::published()->ordered()->get()
+            : collect();
+
+        return response(view('pages.show', compact('page', 'profileAwards')));
     }
 
     /**

@@ -1,15 +1,5 @@
                 @php
-                    $awardImages = collect([
-                        'storage/media/legacy/2022/10/20221024_093158-scaled.jpg',
-                        'storage/media/legacy/2022/10/Screenshot_20221024-100158_TapScanner-1.jpg',
-                        'storage/media/legacy/2022/10/Screenshot_20221024-100119_TapScanner-1.jpg',
-                        'storage/media/legacy/2022/10/Screenshot_20221024-100043_TapScanner-1.jpg',
-                        'storage/media/legacy/2022/10/Screenshot_20221024-100150_TapScanner-1.jpg',
-                        'storage/media/legacy/2022/10/Screenshot_20221024-100110_TapScanner-1.jpg',
-                        'storage/media/legacy/2022/10/Screenshot_20221024-100051_TapScanner-1.jpg',
-                        'storage/media/legacy/2022/10/Screenshot_20221024-100127_TapScanner-1.jpg',
-                        'storage/media/legacy/2022/10/Screenshot_20221024-100101_TapScanner-1.jpg',
-                    ])->map(fn ($path) => asset($path))->all();
+                    $awardImages = $profileAwards->map(fn ($award) => $award->image_url)->filter()->values()->all();
                 @endphp
                 <div class="mt-16 bg-white rounded-2xl p-6 md:p-10 border border-gray-100 shadow-md shadow-navy-dark/5 scroll-mt-32">
                     <div class="text-center mb-10">
@@ -69,14 +59,16 @@
                     </div>
                 </div>
 
-                <div class="mt-16 bg-white rounded-2xl p-6 md:p-10 border border-gray-100 shadow-md shadow-navy-dark/5">
-                    <div class="text-center mb-10">
-                        <h2 id="penghargaan-prestasi" class="text-3xl md:text-4xl font-extrabold text-navy-dark mb-4 scroll-mt-32">Penghargaan & Prestasi</h2>
-                        <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
-                        <p class="text-text-muted max-w-2xl mx-auto text-lg leading-relaxed">Komitmen UPBU Kalimarau terhadap standar pelayanan prima secara konsisten diwujudkan melalui berbagai pencapaian dan penghargaan bergengsi tingkat nasional.</p>
-                    </div>
+                @if($profileAwards->isNotEmpty())
+                    <div class="mt-16 bg-white rounded-2xl p-6 md:p-10 border border-gray-100 shadow-md shadow-navy-dark/5">
+                        <div class="text-center mb-10">
+                            <h2 id="penghargaan-prestasi" class="text-3xl md:text-4xl font-extrabold text-navy-dark mb-4 scroll-mt-32">Penghargaan & Prestasi</h2>
+                            <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
+                            <p class="text-text-muted max-w-2xl mx-auto text-lg leading-relaxed">Komitmen UPBU Kalimarau terhadap standar pelayanan prima secara konsisten diwujudkan melalui berbagai pencapaian dan penghargaan bergengsi tingkat nasional.</p>
+                        </div>
 
-                    <div class="max-w-4xl mx-auto">
-                        <x-carousel :images="$awardImages" />
+                        <div class="max-w-4xl mx-auto">
+                            <x-carousel :images="$awardImages" />
+                        </div>
                     </div>
-                </div>
+                @endif

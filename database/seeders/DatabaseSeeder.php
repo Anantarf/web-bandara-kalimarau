@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PageSeeder::class);
         $this->call(PublicServiceLinkSeeder::class);
         $this->call(PpidDocumentSeeder::class);
+        $this->call(AwardSeeder::class);
 
         Category::firstOrCreate(
             ['slug' => 'berita'],

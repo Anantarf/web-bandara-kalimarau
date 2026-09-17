@@ -75,10 +75,10 @@
             @php
                 $isMaklumatStandarBiaya = \App\Support\PageContent::isMaklumatStandarBiaya($page->slug, $page->title);
                 $extraHeadings = match ($page->slug) {
-                    'profil-bandara-kalimarau' => [
+                    'profil-bandara-kalimarau' => array_values(array_filter([
                         ['id' => 'maklumat-pelayanan', 'text' => 'Maklumat Pelayanan'],
-                        ['id' => 'penghargaan-prestasi', 'text' => 'Penghargaan & Prestasi'],
-                    ],
+                        isset($profileAwards) ? ($profileAwards->isNotEmpty() ? ['id' => 'penghargaan-prestasi', 'text' => 'Penghargaan & Prestasi'] : null) : (\App\Models\Award::published()->exists() ? ['id' => 'penghargaan-prestasi', 'text' => 'Penghargaan & Prestasi'] : null),
+                    ])),
                     'struktur-organisasi' => [
                         ['id' => 'struktur-organisasi-bandara-kalimarau', 'text' => 'Struktur Organisasi Bandara Kalimarau'],
                     ],

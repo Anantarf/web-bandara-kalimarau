@@ -8,7 +8,7 @@
             src="{{ asset('images/alur-pembuatan-pas-bandara.png') }}"
             alt="Alur Pembuatan Pas Bandara Kalimarau"
             caption="Bagan Alur Pembuatan Pas Bandara UPBU Kelas I Kalimarau"
-            img-class="max-w-md md:max-w-lg w-full h-auto object-contain mx-auto"
-            figure-class="max-w-lg mx-auto text-center my-0" />
+            img-class="max-w-sm md:max-w-md w-full h-auto object-contain mx-auto"
+            figure-class="max-w-sm md:max-w-md mx-auto text-center my-0" />
     </div>
 </div>

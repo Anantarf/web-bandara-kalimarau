@@ -61,7 +61,7 @@ jobs:
 
       - name: Package Application Archive (Zip)
         run: |
-          zip -q -r deploy.zip app bootstrap config database lang public resources routes storage vendor artisan composer.json composer.lock package.json -x "public/storage/*" "storage/app/*" "storage/logs/*" "storage/framework/*"
+          zip -1 -q -r deploy.zip app bootstrap config database lang public resources routes storage vendor artisan composer.json composer.lock package.json -x "public/storage/*" "storage/app/*" "storage/logs/*" "storage/framework/*" "vendor/**/tests/*" "vendor/**/test/*" "vendor/**/Test/*" "vendor/**/Tests/*" "vendor/**/docs/*" "vendor/**/.git*" "vendor/**/*.md"
 
       - name: Transfer Archive to cPanel via SCP
         run: |
@@ -80,7 +80,7 @@ jobs:
                 exit 1
               fi
 
-              sleep 10
+              sleep 5
             done
           done
 
@@ -96,7 +96,7 @@ jobs:
               cat ~/deploy.zip.part-* > ~/deploy.zip
               rm -f ~/deploy.zip.part-*
             fi
-            unzip -o ~/deploy.zip -d "$DEST"
+            unzip -q -o ~/deploy.zip -d "$DEST"
             rm ~/deploy.zip
 
             # Fix directory & file permissions for cPanel suPHP compliance

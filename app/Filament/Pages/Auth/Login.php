@@ -13,7 +13,7 @@ class Login extends BaseLogin
     {
         return TextInput::make('username')
             ->label('Username')
-            ->placeholder('Masukkan username admin')
+            ->placeholder('Masukkan username')
             ->required()
             ->autocomplete()
             ->autofocus()

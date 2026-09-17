@@ -190,42 +190,43 @@ class AdminPanelProvider extends PanelProvider
                             background-color: rgba(255, 255, 255, 0.96) !important;
                             backdrop-filter: blur(12px) !important;
                             -webkit-backdrop-filter: blur(12px) !important;
-                            border-radius: 1.25rem !important;
-                            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.3) !important;
-                            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+                            border-radius: 1rem !important;
+                            box-shadow: 0 1.625rem 3.25rem -1rem rgba(5, 19, 48, 0.42), 0 0 0 1px rgba(255, 255, 255, 0.36) !important;
+                            border: 1px solid rgba(255, 255, 255, 0.42) !important;
                             overflow: hidden !important;
-                            padding: 1.5rem 1.75rem !important;
+                            padding: 1.625rem !important;
                             max-height: calc(100vh - 2rem) !important;
                             width: 100% !important;
-                            max-width: 26.5rem !important;
+                            max-width: 24rem !important;
                             box-sizing: border-box !important;
                         }
                         
                         /* Center and stack logo on login page */
                         .fi-simple-main .fi-logo {
                             height: auto !important;
-                            margin-bottom: 0.5rem !important;
+                            margin-bottom: 0.618rem !important;
                         }
                         .fi-simple-main .fi-logo > div {
                             flex-direction: column !important;
                             justify-content: center !important;
                             align-items: center !important;
-                            gap: 0.35rem !important;
+                            gap: 0.382rem !important;
                         }
                         .fi-simple-main .fi-logo .flex-col {
                             align-items: center !important;
                             text-align: center !important;
                         }
                         .fi-simple-main .fi-logo img {
-                            height: 3.5rem !important;
+                            height: 3.125rem !important;
                             width: auto !important;
                         }
                         .fi-simple-main .fi-logo .text-xl {
-                            font-size: 1.3rem !important;
-                            line-height: 1.2 !important;
+                            font-size: 1.125rem !important;
+                            line-height: 1.18 !important;
                         }
                         .fi-simple-main .fi-logo .text-sm {
-                            font-size: 0.8rem !important;
+                            font-size: 0.75rem !important;
+                            line-height: 1.35 !important;
                         }
                         /* Paksa tampilkan nama brand di login */
                         .fi-simple-main .fi-logo [x-show] {
@@ -236,20 +237,43 @@ class AdminPanelProvider extends PanelProvider
                         .fi-simple-main h1,
                         .fi-simple-main h2,
                         .fi-simple-main .fi-simple-header-heading {
-                            font-size: 1.25rem !important;
-                            margin-top: 0.25rem !important;
-                            margin-bottom: 0.75rem !important;
-                            line-height: 1.3 !important;
+                            font-size: 1.375rem !important;
+                            margin-top: 0.382rem !important;
+                            margin-bottom: 1rem !important;
+                            line-height: 1.18 !important;
+                            letter-spacing: 0 !important;
                         }
                         .fi-simple-main form {
-                            gap: 0.75rem !important;
+                            gap: 1rem !important;
                         }
                         .fi-simple-main .fi-form-actions {
-                            margin-top: 0.75rem !important;
+                            margin-top: 1rem !important;
+                        }
+                        .fi-simple-main .fi-fo-field-wrp-label span,
+                        .fi-simple-main .fi-fo-field-wrp-label label {
+                            font-size: 0.875rem !important;
+                            line-height: 1.35 !important;
+                            color: #0f172a !important;
+                            font-weight: 500 !important;
+                        }
+                        .fi-simple-main .fi-input-wrp {
+                            min-height: 2.75rem !important;
+                            border-radius: 0.75rem !important;
+                        }
+                        .fi-simple-main .fi-input {
+                            min-height: 2.75rem !important;
+                            font-size: 0.9375rem !important;
+                            line-height: 1.5 !important;
+                        }
+                        .fi-simple-main .fi-input::placeholder {
+                            color: #64748b !important;
+                            opacity: 1 !important;
                         }
                         .fi-simple-main .fi-btn {
-                            padding-top: 0.55rem !important;
-                            padding-bottom: 0.55rem !important;
+                            min-height: 2.75rem !important;
+                            padding-top: 0.625rem !important;
+                            padding-bottom: 0.625rem !important;
+                            font-size: 0.9375rem !important;
                         }
 
                         /* Retouch Sidebar Background */

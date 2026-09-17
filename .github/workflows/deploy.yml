@@ -36,6 +36,11 @@ jobs:
       - name: Install Composer Dependencies (Production)
         run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
+      - name: Clean Unused Vendor Files (Strip Tests & Docs)
+        run: |
+          find vendor -type f \( -name "*.md" -o -name "*.txt" -o -name "*.png" -o -name "*.jpg" -o -name "*.svg" -o -name "*.map" \) -delete 2>/dev/null || true
+          find vendor -type d \( -name "tests" -o -name "test" -o -name "Test" -o -name "Tests" -o -name "docs" -o -name "doc" \) -exec rm -rf {} + 2>/dev/null || true
+
       - name: Install NPM Dependencies
         run: npm ci --legacy-peer-deps
 

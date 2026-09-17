@@ -120,9 +120,9 @@ class AdminPanelProvider extends PanelProvider
                             100% { transform: translate(0px, 0px) scale(1); }
                         }
 
-                        /* Premium Login Page Background */
+                        /* Premium Login Page Background with Blur & Soft Opacity */
                         .fi-simple-layout {
-                            background: #091f4a url('/images/hero/hero1.jpg') center/cover no-repeat fixed !important;
+                            background-color: #051330 !important;
                             position: relative;
                             min-height: 100vh !important;
                             overflow: hidden !important;
@@ -130,26 +130,18 @@ class AdminPanelProvider extends PanelProvider
                         .fi-simple-layout::before {
                             content: '';
                             position: absolute;
-                            top: -15%;
-                            left: -15%;
-                            width: 65vw;
-                            height: 65vw;
-                            background: radial-gradient(circle, rgba(12, 45, 107, 0.85) 0%, rgba(12, 45, 107, 0) 70%) !important;
-                            filter: blur(50px) !important;
-                            animation: floatOrb1 10s ease-in-out infinite !important;
+                            inset: -20px;
+                            background: url('/images/hero/hero1.jpg') center/cover no-repeat fixed !important;
+                            filter: blur(6px) brightness(0.85);
+                            opacity: 0.75;
                             z-index: 0;
                             pointer-events: none;
                         }
                         .fi-simple-layout::after {
                             content: '';
                             position: absolute;
-                            bottom: -15%;
-                            right: -15%;
-                            width: 70vw;
-                            height: 70vw;
-                            background: radial-gradient(circle, rgba(200, 134, 10, 0.6) 0%, rgba(200, 134, 10, 0) 70%) !important;
-                            filter: blur(60px) !important;
-                            animation: floatOrb2 13s ease-in-out infinite !important;
+                            inset: 0;
+                            background: radial-gradient(circle at 50% 50%, rgba(12, 45, 107, 0.35) 0%, rgba(5, 19, 48, 0.65) 100%) !important;
                             z-index: 0;
                             pointer-events: none;
                         }

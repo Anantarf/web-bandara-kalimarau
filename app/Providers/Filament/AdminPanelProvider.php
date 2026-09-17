@@ -106,7 +106,7 @@ class AdminPanelProvider extends PanelProvider
                             transition: background-color 9999s ease-in-out 0s;
                         }
 
-                        /* Compact 1-Page Non-Scrollable Login Layout with Ambient Background */
+                        /* Compact 1-Page Non-Scrollable Login Layout with Cinematic Airport Background */
                         html,
                         body.fi-body-has-no-sidebar {
                             height: 100% !important;
@@ -119,13 +119,13 @@ class AdminPanelProvider extends PanelProvider
                         body.fi-body-has-no-sidebar::before {
                             content: '';
                             position: fixed;
-                            inset: -1.5rem;
+                            inset: 0;
                             z-index: 0;
                             pointer-events: none;
-                            background: url('/images/hero/hero1.jpg') center/cover no-repeat;
-                            filter: blur(10px) brightness(0.92) saturate(1.08);
-                            transform: scale(1.03);
-                            opacity: 0.48;
+                            background: url('/images/hero/hero1.jpg') center center / cover no-repeat;
+                            filter: brightness(0.75) contrast(1.1) saturate(1.15);
+                            transform: scale(1.01);
+                            opacity: 1;
                         }
                         body.fi-body-has-no-sidebar::after {
                             content: '';
@@ -133,7 +133,7 @@ class AdminPanelProvider extends PanelProvider
                             inset: 0;
                             z-index: 0;
                             pointer-events: none;
-                            background: linear-gradient(135deg, rgba(245, 247, 251, 0.78) 0%, rgba(255, 255, 255, 0.62) 52%, rgba(245, 247, 251, 0.74) 100%);
+                            background: radial-gradient(circle at center, rgba(5, 19, 48, 0.45) 0%, rgba(5, 19, 48, 0.78) 100%), linear-gradient(180deg, rgba(5, 19, 48, 0.35) 0%, rgba(5, 19, 48, 0.65) 100%);
                         }
 
                         body.fi-body-has-no-sidebar .fi-simple-layout {
@@ -151,20 +151,22 @@ class AdminPanelProvider extends PanelProvider
                             align-items: center !important;
                             position: relative !important;
                             isolation: isolate !important;
-                            background: rgba(245, 247, 251, 0.18) !important;
+                            background: transparent !important;
                         }
                         .fi-simple-main {
                             position: relative;
                             z-index: 10;
-                            background-color: rgba(255, 255, 255, 0.96) !important;
-                            border-radius: 1rem !important;
-                            box-shadow: 0 1rem 2rem -1rem rgba(5, 19, 48, 0.38), 0 0 0 1px rgba(226, 231, 240, 0.9) !important;
-                            border: 1px solid rgba(226, 231, 240, 0.92) !important;
+                            background: rgba(255, 255, 255, 0.95) !important;
+                            backdrop-filter: blur(16px) !important;
+                            -webkit-backdrop-filter: blur(16px) !important;
+                            border-radius: 1.25rem !important;
+                            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.4) !important;
+                            border: 1px solid rgba(255, 255, 255, 0.75) !important;
                             overflow: hidden !important;
-                            padding: 1.625rem !important;
+                            padding: 1.75rem !important;
                             max-height: calc(100vh - 2rem) !important;
                             width: 100% !important;
-                            max-width: 24rem !important;
+                            max-width: 24.5rem !important;
                             box-sizing: border-box !important;
                         }
                         

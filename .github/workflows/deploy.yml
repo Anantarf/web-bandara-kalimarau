@@ -59,30 +59,21 @@ jobs:
 
           ssh-keyscan -p ${SSH_PORT:-2223} -H "${TARGET_HOST}" >> ~/.ssh/known_hosts || true
 
-      - name: Package Application Archive (Zip)
+      - name: Package Application Archive (tar.gz)
         run: |
-          zip -1 -q -r deploy.zip app bootstrap config database lang public resources routes storage vendor artisan composer.json composer.lock package.json -x "public/storage/*" "storage/app/*" "storage/logs/*" "storage/framework/*" "vendor/**/tests/*" "vendor/**/test/*" "vendor/**/Test/*" "vendor/**/Tests/*" "vendor/**/docs/*" "vendor/**/.git*" "vendor/**/*.md"
+          tar -czf deploy.tar.gz \
+            --exclude="public/storage" \
+            --exclude="storage/app/*" \
+            --exclude="storage/logs/*" \
+            --exclude="storage/framework/*" \
+            --exclude="node_modules" \
+            --exclude=".git" \
+            app bootstrap config database lang public resources routes storage vendor artisan composer.json composer.lock package.json
 
       - name: Transfer Archive to cPanel via SCP
         run: |
-          split -b 25m deploy.zip deploy.zip.part-
-          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ConnectTimeout=30 -o ServerAliveInterval=15 -o ServerAliveCountMax=4 ${SSH_USERNAME}@${TARGET_HOST} 'rm -f ~/deploy.zip ~/deploy.zip.part-*'
-
-          for part in deploy.zip.part-*; do
-            for attempt in 1 2 3; do
-              echo "Uploading ${part} (attempt ${attempt}/3)..."
-              if scp -C -i ~/.ssh/id_rsa -P ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ConnectTimeout=30 -o ServerAliveInterval=15 -o ServerAliveCountMax=4 "${part}" ${SSH_USERNAME}@${TARGET_HOST}:~/"${part}"; then
-                break
-              fi
-
-              if [ "${attempt}" = "3" ]; then
-                echo "Failed to upload ${part} after 3 attempts."
-                exit 1
-              fi
-
-              sleep 5
-            done
-          done
+          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ConnectTimeout=30 ${SSH_USERNAME}@${TARGET_HOST} 'rm -f ~/deploy.tar.gz ~/deploy.zip ~/deploy.zip.part-*'
+          scp -C -i ~/.ssh/id_rsa -P ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ConnectTimeout=30 deploy.tar.gz ${SSH_USERNAME}@${TARGET_HOST}:~/deploy.tar.gz
 
       - name: Extract & Execute Artisan Commands on cPanel
         run: |
@@ -92,12 +83,8 @@ jobs:
             PUBLIC_HTML="/home/${SSH_USERNAME:-band2936}/public_html"
 
             mkdir -p "$DEST"
-            if [ ! -f ~/deploy.zip ]; then
-              cat ~/deploy.zip.part-* > ~/deploy.zip
-              rm -f ~/deploy.zip.part-*
-            fi
-            unzip -q -o ~/deploy.zip -d "$DEST"
-            rm ~/deploy.zip
+            tar -xzf ~/deploy.tar.gz -C "$DEST"
+            rm -f ~/deploy.tar.gz
 
             # Fix directory & file permissions for cPanel suPHP compliance
             chmod -R 755 "$DEST/storage" "$DEST/bootstrap/cache" 2>/dev/null || true

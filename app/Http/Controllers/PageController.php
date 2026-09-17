@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Models\PpidDocument;
 use App\Models\Redirect as RedirectModel;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class PageController extends Controller
@@ -68,7 +69,7 @@ class PageController extends Controller
      * pages that changed slug, etc) fall back to the redirects table before
      * 404ing - never overrides a route that already resolved normally.
      */
-    public function fallback(\Illuminate\Http\Request $request): Response|RedirectResponse
+    public function fallback(Request $request): Response|RedirectResponse
     {
         return $this->redirectOrFail('/'.trim($request->path(), '/'));
     }

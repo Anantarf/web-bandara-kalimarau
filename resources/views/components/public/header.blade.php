@@ -10,7 +10,7 @@
         'Layanan' => [
             ['label' => 'Tarif Kebandarudaraan', 'slug' => 'tarif-kebandarudaraan'],
             ['label' => 'Standar Pelayanan', 'slug' => 'standar-pelayanan'],
-            ['label' => 'Pengajuan Pas Bandara', 'url' => 'https://idpas.kalimarau-airport.com', 'external' => true],
+            ['label' => 'Pengajuan Pas Bandara', 'slug' => 'pengajuan-pas-bandara'],
         ],
         'Informasi' => [
             ['label' => 'Berita Terkini', 'route' => 'posts.index'],

@@ -216,6 +216,23 @@ class PublicPagesSmokeTest extends TestCase
             ->assertSee('storage/media/legacy/2024/09/Standar-Pelayanan-2023.pdf', false);
     }
 
+    public function test_pengajuan_pas_bandara_seeded_page_loads(): void
+    {
+        $this->seed(PageSeeder::class);
+
+        $this->get(route('pages.show', 'pengajuan-pas-bandara'))
+            ->assertOk()
+            ->assertSee('Pengajuan Pas Bandara')
+            ->assertSee('alur-pembuatan-pas-bandara.png', false)
+            ->assertSee('Kedatangan Pemohon')
+            ->assertSee('Pengecekan Persyaratan')
+            ->assertSee('Proses Pembayaran')
+            ->assertSee('Proses PNBP')
+            ->assertSee('Pembuatan Pas')
+            ->assertSee('Pengambilan Kartu Pas')
+            ->assertSee('Pas Bandara Siap Digunakan');
+    }
+
     public function test_static_page_loads_by_slug(): void
     {
         Page::create([

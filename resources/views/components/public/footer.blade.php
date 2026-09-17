@@ -59,6 +59,7 @@
                     <li><a href="{{ route('flights.index') }}" class="inline-flex min-h-11 items-center hover:text-gold-light transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">Jadwal Penerbangan</a></li>
                     <li><a href="{{ route('pages.show', 'tarif-kebandarudaraan') }}" class="inline-flex min-h-11 items-center hover:text-gold-light transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">Tarif Kebandarudaraan</a></li>
                     <li><a href="{{ route('pages.show', 'standar-pelayanan') }}" class="inline-flex min-h-11 items-center hover:text-gold-light transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">Standar Pelayanan</a></li>
+                    <li><a href="{{ route('pages.show', 'pengajuan-pas-bandara') }}" class="inline-flex min-h-11 items-center hover:text-gold-light transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">Pengajuan Pas Bandara</a></li>
                 </ul>
             </div>
 

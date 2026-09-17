@@ -178,6 +178,13 @@ class PageSeeder extends Seeder
                 'content' => '<h2>SIMADU</h2><p>Sistem Manajemen Pengaduan Internal Kementerian Perhubungan.</p>',
                 'template' => 'default',
             ],
+            [
+                'title' => 'Pengajuan Pas Bandara',
+                'slug' => 'pengajuan-pas-bandara',
+                'excerpt' => 'Informasi lengkap alur, mekanisme, dan persyaratan permohonan penerbitan kartu Pas Masuk Bandara (Airport Pass) di UPBU Kelas I Kalimarau.',
+                'content' => '<h2>Alur Pembuatan Pas Bandara</h2><p>Informasi dan panduan resmi alur pengajuan pembuatan Pas Masuk Bandara (Airport Pass) di Bandar Udara Kelas I Kalimarau Berau.</p>',
+                'template' => 'default',
+            ],
         ];
 
         foreach ($pages as $p) {

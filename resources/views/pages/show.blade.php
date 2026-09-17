@@ -101,6 +101,7 @@
                             'simadu' => 'pages.partials.simadu',
                             'sp4n-lapor' => 'pages.partials.sp4n-lapor',
                             'hasil-dan-tindak-lanjut' => 'pages.partials.hasil-dan-tindak-lanjut',
+                            'pengajuan-pas-bandara' => 'pages.partials.pengajuan-pas-bandara',
                             default => 'pages.partials.default-content',
                         })
                     @endif

@@ -106,7 +106,7 @@ class AdminPanelProvider extends PanelProvider
                             transition: background-color 9999s ease-in-out 0s;
                         }
 
-                        /* Compact 1-Page Non-Scrollable Login Layout with Cinematic Airport Background */
+                        /* Compact 1-Page Non-Scrollable Login Layout with Airport View Background */
                         html,
                         body.fi-body-has-no-sidebar {
                             height: 100% !important;
@@ -114,18 +114,18 @@ class AdminPanelProvider extends PanelProvider
                             overflow: hidden !important;
                             margin: 0 !important;
                             padding: 0 !important;
-                            background: #051330 !important;
+                            background: #061838 !important;
                         }
                         body.fi-body-has-no-sidebar::before {
                             content: '';
                             position: fixed;
-                            inset: 0;
+                            inset: -1.5rem;
                             z-index: 0;
                             pointer-events: none;
-                            background: url('/images/hero/hero1.jpg') center center / cover no-repeat;
-                            filter: brightness(0.75) contrast(1.1) saturate(1.15);
-                            transform: scale(1.01);
-                            opacity: 1;
+                            background: url('/images/hero/hero1.jpg') center/cover no-repeat;
+                            filter: blur(4px) brightness(0.65) saturate(1.2);
+                            transform: scale(1.05);
+                            opacity: 0.85;
                         }
                         body.fi-body-has-no-sidebar::after {
                             content: '';
@@ -133,7 +133,7 @@ class AdminPanelProvider extends PanelProvider
                             inset: 0;
                             z-index: 0;
                             pointer-events: none;
-                            background: radial-gradient(circle at center, rgba(5, 19, 48, 0.45) 0%, rgba(5, 19, 48, 0.78) 100%), linear-gradient(180deg, rgba(5, 19, 48, 0.35) 0%, rgba(5, 19, 48, 0.65) 100%);
+                            background: linear-gradient(135deg, rgba(6, 24, 56, 0.72) 0%, rgba(12, 45, 107, 0.5) 50%, rgba(6, 24, 56, 0.78) 100%);
                         }
 
                         body.fi-body-has-no-sidebar .fi-simple-layout {
@@ -156,17 +156,15 @@ class AdminPanelProvider extends PanelProvider
                         .fi-simple-main {
                             position: relative;
                             z-index: 10;
-                            background: rgba(255, 255, 255, 0.95) !important;
-                            backdrop-filter: blur(16px) !important;
-                            -webkit-backdrop-filter: blur(16px) !important;
-                            border-radius: 1.25rem !important;
-                            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.4) !important;
-                            border: 1px solid rgba(255, 255, 255, 0.75) !important;
+                            background-color: rgba(255, 255, 255, 0.96) !important;
+                            border-radius: 1rem !important;
+                            box-shadow: 0 1.25rem 2.5rem -0.75rem rgba(2, 6, 23, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.25) !important;
+                            border: 1px solid rgba(226, 231, 240, 0.92) !important;
                             overflow: hidden !important;
-                            padding: 1.75rem !important;
+                            padding: 1.625rem !important;
                             max-height: calc(100vh - 2rem) !important;
                             width: 100% !important;
-                            max-width: 24.5rem !important;
+                            max-width: 24rem !important;
                             box-sizing: border-box !important;
                         }
                         

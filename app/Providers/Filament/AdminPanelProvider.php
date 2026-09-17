@@ -128,7 +128,26 @@ class AdminPanelProvider extends PanelProvider
                             overflow: hidden !important;
                             margin: 0 !important;
                             padding: 0 !important;
-                            background: #051330 url('/images/hero/hero1.jpg') center/cover no-repeat fixed !important;
+                            background: #051330 !important;
+                        }
+                        body.fi-body-has-no-sidebar::before {
+                            content: '';
+                            position: fixed;
+                            inset: -1.5rem;
+                            z-index: 0;
+                            pointer-events: none;
+                            background: url('/images/hero/hero1.jpg') center/cover no-repeat;
+                            filter: blur(10px) brightness(0.92) saturate(1.08);
+                            transform: scale(1.03);
+                            opacity: 0.48;
+                        }
+                        body.fi-body-has-no-sidebar::after {
+                            content: '';
+                            position: fixed;
+                            inset: 0;
+                            z-index: 0;
+                            pointer-events: none;
+                            background: linear-gradient(135deg, rgba(245, 247, 251, 0.78) 0%, rgba(255, 255, 255, 0.62) 52%, rgba(245, 247, 251, 0.74) 100%);
                         }
 
                         body.fi-body-has-no-sidebar .fi-simple-layout {
@@ -145,9 +164,8 @@ class AdminPanelProvider extends PanelProvider
                             justify-content: center !important;
                             align-items: center !important;
                             position: relative !important;
-                            background: linear-gradient(135deg, rgba(5, 19, 48, 0.58) 0%, rgba(9, 31, 74, 0.48) 100%) !important;
-                            backdrop-filter: blur(2.5px) brightness(0.92) !important;
-                            -webkit-backdrop-filter: blur(2.5px) brightness(0.92) !important;
+                            isolation: isolate !important;
+                            background: linear-gradient(135deg, rgba(245, 247, 251, 0.28) 0%, rgba(255, 255, 255, 0.18) 100%) !important;
                         }
 
                         /* Floating Ambient Glow Orbs (Subtle background accents) */
@@ -275,6 +293,21 @@ class AdminPanelProvider extends PanelProvider
                             padding-bottom: 0.625rem !important;
                             font-size: 0.9375rem !important;
                         }
+                        .fi-simple-main .kalimarau-login-footer {
+                            margin-top: 0.875rem !important;
+                        }
+                        .fi-simple-main .kalimarau-login-back {
+                            font-size: 0.75rem !important;
+                            line-height: 1.35 !important;
+                        }
+                        .fi-simple-main .kalimarau-login-credit {
+                            margin-top: 0.625rem !important;
+                            padding-top: 0.625rem !important;
+                            font-size: 0.6875rem !important;
+                            line-height: 1.45 !important;
+                            color: #64748b !important;
+                            letter-spacing: 0 !important;
+                        }
 
                         /* Retouch Sidebar Background */
                         aside.fi-sidebar {
@@ -391,12 +424,12 @@ class AdminPanelProvider extends PanelProvider
             ->renderHook(
                 PanelsRenderHook::AUTH_LOGIN_FORM_AFTER,
                 fn (): HtmlString => new HtmlString('
-                    <div class="text-center mt-2.5">
-                        <a href="/" class="text-xs font-medium text-gray-500 hover:text-primary-600 transition-colors inline-flex items-center gap-1.5 fi-btn-link">
+                    <div class="kalimarau-login-footer text-center">
+                        <a href="/" class="kalimarau-login-back font-medium text-gray-500 hover:text-primary-600 transition-colors inline-flex items-center gap-1.5 fi-btn-link">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                             Kembali ke Beranda Web
                         </a>
-                        <div class="mt-2 pt-2 border-t border-gray-100/80 text-[10px] text-gray-400 font-normal tracking-tight">
+                        <div class="kalimarau-login-credit border-t border-gray-100/80 font-normal">
                             &copy; 2026 Bandara Kalimarau - UPT Kementerian Perhubungan RI
                         </div>
                     </div>

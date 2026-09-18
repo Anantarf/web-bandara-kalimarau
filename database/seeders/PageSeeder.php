@@ -53,24 +53,10 @@ class PageSeeder extends Seeder
                 'template' => 'ppid',
             ],
             [
-                'title' => 'Profile PPID',
+                'title' => 'Profil PPID',
                 'slug' => 'profile-ppid',
-                'excerpt' => 'Profil Pejabat Pengelola Informasi dan Dokumentasi UPBU Kelas I Kalimarau.',
-                'content' => '<p>Pejabat Pengelola Informasi dan Dokumentasi (PPID) UPBU Kelas I Kalimarau bertanggung jawab dalam penyimpanan, pendokumentasian, penyediaan, dan/atau pelayanan informasi publik.</p>',
-                'template' => 'ppid',
-            ],
-            [
-                'title' => 'Visi & Misi PPID',
-                'slug' => 'visi-misi-ppid',
-                'excerpt' => 'Visi dan Misi Pelayanan Informasi Publik PPID Kalimarau.',
-                'content' => '<p>Mewujudkan pelayanan informasi publik yang cepat, tepat, transparan, dan akuntabel.</p>',
-                'template' => 'ppid',
-            ],
-            [
-                'title' => 'Tugas dan Fungsi',
-                'slug' => 'tugas-dan-fungsi',
-                'excerpt' => 'Tugas dan fungsi PPID UPBU Kelas I Kalimarau.',
-                'content' => '<p>Mengelola dan melayani permohonan informasi publik secara efisien dan transparan.</p>',
+                'excerpt' => 'Profil layanan informasi publik PPID Pelaksana UPBU Kelas I Kalimarau.',
+                'content' => '<p>PPID Pelaksana UPBU Kelas I Kalimarau mengelola pelayanan informasi publik di lingkungan Bandar Udara Kalimarau. Layanan ini memastikan informasi yang dikuasai badan publik dapat didokumentasikan, diumumkan, dan diberikan kepada pemohon sesuai ketentuan keterbukaan informasi publik.</p>',
                 'template' => 'ppid',
             ],
             [
@@ -83,57 +69,36 @@ class PageSeeder extends Seeder
             [
                 'title' => 'Informasi Berkala',
                 'slug' => 'informasi-berkala',
-                'excerpt' => 'Daftar informasi publik yang disediakan dan diumumkan secara berkala.',
-                'content' => '<p>Informasi berkala mengenai laporan kinerja, keuangan, dan kegiatan operasional bandara.</p>',
+                'excerpt' => 'Daftar dokumen informasi publik yang diumumkan secara berkala.',
+                'content' => '',
                 'template' => 'ppid',
             ],
             [
                 'title' => 'Informasi Setiap Saat',
                 'slug' => 'informasi-setiap-saat',
-                'excerpt' => 'Daftar informasi publik yang wajib tersedia setiap saat.',
-                'content' => '<p>Informasi yang wajib disediakan dan dapat diakses oleh publik setiap saat.</p>',
+                'excerpt' => 'Daftar dokumen informasi publik yang tersedia untuk diakses setiap saat.',
+                'content' => '',
                 'template' => 'ppid',
             ],
             [
                 'title' => 'Informasi Serta Merta',
                 'slug' => 'informasi-serta-merta',
-                'excerpt' => 'Informasi yang dapat mengancam hajat hidup orang banyak dan ketertiban umum.',
-                'content' => '<p>Informasi mengenai keadaan darurat atau pengumuman keselamatan penerbangan.</p>',
-                'template' => 'ppid',
-            ],
-            [
-                'title' => 'Formulir Pengajuan Informasi',
-                'slug' => 'formulir-pengajuan-informasi',
-                'excerpt' => 'Formulir permohonan informasi publik PPID.',
-                'content' => '<p>Silakan isi formulir untuk mengajukan permohonan informasi publik.</p>',
+                'excerpt' => 'Informasi mendesak yang berkaitan dengan keselamatan, keadaan darurat, atau ketertiban umum.',
+                'content' => '',
                 'template' => 'ppid',
             ],
             [
                 'title' => 'Prosedur Permohonan Informasi',
                 'slug' => 'prosedur-permohonan-informasi',
-                'excerpt' => 'Tata cara dan tahapan permohonan informasi publik.',
-                'content' => '<p>Alur permohonan informasi dari pengajuan hingga penyampaian tanggapan.</p>',
+                'excerpt' => 'Tata cara pengajuan permohonan informasi publik kepada PPID.',
+                'content' => '<ol><li>Pemohon menyampaikan permohonan informasi secara tertulis atau melalui kanal resmi yang tersedia.</li><li>PPID mencatat, memverifikasi, dan menelaah jenis informasi yang dimohonkan.</li><li>PPID memberikan tanggapan sesuai jangka waktu layanan berdasarkan ketentuan keterbukaan informasi publik.</li><li>Informasi diberikan kepada pemohon apabila tersedia dan tidak termasuk informasi yang dikecualikan.</li></ol>',
                 'template' => 'ppid',
             ],
             [
                 'title' => 'Prosedur Permohonan Keberatan Informasi',
                 'slug' => 'prosedur-permohonan-keberatan-informasi',
-                'excerpt' => 'Tata cara pengajuan keberatan atas permohonan informasi.',
-                'content' => '<p>Alur penyampaian keberatan kepada Atasan PPID.</p>',
-                'template' => 'ppid',
-            ],
-            [
-                'title' => 'Prosedur Pengajuan Sengketa Informasi Publik',
-                'slug' => 'prosedur-pengajuan-sengketa-informasi-publik',
-                'excerpt' => 'Alur penyelesaian sengketa informasi publik.',
-                'content' => '<p>Tata cara pengajuan sengketa informasi ke Komisi Informasi.</p>',
-                'template' => 'ppid',
-            ],
-            [
-                'title' => 'Kritik & Saran',
-                'slug' => 'kritik-saran',
-                'excerpt' => 'Kanal masukan, kritik, dan saran pelayanan.',
-                'content' => '<p>Kirimkan masukan dan kritik konstruktif Anda untuk kemajuan pelayanan Bandara Kalimarau.</p>',
+                'excerpt' => 'Tata cara pengajuan keberatan apabila pemohon belum menerima layanan informasi sesuai ketentuan.',
+                'content' => '<ol><li>Pemohon mengajukan keberatan secara tertulis kepada Atasan PPID.</li><li>Keberatan disampaikan dengan menyebutkan alasan, nomor permohonan, dan identitas pemohon.</li><li>Atasan PPID menelaah keberatan dan memberikan tanggapan sesuai jangka waktu yang berlaku.</li></ol>',
                 'template' => 'ppid',
             ],
             [
@@ -186,6 +151,14 @@ class PageSeeder extends Seeder
                 'template' => 'default',
             ],
         ];
+
+        Page::whereIn('slug', [
+            'kritik-saran',
+            'formulir-pengajuan-informasi',
+            'prosedur-pengajuan-sengketa-informasi-publik',
+            'visi-misi-ppid',
+            'tugas-dan-fungsi',
+        ])->delete();
 
         foreach ($pages as $p) {
             Page::updateOrCreate(

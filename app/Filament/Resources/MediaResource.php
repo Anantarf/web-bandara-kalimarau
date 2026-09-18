@@ -16,15 +16,15 @@ class MediaResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
-    protected static ?string $navigationGroup = 'Layanan Operasional';
+    protected static ?string $navigationGroup = 'Publikasi & Konten Web';
 
-    protected static bool $shouldRegisterNavigation = false;
+    protected static ?string $navigationLabel = 'Galeri Media';
 
     protected static ?int $navigationSort = 3;
 
-    protected static ?string $modelLabel = 'Galeri Media & Foto';
+    protected static ?string $modelLabel = 'Galeri Media';
 
-    protected static ?string $pluralModelLabel = 'Galeri Media & Foto';
+    protected static ?string $pluralModelLabel = 'Galeri Media';
 
     public static function form(Form $form): Form
     {

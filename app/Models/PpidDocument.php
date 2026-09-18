@@ -16,10 +16,8 @@ class PpidDocument extends Model
         'informasi-setiap-saat' => 'Informasi Setiap Saat',
         'informasi-serta-merta' => 'Informasi Serta Merta',
         'regulasi' => 'Regulasi',
-        'formulir-pengajuan-informasi' => 'Formulir Pengajuan Informasi',
         'prosedur-permohonan-informasi' => 'Prosedur Permohonan Informasi',
         'prosedur-keberatan-informasi' => 'Prosedur Permohonan Keberatan Informasi',
-        'prosedur-sengketa-informasi-publik' => 'Prosedur Sengketa Informasi Publik',
     ];
 
     protected static function booted(): void
@@ -70,11 +68,7 @@ class PpidDocument extends Model
 
     public function hasFile(): bool
     {
-        if (filled($this->external_url)) {
-            return true;
-        }
-
-        return filled($this->file_path) && Storage::disk('public')->exists($this->file_path);
+        return filled($this->external_url) || filled($this->file_path);
     }
 
     public function getFileUrlAttribute(): string

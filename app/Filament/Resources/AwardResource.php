@@ -16,9 +16,11 @@ class AwardResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-trophy';
 
-    protected static ?string $navigationGroup = 'Layanan Operasional';
+    protected static ?string $navigationGroup = 'Publikasi & Konten Web';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?string $navigationLabel = 'Penghargaan & Prestasi';
+
+    protected static ?int $navigationSort = 5;
 
     protected static ?string $modelLabel = 'Penghargaan & Prestasi';
 

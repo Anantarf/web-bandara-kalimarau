@@ -46,6 +46,9 @@ Route::prefix('berita')->name('posts.')->group(function () {
 
 // PPID (nested per docs/archive/SITEMAP LARAVEL.md, must come before the catch-all below)
 Route::get('/ppid/{sub?}', [PageController::class, 'ppid'])->name('ppid.show');
+Route::redirect('/informasi/berkala', '/ppid/informasi-berkala', 301);
+Route::redirect('/informasi/setiap-saat', '/ppid/informasi-setiap-saat', 301);
+Route::redirect('/informasi/serta-merta', '/ppid/informasi-serta-merta', 301);
 
 // FAQ
 Route::view('/faq', 'faq')->name('faq');

@@ -16,13 +16,15 @@ class SurveyReportResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar-square';
 
-    protected static ?string $navigationGroup = 'Layanan Operasional';
+    protected static ?string $navigationGroup = 'Dokumen Publik';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?string $navigationLabel = 'Laporan Survei (SKM)';
 
-    protected static ?string $modelLabel = 'Laporan Survei & SKM';
+    protected static ?int $navigationSort = 2;
 
-    protected static ?string $pluralModelLabel = 'Laporan Survei & SKM';
+    protected static ?string $modelLabel = 'Laporan Survei (SKM)';
+
+    protected static ?string $pluralModelLabel = 'Laporan Survei (SKM)';
 
     protected static ?string $recordTitleAttribute = 'title';
 

@@ -19,7 +19,7 @@ class AuditLogResource extends Resource
 
     protected static ?string $navigationGroup = 'Pengaturan Sistem';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $navigationLabel = 'Riwayat Aktivitas';
 

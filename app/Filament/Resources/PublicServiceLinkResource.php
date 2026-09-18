@@ -16,13 +16,15 @@ class PublicServiceLinkResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-link';
 
-    protected static ?string $navigationGroup = 'Layanan Operasional';
+    protected static ?string $navigationGroup = 'Layanan Publik';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?string $navigationLabel = 'Tautan Layanan Publik';
 
-    protected static ?string $modelLabel = 'Layanan Publik (SP4N, SIMADU, IDPAS)';
+    protected static ?int $navigationSort = 1;
 
-    protected static ?string $pluralModelLabel = 'Layanan Publik (SP4N, SIMADU, IDPAS)';
+    protected static ?string $modelLabel = 'Tautan Layanan Publik';
+
+    protected static ?string $pluralModelLabel = 'Tautan Layanan Publik';
 
     public static function form(Form $form): Form
     {
@@ -54,9 +56,8 @@ class PublicServiceLinkResource extends Resource
                             ->placeholder('Pilih kategori layanan')
                             ->required()
                             ->native(false),
-                        Forms\Components\TextInput::make('icon')
-                            ->label('Ikon')
-                            ->helperText('Nama ikon Heroicon, contoh: heroicon-o-link'),
+                        Forms\Components\Hidden::make('icon')
+                            ->default('heroicon-o-link'),
                         Forms\Components\TextInput::make('sort_order')
                             ->label('Urutan Tampil')
                             ->numeric()

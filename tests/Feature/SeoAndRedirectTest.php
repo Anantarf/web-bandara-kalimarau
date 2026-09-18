@@ -142,6 +142,21 @@ class SeoAndRedirectTest extends TestCase
             ->assertSee('<meta name="robots" content="noindex, follow">', false);
     }
 
+    public function test_informasi_public_aliases_redirect_to_ppid_categories(): void
+    {
+        $this->get('/informasi/berkala')
+            ->assertStatus(301)
+            ->assertRedirect(route('ppid.show', 'informasi-berkala'));
+
+        $this->get('/informasi/setiap-saat')
+            ->assertStatus(301)
+            ->assertRedirect(route('ppid.show', 'informasi-setiap-saat'));
+
+        $this->get('/informasi/serta-merta')
+            ->assertStatus(301)
+            ->assertRedirect(route('ppid.show', 'informasi-serta-merta'));
+    }
+
     public function test_posts_index_canonical_reflects_current_pagination_page(): void
     {
         $this->get(route('posts.index', ['page' => 2]))

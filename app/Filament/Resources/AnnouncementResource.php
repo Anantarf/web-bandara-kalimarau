@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
 class AnnouncementResource extends Resource
 {
@@ -16,13 +17,15 @@ class AnnouncementResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-megaphone';
 
-    protected static ?string $navigationGroup = 'Layanan Operasional';
+    protected static ?string $navigationGroup = 'Publikasi & Konten Web';
 
-    protected static ?int $navigationSort = 5;
+    protected static ?string $navigationLabel = 'Banner Pengumuman';
 
-    protected static ?string $modelLabel = 'Pengumuman / Alert';
+    protected static ?int $navigationSort = 2;
 
-    protected static ?string $pluralModelLabel = 'Pengumuman & Alert';
+    protected static ?string $modelLabel = 'Banner Pengumuman';
+
+    protected static ?string $pluralModelLabel = 'Banner Pengumuman';
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -125,7 +128,7 @@ class AnnouncementResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->weight('bold')
-                    ->description(fn (Announcement $record): string => \Illuminate\Support\Str::limit($record->message, 60)),
+                    ->description(fn (Announcement $record): string => Str::limit($record->message, 60)),
 
                 Tables\Columns\BadgeColumn::make('type')
                     ->label('Tipe')

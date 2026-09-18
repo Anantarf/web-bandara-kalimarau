@@ -16,13 +16,15 @@ class PpidDocumentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static ?string $navigationGroup = 'Layanan Operasional';
+    protected static ?string $navigationGroup = 'Dokumen Publik';
+
+    protected static ?string $navigationLabel = 'Dokumen PPID';
 
     protected static ?int $navigationSort = 1;
 
-    protected static ?string $modelLabel = 'Dokumen Informasi PPID';
+    protected static ?string $modelLabel = 'Dokumen PPID';
 
-    protected static ?string $pluralModelLabel = 'Dokumen Informasi PPID';
+    protected static ?string $pluralModelLabel = 'Dokumen PPID';
 
     protected static ?string $recordTitleAttribute = 'title';
 

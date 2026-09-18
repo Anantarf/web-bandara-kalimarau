@@ -58,6 +58,23 @@ class PublicPagesSmokeTest extends TestCase
         $this->get(route('search'))->assertOk();
     }
 
+    public function test_search_results_use_ppid_document_public_url(): void
+    {
+        PpidDocument::create([
+            'title' => 'Dokumen Google Drive PPID',
+            'description' => 'Dokumen eksternal untuk pencarian.',
+            'category' => 'informasi-berkala',
+            'external_url' => 'https://drive.google.com/file/d/test-drive-id/view',
+            'is_active' => true,
+            'published_at' => now()->subDay(),
+        ]);
+
+        $this->get(route('search', ['q' => 'Google Drive PPID']))
+            ->assertOk()
+            ->assertSee('Dokumen Google Drive PPID')
+            ->assertSee('https://drive.google.com/file/d/test-drive-id/view', false);
+    }
+
     public function test_ppid_index_loads(): void
     {
         $this->seed(PageSeeder::class);
@@ -177,7 +194,30 @@ class PublicPagesSmokeTest extends TestCase
             ->assertDontSee('Dokumen Terjadwal');
     }
 
-    public function test_ppid_sub_page_does_not_render_missing_document_files(): void
+    public function test_ppid_document_categories_render_on_matching_public_routes(): void
+    {
+        $this->seed(PageSeeder::class);
+
+        foreach (PpidDocument::CATEGORIES as $category => $label) {
+            PpidDocument::create([
+                'title' => "Dokumen Uji {$label}",
+                'description' => "Dokumen untuk {$label}.",
+                'category' => $category,
+                'file_path' => "ppid-documents/{$category}.pdf",
+                'is_active' => true,
+                'published_at' => now()->subDay(),
+                'sort_order' => 1,
+            ]);
+
+            $this->get(route('ppid.show', $category))
+                ->assertOk()
+                ->assertSee("Dokumen Uji {$label}")
+                ->assertSee("Dokumen untuk {$label}.")
+                ->assertSee("storage/ppid-documents/{$category}.pdf", false);
+        }
+    }
+
+    public function test_ppid_sub_page_renders_active_cms_document_records_even_when_file_is_not_locally_present(): void
     {
         Storage::fake('public');
 
@@ -201,9 +241,10 @@ class PublicPagesSmokeTest extends TestCase
 
         $this->get(route('ppid.show', 'informasi-berkala'))
             ->assertOk()
-            ->assertDontSee('Dokumen Hilang')
-            ->assertDontSee('storage/ppid-documents/hilang.pdf', false)
-            ->assertSee('Belum ada dokumen PPID yang tersedia.');
+            ->assertSee('Dokumen Hilang')
+            ->assertSee('Path file tidak tersedia.')
+            ->assertSee('storage/ppid-documents/hilang.pdf', false)
+            ->assertDontSee('Belum ada dokumen PPID yang tersedia.');
     }
 
     public function test_standar_pelayanan_seeded_page_loads(): void

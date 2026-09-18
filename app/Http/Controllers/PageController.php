@@ -28,11 +28,8 @@ class PageController extends Controller
         'informasi-berkala' => 'informasi-berkala',
         'informasi-setiap-saat' => 'informasi-setiap-saat',
         'informasi-serta-merta' => 'informasi-serta-merta',
-        'formulir-pengajuan-informasi' => 'formulir-pengajuan-informasi',
         'prosedur-permohonan-informasi' => 'prosedur-permohonan-informasi',
         'prosedur-keberatan-informasi' => 'prosedur-permohonan-keberatan-informasi',
-        'prosedur-sengketa-informasi-publik' => 'prosedur-pengajuan-sengketa-informasi-publik',
-        'kritik-saran' => 'kritik-saran',
     ];
 
     public function show($slug): Response|RedirectResponse

@@ -108,7 +108,7 @@ class PpidSeederIntegrityTest extends TestCase
         $response->assertDontSee('<h2>Regulasi</h2>', false);
         $response->assertSee('Dokumen Regulasi');
         $response->assertSee('Undang-Undang Nomor 14 Tahun 2008');
-        $response->assertSee('View Dokumen');
+        $response->assertSee('Unduh');
     }
 
     public function test_ppid_document_with_external_url_renders_properly(): void

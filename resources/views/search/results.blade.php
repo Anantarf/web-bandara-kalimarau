@@ -144,7 +144,7 @@
                                 </div>
                                 <div class="grid gap-4">
                                     @foreach($documents as $doc)
-                                    <a href="{{ \Illuminate\Support\Facades\Storage::url($doc->file_path) }}" target="_blank" class="group block bg-white rounded-2xl p-6 border border-border-soft shadow-sm hover:shadow-lg hover:border-gold/50 hover:-translate-y-0.5 transition duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
+                                    <a href="{{ $doc->file_url }}" target="_blank" rel="noopener" class="group block bg-white rounded-2xl p-6 border border-border-soft shadow-sm hover:shadow-lg hover:border-gold/50 hover:-translate-y-0.5 transition duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">
                                         <div class="flex items-start justify-between gap-4">
                                             <div>
                                                 <h3 class="text-lg font-bold text-navy group-hover:text-gold-ink transition-colors mb-1.5">{{ $doc->title }}</h3>

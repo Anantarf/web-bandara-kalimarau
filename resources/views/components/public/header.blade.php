@@ -22,13 +22,6 @@
             ['label' => 'SP4N Lapor', 'slug' => 'sp4n-lapor'],
         ],
     ];
-
-    $ppidGroups = [
-        ['label' => 'Profil & Visi Misi PPID', 'sub' => 'profil'],
-        ['label' => 'Struktur Organisasi PPID', 'sub' => 'struktur-organisasi'],
-        ['label' => 'Maklumat & Standar Biaya', 'sub' => 'maklumat-pelayanan-standar-biaya'],
-        ['label' => 'Regulasi PPID', 'sub' => 'regulasi'],
-    ];
 @endphp
 <header class="fixed inset-x-0 top-0 z-50 w-full overflow-x-clip transition duration-500 ease-out"
         x-data="{ mobileOpen: false, scrolled: false, transparent: {{ $transparent ? 'true' : 'false' }} }"
@@ -85,32 +78,10 @@
                 </div>
             @endforeach
 
-            <!-- PPID Dropdown (Single Level) -->
-            <div class="relative group/ppid" x-data="{ openPpid: false }" @mouseenter="openPpid = true" @mouseleave="openPpid = false" @click.outside="openPpid = false" @keydown.escape.window="openPpid = false">
-                <button type="button" @click="openPpid = !openPpid" :aria-expanded="openPpid.toString()" aria-haspopup="true" class="group relative flex items-center gap-1 px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
-                    PPID
-                    <svg class="w-4 h-4 transition-transform duration-300 opacity-70" :class="{ '-rotate-180': openPpid }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition duration-300 rounded-full" :class="openPpid ? 'w-[calc(100%-1.5rem)]' : 'w-0 group-hover:w-[calc(100%-1.5rem)]'"></span>
-                </button>
-                <div x-cloak
-                     x-show="openPpid"
-                     x-transition:enter="transition ease-out duration-250"
-                     x-transition:enter-start="opacity-0 translate-y-3"
-                     x-transition:enter-end="opacity-100 translate-y-0"
-                     x-transition:leave="transition ease-in duration-150"
-                     x-transition:leave-start="opacity-100 translate-y-0"
-                     x-transition:leave-end="opacity-0 translate-y-2"
-                     class="absolute top-full right-0 mt-3 bg-white border border-navy/5 rounded-xl shadow-lg shadow-navy-dark/10 py-2 min-w-64 z-50 overflow-hidden">
-                    @foreach($ppidGroups as $item)
-                        <a href="{{ isset($item['sub']) ? route('ppid.show', $item['sub']) : route('pages.show', $item['slug']) }}"
-                           class="group flex items-center px-5 py-2.5 text-sm font-semibold text-navy/80 hover:bg-surface hover:text-navy transition-colors duration-200">
-                            <span class="w-1.5 h-1.5 rounded-full bg-gold opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 mr-2 transition duration-200"></span>
-                            <span>{{ $item['label'] }}</span>
-                        </a>
-                    @endforeach
-                </div>
-            </div>
-
+            <a href="{{ route('ppid.show') }}" class="group relative px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
+                PPID
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition duration-300 group-hover:w-[calc(100%-1.5rem)] rounded-full"></span>
+            </a>
             <a href="{{ route('contact.index') }}" class="group relative px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
                 Kontak
                 <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition duration-300 group-hover:w-[calc(100%-1.5rem)] rounded-full"></span>
@@ -157,22 +128,7 @@
                 </div>
             @endforeach
 
-            <!-- PPID Mobile Accordion -->
-            <div>
-                <button type="button" @click="expanded = expanded === 'PPID' ? null : 'PPID'" :aria-expanded="(expanded === 'PPID').toString()" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-text-main hover:text-navy rounded-md">
-                    <span>PPID</span>
-                    <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': expanded === 'PPID' }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div x-show="expanded === 'PPID'" class="pl-4 pb-1 space-y-0.5">
-                    @foreach($ppidGroups as $item)
-                        <a href="{{ isset($item['sub']) ? route('ppid.show', $item['sub']) : route('pages.show', $item['slug']) }}"
-                           class="flex items-center px-3 py-2 text-sm text-text-muted hover:text-navy rounded-md">
-                            {{ $item['label'] }}
-                        </a>
-                    @endforeach
-                </div>
-            </div>
-
+            <a href="{{ route('ppid.show') }}" class="block px-3 py-2.5 text-sm font-medium text-text-main hover:text-navy rounded-md">PPID</a>
             <a href="{{ route('contact.index') }}" class="block px-3 py-2.5 text-sm font-medium text-text-main hover:text-navy rounded-md">Kontak</a>
             <div class="pt-2 pb-1">
                 <a href="tel:085262146214" class="flex items-center gap-2 px-3 py-2 text-sm text-navy font-medium">

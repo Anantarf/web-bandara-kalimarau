@@ -16,13 +16,17 @@ class PageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static ?string $navigationGroup = 'Layanan Operasional';
+    protected static ?string $navigationGroup = 'Publikasi & Konten Web';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?string $navigationLabel = 'Halaman Web';
 
-    protected static ?string $modelLabel = 'Halaman Statis Web';
+    protected static bool $shouldRegisterNavigation = false;
 
-    protected static ?string $pluralModelLabel = 'Halaman Statis Web';
+    protected static ?int $navigationSort = 3;
+
+    protected static ?string $modelLabel = 'Halaman Web';
+
+    protected static ?string $pluralModelLabel = 'Halaman Web';
 
     protected static ?string $recordTitleAttribute = 'title';
 

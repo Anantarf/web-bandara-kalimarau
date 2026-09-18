@@ -78,8 +78,9 @@
                 </div>
             @endforeach
 
-            <a href="{{ route('ppid.show') }}" class="group relative px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
+            <a href="https://hubud.kemenhub.go.id/upbu/kalimarau/ppid/index" target="_blank" rel="noopener noreferrer" class="group relative px-2 py-2 text-sm font-bold hover:text-gold transition-colors inline-flex items-center gap-1">
                 PPID
+                <svg class="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                 <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gold transition duration-300 group-hover:w-[calc(100%-1.5rem)] rounded-full"></span>
             </a>
             <a href="{{ route('contact.index') }}" class="group relative px-2 py-2 text-sm font-bold hover:text-gold transition-colors">
@@ -117,8 +118,8 @@
                         @foreach($items as $item)
                             <a href="{{ isset($item['route']) ? route($item['route']) : (isset($item['url']) ? $item['url'] : route('pages.show', $item['slug'])) }}"
                                @if($item['external'] ?? false) target="_blank" rel="noopener noreferrer" @endif
-                               class="flex items-center px-3 py-2 text-sm text-text-muted hover:text-navy rounded-md">
-                                {{ $item['label'] }}
+                                class="flex items-center px-3 py-2 text-sm text-text-muted hover:text-navy rounded-md">
+                                <span>{{ $item['label'] }}</span>
                                 @if($item['external'] ?? false)
                                     <svg class="w-3.5 h-3.5 ml-1.5 text-text-muted" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                 @endif
@@ -128,7 +129,10 @@
                 </div>
             @endforeach
 
-            <a href="{{ route('ppid.show') }}" class="block px-3 py-2.5 text-sm font-medium text-text-main hover:text-navy rounded-md">PPID</a>
+            <a href="https://hubud.kemenhub.go.id/upbu/kalimarau/ppid/index" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-3 py-2.5 text-sm font-medium text-text-main hover:text-navy rounded-md">
+                <span>PPID</span>
+                <svg class="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
             <a href="{{ route('contact.index') }}" class="block px-3 py-2.5 text-sm font-medium text-text-main hover:text-navy rounded-md">Kontak</a>
             <div class="pt-2 pb-1">
                 <a href="tel:085262146214" class="flex items-center gap-2 px-3 py-2 text-sm text-navy font-medium">

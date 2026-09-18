@@ -46,7 +46,7 @@
                     <li><a href="{{ route('pages.show', 'profil-bandara-kalimarau') }}" class="inline-flex min-h-11 items-center hover:text-gold-light transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">Profil Bandara</a></li>
                     <li><a href="{{ route('pages.show', 'fasilitas-bandara') }}" class="inline-flex min-h-11 items-center hover:text-gold-light transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">Fasilitas Bandara</a></li>
                     <li><a href="{{ route('posts.index') }}" class="inline-flex min-h-11 items-center hover:text-gold-light transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">Berita</a></li>
-                    <li><a href="{{ route('ppid.show') }}" class="inline-flex min-h-11 items-center hover:text-gold-light transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">PPID</a></li>
+                    <li><a href="https://hubud.kemenhub.go.id/upbu/kalimarau/ppid/index" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center hover:text-gold-light transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">PPID</a></li>
                     <li><a href="{{ route('contact.index') }}" class="inline-flex min-h-11 items-center hover:text-gold-light transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded">Kontak</a></li>
                 </ul>
             </div>

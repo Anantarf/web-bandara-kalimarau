@@ -94,8 +94,8 @@
 
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                             <!-- Visi Card -->
-                                            <div class="bg-surface/80 hover:bg-surface rounded-xl p-5 border border-border-soft transition-colors duration-200">
-                                                <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-gold/10 text-gold-ink mb-3">
+                                            <div class="group bg-white rounded-2xl p-6 border border-border-soft shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-gold/40 transition-all duration-300">
+                                                <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-gold/10 text-gold-ink mb-3 group-hover:bg-gold group-hover:text-navy-dark transition-colors duration-300">
                                                     VISI PPID
                                                 </div>
                                                 <p class="text-sm md:text-base text-text-main leading-relaxed font-medium">
@@ -104,18 +104,18 @@
                                             </div>
 
                                             <!-- Misi Card -->
-                                            <div class="bg-surface/80 hover:bg-surface rounded-xl p-5 border border-border-soft transition-colors duration-200">
+                                            <div class="group bg-white rounded-2xl p-6 border border-border-soft shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-gold/40 transition-all duration-300">
                                                 <div>
-                                                    <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-navy/10 text-navy mb-3">
+                                                    <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-navy/10 text-navy mb-3 group-hover:bg-navy group-hover:text-white transition-colors duration-300">
                                                         MISI PPID
                                                     </div>
                                                     <ul class="space-y-3 text-sm md:text-base text-text-main">
                                                         <li class="flex items-start gap-2.5">
-                                                            <svg class="w-5 h-5 text-gold shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                                            <svg class="w-5 h-5 text-gold shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                                             <span>Meningkatkan pengelolaan & dokumentasi informasi publik secara profesional.</span>
                                                         </li>
                                                         <li class="flex items-start gap-2.5">
-                                                            <svg class="w-5 h-5 text-gold shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                                            <svg class="w-5 h-5 text-gold shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                                             <span>Mempermudah akses permohonan informasi publik bagi masyarakat luas.</span>
                                                         </li>
                                                     </ul>
@@ -136,34 +136,34 @@
                                         </p>
 
                                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
-                                            <div class="p-5 bg-surface/80 hover:bg-surface surface-card p-5 transition-colors duration-200 flex items-start gap-4">
-                                                <div class="w-9 h-9 rounded-xl bg-navy-dark text-gold font-extrabold flex items-center justify-center shrink-0 text-sm shadow-sm">1</div>
+                                            <div class="group p-5 bg-white rounded-xl border border-border-soft shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-gold/40 transition-all duration-300 flex items-start gap-4">
+                                                <div class="w-9 h-9 rounded-xl bg-navy-dark text-gold font-extrabold flex items-center justify-center shrink-0 text-sm shadow-sm group-hover:bg-gold group-hover:text-navy-dark transition-colors duration-300">1</div>
                                                 <div>
-                                                    <h4 class="font-extrabold text-navy-dark text-base mb-1">Pengelolaan Informasi</h4>
+                                                    <h4 class="font-extrabold text-navy-dark group-hover:text-navy text-base mb-1 transition-colors">Pengelolaan Informasi</h4>
                                                     <p class="text-sm text-text-muted leading-relaxed">Mengumpulkan dan mengklasifikasikan dokumen serta informasi publik berkala dan serta-merta.</p>
                                                 </div>
                                             </div>
 
-                                            <div class="p-5 bg-surface/80 hover:bg-surface surface-card p-5 transition-colors duration-200 flex items-start gap-4">
-                                                <div class="w-9 h-9 rounded-xl bg-navy-dark text-gold font-extrabold flex items-center justify-center shrink-0 text-sm shadow-sm">2</div>
+                                            <div class="group p-5 bg-white rounded-xl border border-border-soft shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-gold/40 transition-all duration-300 flex items-start gap-4">
+                                                <div class="w-9 h-9 rounded-xl bg-navy-dark text-gold font-extrabold flex items-center justify-center shrink-0 text-sm shadow-sm group-hover:bg-gold group-hover:text-navy-dark transition-colors duration-300">2</div>
                                                 <div>
-                                                    <h4 class="font-extrabold text-navy-dark text-base mb-1">Pelayanan Permohonan</h4>
+                                                    <h4 class="font-extrabold text-navy-dark group-hover:text-navy text-base mb-1 transition-colors">Pelayanan Permohonan</h4>
                                                     <p class="text-sm text-text-muted leading-relaxed">Melayani permohonan informasi publik secara efisien, transparan, dan tepat waktu.</p>
                                                 </div>
                                             </div>
 
-                                            <div class="p-5 bg-surface/80 hover:bg-surface surface-card p-5 transition-colors duration-200 flex items-start gap-4">
-                                                <div class="w-9 h-9 rounded-xl bg-navy-dark text-gold font-extrabold flex items-center justify-center shrink-0 text-sm shadow-sm">3</div>
+                                            <div class="group p-5 bg-white rounded-xl border border-border-soft shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-gold/40 transition-all duration-300 flex items-start gap-4">
+                                                <div class="w-9 h-9 rounded-xl bg-navy-dark text-gold font-extrabold flex items-center justify-center shrink-0 text-sm shadow-sm group-hover:bg-gold group-hover:text-navy-dark transition-colors duration-300">3</div>
                                                 <div>
-                                                    <h4 class="font-extrabold text-navy-dark text-base mb-1">Pengujian Konsekuensi</h4>
+                                                    <h4 class="font-extrabold text-navy-dark group-hover:text-navy text-base mb-1 transition-colors">Pengujian Konsekuensi</h4>
                                                     <p class="text-sm text-text-muted leading-relaxed">Melakukan pengujian konsekuensi atas informasi yang dikecualikan secara cermat.</p>
                                                 </div>
                                             </div>
 
-                                            <div class="p-5 bg-surface/80 hover:bg-surface surface-card p-5 transition-colors duration-200 flex items-start gap-4">
-                                                <div class="w-9 h-9 rounded-xl bg-navy-dark text-gold font-extrabold flex items-center justify-center shrink-0 text-sm shadow-sm">4</div>
+                                            <div class="group p-5 bg-white rounded-xl border border-border-soft shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-gold/40 transition-all duration-300 flex items-start gap-4">
+                                                <div class="w-9 h-9 rounded-xl bg-navy-dark text-gold font-extrabold flex items-center justify-center shrink-0 text-sm shadow-sm group-hover:bg-gold group-hover:text-navy-dark transition-colors duration-300">4</div>
                                                 <div>
-                                                    <h4 class="font-extrabold text-navy-dark text-base mb-1">Dokumentasi & Arsip</h4>
+                                                    <h4 class="font-extrabold text-navy-dark group-hover:text-navy text-base mb-1 transition-colors">Dokumentasi & Arsip</h4>
                                                     <p class="text-sm text-text-muted leading-relaxed">Menyimpan dan merawat arsip informasi publik agar selalu dapat diakses sesuai prosedur.</p>
                                                 </div>
                                             </div>

@@ -13,8 +13,8 @@ class PageSeeder extends Seeder
             [
                 'title' => 'Profil Bandara Kalimarau',
                 'slug' => 'profil-bandara-kalimarau',
-                'excerpt' => 'Profil lengkap Badan Layanan Umum Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau Berau.',
-                'content' => '<p>Bandar Udara Kelas I Kalimarau merupakan pintu gerbang udara utama Kabupaten Berau, Kalimantan Timur.</p>',
+                'excerpt' => null,
+                'content' => '<p class="text-gray-700 text-base md:text-lg leading-relaxed mb-8">Berikut adalah profil dan sejarah resmi Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau Berau sebagai pintu gerbang udara utama Kabupaten Berau, Kalimantan Timur.</p>',
                 'template' => 'default',
             ],
             [

@@ -84,7 +84,7 @@ class PageContent
 
         foreach ($titlesToStrip as $t) {
             $escaped = preg_quote($t, '/');
-            $content = preg_replace('/^\s*<h[12][^>]*>\s*' . $escaped . '\s*<\/h[12]>\s*/iu', '', $content) ?? $content;
+            $content = preg_replace('/^\s*<h[12][^>]*>\s*'.$escaped.'\s*<\/h[12]>\s*/iu', '', $content) ?? $content;
         }
 
         return $content;

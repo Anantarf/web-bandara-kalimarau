@@ -1,6 +1,6 @@
 // One-off image optimizer for existing uploaded/static photos that were
 // never compressed before deploy (see chat: images taking a long time to
-// render on the live host). Not part of the build — run manually with
+// render on the live host). Not part of the build - run manually with
 // `npm run optimize:images` after adding new large source photos.
 import sharp from 'sharp';
 import { existsSync, statSync } from 'fs';
@@ -13,6 +13,8 @@ const jobs = [
     { in: 'public/images/profil/Profile-bandara 3.png', out: 'public/images/profil/Profile-bandara 3.jpg', width: 1400, quality: 90 },
     { in: 'public/images/profil/Profile-bandara 4.png', out: 'public/images/profil/Profile-bandara 4.jpg', width: 1400, quality: 90 },
     { in: 'public/images/profil/Profile-bandara 5.jpg', out: 'public/images/profil/Profile-bandara 5.jpg', width: 1400, quality: 90 },
+    { in: 'public/images/people/kepala-bandara.jpg', out: 'public/images/people/kepala-bandara.jpg', width: 1200, quality: 90 },
+    { in: 'public/images/hero/hero1.jpg', out: 'public/images/hero/hero1.jpg', width: 1920, quality: 90 },
 
     // Already JPEG but shot at full camera resolution for a ~672px-wide slot.
     { in: 'public/images/ppid/ppid-1.jpg', out: 'public/images/ppid/ppid-1.jpg', width: 1400, quality: 90 },
@@ -20,12 +22,16 @@ const jobs = [
 
     // Logo displayed at ~28-56px tall but exported at 3375x3375.
     { in: 'public/images/ppid/logo-ppid.png', out: 'public/images/ppid/logo-ppid.png', width: 400, png: true },
+    { in: 'public/images/logo-blu.png', out: 'public/images/logo-blu.png', width: 512, png: true },
+    { in: 'public/images/logo-speedcircle.png', out: 'public/images/logo-speedcircle.png', width: 800, png: true },
 
     // Survey Posters & Maklumat
+    { in: 'public/images/alur-pembuatan-pas-bandara.png', out: 'public/images/alur-pembuatan-pas-bandara.png', width: 1200, png: true },
     { in: 'public/images/survei-internal.jpeg', out: 'public/images/survei-internal.jpeg', width: 1200, quality: 85 },
     { in: 'public/images/survei-kemenhub.png', out: 'public/images/survei-kemenhub.png', width: 1200, png: true },
     { in: 'public/images/maklumat-pelayanan-2026.jpeg', out: 'public/images/maklumat-pelayanan-2026.jpeg', width: 1600, quality: 88 },
     { in: 'public/images/jam-pelayanan-operasional.jpeg', out: 'public/images/jam-pelayanan-operasional.jpeg', width: 1200, quality: 85 },
+    { in: 'public/images/ppid/waktu-pelayanan-ppid.jpg', out: 'public/images/ppid/waktu-pelayanan-ppid.jpg', width: 1600, quality: 90 },
 ];
 
 // All 22 facility photos, displayed at grid-card/modal size, not full camera res.
@@ -46,7 +52,7 @@ let totalAfter = 0;
 
 for (const job of jobs) {
     if (!existsSync(job.in)) {
-        console.log(`${job.in}: skipped (source no longer exists — already converted to ${job.out}?)`);
+        console.log(`${job.in}: skipped (source no longer exists - already converted to ${job.out}?)`);
         continue;
     }
 

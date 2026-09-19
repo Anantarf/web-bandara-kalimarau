@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\ContactMessage;
 use App\Models\PpidDocument;
 use Illuminate\Database\Seeder;
 

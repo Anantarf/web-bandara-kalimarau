@@ -130,13 +130,15 @@ class AnnouncementResource extends Resource
                     ->weight('bold')
                     ->description(fn (Announcement $record): string => Str::limit($record->message, 60)),
 
-                Tables\Columns\BadgeColumn::make('type')
+                Tables\Columns\TextColumn::make('type')
                     ->label('Tipe')
-                    ->colors([
-                        'primary' => 'info',
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'info' => 'info',
                         'warning' => 'warning',
                         'danger' => 'danger',
-                    ])
+                        default => 'gray',
+                    })
                     ->formatStateUsing(fn (string $state): string => match ($state) {
                         'info' => 'Informasi',
                         'warning' => 'Peringatan',

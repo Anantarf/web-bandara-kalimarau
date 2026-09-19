@@ -230,7 +230,32 @@ class FlightScheduleResource extends Resource
             ->emptyStateHeading('Belum Ada Jadwal Penerbangan')
             ->emptyStateDescription('Tambahkan rute keberangkatan atau kedatangan pesawat baru.')
             ->emptyStateIcon('heroicon-o-paper-airplane')
-            ->bulkActions([]);
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\BulkAction::make('activate')
+                        ->label('Aktifkan Terpilih')
+                        ->icon('heroicon-o-check-circle')
+                        ->color('success')
+                        ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['is_active' => true])),
+                    Tables\Actions\BulkAction::make('deactivate')
+                        ->label('Nonaktifkan Terpilih')
+                        ->icon('heroicon-o-x-circle')
+                        ->color('warning')
+                        ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['is_active' => false])),
+                    Tables\Actions\DeleteBulkAction::make()->label('Hapus Terpilih'),
+                ]),
+            ]);
+    }
+
+    public static function getGlobalSearchResultDetails(\Illuminate\Database\Eloquent\Model $record): array
+    {
+        /** @var FlightSchedule $record */
+        return [
+            'Maskapai' => $record->airline ?? '-',
+            'Rute' => "{$record->route_from} ➔ {$record->route_to}",
+            'Jenis' => ucfirst($record->type),
+            'Status' => $record->is_active ? 'Aktif' : 'Nonaktif',
+        ];
     }
 
     public static function getPages(): array

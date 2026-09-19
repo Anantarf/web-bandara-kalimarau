@@ -182,7 +182,21 @@ class PpidDocumentResource extends Resource
             ->emptyStateHeading('Belum Ada Dokumen PPID')
             ->emptyStateDescription('Unggah dokumen informasi publik baru untuk diunduh publik.')
             ->emptyStateIcon('heroicon-o-document-text')
-            ->bulkActions([]);
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make()->label('Hapus Terpilih'),
+                ]),
+            ]);
+    }
+
+    public static function getGlobalSearchResultDetails(\Illuminate\Database\Eloquent\Model $record): array
+    {
+        /** @var PpidDocument $record */
+        return [
+            'Kategori' => $record->category_label,
+            'Tahun' => $record->year ? (string) $record->year : '-',
+            'Status' => $record->is_published ? 'Diterbitkan' : 'Draf',
+        ];
     }
 
     public static function getPages(): array

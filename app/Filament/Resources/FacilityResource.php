@@ -26,6 +26,8 @@ class FacilityResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Fasilitas Bandara';
 
+    protected static ?string $recordTitleAttribute = 'name';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -123,7 +125,20 @@ class FacilityResource extends Resource
             ->emptyStateHeading('Belum Ada Fasilitas')
             ->emptyStateDescription('Tambahkan data fasilitas bandara untuk ditampilkan di website.')
             ->emptyStateIcon('heroicon-o-building-office')
-            ->bulkActions([]);
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make()->label('Hapus Terpilih'),
+                ]),
+            ]);
+    }
+
+    public static function getGlobalSearchResultDetails(\Illuminate\Database\Eloquent\Model $record): array
+    {
+        /** @var Facility $record */
+        return [
+            'Kategori' => $record->category_label,
+            'Urutan' => (string) ($record->order ?? 0),
+        ];
     }
 
     public static function getRelations(): array

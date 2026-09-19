@@ -205,7 +205,26 @@ class PostResource extends Resource
             ->emptyStateHeading('Belum Ada Berita')
             ->emptyStateDescription('Buat artikel berita baru untuk ditampilkan di portal bandara.')
             ->emptyStateIcon('heroicon-o-newspaper')
-            ->bulkActions([]);
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make()->label('Hapus Terpilih'),
+                ]),
+            ]);
+    }
+
+    public static function getGlobalSearchResultDetails(\Illuminate\Database\Eloquent\Model $record): array
+    {
+        /** @var Post $record */
+        return [
+            'Kategori' => $record->category?->name ?? 'Umum',
+            'Status' => match ($record->status) {
+                'published' => $record->published_at?->isFuture() ? 'Terjadwal' : 'Diterbitkan',
+                'draft' => 'Draf',
+                'archived' => 'Diarsipkan',
+                default => ucfirst($record->status),
+            },
+            'Tanggal' => $record->published_at?->format('d/m/Y') ?? '-',
+        ];
     }
 
     public static function getPages(): array

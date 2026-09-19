@@ -98,6 +98,10 @@
 
                         <form action="{{ route('contact.store') }}" method="POST" x-data="{ submitting: false }" @submit="submitting = true">
                             @csrf
+                            <div class="hidden" aria-hidden="true" style="display: none !important;">
+                                <label for="website_url_hp">Website Field (Leave empty)</label>
+                                <input type="text" name="website_url_hp" id="website_url_hp" tabindex="-1" autocomplete="off">
+                            </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <div>

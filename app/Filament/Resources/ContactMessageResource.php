@@ -149,13 +149,39 @@ class ContactMessageResource extends Resource
                     ->options(['new' => 'Baru', 'read' => 'Dibaca', 'replied' => 'Dibalas', 'archived' => 'Diarsipkan']),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make()->label('Lihat')->iconButton(),
+                Tables\Actions\Action::make('mark_replied')
+                    ->label('Tandai Dibalas')
+                    ->icon('heroicon-o-check-badge')
+                    ->color('success')
+                    ->tooltip('Tandai Sudah Dibalas')
+                    ->iconButton()
+                    ->visible(fn (ContactMessage $record): bool => $record->status !== 'replied')
+                    ->requiresConfirmation()
+                    ->modalHeading('Konfirmasi Status')
+                    ->modalDescription('Apakah Anda yakin ingin menandai pesan ini sebagai sudah dibalas?')
+                    ->action(fn (ContactMessage $record) => $record->update(['status' => 'replied'])),
                 Tables\Actions\EditAction::make()->label('Ubah Status')->iconButton(),
                 Tables\Actions\DeleteAction::make()->label('Hapus')->iconButton(),
             ])
             ->emptyStateHeading('Belum Ada Pesan Masuk')
             ->emptyStateDescription('Pesan dari form kontak pengunjung akan tampil secara otomatis di sini.')
             ->emptyStateIcon('heroicon-o-envelope')
-            ->bulkActions([]);
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\BulkAction::make('mark_as_read')
+                        ->label('Tandai Sudah Dibaca')
+                        ->icon('heroicon-o-eye')
+                        ->color('warning')
+                        ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['status' => 'read'])),
+                    Tables\Actions\BulkAction::make('mark_as_archived')
+                        ->label('Arsipkan Pesan Terpilih')
+                        ->icon('heroicon-o-archive-box')
+                        ->color('gray')
+                        ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['status' => 'archived'])),
+                    Tables\Actions\DeleteBulkAction::make()->label('Hapus Terpilih'),
+                ]),
+            ]);
     }
 
     public static function getRelations(): array

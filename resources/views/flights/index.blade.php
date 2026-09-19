@@ -23,9 +23,9 @@
                 };
             @endphp
 
-            <div class="bg-navy-dark rounded-2xl overflow-hidden shadow-xl transition duration-500 ease-out transform"
+            <div class="bg-navy-dark rounded-2xl overflow-hidden shadow-xl transition duration-300 ease-out transform"
                  x-data="{ tab: 'kedatangan', loaded: false }" x-init="setTimeout(() => loaded = true, 100)"
-                 :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'">
+                 :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
                 <!-- Pill toggle -->
                 <div class="flex justify-center gap-3 py-6 px-4 border-b border-white/10">
                     <button type="button" @click="tab = 'kedatangan'" :class="tab === 'kedatangan' ? 'bg-gold text-navy-dark' : 'bg-white/5 text-white/70 hover:bg-white/10'" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">

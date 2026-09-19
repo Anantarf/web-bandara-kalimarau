@@ -8,7 +8,7 @@
         $flightLogos = collect($mitra)->pluck('logo', 'nama')->toArray();
     @endphp
     <section class="bg-navy-dark py-16 lg:py-24 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition duration-[1000ms] ease-out delay-100"
+        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition duration-300 ease-out delay-75"
              x-data="{
                 tab: 'kedatangan',
                 flights: {{ \Illuminate\Support\Js::from($flightSchedules->map(function ($f) use ($flightLogos) {

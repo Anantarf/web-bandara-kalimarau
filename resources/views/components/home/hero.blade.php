@@ -21,12 +21,12 @@
 
         <div class="relative max-w-7xl mx-auto px-4 w-full h-full flex flex-col items-center justify-center pt-24">
             <div class="text-center w-full flex-1 flex flex-col justify-center items-center mt-16">
-                <h2 x-show="show" x-cloak x-transition:enter="transition ease-out duration-700 delay-100" x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0" class="font-sans text-white text-2xl sm:text-3xl lg:text-4xl font-semibold uppercase tracking-[0.12em] mb-6">Bandar Udara</h2>
-                <h1 x-show="show" x-cloak x-transition:enter="transition ease-out duration-700 delay-200" x-transition:enter-start="opacity-0 scale-95 translate-y-6" x-transition:enter-end="opacity-100 scale-100 translate-y-0" class="font-sans text-white text-5xl sm:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-none drop-shadow-lg mb-10">Kalimarau</h1>
+                <h2 x-show="show" x-cloak x-transition:enter="transition ease-out duration-300 delay-75" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="font-sans text-white text-2xl sm:text-3xl lg:text-4xl font-semibold uppercase tracking-[0.12em] mb-6">Bandar Udara</h2>
+                <h1 x-show="show" x-cloak x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 scale-[0.98] translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0" class="font-sans text-white text-5xl sm:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-none drop-shadow-lg mb-10">Kalimarau</h1>
 
                 <!-- Weather Widget -->
                 <div x-data="weatherWidget" x-init="fetchWeather()"
-                    x-show="show" x-cloak x-transition:enter="transition ease-out duration-700 delay-300" x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0" class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-2.5 shadow-lg">
+                    x-show="show" x-cloak x-transition:enter="transition ease-out duration-300 delay-125" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-2.5 shadow-lg">
 
                     <svg x-show="icon === 'cloud'" x-cloak class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
                     <svg x-show="icon === 'sun'" x-cloak class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.485-7.071l-1.414 1.414M6.929 17.657l-1.414 1.414M17.657 17.657l-1.414-1.414M6.929 6.929L5.515 5.515M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
@@ -39,7 +39,7 @@
             </div>
 
             <!-- Pill Quick Links -->
-            <div x-show="show" x-cloak x-transition:enter="transition ease-out duration-700 delay-300" x-transition:enter-start="opacity-0 translate-y-6 scale-95" x-transition:enter-end="opacity-100 translate-y-0 scale-100" class="inline-flex flex-wrap justify-center items-center gap-4 sm:gap-8 bg-black/20 backdrop-blur-md border border-white/20 rounded-full px-6 sm:px-10 py-3 sm:py-4 mb-8 sm:mb-10 shadow-xl">
+            <div x-show="show" x-cloak x-transition:enter="transition ease-out duration-300 delay-125" x-transition:enter-start="opacity-0 translate-y-3 scale-[0.98]" x-transition:enter-end="opacity-100 translate-y-0 scale-100" class="inline-flex flex-wrap justify-center items-center gap-4 sm:gap-8 bg-black/20 backdrop-blur-md border border-white/20 rounded-full px-6 sm:px-10 py-3 sm:py-4 mb-8 sm:mb-10 shadow-xl">
                 <a href="{{ route('flights.index') }}" class="flex items-center gap-2.5 text-white hover:text-gold transition-colors px-2 py-1.5 rounded-full">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 21 4s-2 0-3.5 1.5L14 9 5.8 6.2c-.5-.2-1.1 0-1.4.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 4.1c.4.4.9.5 1.3.3l.5-.3c.5-.3.7-.9.5-1.4z"/></svg>
                     <span class="text-sm sm:text-base font-semibold">Jadwal Penerbangan</span>
@@ -52,7 +52,7 @@
             </div>
 
             <!-- Social Media Buttons -->
-            <div x-show="show" x-cloak x-transition:enter="transition ease-out duration-700 delay-500" x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0" class="relative w-[90%] max-w-4xl mb-8 sm:mb-12">
+            <div x-show="show" x-cloak x-transition:enter="transition ease-out duration-300 delay-150" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="relative w-[90%] max-w-4xl mb-8 sm:mb-12">
             <div class="flex flex-nowrap justify-center items-center gap-3 sm:gap-3 overflow-x-auto scrollbar-hide pb-2">
                 <a href="https://instagram.com/bandarakalimarau" target="_blank" rel="noopener noreferrer" class="shrink-0 flex items-center justify-center gap-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white w-9 h-9 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full transition duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>

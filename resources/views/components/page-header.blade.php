@@ -25,23 +25,23 @@
     <div class="{{ $containerClass }} {{ $isCentered ? 'text-center' : 'text-center md:text-left' }}">
         <h1 x-show="loaded"
             x-cloak
-            x-transition:enter="transition ease-out duration-500 delay-100"
-            x-transition:enter-start="opacity-0 translate-y-8"
+            x-transition:enter="transition ease-out duration-300 delay-75"
+            x-transition:enter-start="opacity-0 translate-y-3"
             x-transition:enter-end="opacity-100 translate-y-0"
             class="font-sans text-2xl md:text-3xl font-extrabold text-navy-dark leading-snug mb-3 {{ $isCentered ? 'mx-auto' : '' }}">{{ $title }}</h1>
 
         <div x-show="loaded"
              x-cloak
-             x-transition:enter="transition ease-out duration-500 delay-200"
-             x-transition:enter-start="opacity-0 scale-0"
-             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:enter="transition ease-out duration-300 delay-100"
+             x-transition:enter-start="opacity-0 scale-x-75"
+             x-transition:enter-end="opacity-100 scale-x-100"
              class="h-1.5 w-20 bg-gold-light rounded-full mb-6 {{ $isCentered ? 'mx-auto' : 'mx-auto md:mx-0 origin-left' }}"></div>
 
         @if($description)
             <p x-show="loaded"
                x-cloak
-               x-transition:enter="transition ease-out duration-500 delay-200"
-               x-transition:enter-start="opacity-0 translate-y-4"
+               x-transition:enter="transition ease-out duration-300 delay-100"
+               x-transition:enter-start="opacity-0 translate-y-3"
                x-transition:enter-end="opacity-100 translate-y-0"
                class="text-base md:text-lg text-text-muted text-pretty max-w-2xl {{ $isCentered ? 'mx-auto' : 'mx-auto md:mx-0' }}">{{ $description }}</p>
         @endif

@@ -8,7 +8,7 @@
 @endphp
 
 <section class="py-16 lg:py-24 bg-surface border-t border-border-soft/70">
-    <div class="max-w-4xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition duration-[1000ms] ease-out delay-100">
+    <div class="max-w-4xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition duration-300 ease-out delay-75">
         <div class="text-center mb-16">
             <h2 class="font-sans text-3xl md:text-4xl font-extrabold tracking-tight text-navy-dark mb-4">Pertanyaan Seputar Bandara</h2>
             <div class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>

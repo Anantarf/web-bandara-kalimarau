@@ -19,11 +19,11 @@
         <div x-show="openModal" x-cloak class="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6 bg-black/10 backdrop-blur-md" @keydown.escape.window="openModal = false" role="dialog" aria-modal="true" aria-label="Pratinjau gambar">
             <div x-show="openModal"
                  x-transition:enter="transition ease-out duration-300"
-                 x-transition:enter-start="opacity-0 scale-95"
+                 x-transition:enter-start="opacity-0 scale-[0.98]"
                  x-transition:enter-end="opacity-100 scale-100"
                  x-transition:leave="transition ease-in duration-200"
                  x-transition:leave-start="opacity-100 scale-100"
-                 x-transition:leave-end="opacity-0 scale-95"
+                 x-transition:leave-end="opacity-0 scale-[0.98]"
                  class="relative w-full h-full flex flex-col items-center justify-center"
                  @click="openModal = false">
 

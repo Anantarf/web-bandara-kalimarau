@@ -39,22 +39,22 @@
                 <header class="mb-6 text-center md:text-left">
                     <h1 x-show="loaded"
                         x-cloak
-                        x-transition:enter="transition ease-out duration-500 delay-100"
-                        x-transition:enter-start="opacity-0 translate-y-8"
+                        x-transition:enter="transition ease-out duration-300 delay-75"
+                        x-transition:enter-start="opacity-0 translate-y-4"
                         x-transition:enter-end="opacity-100 translate-y-0"
                         class="font-sans text-2xl md:text-3xl font-extrabold text-navy-dark leading-snug mb-3">{{ $page->title }}</h1>
 
                     <div x-show="loaded"
                          x-cloak
-                         x-transition:enter="transition ease-out duration-500 delay-200"
-                         x-transition:enter-start="opacity-0 scale-0"
-                         x-transition:enter-end="opacity-100 scale-100"
+                         x-transition:enter="transition ease-out duration-300 delay-100"
+                         x-transition:enter-start="opacity-0 scale-x-75"
+                         x-transition:enter-end="opacity-100 scale-x-100"
                          class="h-1.5 w-20 bg-gold-light rounded-full mb-6 mx-auto md:mx-0 origin-left"></div>
 
                     @if($page->excerpt)
                         <p x-show="loaded"
                            x-cloak
-                           x-transition:enter="transition ease-out duration-500 delay-200"
+                           x-transition:enter="transition ease-out duration-300 delay-100"
                            x-transition:enter-start="opacity-0 translate-y-4"
                            x-transition:enter-end="opacity-100 translate-y-0"
                            class="text-sm md:text-base text-text-muted leading-relaxed max-w-2xl">{{ $page->excerpt }}</p>
@@ -64,8 +64,8 @@
                 @if($page->featured_image_url && $page->slug !== 'profil-bandara-kalimarau' && $page->slug !== 'profile-ppid')
                     <figure x-show="loaded"
                             x-cloak
-                            x-transition:enter="transition ease-out duration-500 delay-300"
-                            x-transition:enter-start="opacity-0 translate-y-8"
+                            x-transition:enter="transition ease-out duration-300 delay-125"
+                            x-transition:enter-start="opacity-0 translate-y-4"
                             x-transition:enter-end="opacity-100 translate-y-0"
                             class="mb-12 rounded-2xl overflow-hidden bg-surface border border-border-soft/70 shadow-sm relative group">
                         <img src="{{ $page->featured_image_url }}" alt="{{ $page->title }}" class="w-full h-auto transition-transform duration-500 group-hover:scale-[1.02]">
@@ -76,8 +76,8 @@
 
             <div x-show="loaded"
                  x-cloak
-                 x-transition:enter="transition ease-out duration-500 delay-400"
-                 x-transition:enter-start="opacity-0 translate-y-12"
+                 x-transition:enter="transition ease-out duration-300 delay-150"
+                 x-transition:enter-start="opacity-0 translate-y-4"
                  x-transition:enter-end="opacity-100 translate-y-0">
 
             <!-- Content Area -->

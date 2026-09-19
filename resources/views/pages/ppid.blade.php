@@ -87,7 +87,7 @@
                     $contentWithIds = \App\Support\PageContent::withHeadingIds($pageContent, '234', 'scroll-mt-32');
                 @endphp
 
-                <main class="w-full min-w-0" x-show="loaded" x-cloak x-transition:enter="transition ease-out duration-500 delay-400" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
+                <main class="w-full min-w-0" x-show="loaded" x-cloak x-transition:enter="transition ease-out duration-300 delay-150" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
                     <div class="w-full space-y-8">
                         @if($isMaklumatStandarBiaya)
                             @php

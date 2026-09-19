@@ -19,24 +19,27 @@
         <div class="max-w-3xl mx-auto px-4 text-center">
             <h1 x-show="loaded"
                 x-cloak
-                x-transition:enter="transition ease-out duration-500 delay-100"
-                x-transition:enter-start="opacity-0 translate-y-8"
+                x-transition:enter="transition ease-out duration-300 delay-75"
+                x-transition:enter-start="opacity-0 translate-y-4"
                 x-transition:enter-end="opacity-100 translate-y-0"
                 class="font-sans text-2xl md:text-3xl font-extrabold text-navy-dark leading-snug mb-3">Pencarian Informasi</h1>
 
             <div x-show="loaded"
                  x-cloak
-                 x-transition:enter="transition ease-out duration-500 delay-200"
-                 x-transition:enter-start="opacity-0 scale-0"
-                 x-transition:enter-end="opacity-100 scale-100"
+                 x-transition:enter="transition ease-out duration-300 delay-150"
+                 x-transition:enter-start="opacity-0 scale-x-75"
+                 x-transition:enter-end="opacity-100 scale-x-100"
                  class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
 
             <form action="{{ route('search') }}" method="GET" class="relative group mt-6"
+                  x-data="publicSubmit"
+                  @submit="submit"
                   x-show="loaded"
                   x-cloak
-                  x-transition:enter="transition ease-out duration-500 delay-300"
-                  x-transition:enter-start="opacity-0 translate-y-4"
+                  x-transition:enter="transition ease-out duration-300 delay-200"
+                  x-transition:enter-start="opacity-0 translate-y-3"
                   x-transition:enter-end="opacity-100 translate-y-0"
+                  :aria-busy="submitting.toString()"
                   >
                 <div class="absolute inset-y-0 left-0 flex items-center pl-6 pointer-events-none text-text-muted/70 group-focus-within:text-navy transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -44,8 +47,9 @@
                 <input type="text" name="q" value="{{ $keyword }}" placeholder="Ketik kata kunci yang ingin Anda cari..."
                        class="w-full bg-surface text-navy font-medium text-lg rounded-2xl sm:rounded-full py-4 sm:py-5 pl-16 pr-32 sm:pr-40 shadow-sm border border-border-soft focus:bg-white focus:outline-none focus:ring-2 focus:ring-gold focus:border-gold transition placeholder:text-text-muted"
                        required autocomplete="off">
-                <button type="submit" class="absolute inset-y-2 right-2 bg-navy hover:bg-navy-dark text-white px-6 sm:px-8 py-2 rounded-xl sm:rounded-full font-bold text-sm sm:text-base transition shadow-sm hover:shadow-md">
-                    Cari
+                <button type="submit" :disabled="submitting" class="absolute inset-y-2 right-2 inline-flex min-w-20 items-center justify-center gap-2 bg-navy hover:bg-navy-dark text-white px-5 sm:px-7 py-2 rounded-xl sm:rounded-full font-bold text-sm sm:text-base transition-colors disabled:cursor-wait disabled:bg-navy/80">
+                    <svg x-show="submitting" x-cloak class="size-4 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                    <span x-text="submitting ? 'Mencari' : 'Cari'"></span>
                 </button>
             </form>
             @if(!empty($keyword))
@@ -57,8 +61,8 @@
     <!-- Results Area -->
     <div class="py-12 bg-white min-h-[50vh]" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
         <div class="max-w-4xl mx-auto px-4"
-             x-show="loaded" x-cloak x-transition:enter="transition ease-out duration-500"
-             x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0"
+             x-show="loaded" x-cloak x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
              >
 
             @if(empty($keyword))

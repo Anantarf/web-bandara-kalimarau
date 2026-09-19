@@ -14,7 +14,7 @@
             ['label' => 'Kontak'],
         ]" />
 
-    <div class="pb-12 pt-4 bg-white" x-show="loaded" x-cloak x-transition:enter="transition ease-out duration-500 delay-400" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
+    <div class="pb-12 pt-4 bg-white" x-show="loaded" x-cloak x-transition:enter="transition ease-out duration-300 delay-150" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
         <div class="container mx-auto px-4 max-w-7xl">
 
             @if(session('success'))

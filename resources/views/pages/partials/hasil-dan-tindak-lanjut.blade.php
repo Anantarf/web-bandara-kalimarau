@@ -26,7 +26,7 @@
                         <div class="absolute inset-0 bg-navy-dark/0 group-hover:bg-navy-dark/15 transition-colors duration-300"></div>
 
                         <!-- View Icon overlay -->
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 scale-90 group-hover:scale-100">
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-200 scale-[0.98] group-hover:scale-100">
                             <div class="bg-white/95 backdrop-blur-sm w-10 h-10 rounded-full flex items-center justify-center text-navy-dark shadow-md">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                             </div>

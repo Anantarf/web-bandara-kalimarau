@@ -6,7 +6,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <x-breadcrumb :items="[
                 ['label' => 'Beranda', 'url' => route('home')],
-                ['label' => '404 — Tidak Ditemukan'],
+                ['label' => '404 - Tidak Ditemukan'],
             ]" />
         </div>
     </div>
@@ -15,35 +15,35 @@
         <div class="max-w-2xl mx-auto px-4 text-center">
             <h1 x-show="loaded"
                 x-cloak
-                x-transition:enter="transition ease-out duration-500 delay-100"
-                x-transition:enter-start="opacity-0 translate-y-8"
+                x-transition:enter="transition ease-out duration-300 delay-75"
+                x-transition:enter-start="opacity-0 translate-y-4"
                 x-transition:enter-end="opacity-100 translate-y-0"
                 class="text-8xl md:text-9xl font-extrabold text-navy-dark/10 leading-none mb-4">404</h1>
 
             <div x-show="loaded"
                  x-cloak
-                 x-transition:enter="transition ease-out duration-500 delay-200"
-                 x-transition:enter-start="opacity-0 scale-0"
-                 x-transition:enter-end="opacity-100 scale-100"
+                 x-transition:enter="transition ease-out duration-300 delay-100"
+                 x-transition:enter-start="opacity-0 scale-x-75"
+                 x-transition:enter-end="opacity-100 scale-x-100"
                  class="h-1.5 w-20 bg-gold-light mx-auto rounded-full mb-6"></div>
 
             <h2 x-show="loaded"
                 x-cloak
-                x-transition:enter="transition ease-out duration-500 delay-300"
+                x-transition:enter="transition ease-out duration-300 delay-125"
                 x-transition:enter-start="opacity-0 translate-y-4"
                 x-transition:enter-end="opacity-100 translate-y-0"
                 class="font-sans text-2xl md:text-3xl font-extrabold text-navy-dark leading-snug mb-4">Halaman Tidak Ditemukan</h2>
 
             <p x-show="loaded"
                x-cloak
-               x-transition:enter="transition ease-out duration-500 delay-400"
+               x-transition:enter="transition ease-out duration-300 delay-150"
                x-transition:enter-start="opacity-0 translate-y-4"
                x-transition:enter-end="opacity-100 translate-y-0"
                class="text-base md:text-lg text-text-muted mb-10 leading-relaxed">Maaf, halaman yang Anda cari mungkin telah dihapus, namanya diubah, atau tidak tersedia untuk saat ini.</p>
 
             <div x-show="loaded"
                  x-cloak
-                 x-transition:enter="transition ease-out duration-500 delay-500"
+                 x-transition:enter="transition ease-out duration-300 delay-200"
                  x-transition:enter-start="opacity-0 translate-y-4"
                  x-transition:enter-end="opacity-100 translate-y-0"
                  class="flex flex-col sm:flex-row justify-center gap-4">

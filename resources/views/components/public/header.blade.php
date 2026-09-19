@@ -23,7 +23,7 @@
         ],
     ];
 @endphp
-<header class="fixed inset-x-0 top-0 z-50 w-full overflow-x-clip transition duration-500 ease-out"
+<header class="fixed inset-x-0 top-0 z-50 w-full overflow-x-clip transition duration-300 ease-out"
         x-data="{ mobileOpen: false, scrolled: false, transparent: {{ $transparent ? 'true' : 'false' }} }"
         @scroll.window="scrolled = (window.pageYOffset > 10)"
         :class="(transparent && !scrolled) ? 'bg-transparent py-4' : 'bg-white shadow-md border-b border-border-soft py-2'">
@@ -31,7 +31,7 @@
     <x-public.announcement-banner />
 
     <!-- Main header -->
-    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 transition duration-500 ease-out md:h-20 lg:px-6">
+    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 transition duration-300 ease-out md:h-20 lg:px-6">
 
         <a href="{{ route('home') }}" class="group flex min-w-0 shrink-0 items-center py-2">
             <img src="{{ asset('images/logo-as.png') }}" alt="Bandara Kalimarau"
@@ -67,7 +67,7 @@
                             <a href="{{ isset($item['route']) ? route($item['route']) : (isset($item['url']) ? $item['url'] : route('pages.show', $item['slug'])) }}"
                                @if($item['external'] ?? false) target="_blank" rel="noopener noreferrer" @endif
                                class="group flex items-center px-5 py-2.5 text-sm font-semibold text-navy/80 hover:bg-surface hover:text-navy transition-colors duration-200">
-                                <span class="w-1.5 h-1.5 rounded-full bg-gold opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 mr-2 transition duration-200"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-gold opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 mr-2 transition duration-200"></span>
                                 <span>{{ $item['label'] }}</span>
                                 @if($item['external'] ?? false)
                                     <svg class="w-3.5 h-3.5 ml-1.5 text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
@@ -99,11 +99,11 @@
     <!-- Mobile drawer -->
     <div id="mobile-navigation" x-cloak x-show="mobileOpen"
          x-transition:enter="transition ease-out duration-300 transform origin-top"
-         x-transition:enter-start="opacity-0 -translate-y-4 scale-y-95"
-         x-transition:enter-end="opacity-100 translate-y-0 scale-y-100"
+         x-transition:enter-start="opacity-0 -translate-y-2"
+         x-transition:enter-end="opacity-100 translate-y-0"
          x-transition:leave="transition ease-in duration-200 transform origin-top"
-         x-transition:leave-start="opacity-100 translate-y-0 scale-y-100"
-         x-transition:leave-end="opacity-0 -translate-y-4 scale-y-95"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 -translate-y-2"
          @keydown.escape.window="mobileOpen = false" class="lg:hidden absolute top-full left-0 w-full bg-white border-b border-border-soft shadow-lg shadow-navy-dark/10 z-40" x-data="{ expanded: null }">
         <nav class="max-w-7xl mx-auto px-4 py-3 space-y-0.5 h-[calc(100vh-4rem)] overflow-y-auto">
             <a href="{{ route('home') }}" class="block px-3 py-2.5 text-sm font-medium text-text-main hover:text-navy rounded-md">Beranda</a>

@@ -2,7 +2,7 @@
 
 <!-- Section: Berita Terkini -->
     <section class="py-16 lg:py-24 bg-navy-dark">
-        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition duration-[1000ms] ease-out delay-100">
+        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition duration-300 ease-out delay-75">
             <div class="text-center mb-12">
                 <h2 class="font-sans text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">Kabar Terbaru dari Gerbang Udara Anda</h2>
                 <p class="text-white/70 text-base mt-2 max-w-2xl mx-auto">Ikuti terus informasi, acara, dan pengembangan terbaru langsung dari Bandar Udara Kalimarau.</p>

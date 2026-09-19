@@ -14,9 +14,9 @@
             ['label' => 'Berita'],
         ]">
         <div class="mt-8 flex justify-center md:justify-end">
-            <form action="{{ route('posts.index') }}" method="GET" class="w-full md:w-auto flex flex-col sm:flex-row gap-3">
+            <form action="{{ route('posts.index') }}" method="GET" x-data="publicSubmit" @submit="submit" :aria-busy="submitting.toString()" class="w-full md:w-auto flex flex-col sm:flex-row gap-3">
                 <div class="relative w-full sm:w-48">
-                    <select name="category" class="w-full pl-4 pr-10 py-2.5 bg-surface border border-border-soft rounded-md focus:outline-none focus:ring-2 focus:ring-gold focus:border-gold text-text-main appearance-none text-sm transition-colors" onchange="this.form.submit()">
+                    <select name="category" class="w-full pl-4 pr-10 py-2.5 bg-surface border border-border-soft rounded-md focus:outline-none focus:ring-2 focus:ring-gold focus:border-gold text-text-main appearance-none text-sm transition-colors disabled:cursor-wait disabled:opacity-75" :disabled="submitting" @change="submit(); $el.form.submit()">
                         <option value="">Semua Kategori</option>
                         @foreach($categories as $category)
                             <option value="{{ data_get($category, 'slug') }}" {{ request('category') === data_get($category, 'slug') ? 'selected' : '' }}>{{ data_get($category, 'name') }}</option>
@@ -36,8 +36,9 @@
                             </a>
                         @endif
                     </div>
-                    <button type="submit" class="bg-navy hover:bg-navy-dark text-white px-5 py-2.5 rounded-r-md transition-colors flex-shrink-0">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <button type="submit" :disabled="submitting" class="inline-flex min-w-12 items-center justify-center bg-navy hover:bg-navy-dark text-white px-5 py-2.5 rounded-r-md transition-colors flex-shrink-0 disabled:cursor-wait disabled:bg-navy/80" aria-label="Cari berita">
+                        <svg x-show="!submitting" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <svg x-show="submitting" x-cloak class="size-5 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
                     </button>
                 </div>
             </form>
@@ -46,8 +47,8 @@
 
     <div class="py-12 bg-white" x-data="{ loaded: false }" x-init="setTimeout(() => loaded = true, 100)">
         <div class="container mx-auto px-4 max-w-7xl"
-             x-show="loaded" x-cloak x-transition:enter="transition ease-out duration-500"
-             x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0"
+             x-show="loaded" x-cloak x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
              >
             @if($posts->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

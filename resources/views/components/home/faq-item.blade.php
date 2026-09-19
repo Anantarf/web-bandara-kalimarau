@@ -20,12 +20,7 @@
     </button>
 
     <div x-show="active === {{ $index }}"
-         x-transition:enter="transition ease-out duration-300"
-         x-transition:enter-start="opacity-0 max-h-0"
-         x-transition:enter-end="opacity-100 max-h-[500px]"
-         x-transition:leave="transition ease-in duration-200"
-         x-transition:leave-start="opacity-100 max-h-[500px]"
-         x-transition:leave-end="opacity-0 max-h-0"
+         x-collapse.duration.250ms
          class="overflow-hidden"
          >
         <div class="px-5 md:px-6 pb-5 md:pb-6 text-text-muted text-sm md:text-base leading-relaxed">

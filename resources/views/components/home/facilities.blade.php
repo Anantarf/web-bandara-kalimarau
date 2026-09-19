@@ -2,7 +2,7 @@
 
 <!-- Section 5: Fasilitas Bandara -->
     <section id="fasilitas" class="py-16 lg:py-24 bg-surface">
-        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition duration-[1000ms] ease-out delay-100">
+        <div class="max-w-7xl mx-auto px-4 scroll-animate opacity-100 translate-y-0 transition duration-300 ease-out delay-75">
             <div class="flex flex-col sm:flex-row items-end justify-between mb-8 gap-4">
                 <div>
                     <h2 class="font-sans text-3xl md:text-4xl font-extrabold tracking-tight text-navy">Fasilitas Bandara</h2>

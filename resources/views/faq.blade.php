@@ -22,7 +22,7 @@
             <!-- Live Search Bar -->
             <div class="mb-8 relative max-w-2xl mx-auto"
                  x-show="loaded"
-                 x-transition:enter="transition ease-out duration-500 delay-400"
+                 x-transition:enter="transition ease-out duration-300 delay-150"
                  x-transition:enter-start="opacity-0 translate-y-4"
                  x-transition:enter-end="opacity-100 translate-y-0"
                  >

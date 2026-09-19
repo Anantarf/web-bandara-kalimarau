@@ -105,7 +105,7 @@
                     <div @click.away="dismissPopup()"
                          class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-gray-100 transform transition-all"
                          x-transition:enter="transition ease-out duration-300"
-                         x-transition:enter-start="scale-95 opacity-0"
+                         x-transition:enter-start="scale-[0.98] opacity-0"
                          x-transition:enter-end="scale-100 opacity-100">
 
                         <!-- Modal Header -->

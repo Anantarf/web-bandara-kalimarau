@@ -58,11 +58,11 @@
     <!-- Popup card -->
     <div x-show="open"
          x-transition:enter="transition ease-out duration-200"
-         x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+         x-transition:enter-start="opacity-0 translate-y-3 scale-[0.98]"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-         x-transition:leave-end="opacity-0 translate-y-4 scale-95"
+         x-transition:leave-end="opacity-0 translate-y-3 scale-[0.98]"
          class="bg-white rounded-2xl shadow-xl border border-border-soft w-[calc(100vw-3rem)] max-w-[340px] overflow-hidden"
          >
 
@@ -121,24 +121,24 @@
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </span>
-            <span class="text-xs font-bold text-navy/70 uppercase tracking-wide">Jam Pelayanan Informasi: 08.00–16.00 WITA</span>
+            <span class="text-xs font-bold text-navy/70 uppercase tracking-wide">Jam Pelayanan Informasi: 08.00-16.00 WITA</span>
         </div>
     </div>
 
     <!-- Auto notification bubble -->
     <div x-show="showHint"
-         x-transition:enter="transition ease-out duration-500"
-         x-transition:enter-start="opacity-0 translate-y-6 scale-90"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 translate-y-3 scale-[0.98]"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-         x-transition:leave-end="opacity-0 translate-y-4 scale-95"
+         x-transition:leave-end="opacity-0 translate-y-3 scale-[0.98]"
          class="relative flex items-center gap-4 bg-white rounded-full shadow-[0_10px_35px_-5px_rgba(12,45,107,0.15),0_8px_16px_-6px_rgba(12,45,107,0.1)] border border-border-soft/70 py-3.5 pl-4 pr-4 cursor-pointer hover:shadow-[0_15px_45px_-5px_rgba(12,45,107,0.25)] transition duration-300 group"
 
          @click="open = true; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')">
 
         <div class="flex items-center justify-center bg-[#FEF6E0] w-12 h-12 rounded-full shrink-0 group-hover:scale-105 transition-transform duration-300">
-            <span class="text-2xl origin-bottom-right group-hover:animate-[wiggle_1s_ease-in-out_infinite]">👋</span>
+            <span class="text-lg font-bold text-gold origin-bottom-right group-hover:animate-[wiggle_1s_ease-in-out_infinite]">Hai</span>
         </div>
         <div class="flex flex-col pr-1 justify-center">
             <span class="text-base font-bold text-navy-dark leading-tight">Halo! Butuh bantuan?</span>

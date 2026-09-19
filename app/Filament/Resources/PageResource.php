@@ -56,8 +56,9 @@ class PageResource extends Resource
                         Forms\Components\FileUpload::make('featured_image')
                             ->label('Gambar Utama')
                             ->image()
+                            ->imageEditor()
                             ->maxSize(5120)
-                            ->helperText('Maksimal 5MB. Kompres foto dulu kalau ukurannya besar.')
+                            ->helperText('Format foto JPG/PNG/WebP, maksimal 5MB. Gunakan editor foto bawaan untuk menyesuaikan rasio.')
                             ->directory('featured-images')
                             ->columnSpanFull(),
                         Forms\Components\Textarea::make('excerpt')

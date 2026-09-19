@@ -1,0 +1,31 @@
+{
+  "name": "Bandara Kalimarau - UPBU Kelas I Kalimarau",
+  "short_name": "Kalimarau",
+  "description": "Website & Informasi Resmi Bandar Udara Kalimarau Berau",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0c2d6b",
+  "theme_color": "#0c2d6b",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/logo-blu.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logo-blu.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/images/logo-header.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

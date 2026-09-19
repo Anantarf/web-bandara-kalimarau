@@ -50,8 +50,15 @@
         ],
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 
-    <!-- Favicon -->
+    <!-- Favicon & PWA Manifest -->
     <link rel="icon" type="image/png" href="{{ asset('images/logo-blu.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo-blu.png') }}">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <meta name="theme-color" content="#0c2d6b">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Kalimarau">
 
     <!-- Fonts: preconnect + non-blocking stylesheet -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

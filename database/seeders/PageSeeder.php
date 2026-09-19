@@ -27,7 +27,7 @@ class PageSeeder extends Seeder
             [
                 'title' => 'Struktur Organisasi PPID Pelaksana UPT',
                 'slug' => 'struktur-organisasi-ppid-pelaksana-upt',
-                'excerpt' => 'Struktur Organisasi Pejabat Pengelola Informasi dan Dokumentasi (PPID) Pelaksana UPT.',
+                'excerpt' => null,
                 'content' => '<h2>Struktur Organisasi PPID</h2><p>Berikut adalah bagan susunan Struktur Organisasi Pejabat Pengelola Informasi dan Dokumentasi (PPID) pada Badan Layanan Umum (BLU) Kantor Unit Penyelenggara Bandar Udara Kelas I Kalimarau.</p>',
                 'template' => 'ppid',
             ],
@@ -118,7 +118,7 @@ class PageSeeder extends Seeder
             [
                 'title' => 'Tarif Kebandarudaraan',
                 'slug' => 'tarif-kebandarudaraan',
-                'excerpt' => 'Informasi tarif jasa kebandarudaraan UPBU Kelas I Kalimarau.',
+                'excerpt' => null,
                 'content' => '<h2>Tarif Kebandarudaraan</h2><p>Daftar tarif pelayanan jasa pendaratan, penempatan, dan penyimpanan pesawat udara (PJP4U) serta pelayanan jasa penumpang pesawat udara (PJP2U).</p>',
                 'template' => 'default',
             ],

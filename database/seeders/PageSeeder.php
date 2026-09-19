@@ -161,16 +161,22 @@ class PageSeeder extends Seeder
         ])->delete();
 
         foreach ($pages as $p) {
+            $updateData = [
+                'title' => $p['title'],
+                'excerpt' => $p['excerpt'],
+                'content' => $p['content'],
+                'template' => $p['template'],
+                'status' => 'published',
+                'published_at' => now(),
+            ];
+
+            if ($p['slug'] === 'profil-bandara-kalimarau') {
+                $updateData['featured_image'] = null;
+            }
+
             Page::updateOrCreate(
                 ['slug' => $p['slug']],
-                [
-                    'title' => $p['title'],
-                    'excerpt' => $p['excerpt'],
-                    'content' => $p['content'],
-                    'template' => $p['template'],
-                    'status' => 'published',
-                    'published_at' => now(),
-                ]
+                $updateData
             );
         }
     }

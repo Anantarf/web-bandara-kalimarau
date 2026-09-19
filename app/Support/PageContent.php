@@ -6,6 +6,11 @@ use Illuminate\Support\Str;
 
 class PageContent
 {
+    public static function sanitize(string $content): string
+    {
+        return HtmlSanitizer::clean($content);
+    }
+
     public static function isMaklumatStandarBiaya(string $slug, string $title, ?string $currentSub = null): bool
     {
         return $currentSub === 'maklumat-pelayanan-standar-biaya'

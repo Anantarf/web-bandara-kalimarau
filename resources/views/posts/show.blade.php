@@ -88,7 +88,7 @@
 
             <!-- Content Area -->
             <div class="prose prose-lg max-w-none text-text-main prose-headings:text-navy-dark prose-a:text-navy hover:prose-a:text-gold-ink font-medium">
-                {!! $post->content !!}
+                {!! \App\Support\HtmlSanitizer::clean($post->content) !!}
             </div>
 
             <!-- Simple Share Buttons -->

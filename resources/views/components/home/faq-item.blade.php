@@ -19,7 +19,7 @@
         </span>
     </button>
 
-    <div x-show="active === {{ $index }}"
+    <div x-show="active === {{ $index }}" x-cloak
          x-collapse.duration.250ms
          class="overflow-hidden"
          >

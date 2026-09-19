@@ -57,12 +57,12 @@
                         <div>Waktu</div>
                     </div>
 
-                    <div x-show="filteredFlights.length === 0"  class="px-6 py-12 text-center text-white/50 bg-white/5 rounded-2xl border border-white/10">
+                    <div x-show="filteredFlights.length === 0" x-cloak class="px-6 py-12 text-center text-white/50 bg-white/5 rounded-2xl border border-white/10">
                         <p class="text-base font-medium">Belum ada jadwal aktif saat ini.</p>
                     </div>
 
                     <!-- Table Rows -->
-                    <div x-show="filteredFlights.length > 0" class="flex flex-col gap-3 md:gap-2">
+                    <div x-show="filteredFlights.length > 0" x-cloak class="flex flex-col gap-3 md:gap-2">
                         <template x-for="(flight, index) in filteredFlights" :key="tab + index">
                             <div class="flex flex-col md:grid md:grid-cols-[1.3fr_2.6fr_1fr_1fr] gap-3 md:gap-4 items-start md:items-center px-5 md:px-6 py-4 bg-[#14233a] rounded-xl hover:bg-[#1a2c49] transition-colors shadow-sm border border-white/5 md:border-transparent">
 

@@ -146,7 +146,7 @@
                             <div class="flex justify-end">
                                 <button type="submit" :disabled="submitting" :class="{ 'opacity-60 cursor-not-allowed': submitting }" class="bg-navy hover:bg-navy-dark text-white font-semibold py-3 px-8 rounded-md transition-colors shadow-sm inline-flex items-center">
                                     <svg x-show="!submitting" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                                    <svg x-show="submitting" class="w-5 h-5 mr-2 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                                    <svg x-show="submitting" x-cloak class="w-5 h-5 mr-2 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
                                     <span x-text="submitting ? 'Mengirim...' : 'Kirim Pesan'"></span>
                                 </button>
                             </div>

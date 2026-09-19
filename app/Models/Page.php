@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\CleansUpFeaturedImage;
+use App\Support\HtmlSanitizer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -43,6 +44,10 @@ class Page extends Model
         static::saving(function (Page $page): void {
             if (filled($page->slug)) {
                 $page->slug = Str::slug($page->slug);
+            }
+
+            if (filled($page->content)) {
+                $page->content = HtmlSanitizer::clean($page->content);
             }
         });
     }

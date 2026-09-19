@@ -92,7 +92,7 @@
         <!-- Mobile menu button -->
         <button type="button" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen.toString()" aria-controls="mobile-navigation" class="lg:hidden p-2.5 -mr-2.5 hover:bg-white/10 rounded-lg transition-colors" :class="(transparent && !scrolled) ? 'text-white' : 'text-navy'" aria-label="Menu">
             <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            <svg x-show="mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <svg x-show="mobileOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
     </div>
 
@@ -114,7 +114,7 @@
                         <span>{{ $groupLabel }}</span>
                         <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': expanded === '{{ $groupLabel }}' }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
-                    <div x-show="expanded === '{{ $groupLabel }}'" class="pl-4 pb-1 space-y-0.5">
+                    <div x-show="expanded === '{{ $groupLabel }}'" x-cloak class="pl-4 pb-1 space-y-0.5">
                         @foreach($items as $item)
                             <a href="{{ isset($item['route']) ? route($item['route']) : (isset($item['url']) ? $item['url'] : route('pages.show', $item['slug'])) }}"
                                @if($item['external'] ?? false) target="_blank" rel="noopener noreferrer" @endif

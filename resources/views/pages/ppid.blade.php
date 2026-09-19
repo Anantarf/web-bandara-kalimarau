@@ -78,6 +78,7 @@
                         $pageContent = \App\Support\PageContent::withoutRegulasiDraftNotice($pageContent);
                     }
                     $pageContent = \App\Support\PageContent::withoutDuplicateTitleHeading($pageContent, $page->title, $currentSub);
+                    $pageContent = \App\Support\HtmlSanitizer::clean($pageContent);
                     $plainPageContent = trim(preg_replace('/\s+/', ' ', strip_tags($pageContent)));
                     $plainExcerpt = trim(preg_replace('/\s+/', ' ', $page->excerpt ?? ''));
                     if ($currentSub && $plainExcerpt !== '' && $plainPageContent === $plainExcerpt) {

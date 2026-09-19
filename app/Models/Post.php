@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\CleansUpFeaturedImage;
+use App\Support\HtmlSanitizer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -54,6 +55,10 @@ class Post extends Model
         static::saving(function (Post $post): void {
             if (filled($post->slug)) {
                 $post->slug = Str::slug($post->slug);
+            }
+
+            if (filled($post->content)) {
+                $post->content = HtmlSanitizer::clean($post->content);
             }
         });
     }

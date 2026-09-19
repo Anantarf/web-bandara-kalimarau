@@ -83,7 +83,7 @@
             <!-- Content Area -->
             @php
                 $isMaklumatStandarBiaya = \App\Support\PageContent::isMaklumatStandarBiaya($page->slug, $page->title);
-                $contentWithIds = \App\Support\PageContent::withHeadingIds($page->content);
+                $contentWithIds = \App\Support\PageContent::withHeadingIds(\App\Support\HtmlSanitizer::clean($page->content));
             @endphp
 
             @if($page->slug === 'fasilitas-bandara')

@@ -31,7 +31,7 @@
     <div class="relative w-full overflow-hidden bg-navy-dark/[0.06] rounded-2xl border border-navy-dark/5 shadow-inner h-64 sm:h-72 md:h-80 flex items-center justify-center group/track">
 
         <template x-for="(slide, index) in slides" :key="index">
-            <div x-show="activeSlide === index"
+            <div x-show="activeSlide === index" x-cloak
                  x-transition:enter="transition ease-in-out duration-400"
                  x-transition:enter-start="opacity-0"
                  x-transition:enter-end="opacity-100"

@@ -21,7 +21,7 @@
 
             <!-- Live Search Bar -->
             <div class="mb-8 relative max-w-2xl mx-auto"
-                 x-show="loaded"
+                 x-show="loaded" x-cloak
                  x-transition:enter="transition ease-out duration-300 delay-150"
                  x-transition:enter-start="opacity-0 translate-y-4"
                  x-transition:enter-end="opacity-100 translate-y-0"
@@ -56,7 +56,7 @@
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </button>
-                        <div id="faq-answer-cat1_{{ $index }}" x-show="activeAccordion === 'cat1_{{ $index }}'" x-collapse role="region" aria-labelledby="faq-question-cat1_{{ $index }}">
+                        <div id="faq-answer-cat1_{{ $index }}" x-show="activeAccordion === 'cat1_{{ $index }}'" x-cloak x-collapse role="region" aria-labelledby="faq-question-cat1_{{ $index }}">
                             <div class="px-6 pb-6 pt-2 text-text-muted leading-relaxed border-t border-border-soft/70 text-sm md:text-base">
                                 {{ $faq['a'] }}
                             </div>
@@ -89,7 +89,7 @@
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </button>
-                        <div id="faq-answer-cat2_{{ $index }}" x-show="activeAccordion === 'cat2_{{ $index }}'" x-collapse role="region" aria-labelledby="faq-question-cat2_{{ $index }}">
+                        <div id="faq-answer-cat2_{{ $index }}" x-show="activeAccordion === 'cat2_{{ $index }}'" x-cloak x-collapse role="region" aria-labelledby="faq-question-cat2_{{ $index }}">
                             <div class="px-6 pb-6 pt-2 text-text-muted leading-relaxed border-t border-border-soft/70 text-sm md:text-base">
                                 {{ $faq['a'] }}
                             </div>

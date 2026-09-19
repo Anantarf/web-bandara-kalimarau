@@ -15,43 +15,6 @@ class ListContactMessages extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\Action::make('export_csv')
-                ->label('Export Rekap CSV')
-                ->icon('heroicon-o-arrow-down-tray')
-                ->color('success')
-                ->action(function () {
-                    return response()->streamDownload(function () {
-                        $handle = fopen('php://output', 'w');
-                        // UTF-8 BOM for Microsoft Excel compatibility
-                        fputs($handle, "\xEF\xBB\xBF");
-                        fputcsv($handle, ['ID', 'Nama Pengirim', 'Email', 'No Telepon', 'Subjek', 'Pesan', 'Status', 'Waktu Dikirim']);
-
-                        \App\Models\ContactMessage::latest('submitted_at')->chunk(200, function ($records) use ($handle) {
-                            foreach ($records as $record) {
-                                fputcsv($handle, [
-                                    $record->id,
-                                    $record->name,
-                                    $record->email,
-                                    $record->phone,
-                                    $record->subject,
-                                    $record->message,
-                                    match ($record->status) {
-                                        'new' => 'Baru',
-                                        'read' => 'Dibaca',
-                                        'replied' => 'Dibalas',
-                                        'archived' => 'Diarsipkan',
-                                        default => ucfirst($record->status),
-                                    },
-                                    $record->submitted_at?->format('d/m/Y H:i') ?? '-',
-                                ]);
-                            }
-                        });
-
-                        fclose($handle);
-                    }, 'rekap-pengaduan-kalimarau-'.now()->format('Y-m-d').'.csv', [
-                        'Content-Type' => 'text/csv; charset=UTF-8',
-                    ]);
-                }),
             Actions\CreateAction::make()->label('Tambah Pesan'),
         ];
     }

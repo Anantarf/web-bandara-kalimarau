@@ -21,21 +21,71 @@
                     if (empty($flight->days) || count($flight->days) === 7) return 'Setiap Hari';
                     return collect($flight->days)->map(fn ($d) => $dayLabels[$d] ?? $d)->implode(', ');
                 };
+                $allAirlines = $arrivals->concat($departures)->pluck('airline')->unique()->filter()->sort()->values();
             @endphp
 
             <div class="bg-navy-dark rounded-2xl overflow-hidden shadow-xl transition duration-300 ease-out transform"
-                 x-data="{ tab: 'kedatangan', loaded: false }" x-init="setTimeout(() => loaded = true, 100)"
+                 x-data="{
+                    tab: 'kedatangan',
+                    loaded: false,
+                    searchQuery: '',
+                    selectedAirline: '',
+                    matches(airline, route, number) {
+                        const q = this.searchQuery.toLowerCase().trim();
+                        const matchAirline = !this.selectedAirline || airline.toLowerCase() === this.selectedAirline.toLowerCase();
+                        const matchQuery = !q || airline.toLowerCase().includes(q) || route.toLowerCase().includes(q) || (number && number.toLowerCase().includes(q));
+                        return matchAirline && matchQuery;
+                    },
+                    resetFilters() {
+                        this.searchQuery = '';
+                        this.selectedAirline = '';
+                    }
+                 }"
+                 x-init="setTimeout(() => loaded = true, 100)"
                  :class="loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'">
-                <!-- Pill toggle -->
-                <div class="flex justify-center gap-3 py-6 px-4 border-b border-white/10">
-                    <button type="button" @click="tab = 'kedatangan'" :class="tab === 'kedatangan' ? 'bg-gold text-navy-dark' : 'bg-white/5 text-white/70 hover:bg-white/10'" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
-                        <svg class="w-4 h-4 rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        Kedatangan
-                    </button>
-                    <button type="button" @click="tab = 'keberangkatan'" :class="tab === 'keberangkatan' ? 'bg-gold text-navy-dark' : 'bg-white/5 text-white/70 hover:bg-white/10'" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
-                        <svg class="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        Keberangkatan
-                    </button>
+
+                <!-- Header Controls: Tabs & Filter Bar -->
+                <div class="p-4 sm:p-6 border-b border-white/10 space-y-4">
+                    <!-- Pill toggle tabs -->
+                    <div class="flex justify-center gap-3">
+                        <button type="button" @click="tab = 'kedatangan'" :class="tab === 'kedatangan' ? 'bg-gold text-navy-dark shadow-md' : 'bg-white/5 text-white/70 hover:bg-white/10'" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+                            <svg class="w-4 h-4 rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            Kedatangan
+                        </button>
+                        <button type="button" @click="tab = 'keberangkatan'" :class="tab === 'keberangkatan' ? 'bg-gold text-navy-dark shadow-md' : 'bg-white/5 text-white/70 hover:bg-white/10'" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+                            <svg class="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            Keberangkatan
+                        </button>
+                    </div>
+
+                    <!-- Filter Controls (Search & Airline Select) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 pt-2 max-w-3xl mx-auto">
+                        <div class="sm:col-span-7 relative">
+                            <input
+                                type="text"
+                                x-model="searchQuery"
+                                placeholder="Cari kota rute, nomor, atau maskapai..."
+                                class="w-full bg-white/10 border border-white/15 rounded-xl px-4 py-2.5 pl-10 text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition-all">
+                            <svg class="w-4 h-4 text-white/40 absolute left-3.5 top-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            <button x-show="searchQuery" @click="searchQuery = ''" class="absolute right-3 top-3 text-white/40 hover:text-white" title="Hapus pencarian">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            </button>
+                        </div>
+
+                        <div class="sm:col-span-5 relative">
+                            <select
+                                x-model="selectedAirline"
+                                class="w-full bg-white/10 border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition-all appearance-none cursor-pointer">
+                                <option value="" class="bg-navy-dark text-white">Semua Maskapai</option>
+                                @foreach($allAirlines as $airlineName)
+                                    <option value="{{ $airlineName }}" class="bg-navy-dark text-white">{{ $airlineName }}</option>
+                                @endforeach
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-white/40">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Kedatangan -->
@@ -67,7 +117,8 @@
                                 </thead>
                                 <tbody class="divide-y divide-white/5">
                                     @foreach($arrivals as $flight)
-                                        <tr class="hover:bg-white/5 transition-colors">
+                                        <tr x-show="matches('{{ addslashes($flight->airline) }}', '{{ addslashes($flight->route_from) }}', '{{ addslashes($flight->flight_number ?? '') }}')"
+                                            class="hover:bg-white/5 transition-colors">
                                             <td class="py-4 px-6">
                                                 <div class="flex items-center">
                                                     @if(isset($logos[$flight->airline]))
@@ -123,7 +174,8 @@
                                 </thead>
                                 <tbody class="divide-y divide-white/5">
                                     @foreach($departures as $flight)
-                                        <tr class="hover:bg-white/5 transition-colors">
+                                        <tr x-show="matches('{{ addslashes($flight->airline) }}', '{{ addslashes($flight->route_to) }}', '{{ addslashes($flight->flight_number ?? '') }}')"
+                                            class="hover:bg-white/5 transition-colors">
                                             <td class="py-4 px-6">
                                                 <div class="flex items-center">
                                                     @if(isset($logos[$flight->airline]))

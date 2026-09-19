@@ -260,13 +260,57 @@ class AdminPanelProvider extends PanelProvider
                             letter-spacing: 0 !important;
                         }
 
-                        /* Retouch Sidebar Background */
+                        /* Retouch Sidebar & Topbar */
                         aside.fi-sidebar {
-                            background-color: #f5f7fb !important; /* gray.50 (custom palette) */
-                            border-right: 1px solid #e2e7f0;
+                            background-color: #f8fafc !important;
+                            border-right: 1px solid #e2e8f0;
                         }
                         aside.fi-sidebar:not(.fi-sidebar-open) .kalimarau-brand-text {
                             display: none !important;
+                        }
+                        header.fi-topbar {
+                            background: rgba(255, 255, 255, 0.94) !important;
+                            backdrop-filter: blur(8px) !important;
+                            border-bottom: 1px solid #e2e8f0 !important;
+                        }
+
+                        /* Active Sidebar Nav Item with Gold Indicator */
+                        aside.fi-sidebar .fi-sidebar-item-active > a,
+                        aside.fi-sidebar .fi-sidebar-item-active > button {
+                            background-color: #ffffff !important;
+                            box-shadow: 0 1px 3px rgba(12, 45, 107, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+                            border-left: 3.5px solid #c8860a !important;
+                            font-weight: 700 !important;
+                            color: #0c2d6b !important;
+                        }
+
+                        /* Modern Rounded Cards & Table Containers */
+                        .fi-section,
+                        .fi-ta-ctn,
+                        .fi-wi-stats-overview-stat {
+                            border-radius: 1rem !important;
+                            border: 1px solid #e2e8f0 !important;
+                            box-shadow: 0 4px 14px -3px rgba(12, 45, 107, 0.04), 0 2px 6px -2px rgba(0, 0, 0, 0.02) !important;
+                        }
+
+                        /* Clean Pill Status Badges */
+                        .fi-badge {
+                            border-radius: 9999px !important;
+                            font-weight: 600 !important;
+                            letter-spacing: 0.01em !important;
+                            padding: 0.2rem 0.65rem !important;
+                        }
+
+                        /* Table Tabs Polishing */
+                        .fi-tabs {
+                            border-bottom: 1px solid #e2e8f0 !important;
+                            padding-bottom: 0.25rem !important;
+                            margin-bottom: 1rem !important;
+                        }
+                        .fi-tabs-item {
+                            border-radius: 0.625rem !important;
+                            font-weight: 600 !important;
+                            transition: all 0.2s ease-in-out !important;
                         }
 
                         /* =========================================
@@ -284,6 +328,7 @@ class AdminPanelProvider extends PanelProvider
                         /* 2. Buttons - restrained feedback */
                         .fi-btn {
                             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                            border-radius: 0.625rem !important;
                         }
                         .fi-btn:hover {
                             box-shadow: 0 4px 10px -6px rgba(12, 45, 107, 0.28);
@@ -297,7 +342,7 @@ class AdminPanelProvider extends PanelProvider
                             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
                         }
                         .fi-wi-stats-overview-stat:hover {
-                            box-shadow: 0 8px 14px -12px rgba(5, 19, 48, 0.22);
+                            box-shadow: 0 8px 16px -8px rgba(12, 45, 107, 0.12) !important;
                         }
 
                         /* 4. Table Rows - Highlight */
@@ -305,8 +350,8 @@ class AdminPanelProvider extends PanelProvider
                             transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out !important;
                         }
                         .fi-ta-row:hover {
-                            background-color: #f5f7fb !important;
-                            box-shadow: inset 3px 0 0 #f2a900;
+                            background-color: #f8fafc !important;
+                            box-shadow: inset 3px 0 0 #c8860a;
                         }
 
                         /* 5. Inputs - Glow effect & Stacking Context Fix */
@@ -314,10 +359,12 @@ class AdminPanelProvider extends PanelProvider
                             min-width: 0 !important;
                         }
                         .fi-input-wrp {
+                            border-radius: 0.625rem !important;
                             transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out !important;
                         }
                         .fi-input-wrp:focus-within {
-                            box-shadow: 0 0 0 3px rgba(30, 111, 181, 0.2) !important;
+                            box-shadow: 0 0 0 3px rgba(12, 45, 107, 0.15) !important;
+                            border-color: #0c2d6b !important;
                         }
 
                         /* Fix Dropdown & Popover Overlapping */

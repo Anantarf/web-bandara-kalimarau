@@ -29,9 +29,9 @@
                                     </a>
                                 </h3>
                                 <p class="text-white/60 text-sm leading-relaxed line-clamp-2 mb-6 flex-1">{{ $post->excerpt }}</p>
-                                <div class="text-gold font-semibold text-sm flex items-center gap-1 group w-fit mt-auto relative z-10">
+                                <div class="text-gold font-semibold text-sm flex items-center gap-1.5 group w-fit mt-auto relative z-10">
                                     Baca Selengkapnya
-                                    <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                                    <x-icon-arrow class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                                 </div>
                             </div>
                         </div>

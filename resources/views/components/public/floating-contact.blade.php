@@ -42,6 +42,20 @@
     opacity: 0;
   }
 }
+@keyframes wave-hand {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(14deg); }
+  40% { transform: rotate(-4deg); }
+  50% { transform: rotate(10deg); }
+  60% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+.animate-waving-hand {
+  animation: wave-hand 2.2s infinite ease-in-out;
+  transform-origin: 75% 75%;
+}
 .animate-heartbeat-btn {
   animation: heartbeat-button 3.5s infinite ease-in-out;
 }
@@ -138,7 +152,7 @@
          @click="open = true; showHint = false; hasUnread = false; sessionStorage.setItem('kalimarau_chat_opened', '1')">
 
         <div class="flex items-center justify-center bg-[#FEF6E0] w-12 h-12 rounded-full shrink-0 group-hover:scale-105 transition-transform duration-300">
-            <span class="text-lg font-bold text-gold origin-bottom-right group-hover:animate-[wiggle_1s_ease-in-out_infinite]">Hai</span>
+            <span class="text-2xl inline-block animate-waving-hand select-none">👋</span>
         </div>
         <div class="flex flex-col pr-1 justify-center">
             <span class="text-base font-bold text-navy-dark leading-tight">Halo! Butuh bantuan?</span>

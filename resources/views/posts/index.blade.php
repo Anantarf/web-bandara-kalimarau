@@ -80,7 +80,7 @@
                             <p class="text-text-muted mb-4 line-clamp-3 text-sm flex-grow">
                                 {{ $post->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($post->content), 120) }}
                             </p>
-                            <a href="{{ route('posts.show', $post->slug) }}" class="text-navy font-medium hover:text-gold-ink inline-flex items-center mt-auto text-sm">
+                            <a href="{{ route('posts.show', $post->slug) }}" aria-label="Baca selengkapnya: {{ $post->title }}" class="text-navy font-medium hover:text-gold-ink inline-flex items-center mt-auto text-sm focus:outline-none focus-visible:underline">
                                 Baca selengkapnya <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                             </a>
                         </div>

@@ -54,9 +54,9 @@ class FacilityResource extends Resource
                             ->imageEditor()
                             ->disk('public')
                             ->directory('facilities')
-                            ->maxSize(5120)
+                            ->maxSize(10240)
                             ->columnSpanFull()
-                            ->helperText('Format foto JPG/PNG, maksimal 5MB. Gunakan gambar berkualitas baik.'),
+                            ->helperText('Format foto JPG/PNG/WebP, maksimal 10MB. Foto otomatis dioptimasi dan dikompresi agar loading cepat.'),
                         Forms\Components\Textarea::make('details')
                             ->label('Detail & Spesifikasi (satu poin per baris)')
                             ->placeholder("Luas area: 12.000 m²\nKapasitas: 1,5 juta penumpang/tahun\nDilengkapi AC & Ruang Menyusui")

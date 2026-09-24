@@ -14,6 +14,13 @@ trait CleansUpFeaturedImage
             }
         });
 
+        static::saved(function ($model) {
+            if (($model->wasChanged('featured_image') || $model->wasRecentlyCreated) && filled($model->featured_image)) {
+                $path = Storage::disk('public')->path($model->featured_image);
+                \App\Services\ImageOptimizer::optimize($path);
+            }
+        });
+
         static::deleted(function ($model) {
             if ($model->featured_image) {
                 Storage::disk('public')->delete($model->featured_image);

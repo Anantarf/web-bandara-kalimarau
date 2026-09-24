@@ -25,6 +25,13 @@ class Facility extends Model
             }
         });
 
+        static::saved(function (Facility $facility): void {
+            if (($facility->wasChanged('image') || $facility->wasRecentlyCreated) && filled($facility->image)) {
+                $path = Storage::disk('public')->path($facility->image);
+                \App\Services\ImageOptimizer::optimize($path);
+            }
+        });
+
         static::deleted(function (Facility $facility): void {
             if ($facility->image) {
                 Storage::disk('public')->delete($facility->image);

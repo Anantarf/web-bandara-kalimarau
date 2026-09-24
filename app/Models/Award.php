@@ -37,6 +37,13 @@ class Award extends Model
             }
         });
 
+        static::saved(function (Award $award): void {
+            if (($award->wasChanged('image') || $award->wasRecentlyCreated) && filled($award->image) && ! static::isLegacyPath($award->image)) {
+                $path = Storage::disk('public')->path($award->image);
+                \App\Services\ImageOptimizer::optimize($path);
+            }
+        });
+
         static::deleted(function (Award $award): void {
             if ($award->image && ! static::isLegacyPath($award->image)) {
                 Storage::disk('public')->delete($award->image);

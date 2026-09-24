@@ -20,10 +20,22 @@ class OptimizeImagesCommand extends Command
     public function handle(): int
     {
         $subDir = $this->argument('directory');
-        $basePath = storage_path('app/public' . ($subDir ? '/' . trim($subDir, '/\\') : ''));
+        $rootPath = realpath(storage_path('app/public'));
+        $targetPath = storage_path('app/public'.($subDir ? DIRECTORY_SEPARATOR.trim($subDir, '/\\') : ''));
+        $basePath = realpath($targetPath);
 
-        if (! is_dir($basePath)) {
-            $this->error("Directory does not exist: {$basePath}");
+        if (! $rootPath || ! $basePath || ! is_dir($basePath)) {
+            $this->error("Directory does not exist: {$targetPath}");
+
+            return self::FAILURE;
+        }
+
+        $normalizedRoot = rtrim($rootPath, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+        $normalizedBase = rtrim($basePath, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+
+        if ($normalizedBase !== $normalizedRoot && ! str_starts_with($normalizedBase, $normalizedRoot)) {
+            $this->error('Directory must be inside storage/app/public.');
+
             return self::FAILURE;
         }
 
@@ -53,6 +65,7 @@ class OptimizeImagesCommand extends Command
         $totalFiles = count($files);
         if ($totalFiles === 0) {
             $this->warn('No images found to optimize.');
+
             return self::SUCCESS;
         }
 
@@ -92,13 +105,14 @@ class OptimizeImagesCommand extends Command
             [
                 ['Total Files Scanned', $totalFiles],
                 ['Files Compressed', $optimizedCount],
-                ['Size Before', round($totalOrigBytes / 1024 / 1024, 2) . ' MB'],
-                ['Size After', round($totalOptBytes / 1024 / 1024, 2) . ' MB'],
-                ['Total Saved', round($savedBytes / 1024 / 1024, 2) . ' MB (' . $savedPercent . '%)'],
+                ['Size Before', round($totalOrigBytes / 1024 / 1024, 2).' MB'],
+                ['Size After', round($totalOptBytes / 1024 / 1024, 2).' MB'],
+                ['Total Saved', round($savedBytes / 1024 / 1024, 2).' MB ('.$savedPercent.'%)'],
             ]
         );
 
         $this->info('Image optimization completed successfully!');
+
         return self::SUCCESS;
     }
 }

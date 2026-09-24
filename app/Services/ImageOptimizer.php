@@ -2,17 +2,15 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Log;
-
 class ImageOptimizer
 {
     /**
      * Optimize an image file in-place using PHP GD.
      *
-     * @param string $filePath Full absolute filesystem path
-     * @param int $maxWidth Max width in pixels (default: 1600)
-     * @param int $maxHeight Max height in pixels (default: 1200)
-     * @param int $quality JPEG/WebP quality percentage 1-100 (default: 82)
+     * @param  string  $filePath  Full absolute filesystem path
+     * @param  int  $maxWidth  Max width in pixels (default: 1600)
+     * @param  int  $maxHeight  Max height in pixels (default: 1200)
+     * @param  int  $quality  JPEG/WebP quality percentage 1-100 (default: 82)
      * @return array{success: bool, original_size: int, optimized_size: int, saved_bytes: int, percent: float}
      */
     public static function optimize(
@@ -53,6 +51,7 @@ class ImageOptimizer
         // If file is already smaller than 200KB and within dimensions, skip recompression
         if ($origSize <= 200 * 1024 && $width <= $maxWidth && $height <= $maxHeight) {
             $result['success'] = true;
+
             return $result;
         }
 
@@ -116,7 +115,7 @@ class ImageOptimizer
 
         imagecopyresampled($dstImage, $srcImage, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
-        $tmpFile = $filePath . '.opt_tmp_' . uniqid();
+        $tmpFile = $filePath.'.opt_tmp_'.uniqid();
 
         $saved = false;
         switch ($mime) {
@@ -138,15 +137,36 @@ class ImageOptimizer
             if (file_exists($tmpFile)) {
                 @unlink($tmpFile);
             }
+
             return $result;
         }
 
         $newSize = filesize($tmpFile);
 
+        if ($newSize <= 0) {
+            @unlink($tmpFile);
+
+            return $result;
+        }
+
         // Only overwrite if the new file is smaller, otherwise discard
         if ($newSize < $origSize) {
-            @unlink($filePath);
-            rename($tmpFile, $filePath);
+            $backupFile = $filePath.'.opt_backup_'.uniqid();
+
+            if (! @rename($filePath, $backupFile)) {
+                @unlink($tmpFile);
+
+                return $result;
+            }
+
+            if (! @rename($tmpFile, $filePath)) {
+                @rename($backupFile, $filePath);
+                @unlink($tmpFile);
+
+                return $result;
+            }
+
+            @unlink($backupFile);
             $result['success'] = true;
             $result['optimized_size'] = $newSize;
             $result['saved_bytes'] = $origSize - $newSize;

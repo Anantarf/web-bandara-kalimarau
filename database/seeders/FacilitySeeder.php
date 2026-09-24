@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Facility;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class FacilitySeeder extends Seeder
 {
@@ -66,7 +65,7 @@ class FacilitySeeder extends Seeder
         ];
 
         foreach ($facilities as $order => $facility) {
-            Facility::updateOrCreate(
+            Facility::firstOrCreate(
                 ['name' => $facility['name']],
                 [...$facility, 'order' => $order]
             );

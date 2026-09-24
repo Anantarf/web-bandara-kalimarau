@@ -4,11 +4,15 @@ namespace Tests\Feature;
 
 use App\Http\Controllers\PageController;
 use App\Models\ContactMessage;
+use App\Models\Facility;
 use App\Models\PpidDocument;
 use Database\Seeders\DatabaseSeeder;
+use Database\Seeders\FacilitySeeder;
 use Database\Seeders\PageSeeder;
 use Database\Seeders\PpidDocumentSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class PpidSeederIntegrityTest extends TestCase
@@ -53,6 +57,14 @@ class PpidSeederIntegrityTest extends TestCase
         ]);
     }
 
+    public function test_image_optimizer_command_rejects_paths_outside_public_storage(): void
+    {
+        $exitCode = Artisan::call('images:optimize', ['directory' => '..']);
+
+        $this->assertSame(1, $exitCode);
+        $this->assertStringContainsString('Directory must be inside storage/app/public.', Artisan::output());
+    }
+
     public function test_seeder_preserves_admin_cms_edits_on_ppid_documents(): void
     {
         // 1. Initial seed
@@ -74,6 +86,29 @@ class PpidSeederIntegrityTest extends TestCase
         $this->assertSame('Deskripsi yang sudah diperbarui oleh Admin CMS.', $document->description);
         $this->assertFalse($document->is_active);
         $this->assertSame(99, $document->sort_order);
+    }
+
+    public function test_seeder_preserves_admin_cms_edits_on_facilities(): void
+    {
+        Storage::fake('public');
+
+        $this->seed(FacilitySeeder::class);
+
+        $facility = Facility::where('name', 'Area Check-in')->firstOrFail();
+        $facility->update([
+            'category' => 'Informasi & Pengaduan',
+            'image' => 'facilities/cms-uploaded-area-check-in.jpg',
+            'details' => ['Detail fasilitas hasil edit admin CMS.'],
+            'order' => 77,
+        ]);
+
+        $this->seed(FacilitySeeder::class);
+
+        $facility->refresh();
+        $this->assertSame('Informasi & Pengaduan', $facility->category);
+        $this->assertSame('facilities/cms-uploaded-area-check-in.jpg', $facility->image);
+        $this->assertSame(['Detail fasilitas hasil edit admin CMS.'], $facility->details);
+        $this->assertSame(77, $facility->order);
     }
 
     public function test_all_ppid_routes_from_seeder_load_successfully(): void

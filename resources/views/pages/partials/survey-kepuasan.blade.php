@@ -22,7 +22,7 @@
                                         </div>
 
                                         <!-- Image Preview Box -->
-                                        <div class="bg-surface/80 rounded-xl p-3 border border-border-soft/60 mt-auto">
+                                        <div class="bg-surface/70 rounded-xl p-3 mt-auto">
                                             <x-lightbox-image
                                                 src="{{ asset('images/survei-internal.jpeg') }}"
                                                 alt="Survey Kepuasan Pengguna Jasa Internal"
@@ -52,7 +52,7 @@
                                         </div>
 
                                         <!-- Image Preview Box -->
-                                        <div class="bg-surface/80 rounded-xl p-3 border border-border-soft/60 mt-auto">
+                                        <div class="bg-surface/70 rounded-xl p-3 mt-auto">
                                             <x-lightbox-image
                                                 src="{{ asset('images/survei-kemenhub.png') }}"
                                                 alt="Survey Kepuasan Masyarakat Kementerian Perhubungan"

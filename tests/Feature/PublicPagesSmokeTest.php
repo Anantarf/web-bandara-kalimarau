@@ -254,7 +254,7 @@ class PublicPagesSmokeTest extends TestCase
         $this->get(route('pages.show', 'standar-pelayanan'))
             ->assertOk()
             ->assertSee('Standar Pelayanan')
-            ->assertSee('storage/media/legacy/2024/09/Standar-Pelayanan-2023.pdf', false);
+            ->assertSee('documents/standar-pelayanan-2025.pdf', false);
     }
 
     public function test_pengajuan_pas_bandara_seeded_page_loads(): void

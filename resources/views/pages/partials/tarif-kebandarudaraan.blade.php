@@ -22,7 +22,7 @@
     get currentDoc() {
         return this.docs[this.activeTab] || this.docs.aero;
     }
-}" class="w-full max-w-5xl mx-auto space-y-6">
+}" class="w-full space-y-6">
     <p class="text-text-muted text-base md:text-lg leading-relaxed max-w-3xl">
         Informasi resmi mengenai rincian tarif pelayanan jasa kebandarudaraan, baik untuk layanan penerbangan (Aeronautika) maupun layanan penunjang non-penerbangan (Non Aeronautika) di UPBU Kelas I Kalimarau.
     </p>

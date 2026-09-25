@@ -2,7 +2,7 @@
     $documentUrl = asset('documents/standar-pelayanan-2025.pdf');
 @endphp
 
-<div class="w-full max-w-5xl mx-auto">
+<div class="w-full">
     <div class="overflow-hidden rounded-2xl border border-border-soft bg-white shadow-sm">
         <!-- Document Toolbar / Header -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-5 py-4 sm:px-6 sm:py-5 bg-surface/75 border-b border-border-soft">

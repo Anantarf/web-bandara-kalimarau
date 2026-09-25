@@ -22,40 +22,59 @@
     },
     isModalOpen: false,
     autoplayInterval: null,
-    isHovered: false,
-    next() {
+    isPaused: false,
+    touchStartX: 0,
+    touchEndX: 0,
+    next(manual = false) {
         this.activeSlide = (this.activeSlide + 1) % this.items.length;
+        if (manual) this.restartAutoplay();
     },
-    prev() {
+    prev(manual = false) {
         this.activeSlide = (this.activeSlide - 1 + this.items.length) % this.items.length;
+        if (manual) this.restartAutoplay();
     },
     startAutoplay() {
-        if (!this.autoplayInterval) {
-            this.autoplayInterval = setInterval(() => {
-                if (!this.isModalOpen && !this.isHovered) {
-                    this.next();
-                }
-            }, 6000);
-        }
+        this.stopAutoplay();
+        this.autoplayInterval = setInterval(() => {
+            if (!this.isModalOpen && !this.isPaused) {
+                this.next(false);
+            }
+        }, 7000);
+    },
+    restartAutoplay() {
+        this.stopAutoplay();
+        this.startAutoplay();
     },
     stopAutoplay() {
-        clearInterval(this.autoplayInterval);
-        this.autoplayInterval = null;
+        if (this.autoplayInterval) {
+            clearInterval(this.autoplayInterval);
+            this.autoplayInterval = null;
+        }
     },
     openModal() {
         this.isModalOpen = true;
+        this.stopAutoplay();
         document.body.style.overflow = 'hidden';
     },
     closeModal() {
         this.isModalOpen = false;
+        this.startAutoplay();
         document.body.style.overflow = '';
     }
 }"
 x-init="startAutoplay()"
-@mouseenter="isHovered = true"
-@mouseleave="isHovered = false"
-@keydown.arrow-right.window="if (!isModalOpen) next()"
-@keydown.arrow-left.window="if (!isModalOpen) prev()">
+@mouseenter="isPaused = true"
+@mouseleave="isPaused = false"
+@focusin="isPaused = true"
+@focusout="isPaused = false"
+@touchstart.passive="touchStartX = $event.changedTouches[0].screenX"
+@touchend.passive="
+    touchEndX = $event.changedTouches[0].screenX;
+    if (touchEndX < touchStartX - 45) { next(true); }
+    else if (touchEndX > touchStartX + 45) { prev(true); }
+"
+@keydown.arrow-right.window="if (!isModalOpen) next(true)"
+@keydown.arrow-left.window="if (!isModalOpen) prev(true)">
 
     <!-- Main Showcase Canvas -->
     <div class="relative w-full rounded-2xl bg-gradient-to-b from-gray-50/80 to-surface border border-border-soft p-4 sm:p-6 md:p-8 flex flex-col items-center shadow-xs">
@@ -65,10 +84,10 @@ x-init="startAutoplay()"
             <template x-for="(item, index) in items" :key="index">
                 <div x-show="activeSlide === index"
                      x-cloak
-                     x-transition:enter="transition-opacity ease-out duration-300"
+                     x-transition:enter="transition-opacity ease-in-out duration-700"
                      x-transition:enter-start="opacity-0"
                      x-transition:enter-end="opacity-100"
-                     x-transition:leave="transition-opacity ease-in duration-200 absolute"
+                     x-transition:leave="transition-opacity ease-in-out duration-500 absolute"
                      x-transition:leave-start="opacity-100"
                      x-transition:leave-end="opacity-0"
                      class="flex flex-col items-center justify-center cursor-zoom-in group max-w-full"
@@ -119,7 +138,7 @@ x-init="startAutoplay()"
         <div class="mt-6 pt-5 border-t border-border-soft/80 w-full flex flex-col sm:flex-row items-center justify-between gap-4">
             <!-- Prev Button -->
             <button type="button"
-                    @click="prev()"
+                    @click="prev(true)"
                     class="order-2 sm:order-1 inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl border border-gray-200 bg-white text-navy-dark hover:text-navy hover:bg-gray-50 hover:border-navy/30 transition-all font-semibold text-xs sm:text-sm shadow-xs focus:ring-2 focus:ring-navy/20 focus:outline-hidden"
                     aria-label="Penghargaan sebelumnya">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,14 +157,14 @@ x-init="startAutoplay()"
                 </div>
 
                 <div class="w-32 sm:w-44 h-1.5 bg-gray-200/80 rounded-full overflow-hidden" role="progressbar" :aria-valuenow="activeSlide + 1" :aria-valuemin="1" :aria-valuemax="items.length">
-                    <div class="h-full bg-gold transition-all duration-300 ease-out rounded-full"
+                    <div class="h-full bg-gold transition-all duration-700 ease-out rounded-full"
                          :style="'width: ' + (((activeSlide + 1) / items.length) * 100) + '%'"></div>
                 </div>
             </div>
 
             <!-- Next Button -->
             <button type="button"
-                    @click="next()"
+                    @click="next(true)"
                     class="order-3 inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl border border-gray-200 bg-white text-navy-dark hover:text-navy hover:bg-gray-50 hover:border-navy/30 transition-all font-semibold text-xs sm:text-sm shadow-xs focus:ring-2 focus:ring-navy/20 focus:outline-hidden"
                     aria-label="Penghargaan berikutnya">
                 <span>Selanjutnya</span>

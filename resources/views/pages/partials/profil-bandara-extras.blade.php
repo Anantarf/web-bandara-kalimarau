@@ -1,5 +1,13 @@
                 @php
-                    $awardImages = $profileAwards->map(fn ($award) => $award->image_url)->filter()->values()->all();
+                    $awardItems = $profileAwards->map(fn ($award) => [
+                        'id' => $award->id,
+                        'title' => $award->title,
+                        'issuer' => $award->issuer,
+                        'year' => $award->year,
+                        'description' => $award->description,
+                        'image' => $award->image_url,
+                    ])->filter(fn ($item) => !empty($item['image']))->values()->all();
+                    $awardImages = array_column($awardItems, 'image');
                 @endphp
                 <div class="mt-16 bg-white rounded-2xl p-6 md:p-10 border border-border-soft/70 shadow-md shadow-navy-dark/5 scroll-mt-32">
                     <div class="text-center mb-10">
@@ -68,7 +76,7 @@
                         </div>
 
                         <div class="max-w-4xl mx-auto">
-                            <x-carousel :images="$awardImages" />
+                            <x-carousel :images="$awardImages" :awards="$awardItems" />
                         </div>
                     </div>
                 @endif

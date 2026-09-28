@@ -1,6 +1,6 @@
 <x-layouts.public
-    title="Bandara Kalimarau - Gerbang Udara Kabupaten Berau"
-    description="Website resmi Bandara Kalimarau untuk informasi penerbangan, berita, layanan publik, PPID, kontak, dan pengaduan."
+    title="Bandara Kalimarau Berau (BEJ) - Informasi Penerbangan & Layanan Resmi"
+    description="Situs web resmi Bandar Udara Kalimarau (BEJ), Berau, Kalimantan Timur. Informasi jadwal penerbangan, berita resmi, fasilitas, layanan penumpang, dan PPID."
     :canonical="route('home')"
     :image="$heroImages[0]"
     :preloadImage="$heroImages[0]"

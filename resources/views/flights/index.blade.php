@@ -1,6 +1,6 @@
 <x-layouts.public
-    title="Jadwal Penerbangan - Bandara Kalimarau"
-    description="Informasi jadwal keberangkatan dan kedatangan pesawat di Bandara Kalimarau."
+    title="Jadwal Penerbangan Bandara Kalimarau (BEJ) - Kedatangan & Keberangkatan"
+    description="Informasi jadwal penerbangan pesawat di Bandar Udara Kalimarau Berau (BEJ) hari ini: status keberangkatan, kedatangan, maskapai, dan rute penerbangan."
     :canonical="route('flights.index')"
 >
     <x-page-header

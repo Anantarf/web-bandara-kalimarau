@@ -34,11 +34,45 @@
         <meta name="robots" content="{{ $robots }}">
     @endif
 
+    <!-- Local SEO Geo Meta Tags -->
+    <meta name="geo.region" content="ID-KI">
+    <meta name="geo.placename" content="Kabupaten Berau">
+    <meta name="geo.position" content="2.155556;117.433889">
+    <meta name="ICBM" content="2.155556, 117.433889">
+
+    <!-- Schema.org Airport Structured Data (Google Knowledge Panel & Travel) -->
+    <script type="application/ld+json">{!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'Airport',
+        'name' => 'Bandar Udara Kalimarau',
+        'alternateName' => ['Bandara Kalimarau', 'Kalimarau Airport', 'UPBU Kelas I Kalimarau'],
+        'iataCode' => 'BEJ',
+        'icaoCode' => 'WAQT',
+        'url' => url('/'),
+        'logo' => asset('images/logo-blu.png'),
+        'image' => asset('images/hero/hero1.jpg'),
+        'geo' => [
+            '@type' => 'GeoCoordinates',
+            'latitude' => 2.155556,
+            'longitude' => 117.433889,
+        ],
+        'address' => [
+            '@type' => 'PostalAddress',
+            'streetAddress' => 'Jl. Kalimarau, Teluk Bayur',
+            'addressLocality' => 'Teluk Bayur',
+            'addressRegion' => 'Kabupaten Berau, Kalimantan Timur',
+            'postalCode' => '77315',
+            'addressCountry' => 'ID',
+        ],
+        'openingHours' => 'Mo-Su 06:00-18:00',
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+
+    <!-- Schema.org GovernmentOrganization Structured Data -->
     <script type="application/ld+json">{!! json_encode([
         '@context' => 'https://schema.org',
         '@type' => 'GovernmentOrganization',
-        'name' => 'Bandara Kalimarau',
-        'alternateName' => 'UPBU Kelas I Kalimarau',
+        'name' => 'UPBU Kelas I Kalimarau',
+        'alternateName' => 'Kantor UPBU Kelas I Kalimarau Berau',
         'url' => url('/'),
         'logo' => asset('images/logo-blu.png'),
         'address' => [

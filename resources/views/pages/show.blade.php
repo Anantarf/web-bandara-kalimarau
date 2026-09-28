@@ -11,10 +11,18 @@
         $page->title = 'SP4N-LAPOR!';
         $page->excerpt = 'Layanan Aspirasi dan Pengaduan Online Rakyat untuk Pengelolaan Pengaduan Pelayanan Publik Nasional.';
     }
+    if ($page->slug === 'fasilitas-bandara') {
+        $customSeoTitle = 'Fasilitas Bandara Kalimarau Berau (BEJ) - Terminal, Parkir & Aksesibilitas';
+        $customSeoDescription = 'Fasilitas lengkap Bandar Udara Kalimarau (BEJ): terminal penumpang, layanan prioritas kelompok rentan, area parkir, pusat informasi, dan keselamatan operasional.';
+    }
+    if ($page->slug === 'profil-bandara') {
+        $customSeoTitle = 'Profil Bandar Udara Kalimarau Berau (BEJ) - Sejarah & Fasilitas';
+        $customSeoDescription = 'Profil resmi UPBU Kelas I Kalimarau Berau (BEJ): informasi bandara, wilayah kerja, sarana prasarana, dan standar pelayanan kebandarudaraan.';
+    }
 @endphp
 <x-layouts.public
-    :title="($page->seo_title ?: $page->title) . ' - Bandara Kalimarau'"
-    :description="$page->seo_description ?: ($page->excerpt ?: str($page->content)->stripTags()->limit(155)->toString())"
+    :title="$page->seo_title ?: ($customSeoTitle ?? (($page->title) . ' - Bandara Kalimarau'))"
+    :description="$page->seo_description ?: ($customSeoDescription ?? ($page->excerpt ?: str($page->content)->stripTags()->limit(155)->toString()))"
     :canonical="route('pages.show', $page->slug)"
     :image="$page->featured_image_url ?? asset('images/logo-header.png')"
     :robots="($preview ?? false) ? 'noindex, nofollow' : null"

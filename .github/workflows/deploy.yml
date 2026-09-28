@@ -93,8 +93,14 @@ jobs:
             done
           }
 
-          retry 3 20 ssh "${SSH_OPTS[@]}" ${SSH_USERNAME}@${TARGET_HOST} 'rm -f ~/deploy.tar.gz ~/deploy.zip ~/deploy.zip.part-*'
-          retry 3 20 scp "${SCP_OPTS[@]}" deploy.tar.gz ${SSH_USERNAME}@${TARGET_HOST}:~/deploy.tar.gz
+          split -b 20m deploy.tar.gz deploy.tar.gz.part-
+          retry 3 20 ssh "${SSH_OPTS[@]}" ${SSH_USERNAME}@${TARGET_HOST} 'rm -f ~/deploy.tar.gz ~/deploy.tar.gz.part-* ~/deploy.zip ~/deploy.zip.part-*'
+
+          for part in deploy.tar.gz.part-*; do
+            retry 3 20 scp "${SCP_OPTS[@]}" "$part" ${SSH_USERNAME}@${TARGET_HOST}:~/
+          done
+
+          retry 3 20 ssh "${SSH_OPTS[@]}" ${SSH_USERNAME}@${TARGET_HOST} 'cat ~/deploy.tar.gz.part-* > ~/deploy.tar.gz && rm -f ~/deploy.tar.gz.part-*'
 
       - name: Extract & Execute Artisan Commands on cPanel
         run: |

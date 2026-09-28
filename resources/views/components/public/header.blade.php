@@ -25,6 +25,7 @@
 @endphp
 <header class="fixed inset-x-0 top-0 z-50 w-full overflow-x-clip transition duration-300 ease-out"
         x-data="{ mobileOpen: false, scrolled: false, transparent: {{ $transparent ? 'true' : 'false' }} }"
+        x-init="scrolled = (window.scrollY > 10)"
         @scroll.window.passive.debounce.100ms="scrolled = (window.scrollY > 10)"
         :class="(transparent && !scrolled) ? 'bg-transparent py-4' : 'bg-white shadow-md border-b border-border-soft py-2'">
 

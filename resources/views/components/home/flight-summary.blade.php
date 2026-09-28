@@ -48,7 +48,7 @@
             </div>
 
             <div class="overflow-x-auto">
-                <div class="min-w-[720px]">
+                <div class="min-w-full md:min-w-[720px]">
                     <!-- Table Header -->
                     <div class="hidden md:grid grid-cols-[1.3fr_2.6fr_1fr_1fr] gap-4 px-8 py-3 text-white/50 text-xs font-bold tracking-wide uppercase mb-2">
                         <div>Maskapai</div>

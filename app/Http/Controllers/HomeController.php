@@ -60,7 +60,7 @@ class HomeController extends Controller
         [
             'nama' => 'Sriwijaya Air',
             'rute' => 'Balikpapan (BPN), Makassar (UPG)',
-            'logo' => 'images/airlines/sriwijaya-air.jpg',
+            'logo' => 'images/airlines/sriwijaya-air.png',
             'slug' => 'sriwijaya-air',
         ],
         [
@@ -72,7 +72,7 @@ class HomeController extends Controller
         [
             'nama' => 'Wings Air',
             'rute' => 'Samarinda (AAP), Balikpapan (BPN), Maratua (RTU)',
-            'logo' => 'images/airlines/wings-air.png',
+            'logo' => 'images/airlines/wings-air.svg',
             'slug' => 'wings-air',
         ],
         [

@@ -25,9 +25,9 @@ class FlightScheduleController extends Controller
         $logos = [
             'Batik Air' => asset('images/airlines/batik-air.png'),
             'Super Air Jet' => asset('images/airlines/super-air-jet.png'),
-            'Sriwijaya Air' => asset('images/airlines/sriwijaya-air.jpg'),
+            'Sriwijaya Air' => asset('images/airlines/sriwijaya-air.png'),
             'Citilink' => asset('images/airlines/citilink.svg'),
-            'Wings Air' => asset('images/airlines/wings-air.png'),
+            'Wings Air' => asset('images/airlines/wings-air.svg'),
             'Smart Aviation' => asset('images/airlines/smart-aviation.png'),
         ];
 

@@ -14,7 +14,7 @@
                         <div class="relative bg-black/20 backdrop-blur-sm rounded-xl overflow-hidden flex flex-col hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/30 transition duration-300 border border-white/10">
                             <div class="relative overflow-hidden bg-navy-dark aspect-[16/10] shrink-0">
                                 @if($post->featured_image_url)
-                                    <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" loading="lazy" decoding="async" class="w-full h-full object-cover">
+                                    <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" width="400" height="250" loading="lazy" decoding="async" class="w-full h-full object-cover">
                                 @else
                                     <div class="w-full h-full flex items-center justify-center bg-navy-dark text-white/20">
                                         <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -22,14 +22,14 @@
                                 @endif
                             </div>
                             <div class="p-6 flex-1 flex flex-col">
-                                <div class="text-white/50 text-sm mb-3">{{ $post->published_at->translatedFormat('d M Y') }}</div>
+                                <div class="text-white/70 text-sm mb-3">{{ $post->published_at->translatedFormat('d M Y') }}</div>
                                 <h3 class="font-sans font-extrabold text-white text-lg leading-snug mb-3 line-clamp-2">
-                                    <a href="{{ route('posts.show', $post->slug) }}" class="hover:text-gold transition-colors focus-visible:outline-none focus-visible:underline before:absolute before:inset-0">
+                                    <a href="{{ route('posts.show', $post->slug) }}" class="hover:text-gold-light transition-colors focus-visible:outline-none focus-visible:underline before:absolute before:inset-0">
                                         {{ $post->title }}
                                     </a>
                                 </h3>
-                                <p class="text-white/60 text-sm leading-relaxed line-clamp-2 mb-6 flex-1">{{ $post->excerpt }}</p>
-                                <div class="text-gold font-semibold text-sm flex items-center gap-1.5 group w-fit mt-auto relative z-10">
+                                <p class="text-white/80 text-sm leading-relaxed line-clamp-2 mb-6 flex-1">{{ $post->excerpt }}</p>
+                                <div class="text-gold-light font-bold text-sm flex items-center gap-1.5 group w-fit mt-auto relative z-10">
                                     Baca Selengkapnya
                                     <x-icon-arrow class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                                 </div>
@@ -38,7 +38,7 @@
                     @endforeach
                 </div>
                 <div class="text-center mt-10">
-                    <a href="{{ route('posts.index') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-gold text-gold hover:bg-gold hover:text-navy font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
+                    <a href="{{ route('posts.index') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gold text-navy-dark hover:bg-gold-light font-bold transition-colors shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
                         Lihat Semua Berita
                     </a>
                 </div>

@@ -13,7 +13,7 @@
                     @foreach(collect($mitra)->concat($mitra) as $item)
                         <div class="partner-marquee__item partner-marquee__item--{{ $item['slug'] }}" title="{{ $item['nama'] }}: {{ $item['rute'] }}">
                             @if($item['logo'])
-                                <img src="{{ asset($item['logo']) }}" alt="{{ $item['nama'] }}" loading="lazy" decoding="async" class="partner-marquee__logo">
+                                <img src="{{ asset($item['logo']) }}" alt="{{ $item['nama'] }}" width="120" height="40" loading="lazy" decoding="async" class="partner-marquee__logo">
                             @else
                                 <span class="partner-marquee__fallback">{{ $item['nama'] }}</span>
                             @endif

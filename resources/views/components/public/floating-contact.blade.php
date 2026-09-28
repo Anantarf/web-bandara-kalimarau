@@ -55,12 +55,22 @@
 .animate-waving-hand {
   animation: wave-hand 2.2s infinite ease-in-out;
   transform-origin: 75% 75%;
+  will-change: transform;
 }
 .animate-heartbeat-btn {
   animation: heartbeat-button 3.5s infinite ease-in-out;
+  will-change: transform;
 }
 .animate-heartbeat-glow {
   animation: heartbeat-glow 3.5s infinite ease-in-out;
+  will-change: transform, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-waving-hand,
+  .animate-heartbeat-btn,
+  .animate-heartbeat-glow {
+    animation: none;
+  }
 }
 </style>
 <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"

@@ -25,7 +25,7 @@
 @endphp
 <header class="fixed inset-x-0 top-0 z-50 w-full overflow-x-clip transition duration-300 ease-out"
         x-data="{ mobileOpen: false, scrolled: false, transparent: {{ $transparent ? 'true' : 'false' }} }"
-        @scroll.window.passive="scrolled = ((window.pageYOffset || window.scrollY) > 10)"
+        @scroll.window.passive.debounce.100ms="scrolled = (window.scrollY > 10)"
         :class="(transparent && !scrolled) ? 'bg-transparent py-4' : 'bg-white shadow-md border-b border-border-soft py-2'">
 
     <x-public.announcement-banner />
@@ -35,6 +35,7 @@
 
         <a href="{{ route('home') }}" class="group flex min-w-0 shrink-0 items-center py-2">
             <img src="{{ asset('images/logo-as.png') }}" alt="Bandara Kalimarau"
+                    width="176" height="44"
                     class="h-10 w-auto max-w-[11rem] object-contain transition-transform duration-300 group-hover:scale-[1.02] md:h-11 md:max-w-[13rem]"
                     :class="(transparent && !scrolled) ? 'brightness-0 invert drop-shadow-md' : 'drop-shadow-md'"
                     onerror="this.onerror=null;this.src='{{ asset('images/logo-header.png') }}'">

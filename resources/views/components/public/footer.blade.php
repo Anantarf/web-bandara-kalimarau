@@ -5,7 +5,7 @@
             <div class="space-y-4">
                 <div class="flex items-center gap-4">
                     <div class="p-2 bg-white/5 rounded-xl border border-white/10">
-                        <img src="{{ asset('images/logo-blu.png') }}" alt="Bandara Kalimarau" class="h-12 w-auto object-contain" onerror="this.onerror=null;this.src='{{ asset('images/logo-header.png') }}'">
+                        <img src="{{ asset('images/logo-blu.png') }}" alt="Bandara Kalimarau" width="48" height="48" class="h-12 w-auto object-contain" onerror="this.onerror=null;this.src='{{ asset('images/logo-header.png') }}'">
                     </div>
                     <div>
                         <div class="text-white font-extrabold text-xl leading-tight">Bandara Kalimarau</div>

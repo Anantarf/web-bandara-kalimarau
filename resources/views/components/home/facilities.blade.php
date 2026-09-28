@@ -16,7 +16,7 @@
                     <div class="group bg-white rounded-xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition duration-500">
                         <a href="{{ route('pages.show', 'fasilitas-bandara') }}" class="block w-full h-full">
                             <div class="relative overflow-hidden bg-navy-dark aspect-[4/3]">
-                                <img src="{{ $item['img'] }}" alt="{{ $item['title'] }}" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out">
+                                <img src="{{ $item['img'] }}" alt="{{ $item['title'] }}" width="400" height="300" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </div>
                             <div class="p-5">
@@ -30,7 +30,7 @@
 
             <!-- CTA Button -->
             <div class="text-center mt-12">
-                <a href="{{ route('pages.show', 'fasilitas-bandara') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-gold text-gold hover:bg-gold hover:text-navy font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
+                <a href="{{ route('pages.show', 'fasilitas-bandara') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gold text-navy-dark hover:bg-gold-light font-bold transition-colors shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
                     Lihat Semua Fasilitas
                     <x-icon-arrow class="w-4 h-4" />
                 </a>

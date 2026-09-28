@@ -72,7 +72,7 @@
                                     <div class="flex items-center shrink-0">
                                         <template x-if="flight.logo">
                                             <div class="w-16 md:w-24 h-10 md:h-12 bg-white rounded-md p-1.5 md:p-2 shadow-sm flex items-center justify-center">
-                                                <img :src="flight.logo" :alt="flight.airline" class="max-w-full max-h-full object-contain">
+                                                <img :src="flight.logo" :alt="flight.airline" width="80" height="32" class="max-w-full max-h-full object-contain">
                                             </div>
                                         </template>
                                         <template x-if="!flight.logo">
@@ -111,7 +111,7 @@
             </div>
 
             <div class="text-center mt-12">
-                <a href="{{ route('flights.index') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-gold text-gold hover:bg-gold hover:text-navy font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
+                <a href="{{ route('flights.index') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gold text-navy-dark hover:bg-gold-light font-bold transition-colors shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold">
                     Lihat Jadwal Lengkap
                 </a>
             </div>

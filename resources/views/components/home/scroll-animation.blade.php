@@ -5,7 +5,7 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         // Handle fade-up animation
-                        if (entry.target.classList.contains('scroll-animate')) {
+                        if (entry.target.classList.contains('scroll-animate') && entry.target.classList.contains('opacity-0')) {
                             entry.target.classList.add('opacity-100', 'translate-y-0');
                             entry.target.classList.remove('opacity-0', 'translate-y-4');
                         }

@@ -8,7 +8,7 @@
         <picture class="absolute inset-0 w-full h-full transition-opacity duration-500 ease-in-out" :class="activeIndex === 0 ? 'opacity-100' : 'opacity-0'">
             <source media="(max-width: 768px)" srcset="{{ asset('images/hero/hero1-mobile.webp') }}" type="image/webp">
             <source srcset="{{ asset('images/hero/hero1.webp') }}" type="image/webp">
-            <img src="{{ $heroImages[0] }}" alt="Bandara Kalimarau" loading="eager" fetchpriority="high" decoding="async"
+            <img src="{{ $heroImages[0] }}" alt="Bandara Kalimarau" width="1672" height="941" loading="eager" fetchpriority="high" decoding="async"
                  class="w-full h-full object-cover">
         </picture>
 

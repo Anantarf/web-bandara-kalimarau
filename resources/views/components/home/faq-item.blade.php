@@ -14,7 +14,7 @@
             {{ $faq['q'] }}
         </span>
         <span class="relative shrink-0 w-6 h-6 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)]"
-              :class="active === {{ $index }} ? 'rotate-180 text-gold' : 'text-text-muted/70 group-hover:text-gold'">
+              :class="active === {{ $index }} ? 'rotate-180 text-navy' : 'text-text-muted group-hover:text-navy'">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
         </span>
     </button>

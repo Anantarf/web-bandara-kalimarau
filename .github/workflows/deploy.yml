@@ -74,15 +74,34 @@ jobs:
 
       - name: Transfer Archive to cPanel via SCP
         run: |
-          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ConnectTimeout=30 ${SSH_USERNAME}@${TARGET_HOST} 'rm -f ~/deploy.tar.gz ~/deploy.zip ~/deploy.zip.part-*'
-          scp -i ~/.ssh/id_rsa -P ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ConnectTimeout=30 deploy.tar.gz ${SSH_USERNAME}@${TARGET_HOST}:~/deploy.tar.gz
+          SSH_PORT_VALUE="${SSH_PORT:-2223}"
+          SSH_OPTS=(-i ~/.ssh/id_rsa -p "$SSH_PORT_VALUE" -o StrictHostKeyChecking=no -o ConnectTimeout=90 -o ServerAliveInterval=15 -o ServerAliveCountMax=4)
+          SCP_OPTS=(-i ~/.ssh/id_rsa -P "$SSH_PORT_VALUE" -o StrictHostKeyChecking=no -o ConnectTimeout=90 -o ServerAliveInterval=15 -o ServerAliveCountMax=4)
+
+          retry() {
+            local attempts="$1"
+            local delay="$2"
+            shift 2
+            local n=1
+            until "$@"; do
+              if [ "$n" -ge "$attempts" ]; then
+                return 1
+              fi
+              echo "Attempt $n failed. Retrying in ${delay}s..."
+              sleep "$delay"
+              n=$((n + 1))
+            done
+          }
+
+          retry 3 20 ssh "${SSH_OPTS[@]}" ${SSH_USERNAME}@${TARGET_HOST} 'rm -f ~/deploy.tar.gz ~/deploy.zip ~/deploy.zip.part-*'
+          retry 3 20 scp "${SCP_OPTS[@]}" deploy.tar.gz ${SSH_USERNAME}@${TARGET_HOST}:~/deploy.tar.gz
 
       - name: Extract & Execute Artisan Commands on cPanel
         run: |
           REMOTE_DEST="${REMOTE_TARGET:-/home/${SSH_USERNAME}/kalimarau}"
           REMOTE_PUBLIC_HTML="/home/${SSH_USERNAME}/public_html"
 
-          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ServerAliveInterval=15 -o ServerAliveCountMax=4 ${SSH_USERNAME}@${TARGET_HOST} "bash -s" -- "$REMOTE_DEST" "$REMOTE_PUBLIC_HTML" << 'REMOTE_SCRIPT'
+          ssh -i ~/.ssh/id_rsa -p ${SSH_PORT:-2223} -o StrictHostKeyChecking=no -o ConnectTimeout=90 -o ServerAliveInterval=15 -o ServerAliveCountMax=4 ${SSH_USERNAME}@${TARGET_HOST} "bash -s" -- "$REMOTE_DEST" "$REMOTE_PUBLIC_HTML" << 'REMOTE_SCRIPT'
             set -euo pipefail
             DEST="$1"
             PUBLIC_HTML="$2"

@@ -5,7 +5,6 @@ namespace App\Filament\Widgets;
 use App\Models\ContactMessage;
 use App\Models\FlightSchedule;
 use App\Models\Post;
-use App\Models\PpidDocument;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -33,10 +32,6 @@ class StatsOverview extends BaseWidget
                 ->descriptionIcon('heroicon-o-envelope')
                 ->color($unreadMessagesCount > 0 ? 'warning' : 'gray'),
 
-            Stat::make('Dokumen PPID', PpidDocument::query()->where('is_active', true)->count())
-                ->description('Dokumen publik aktif')
-                ->descriptionIcon('heroicon-o-document-text')
-                ->color('primary'),
         ];
     }
 }

@@ -3,13 +3,18 @@
 namespace Tests\Feature;
 
 use App\Http\Controllers\PageController;
+use App\Models\Award;
 use App\Models\ContactMessage;
 use App\Models\Facility;
+use App\Models\Page;
 use App\Models\PpidDocument;
+use App\Models\PublicServiceLink;
+use Database\Seeders\AwardSeeder;
 use Database\Seeders\DatabaseSeeder;
 use Database\Seeders\FacilitySeeder;
 use Database\Seeders\PageSeeder;
 use Database\Seeders\PpidDocumentSeeder;
+use Database\Seeders\PublicServiceLinkSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
@@ -109,6 +114,84 @@ class PpidSeederIntegrityTest extends TestCase
         $this->assertSame('facilities/cms-uploaded-area-check-in.jpg', $facility->image);
         $this->assertSame(['Detail fasilitas hasil edit admin CMS.'], $facility->details);
         $this->assertSame(77, $facility->order);
+    }
+
+    public function test_seeder_preserves_admin_cms_edits_on_pages(): void
+    {
+        $this->seed(PageSeeder::class);
+
+        $page = Page::where('slug', 'fasilitas-bandara')->firstOrFail();
+        $page->update([
+            'title' => 'Fasilitas Bandara Hasil Edit CMS',
+            'excerpt' => 'Ringkasan hasil edit admin CMS.',
+            'content' => '<p>Konten fasilitas hasil edit admin CMS.</p>',
+            'template' => 'custom-cms',
+            'status' => 'draft',
+            'published_at' => null,
+        ]);
+
+        $this->seed(PageSeeder::class);
+
+        $page->refresh();
+        $this->assertSame('Fasilitas Bandara Hasil Edit CMS', $page->title);
+        $this->assertSame('Ringkasan hasil edit admin CMS.', $page->excerpt);
+        $this->assertStringContainsString('Konten fasilitas hasil edit admin CMS.', $page->content);
+        $this->assertSame('custom-cms', $page->template);
+        $this->assertSame('draft', $page->status);
+        $this->assertNull($page->published_at);
+    }
+
+    public function test_seeder_preserves_admin_cms_edits_on_public_service_links(): void
+    {
+        $this->seed(PublicServiceLinkSeeder::class);
+
+        $link = PublicServiceLink::where('slug', 'sp4n-lapor')->firstOrFail();
+        $link->update([
+            'title' => 'SP4N LAPOR Edit CMS',
+            'description' => 'Deskripsi link hasil edit admin CMS.',
+            'url' => 'https://example.test/lapor',
+            'category' => 'Pengaduan',
+            'is_external' => false,
+            'is_active' => false,
+            'icon' => 'heroicon-o-link',
+            'sort_order' => 77,
+        ]);
+
+        $this->seed(PublicServiceLinkSeeder::class);
+
+        $link->refresh();
+        $this->assertSame('SP4N LAPOR Edit CMS', $link->title);
+        $this->assertSame('Deskripsi link hasil edit admin CMS.', $link->description);
+        $this->assertSame('https://example.test/lapor', $link->url);
+        $this->assertFalse($link->is_external);
+        $this->assertFalse($link->is_active);
+        $this->assertSame('heroicon-o-link', $link->icon);
+        $this->assertSame(77, $link->sort_order);
+    }
+
+    public function test_seeder_preserves_admin_cms_edits_on_awards(): void
+    {
+        $this->seed(AwardSeeder::class);
+
+        $award = Award::where('image', 'media/legacy/2022/10/20221024_093158-scaled.jpg')->firstOrFail();
+        $award->update([
+            'title' => 'Penghargaan Hasil Edit CMS',
+            'issuer' => 'Admin CMS',
+            'year' => 2026,
+            'description' => 'Deskripsi penghargaan hasil edit admin CMS.',
+            'is_active' => false,
+            'sort_order' => 88,
+        ]);
+
+        $this->seed(AwardSeeder::class);
+
+        $award->refresh();
+        $this->assertSame('Penghargaan Hasil Edit CMS', $award->title);
+        $this->assertSame('Admin CMS', $award->issuer);
+        $this->assertSame(2026, $award->year);
+        $this->assertSame('Deskripsi penghargaan hasil edit admin CMS.', $award->description);
+        $this->assertFalse($award->is_active);
+        $this->assertSame(88, $award->sort_order);
     }
 
     public function test_all_ppid_routes_from_seeder_load_successfully(): void

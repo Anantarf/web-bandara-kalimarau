@@ -60,7 +60,7 @@ class PublicServiceLinkSeeder extends Seeder
         ];
 
         foreach ($links as $link) {
-            PublicServiceLink::updateOrCreate(
+            PublicServiceLink::firstOrCreate(
                 ['slug' => $link['slug']],
                 $link
             );

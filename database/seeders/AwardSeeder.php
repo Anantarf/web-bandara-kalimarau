@@ -88,7 +88,7 @@ class AwardSeeder extends Seeder
         ];
 
         foreach ($legacyAwards as $awardData) {
-            Award::updateOrCreate(
+            Award::firstOrCreate(
                 ['image' => $awardData['image']],
                 array_merge($awardData, ['is_active' => true])
             );

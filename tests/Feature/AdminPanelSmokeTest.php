@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Filament\Widgets\StatsOverview;
 use App\Models\AuditLog;
 use App\Models\ContactMessage;
-use App\Models\PpidDocument;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
@@ -29,7 +28,7 @@ class AdminPanelSmokeTest extends TestCase
         $admin->syncRoles(['super_admin']);
 
         $resources = [
-            'posts', 'pages', 'flight-schedules', 'facilities', 'public-service-links', 'contact-messages', 'airport-stats', 'ppid-documents', 'awards', 'survey-reports', 'announcements', 'audit-logs', 'users',
+            'posts', 'pages', 'flight-schedules', 'facilities', 'public-service-links', 'contact-messages', 'airport-stats', 'awards', 'survey-reports', 'announcements', 'audit-logs', 'users',
         ];
 
         foreach ($resources as $resource) {
@@ -61,17 +60,9 @@ class AdminPanelSmokeTest extends TestCase
             'submitted_at' => now(),
         ]);
 
-        PpidDocument::query()->create([
-            'title' => 'Dokumen Aktif',
-            'category' => 'informasi-berkala',
-            'file_path' => 'ppid-documents/dokumen-aktif.pdf',
-            'is_active' => true,
-            'published_at' => now(),
-        ]);
-
         $method = new \ReflectionMethod(StatsOverview::class, 'getStats');
 
-        $this->assertCount(4, $method->invoke(new StatsOverview));
+        $this->assertCount(3, $method->invoke(new StatsOverview));
     }
 
     public function test_inactive_user_cannot_access_panel(): void

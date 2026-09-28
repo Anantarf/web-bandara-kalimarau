@@ -174,7 +174,7 @@ class PageSeeder extends Seeder
                 $updateData['featured_image'] = null;
             }
 
-            Page::updateOrCreate(
+            Page::firstOrCreate(
                 ['slug' => $p['slug']],
                 $updateData
             );

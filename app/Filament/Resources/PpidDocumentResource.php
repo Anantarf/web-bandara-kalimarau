@@ -9,10 +9,13 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class PpidDocumentResource extends Resource
 {
     protected static ?string $model = PpidDocument::class;
+
+    protected static bool $shouldRegisterNavigation = false;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
@@ -189,7 +192,7 @@ class PpidDocumentResource extends Resource
             ]);
     }
 
-    public static function getGlobalSearchResultDetails(\Illuminate\Database\Eloquent\Model $record): array
+    public static function getGlobalSearchResultDetails(Model $record): array
     {
         /** @var PpidDocument $record */
         return [

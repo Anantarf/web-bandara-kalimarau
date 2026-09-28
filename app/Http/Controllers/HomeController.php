@@ -116,7 +116,7 @@ class HomeController extends Controller
             ->get()
             ->map(fn (Facility $facility) => [
                 'title' => $facility->name,
-                'desc' => $facility->details[0] ?? '',
+                'desc' => !empty($facility->details[0]) ? $facility->details[0] : 'Layanan fasilitas terminal untuk kenyamanan dan kemudahan pengguna jasa.',
                 'img' => $facility->image_url,
             ]);
         $sambutan = self::SAMBUTAN;

@@ -25,7 +25,7 @@
 @endphp
 <header class="fixed inset-x-0 top-0 z-50 w-full overflow-x-clip transition duration-300 ease-out"
         x-data="{ mobileOpen: false, scrolled: false, transparent: {{ $transparent ? 'true' : 'false' }} }"
-        @scroll.window="scrolled = (window.pageYOffset > 10)"
+        @scroll.window.passive="scrolled = ((window.pageYOffset || window.scrollY) > 10)"
         :class="(transparent && !scrolled) ? 'bg-transparent py-4' : 'bg-white shadow-md border-b border-border-soft py-2'">
 
     <x-public.announcement-banner />

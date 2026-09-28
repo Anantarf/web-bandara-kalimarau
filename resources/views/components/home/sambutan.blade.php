@@ -17,7 +17,10 @@
 
                 <div class="w-full max-w-[280px] lg:max-w-none mx-auto lg:mx-0">
                     <div class="aspect-[4/5] rounded-xl overflow-hidden bg-white shadow-[0_22px_44px_-18px_rgba(12,45,107,0.22)]">
-                        <img src="{{ $sambutan['foto'] }}" alt="{{ $sambutan['nama'] }}" loading="lazy" decoding="async" class="w-full h-full object-cover object-[50%_18%]">
+                        <picture>
+                            <source srcset="{{ asset('images/people/kepala-bandara.webp') }}" type="image/webp">
+                            <img src="{{ $sambutan['foto'] }}" alt="{{ $sambutan['nama'] }}" width="300" height="375" loading="lazy" decoding="async" class="w-full h-full object-cover object-[50%_18%]">
+                        </picture>
                     </div>
                     <div class="mt-2.5 text-center lg:text-left">
                         <h3 class="font-sans text-base font-extrabold text-navy leading-snug">{{ $sambutan['nama'] }}</h3>

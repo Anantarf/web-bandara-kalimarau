@@ -20,7 +20,12 @@
     <meta name="description" content="{{ $description }}">
     <link rel="canonical" href="{{ $canonical }}">
     @if($preloadImage)
-        <link rel="preload" as="image" href="{{ $preloadImage }}" fetchpriority="high">
+        @if(is_array($preloadImage))
+            <link rel="preload" as="image" href="{{ $preloadImage['mobile'] }}" media="(max-width: 768px)" fetchpriority="high" type="image/webp">
+            <link rel="preload" as="image" href="{{ $preloadImage['desktop'] }}" media="(min-width: 769px)" fetchpriority="high" type="image/webp">
+        @else
+            <link rel="preload" as="image" href="{{ $preloadImage }}" fetchpriority="high">
+        @endif
     @endif
 
     <meta property="og:type" content="{{ $type }}">
@@ -125,10 +130,21 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Kalimarau">
 
-    <!-- Fonts: preconnect + non-blocking stylesheet -->
+    <!-- Fonts: preconnect + non-blocking asynchronous stylesheet -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    <script>
+        (function() {
+            var f = document.createElement('link');
+            f.rel = 'stylesheet';
+            f.href = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap';
+            document.head.appendChild(f);
+        })();
+    </script>
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    </noscript>
 
     <!-- Scripts and Styles (Alpine.js bundled via app.css/app.js) -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

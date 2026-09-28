@@ -2,8 +2,8 @@
     title="Bandara Kalimarau Berau (BEJ) - Jadwal Penerbangan & Informasi Resmi"
     description="Situs resmi Bandar Udara Kalimarau Berau (BEJ). Cek jadwal kedatangan & keberangkatan pesawat hari ini, fasilitas terminal, layanan penumpang, dan PPID."
     :canonical="route('home')"
-    :image="$heroImages[0]"
-    :preloadImage="$heroImages[0]"
+    :image="asset('images/hero/hero1.jpg')"
+    :preloadImage="['mobile' => asset('images/hero/hero1-mobile.webp'), 'desktop' => asset('images/hero/hero1.webp')]"
     :withHeaderPadding="false"
 >
     <x-home.hero :hero-images="$heroImages" />

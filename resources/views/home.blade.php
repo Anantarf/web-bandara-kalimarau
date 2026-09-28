@@ -1,6 +1,6 @@
 <x-layouts.public
-    title="Bandara Kalimarau Berau (BEJ) - Informasi Penerbangan & Layanan Resmi"
-    description="Situs web resmi Bandar Udara Kalimarau (BEJ), Berau, Kalimantan Timur. Informasi jadwal penerbangan, berita resmi, fasilitas, layanan penumpang, dan PPID."
+    title="Bandara Kalimarau Berau (BEJ) - Jadwal Penerbangan & Informasi Resmi"
+    description="Situs resmi Bandar Udara Kalimarau Berau (BEJ). Cek jadwal kedatangan & keberangkatan pesawat hari ini, fasilitas terminal, layanan penumpang, dan PPID."
     :canonical="route('home')"
     :image="$heroImages[0]"
     :preloadImage="$heroImages[0]"

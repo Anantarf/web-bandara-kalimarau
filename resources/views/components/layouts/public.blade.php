@@ -40,6 +40,23 @@
     <meta name="geo.position" content="2.155556;117.433889">
     <meta name="ICBM" content="2.155556, 117.433889">
 
+    <!-- Schema.org WebSite Structured Data (Google Site Name & Sitelinks Search) -->
+    <script type="application/ld+json">{!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'WebSite',
+        'name' => 'Bandara Kalimarau',
+        'alternateName' => ['UPBU Kelas I Kalimarau', 'Kalimarau Airport', 'Bandara Berau'],
+        'url' => url('/'),
+        'potentialAction' => [
+            '@type' => 'SearchAction',
+            'target' => [
+                '@type' => 'EntryPoint',
+                'urlTemplate' => url('/search') . '?q={search_term_string}',
+            ],
+            'query-input' => 'required name=search_term_string',
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+
     <!-- Schema.org Airport Structured Data (Google Knowledge Panel & Travel) -->
     <script type="application/ld+json">{!! json_encode([
         '@context' => 'https://schema.org',
@@ -51,6 +68,14 @@
         'url' => url('/'),
         'logo' => asset('images/logo-blu.png'),
         'image' => asset('images/hero/hero1.jpg'),
+        'sameAs' => [
+            'https://id.wikipedia.org/wiki/Bandar_Udara_Kalimarau',
+            'https://en.wikipedia.org/wiki/Kalimarau_Airport',
+            'https://www.wikidata.org/wiki/Q6352932',
+            'https://instagram.com/bandarakalimarau',
+            'https://facebook.com/bandaraudarakalimarau',
+            'https://youtube.com/@bandarakalimarauberau7084',
+        ],
         'geo' => [
             '@type' => 'GeoCoordinates',
             'latitude' => 2.155556,

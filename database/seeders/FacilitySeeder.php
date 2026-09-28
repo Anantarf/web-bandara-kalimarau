@@ -12,6 +12,11 @@ class FacilitySeeder extends Seeder
      */
     public function run(): void
     {
+        Facility::whereIn('name', [
+            'Portal Masuk & Keluar Kendaraan Roda 4',
+            'Portal Masuk & Keluar Kendaraan Roda 2',
+        ])->delete();
+
         $facilities = [
             ['category' => 'Layanan Terminal', 'name' => 'Area Check-in', 'image' => 'facilities/area-check-in.jpg', 'details' => ['Area layanan check-in penumpang sebelum keberangkatan.', 'Tersedia alur antrean untuk membantu proses layanan lebih tertib.']],
             ['category' => 'Layanan Terminal', 'name' => 'Charging Station', 'image' => 'facilities/charging-station.jpg', 'details' => ['Fasilitas pengisian daya perangkat elektronik.', 'Ditempatkan di area terminal yang mudah dijangkau penumpang.']],

@@ -91,7 +91,7 @@ $categories = \App\Models\Facility::query()
                                     class="group relative surface-card overflow-hidden surface-card--interactive transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gold text-left h-full flex flex-col">
 
                                 <div class="relative h-40 sm:h-48 w-full overflow-hidden bg-surface">
-                                    <img src="{{ $item['image'] }}" loading="lazy" alt="{{ $item['name'] }}" @error="$el.src='{{ asset('images/logo-header.png') }}'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                    <img src="{{ $item['image'] }}" loading="lazy" alt="{{ $item['name'] }}" x-on:error="$el.src='{{ asset('images/logo-header.png') }}'" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                 </div>
                                 <div class="p-4 flex-grow flex items-center justify-center border-t border-border-soft/70">
                                     <h4 class="font-bold text-text-main text-center text-sm sm:text-base leading-snug group-hover:text-navy transition-colors">{{ $item['name'] }}</h4>

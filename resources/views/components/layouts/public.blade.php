@@ -84,7 +84,7 @@
             'https://en.wikipedia.org/wiki/Kalimarau_Airport',
             'https://www.wikidata.org/wiki/Q6352932',
             'https://instagram.com/bandarakalimarau',
-            'https://facebook.com/bandaraudarakalimarau',
+            'https://www.facebook.com/bandaraudarakalimarau',
             'https://youtube.com/@bandarakalimarauberau7084',
         ],
         'geo' => [

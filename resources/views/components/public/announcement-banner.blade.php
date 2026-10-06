@@ -11,79 +11,98 @@
             @php
                 $topBarConfig = match($announcement->type) {
                     'danger' => [
-                        'bg' => 'bg-slate-950 text-slate-100 border-b border-red-500/30 shadow-sm',
-                        'pill' => 'bg-red-500/10 text-red-300 border-red-500/30',
+                        'bg' => 'bg-slate-950 text-slate-100 border-b border-red-500/25 shadow-sm',
+                        'pill' => 'bg-red-500/10 text-red-300 border-red-500/25',
                         'label' => 'Darurat',
                         'icon' => 'danger',
-                        'btn' => 'bg-red-600 hover:bg-red-500 text-white font-semibold',
+                        'link' => 'text-red-300 hover:text-white underline underline-offset-2 decoration-red-400/60 hover:decoration-white',
                     ],
                     'warning' => [
-                        'bg' => 'bg-slate-950 text-slate-100 border-b border-amber-500/30 shadow-sm',
-                        'pill' => 'bg-amber-500/10 text-amber-300 border-amber-500/30',
+                        'bg' => 'bg-slate-950 text-slate-100 border-b border-amber-500/25 shadow-sm',
+                        'pill' => 'bg-amber-500/10 text-amber-300 border-amber-500/25',
                         'label' => 'Peringatan',
                         'icon' => 'warning',
-                        'btn' => 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold',
+                        'link' => 'text-amber-300 hover:text-white underline underline-offset-2 decoration-amber-400/60 hover:decoration-white',
                     ],
                     default => [
-                        'bg' => 'bg-navy-dark text-white border-b border-gold/30 shadow-sm',
-                        'pill' => 'bg-gold/15 text-gold-light border-gold/30',
+                        'bg' => 'bg-navy-dark text-white border-b border-gold/25 shadow-sm',
+                        'pill' => 'bg-gold/10 text-gold-light border-gold/25',
                         'label' => 'Informasi',
                         'icon' => 'info',
-                        'btn' => 'bg-gold hover:bg-gold-light text-navy-dark font-bold shadow-sm',
+                        'link' => 'text-gold-light hover:text-white underline underline-offset-2 decoration-gold/60 hover:decoration-white',
                     ],
                 };
             @endphp
 
-            <!-- Top Notification Bar (Calm & Non-Intrusive) -->
+            <!-- Top Notification Micro-Strip (Slim, Non-Dominant & Auto-Dismiss) -->
             <div x-data="{
                     dismissed: false,
+                    paused: false,
+                    duration: 12000,
+                    remaining: 12000,
+                    timer: null,
+                    init() {
+                        const interval = 100;
+                        this.timer = setInterval(() => {
+                            if (!this.paused && !this.dismissed) {
+                                this.remaining -= interval;
+                                if (this.remaining <= 0) {
+                                    this.dismiss();
+                                }
+                            }
+                        }, interval);
+                    },
                     dismiss() {
                         this.dismissed = true;
+                        if (this.timer) clearInterval(this.timer);
                     }
                  }"
                  x-show="!dismissed"
                  x-cloak
+                 @mouseenter="paused = true"
+                 @mouseleave="paused = false"
                  x-transition:enter="transition ease-out duration-400"
                  x-transition:enter-start="opacity-0 -translate-y-2"
                  x-transition:enter-end="opacity-100 translate-y-0"
-                 x-transition:leave="transition ease-in duration-300"
-                 x-transition:leave-start="opacity-100 max-h-40"
+                 x-transition:leave="transition-all ease-in-out duration-500 overflow-hidden"
+                 x-transition:leave-start="opacity-100 max-h-16 py-1.5"
                  x-transition:leave-end="opacity-0 max-h-0 py-0"
-                 class="{{ $topBarConfig['bg'] }} px-4 py-2 text-sm relative z-40">
+                 class="{{ $topBarConfig['bg'] }} px-3 sm:px-4 py-1 sm:py-1.5 text-xs relative z-40">
 
-                <div class="max-w-7xl mx-auto flex items-center justify-between gap-3 text-left">
-                    <div class="flex items-center gap-2.5 sm:gap-3 flex-1 min-w-0">
-                        <span class="inline-flex items-center gap-1.5 px-2 sm:px-2.5 py-1 rounded-md text-[11px] font-bold tracking-wide border shrink-0 {{ $topBarConfig['pill'] }}" title="{{ $topBarConfig['label'] }}">
+                <div class="max-w-7xl mx-auto flex items-center justify-between gap-2.5 sm:gap-3 text-left">
+                    <div class="flex items-center gap-2 sm:gap-2.5 flex-1 min-w-0">
+                        <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold tracking-wider border shrink-0 {{ $topBarConfig['pill'] }}" title="{{ $topBarConfig['label'] }}">
                             @if($topBarConfig['icon'] === 'danger')
-                                <svg class="w-3.5 h-3.5 text-red-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                <svg class="w-3 h-3 text-red-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                             @elseif($topBarConfig['icon'] === 'warning')
-                                <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                <svg class="w-3 h-3 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                             @else
-                                <svg class="w-3.5 h-3.5 text-gold-light shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+                                <svg class="w-3 h-3 text-gold-light shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
                             @endif
-                            <span class="hidden sm:inline uppercase tracking-wider">{{ $topBarConfig['label'] }}</span>
+                            <span class="hidden sm:inline uppercase">{{ $topBarConfig['label'] }}</span>
                         </span>
 
-                        <div class="leading-snug text-xs sm:text-sm truncate-mobile min-w-0 flex-1">
+                        <div class="leading-tight text-[11px] sm:text-xs truncate-mobile min-w-0 flex-1">
                             <span class="font-bold mr-1">{{ $announcement->title }}:</span>
                             <span class="opacity-90">{{ $announcement->message }}</span>
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-2.5 shrink-0">
+                    <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
                         @if($announcement->action_label && $announcement->action_url)
                             <a href="{{ $announcement->action_url }}"
-                               class="px-3 py-1 text-xs rounded-full transition-all duration-200 shadow-sm hover:scale-[1.02] {{ $topBarConfig['btn'] }}">
-                                {{ $announcement->action_label }}
+                               class="inline-flex items-center gap-1 font-semibold text-[11px] sm:text-xs transition-colors shrink-0 {{ $topBarConfig['link'] }}">
+                                <span>{{ $announcement->action_label }}</span>
+                                <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                             </a>
                         @endif
 
                         <button @click="dismiss()"
                                 type="button"
-                                class="p-1 rounded-full opacity-60 hover:opacity-100 hover:bg-white/10 transition-all"
+                                class="p-0.5 rounded text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
                                 title="Tutup pemberitahuan"
                                 aria-label="Tutup pemberitahuan">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                         </button>
                     </div>
                 </div>

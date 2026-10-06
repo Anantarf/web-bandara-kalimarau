@@ -27,12 +27,13 @@
         x-data="{ mobileOpen: false, scrolled: false, transparent: {{ $transparent ? 'true' : 'false' }} }"
         x-init="scrolled = (window.scrollY > 10)"
         @scroll.window.passive.debounce.100ms="scrolled = (window.scrollY > 10)"
-        :class="(transparent && !scrolled) ? 'bg-transparent py-4' : 'bg-white shadow-md border-b border-border-soft py-2'">
+        :class="(transparent && !scrolled) ? 'bg-transparent' : 'bg-white shadow-md border-b border-border-soft'">
 
     <x-public.announcement-banner />
 
     <!-- Main header -->
-    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 transition duration-300 ease-out md:h-20 lg:px-6">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 transition-all duration-300 ease-out lg:px-6"
+         :class="(transparent && !scrolled) ? 'h-20 md:h-24 py-4' : 'h-16 md:h-20 py-2'">
 
         <a href="{{ route('home') }}" class="group flex min-w-0 shrink-0 items-center py-2">
             <img src="{{ asset('images/logo-as.png') }}" alt="Bandara Kalimarau"

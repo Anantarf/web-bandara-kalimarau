@@ -36,10 +36,9 @@
 
             <!-- Top Notification Bar -->
             <div x-data="{
-                    dismissed: sessionStorage.getItem('announcement_dismissed_{{ $announcement->id }}') === 'true',
+                    dismissed: false,
                     dismiss() {
                         this.dismissed = true;
-                        sessionStorage.setItem('announcement_dismissed_{{ $announcement->id }}', 'true');
                     }
                  }"
                  x-show="!dismissed"
@@ -87,8 +86,8 @@
                 </div>
             </div>
 
-            <!-- Optional Modal Pop-up Mode (Refined & Non-Intrusive) -->
-            @if($announcement->is_popup)
+            <!-- Optional Modal Pop-up Mode (Ditampilkan di Beranda & Muncul Lagi saat Refresh) -->
+            @if($announcement->is_popup && request()->routeIs('home'))
                 @php
                     $modalTypeConfig = match($announcement->type) {
                         'danger' => [
@@ -120,14 +119,12 @@
 
                 <div x-data="{
                         showModal: false,
-                        dismissed: sessionStorage.getItem('announcement_popup_dismissed_{{ $announcement->id }}') === 'true',
                         init() {
-                            if (!this.dismissed) {
-                                // Jeda 700ms agar halaman utama ter-render stabil terlebih dahulu (tidak jumpscare)
-                                setTimeout(() => {
-                                    this.showModal = true;
-                                }, 700);
-                            }
+                            // Jeda 700ms agar halaman utama ter-render stabil terlebih dahulu
+                            setTimeout(() => {
+                                this.showModal = true;
+                            }, 700);
+
                             this.$watch('showModal', value => {
                                 if (value) {
                                     document.body.classList.add('overflow-hidden');
@@ -138,8 +135,6 @@
                         },
                         dismissPopup() {
                             this.showModal = false;
-                            this.dismissed = true;
-                            sessionStorage.setItem('announcement_popup_dismissed_{{ $announcement->id }}', 'true');
                             document.body.classList.remove('overflow-hidden');
                         }
                      }"

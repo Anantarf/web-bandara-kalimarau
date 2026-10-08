@@ -120,8 +120,24 @@ class HomeController extends Controller
                 'img' => $facility->image_url,
             ]);
         $sambutan = self::SAMBUTAN;
-        $sambutan['foto'] = asset($sambutan['foto']);
-        $mitra = self::MITRA;
+        $dbMitra = \App\Models\Airline::query()
+            ->active()
+            ->ordered()
+            ->get()
+            ->map(fn (\App\Models\Airline $airline) => [
+                'nama' => $airline->name,
+                'rute' => $airline->routes,
+                'logo' => $airline->logo_url,
+                'slug' => $airline->slug,
+            ])
+            ->toArray();
+
+        $mitra = ! empty($dbMitra) ? $dbMitra : collect(self::MITRA)->map(fn ($item) => [
+            'nama' => $item['nama'],
+            'rute' => $item['rute'],
+            'logo' => asset($item['logo']),
+            'slug' => $item['slug'],
+        ])->toArray();
 
         return view('home', compact('latestPosts', 'flightSchedules', 'serviceLinks', 'airportStat', 'heroImages', 'facilities', 'sambutan', 'mitra'));
     }

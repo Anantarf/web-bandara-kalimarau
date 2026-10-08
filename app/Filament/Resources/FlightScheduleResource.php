@@ -41,6 +41,7 @@ class FlightScheduleResource extends Resource
     public const AIRLINES = [
         'Batik Air' => 'Batik Air',
         'Super Air Jet' => 'Super Air Jet',
+        'AirAsia' => 'AirAsia',
         'Sriwijaya Air' => 'Sriwijaya Air',
         'Citilink' => 'Citilink',
         'Wings Air' => 'Wings Air',
@@ -57,7 +58,16 @@ class FlightScheduleResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('airline')
                                     ->label('Maskapai')
-                                    ->options(self::AIRLINES)
+                                    ->options(function (?FlightSchedule $record) {
+                                        $options = \App\Models\Airline::query()->active()->ordered()->pluck('name', 'name')->toArray();
+                                        if (empty($options)) {
+                                            $options = self::AIRLINES;
+                                        }
+                                        if ($record && $record->airline && ! isset($options[$record->airline])) {
+                                            $options[$record->airline] = $record->airline;
+                                        }
+                                        return $options;
+                                    })
                                     ->searchable()
                                     ->required(),
                                 Forms\Components\TextInput::make('flight_number')

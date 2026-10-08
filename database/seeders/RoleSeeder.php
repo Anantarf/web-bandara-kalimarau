@@ -15,6 +15,7 @@ class RoleSeeder extends Seeder
     protected const ADMIN_ENTITIES = [
         'post',
         'flight::schedule',
+        'airline',
         'contact::message',
         'airport::stat',
         'ppid::document',

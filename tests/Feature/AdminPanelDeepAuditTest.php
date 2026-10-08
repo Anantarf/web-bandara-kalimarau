@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Airline;
 use App\Models\AirportStat;
 use App\Models\ContactMessage;
 use App\Models\FlightSchedule;
@@ -30,6 +31,7 @@ class AdminPanelDeepAuditTest extends TestCase
         $this->actingAs($admin);
 
         $post = Post::create(['title' => 'Test Post', 'slug' => 'test-post', 'content' => 'x', 'status' => 'draft', 'author_id' => $admin->id]);
+        $airline = Airline::firstOrCreate(['name' => 'Batik Air'], ['slug' => 'batik-air', 'is_active' => true]);
         $flight = FlightSchedule::create(['airline' => 'Test Air', 'route_from' => 'A', 'route_to' => 'B', 'type' => 'keberangkatan', 'is_active' => true, 'days' => ['senin']]);
         $contact = ContactMessage::create(['name' => 'Test', 'email' => 'test@test.com', 'phone' => '123', 'category' => 'informasi', 'message' => 'x', 'status' => 'new']);
         $stat = AirportStat::create(['period_name' => 'Test', 'period_date' => now(), 'passenger_count' => 1, 'flight_count' => 1, 'cargo_count' => 1, 'is_active' => true]);
@@ -39,6 +41,9 @@ class AdminPanelDeepAuditTest extends TestCase
             'admin/posts' => 200,
             'admin/posts/create' => 200,
             "admin/posts/{$post->id}/edit" => 200,
+            'admin/airlines' => 200,
+            'admin/airlines/create' => 200,
+            "admin/airlines/{$airline->id}/edit" => 200,
             'admin/flight-schedules' => 200,
             'admin/flight-schedules/create' => 200,
             "admin/flight-schedules/{$flight->id}/edit" => 200,

@@ -22,14 +22,24 @@ class FlightScheduleController extends Controller
             ->orderBy('arrival_time')
             ->get();
 
-        $logos = [
+        $defaultLogos = [
             'Batik Air' => asset('images/airlines/batik-air.png'),
             'Super Air Jet' => asset('images/airlines/super-air-jet.png'),
+            'AirAsia' => asset('images/airlines/airasia.svg'),
             'Sriwijaya Air' => asset('images/airlines/sriwijaya-air.png'),
             'Citilink' => asset('images/airlines/citilink.svg'),
             'Wings Air' => asset('images/airlines/wings-air.svg'),
             'Smart Aviation' => asset('images/airlines/smart-aviation.png'),
         ];
+
+        $airlineLogos = \App\Models\Airline::query()
+            ->whereNotNull('logo')
+            ->get()
+            ->filter(fn ($a) => filled($a->logo_url))
+            ->mapWithKeys(fn ($a) => [$a->name => $a->logo_url])
+            ->toArray();
+
+        $logos = array_merge($defaultLogos, $airlineLogos);
 
         return view('flights.index', compact('departures', 'arrivals', 'logos'));
     }

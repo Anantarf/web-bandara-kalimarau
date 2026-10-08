@@ -71,4 +71,40 @@ class CmsStorageCleanupTest extends TestCase
 
         Storage::disk('public')->assertMissing('media/photo.jpg');
     }
+
+    public function test_airline_logos_are_deleted_when_replaced_or_record_is_deleted(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('airlines/old.png', 'old');
+        Storage::disk('public')->put('airlines/new.png', 'new');
+
+        $airline = \App\Models\Airline::create([
+            'name' => 'Garuda Indonesia',
+            'slug' => 'garuda-indonesia',
+            'logo' => 'airlines/old.png',
+            'is_active' => true,
+        ]);
+
+        $airline->update(['logo' => 'airlines/new.png']);
+        Storage::disk('public')->assertMissing('airlines/old.png');
+
+        $airline->delete();
+        Storage::disk('public')->assertMissing('airlines/new.png');
+    }
+
+    public function test_airline_static_logo_is_preserved_when_record_is_deleted(): void
+    {
+        Storage::fake('public');
+
+        $airline = \App\Models\Airline::create([
+            'name' => 'Batik Air Test',
+            'slug' => 'batik-air-test',
+            'logo' => 'images/airlines/batik-air.png',
+            'is_active' => true,
+        ]);
+
+        $airline->delete();
+        $this->assertDatabaseMissing('airlines', ['id' => $airline->id]);
+    }
 }
+

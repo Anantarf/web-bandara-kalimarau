@@ -109,12 +109,16 @@ class AirlineResource extends Resource
                 Tables\Columns\ImageColumn::make('logo')
                     ->label('Logo')
                     ->state(fn (Airline $record): ?string => $record->logo_url)
-                    ->square(false)
-                    ->height(36)
+                    ->width(90)
+                    ->height(32)
+                    ->extraImgAttributes([
+                        'class' => 'object-contain max-h-8 max-w-[90px] p-1 bg-white dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 shadow-2xs',
+                    ])
                     ->alignCenter(),
 
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nama Maskapai')
+                    ->description(fn (Airline $record): string => $record->slug)
                     ->searchable()
                     ->sortable()
                     ->weight('bold')
@@ -125,6 +129,7 @@ class AirlineResource extends Resource
                     ->placeholder('-')
                     ->color('gray')
                     ->size('sm')
+                    ->wrap()
                     ->searchable(),
 
                 Tables\Columns\ToggleColumn::make('is_active')

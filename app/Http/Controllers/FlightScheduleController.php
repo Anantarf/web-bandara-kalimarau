@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Airline;
 use App\Models\FlightSchedule;
 
 class FlightScheduleController extends Controller
@@ -32,7 +33,7 @@ class FlightScheduleController extends Controller
             'Smart Aviation' => asset('images/airlines/smart-aviation.png'),
         ];
 
-        $airlineLogos = \App\Models\Airline::query()
+        $airlineLogos = Airline::query()
             ->whereNotNull('logo')
             ->get()
             ->filter(fn ($a) => filled($a->logo_url))

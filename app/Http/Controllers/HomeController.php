@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Airline;
 use App\Models\AirportStat;
 use App\Models\Facility;
 use App\Models\FlightSchedule;
@@ -116,15 +117,15 @@ class HomeController extends Controller
             ->get()
             ->map(fn (Facility $facility) => [
                 'title' => $facility->name,
-                'desc' => !empty($facility->details[0]) ? $facility->details[0] : 'Layanan fasilitas terminal untuk kenyamanan dan kemudahan pengguna jasa.',
+                'desc' => ! empty($facility->details[0]) ? $facility->details[0] : 'Layanan fasilitas terminal untuk kenyamanan dan kemudahan pengguna jasa.',
                 'img' => $facility->image_url,
             ]);
         $sambutan = self::SAMBUTAN;
-        $dbMitra = \App\Models\Airline::query()
+        $dbMitra = Airline::query()
             ->active()
             ->ordered()
             ->get()
-            ->map(fn (\App\Models\Airline $airline) => [
+            ->map(fn (Airline $airline) => [
                 'nama' => $airline->name,
                 'rute' => $airline->routes,
                 'logo' => $airline->logo_url,

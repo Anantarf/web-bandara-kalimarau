@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Airline;
 use App\Models\Facility;
 use App\Models\Media;
 use App\Models\PpidDocument;
@@ -78,7 +79,7 @@ class CmsStorageCleanupTest extends TestCase
         Storage::disk('public')->put('airlines/old.png', 'old');
         Storage::disk('public')->put('airlines/new.png', 'new');
 
-        $airline = \App\Models\Airline::create([
+        $airline = Airline::create([
             'name' => 'Garuda Indonesia',
             'slug' => 'garuda-indonesia',
             'logo' => 'airlines/old.png',
@@ -96,7 +97,7 @@ class CmsStorageCleanupTest extends TestCase
     {
         Storage::fake('public');
 
-        $airline = \App\Models\Airline::create([
+        $airline = Airline::create([
             'name' => 'Batik Air Test',
             'slug' => 'batik-air-test',
             'logo' => 'images/airlines/batik-air.png',
@@ -107,4 +108,3 @@ class CmsStorageCleanupTest extends TestCase
         $this->assertDatabaseMissing('airlines', ['id' => $airline->id]);
     }
 }
-

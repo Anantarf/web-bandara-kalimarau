@@ -34,9 +34,9 @@ return new class extends Migration
             File::copyDirectory($sourceDir, $targetDir);
         }
 
-        $logoPath = fn (string $filename) => file_exists($targetDir . DIRECTORY_SEPARATOR . $filename)
-            ? 'airlines/' . $filename
-            : 'images/airlines/' . $filename;
+        $logoPath = fn (string $filename) => file_exists($targetDir.DIRECTORY_SEPARATOR.$filename)
+            ? 'airlines/'.$filename
+            : 'images/airlines/'.$filename;
 
         $now = now();
         $initialAirlines = [

@@ -3,12 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\FlightScheduleResource\Pages;
+use App\Models\Airline;
 use App\Models\FlightSchedule;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class FlightScheduleResource extends Resource
 {
@@ -59,13 +62,14 @@ class FlightScheduleResource extends Resource
                                 Forms\Components\Select::make('airline')
                                     ->label('Maskapai')
                                     ->options(function (?FlightSchedule $record) {
-                                        $options = \App\Models\Airline::query()->active()->ordered()->pluck('name', 'name')->toArray();
+                                        $options = Airline::query()->active()->ordered()->pluck('name', 'name')->toArray();
                                         if (empty($options)) {
                                             $options = self::AIRLINES;
                                         }
                                         if ($record && $record->airline && ! isset($options[$record->airline])) {
                                             $options[$record->airline] = $record->airline;
                                         }
+
                                         return $options;
                                     })
                                     ->searchable()
@@ -246,18 +250,18 @@ class FlightScheduleResource extends Resource
                         ->label('Aktifkan Terpilih')
                         ->icon('heroicon-o-check-circle')
                         ->color('success')
-                        ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['is_active' => true])),
+                        ->action(fn (Collection $records) => $records->each->update(['is_active' => true])),
                     Tables\Actions\BulkAction::make('deactivate')
                         ->label('Nonaktifkan Terpilih')
                         ->icon('heroicon-o-x-circle')
                         ->color('warning')
-                        ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['is_active' => false])),
+                        ->action(fn (Collection $records) => $records->each->update(['is_active' => false])),
                     Tables\Actions\DeleteBulkAction::make()->label('Hapus Terpilih'),
                 ]),
             ]);
     }
 
-    public static function getGlobalSearchResultDetails(\Illuminate\Database\Eloquent\Model $record): array
+    public static function getGlobalSearchResultDetails(Model $record): array
     {
         /** @var FlightSchedule $record */
         return [

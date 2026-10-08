@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\ImageOptimizer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,7 +52,7 @@ class Airline extends Model
             if (($airline->wasChanged('logo') || $airline->wasRecentlyCreated) && filled($airline->logo) && ! static::isStaticPath($airline->logo)) {
                 $path = Storage::disk('public')->path($airline->logo);
                 if (file_exists($path)) {
-                    \App\Services\ImageOptimizer::optimize($path);
+                    ImageOptimizer::optimize($path);
                 }
             }
         });

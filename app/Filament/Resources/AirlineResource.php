@@ -109,10 +109,11 @@ class AirlineResource extends Resource
                 Tables\Columns\ImageColumn::make('logo')
                     ->label('Logo')
                     ->state(fn (Airline $record): ?string => $record->logo_url)
-                    ->width(90)
-                    ->height(32)
+                    ->width(105)
+                    ->height(36)
                     ->extraImgAttributes([
-                        'class' => 'object-contain max-h-8 max-w-[90px] p-1 bg-white dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 shadow-2xs',
+                        'style' => 'object-fit: contain !important; max-width: 105px !important; max-height: 36px !important;',
+                        'class' => '!object-contain max-h-9 max-w-[105px] p-1 bg-white dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 shadow-2xs',
                     ])
                     ->alignCenter(),
 

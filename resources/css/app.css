@@ -147,10 +147,6 @@ body {
   will-change: transform;
 }
 
-.partner-marquee:hover .partner-marquee__track {
-  animation-play-state: paused;
-}
-
 .partner-marquee__item {
   display: flex;
   width: clamp(7rem, 10vw, 9rem);
@@ -158,15 +154,17 @@ body {
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  opacity: 0.62;
-  filter: grayscale(0.25);
-  transition: opacity 180ms ease-out, filter 180ms ease-out, transform 180ms ease-out;
+  opacity: 0.65;
+  filter: grayscale(0.2);
+  transition: opacity 200ms ease-out, filter 200ms ease-out, transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
 }
 
 .partner-marquee__item:hover {
   opacity: 1;
-  filter: grayscale(0);
-  transform: translateY(-2px);
+  filter: grayscale(0) drop-shadow(0 6px 12px rgba(12, 45, 107, 0.14));
+  transform: translateY(-5px) scale(1.12);
+  z-index: 10;
 }
 
 .partner-marquee__logo {

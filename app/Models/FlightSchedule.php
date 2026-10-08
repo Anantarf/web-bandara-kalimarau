@@ -53,4 +53,32 @@ class FlightSchedule extends Model
     {
         return $query->where('is_active', true);
     }
+
+    public function getAirlineLogoUrlAttribute(): ?string
+    {
+        static $airlineLogos = null;
+
+        if ($airlineLogos === null) {
+            $defaults = [
+                'Batik Air' => asset('images/airlines/batik-air.png'),
+                'Super Air Jet' => asset('images/airlines/super-air-jet.png'),
+                'AirAsia' => asset('images/airlines/airasia.svg'),
+                'Sriwijaya Air' => asset('images/airlines/sriwijaya-air.png'),
+                'Citilink' => asset('images/airlines/citilink.svg'),
+                'Wings Air' => asset('images/airlines/wings-air.svg'),
+                'Smart Aviation' => asset('images/airlines/smart-aviation.png'),
+            ];
+
+            $fromDb = Airline::query()
+                ->whereNotNull('logo')
+                ->get()
+                ->filter(fn (Airline $a) => filled($a->logo_url))
+                ->mapWithKeys(fn (Airline $a) => [$a->name => $a->logo_url])
+                ->all();
+
+            $airlineLogos = array_merge($defaults, $fromDb);
+        }
+
+        return $airlineLogos[$this->airline] ?? null;
+    }
 }

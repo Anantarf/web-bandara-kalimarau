@@ -164,6 +164,16 @@ class FlightScheduleResource extends Resource
                     ->rowIndex()
                     ->alignCenter()
                     ->size('sm'),
+                Tables\Columns\ImageColumn::make('airline_logo')
+                    ->label('Logo')
+                    ->state(fn (FlightSchedule $record): ?string => $record->airline_logo_url)
+                    ->width(76)
+                    ->height(26)
+                    ->extraImgAttributes([
+                        'style' => 'object-fit: contain !important; max-width: 76px !important; max-height: 26px !important;',
+                        'class' => '!object-contain max-h-6 max-w-[76px] p-0.5 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 shadow-2xs',
+                    ])
+                    ->alignCenter(),
                 Tables\Columns\TextColumn::make('airline')
                     ->label('Maskapai')
                     ->description(fn (FlightSchedule $record): string => $record->flight_number ?: '-')

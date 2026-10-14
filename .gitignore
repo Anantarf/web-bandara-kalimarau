@@ -28,7 +28,7 @@ _ide_helper_models.php
 .phpstorm.meta.php
 
 # Raw source-photo dumps used to produce the optimized assets under
-# storage/app/public and public/images — not meant to enter git history.
+# storage/app/public and public/images - not meant to enter git history.
 /PPID
 /fasilitas
 /logo maskapai
@@ -39,4 +39,12 @@ _ide_helper_models.php
 /deploy-artifacts
 *.zip
 /.playwright-cli
+# Local agent/tooling notes and generated QA exports.
+/AGENTS.md
+/.agents/skills
+/.codex
+/anti-slop
+/desktoptest.pdf
+/mobiletest.pdf
+/2. STANDAR PELAYANAN TAHUN 2025 ACC DBU.pdf
 

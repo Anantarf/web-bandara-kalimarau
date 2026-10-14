@@ -83,9 +83,10 @@
             'https://id.wikipedia.org/wiki/Bandar_Udara_Kalimarau',
             'https://en.wikipedia.org/wiki/Kalimarau_Airport',
             'https://www.wikidata.org/wiki/Q6352932',
-            'https://instagram.com/bandarakalimarau',
+            'https://www.instagram.com/bandarakalimarau',
             'https://www.facebook.com/bandaraudarakalimarau',
-            'https://youtube.com/@bandarakalimarauberau7084',
+            'https://www.tiktok.com/@bandarakalimarau',
+            'https://www.youtube.com/@bandarakalimarauberau7084',
         ],
         'geo' => [
             '@type' => 'GeoCoordinates',

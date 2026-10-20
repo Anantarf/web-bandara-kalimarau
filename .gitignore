@@ -41,6 +41,8 @@ _ide_helper_models.php
 /.playwright-cli
 # Local agent/tooling notes and generated QA exports.
 /AGENTS.md
+/*.md
+!/README.md
 /.agents/skills
 /.codex
 /anti-slop

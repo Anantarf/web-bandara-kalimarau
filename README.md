@@ -14,7 +14,7 @@ Dokumentasi lengkap proyek ini dikelompokkan di dalam folder [`docs/`](docs/):
 | **Checklist & Runbook Deployment (Go-Live)** | [`docs/GO-LIVE.md`](docs/GO-LIVE.md) |
 | **Panduan Penggunaan Admin Panel** | [`docs/ALUR ADMIN.md`](docs/ALUR%20ADMIN.md) |
 | **Status Fitur & Backlog Proyek** | [`docs/BACKLOG LARAVEL MVP.md`](docs/BACKLOG%20LARAVEL%20MVP.md) |
-| **Visi Produk & Panduan Desain** | [`PRODUCT.md`](PRODUCT.md) |
+| **Visi Produk & Panduan Desain** | [`PRODUCT.md`](docs/PRODUCT.md) |
 
 ---
 

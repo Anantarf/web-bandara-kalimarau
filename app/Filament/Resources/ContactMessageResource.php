@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Collection;
 
 class ContactMessageResource extends Resource
 {
@@ -173,12 +174,12 @@ class ContactMessageResource extends Resource
                         ->label('Tandai Sudah Dibaca')
                         ->icon('heroicon-o-eye')
                         ->color('warning')
-                        ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['status' => 'read'])),
+                        ->action(fn (Collection $records) => $records->each->update(['status' => 'read'])),
                     Tables\Actions\BulkAction::make('mark_as_archived')
                         ->label('Arsipkan Pesan Terpilih')
                         ->icon('heroicon-o-archive-box')
                         ->color('gray')
-                        ->action(fn (\Illuminate\Database\Eloquent\Collection $records) => $records->each->update(['status' => 'archived'])),
+                        ->action(fn (Collection $records) => $records->each->update(['status' => 'archived'])),
                     Tables\Actions\DeleteBulkAction::make()->label('Hapus Terpilih'),
                 ]),
             ]);

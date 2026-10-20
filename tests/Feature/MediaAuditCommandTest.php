@@ -11,7 +11,7 @@ class MediaAuditCommandTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_it_reports_missing_and_unreferenced_managed_media_without_deleting_files(): void
+    public function test_it_reports_missing_and_safe_to_review_media_without_deleting_files(): void
     {
         config()->set('media.disk', 'public');
         Storage::fake('public');
@@ -36,26 +36,38 @@ class MediaAuditCommandTest extends TestCase
         $this->artisan('media:audit')
             ->expectsOutputToContain('Missing referenced files')
             ->expectsOutputToContain('featured-images/missing.jpg')
-            ->expectsOutputToContain('Unreferenced files')
+            ->expectsOutputToContain('Safe review files')
             ->expectsOutputToContain('featured-images/orphan.jpg')
             ->assertSuccessful();
 
         Storage::disk('public')->assertExists('featured-images/orphan.jpg');
     }
 
-    public function test_it_requires_force_before_deleting_orphaned_media(): void
+    public function test_it_protects_legacy_files_and_recognizes_inline_content_references(): void
     {
         config()->set('media.disk', 'public');
         Storage::fake('public');
+        Storage::disk('public')->put('media/legacy/2022/10/protected.jpg', 'legacy');
+        Storage::disk('public')->put('media/berita/inline.jpg', 'inline');
         Storage::disk('public')->put('featured-images/orphan.jpg', 'orphan');
 
-        $this->artisan('media:audit --delete-orphans')
-            ->expectsOutputToContain('requires the --force option')
-            ->assertFailed();
+        Post::create([
+            'title' => 'Berita Inline',
+            'slug' => 'berita-inline',
+            'content' => '<img src="/storage/media/berita/inline.jpg">',
+            'status' => 'draft',
+        ]);
 
-        $this->artisan('media:audit --delete-orphans --force')
+        $this->artisan('media:audit')
+            ->expectsOutputToContain('Inline content references')
+            ->expectsOutputToContain('Protected files')
+            ->expectsOutputToContain('media/legacy/2022/10/protected.jpg')
+            ->expectsOutputToContain('Safe review files')
+            ->expectsOutputToContain('featured-images/orphan.jpg')
             ->assertSuccessful();
 
-        Storage::disk('public')->assertMissing('featured-images/orphan.jpg');
+        Storage::disk('public')->assertExists('media/legacy/2022/10/protected.jpg');
+        Storage::disk('public')->assertExists('media/berita/inline.jpg');
+        Storage::disk('public')->assertExists('featured-images/orphan.jpg');
     }
 }

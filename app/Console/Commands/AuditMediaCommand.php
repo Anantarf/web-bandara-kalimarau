@@ -17,63 +17,58 @@ use Illuminate\Support\Facades\Log;
 
 class AuditMediaCommand extends Command
 {
-    protected $signature = 'media:audit
-                            {--disk= : Storage disk to audit}
-                            {--delete-orphans : Delete unreferenced managed files}
-                            {--force : Confirm destructive orphan deletion}';
+    protected $signature = 'media:audit {--disk= : Storage disk to audit}';
 
-    protected $description = 'Report missing and unreferenced managed media files';
+    protected $description = 'Report missing, protected, and safe-to-review managed media files';
 
     public function handle(): int
     {
-        if ($this->option('delete-orphans') && ! $this->option('force')) {
-            $this->error('Orphan deletion requires the --force option. Run without --delete-orphans to preview the result.');
-
-            return self::FAILURE;
-        }
-
         $diskName = $this->option('disk') ?: MediaStorage::diskName();
         $disk = app('filesystem')->disk($diskName);
-        $referencedPaths = $this->referencedPaths($diskName);
         $storedPaths = collect(config('media.managed_directories'))
             ->flatMap(fn (string $directory) => $disk->allFiles($directory))
             ->map(fn (string $path) => ltrim($path, '/'))
             ->unique()
             ->sort()
             ->values();
-
+        $inlineContentPaths = $this->inlineContentPaths($storedPaths);
+        $referencedPaths = $this->databaseReferencedPaths($diskName)
+            ->merge($inlineContentPaths)
+            ->unique()
+            ->sort()
+            ->values();
         $missingPaths = $referencedPaths->diff($storedPaths)->values();
-        $orphanedPaths = $storedPaths->diff($referencedPaths)->values();
+        $protectedPaths = $storedPaths->filter($this->isProtectedPath(...))->values();
+        $reviewPaths = $storedPaths->diff($referencedPaths)->diff($protectedPaths)->values();
 
         $this->info("Media audit completed for disk [{$diskName}].");
         $this->table(['Metric', 'Count'], [
             ['Referenced paths', $referencedPaths->count()],
+            ['Inline content references', $inlineContentPaths->count()],
             ['Stored managed files', $storedPaths->count()],
             ['Missing referenced files', $missingPaths->count()],
-            ['Unreferenced files', $orphanedPaths->count()],
+            ['Protected files', $protectedPaths->count()],
+            ['Safe review files', $reviewPaths->count()],
         ]);
 
         $this->renderPaths('Missing referenced files', $missingPaths);
-        $this->renderPaths('Unreferenced files', $orphanedPaths);
-
-        if ($this->option('delete-orphans') && $orphanedPaths->isNotEmpty()) {
-            $disk->delete($orphanedPaths->all());
-            $this->info("Deleted {$orphanedPaths->count()} unreferenced file(s).");
-        }
+        $this->renderPaths('Protected files', $protectedPaths);
+        $this->renderPaths('Safe review files', $reviewPaths);
 
         Log::info('Media audit completed.', [
             'disk' => $diskName,
             'referenced' => $referencedPaths->count(),
+            'inline_references' => $inlineContentPaths->count(),
             'stored' => $storedPaths->count(),
             'missing' => $missingPaths->count(),
-            'orphaned' => $orphanedPaths->count(),
-            'deleted_orphans' => $this->option('delete-orphans'),
+            'protected' => $protectedPaths->count(),
+            'safe_to_review' => $reviewPaths->count(),
         ]);
 
         return self::SUCCESS;
     }
 
-    private function referencedPaths(string $diskName): Collection
+    private function databaseReferencedPaths(string $diskName): Collection
     {
         return collect([
             Post::query()->pluck('featured_image'),
@@ -94,12 +89,28 @@ class AuditMediaCommand extends Command
             ->values();
     }
 
+    private function inlineContentPaths(Collection $storedPaths): Collection
+    {
+        $content = Post::query()->whereNotNull('content')->pluck('content')
+            ->merge(Page::query()->whereNotNull('content')->pluck('content'))
+            ->map(fn (string $html) => html_entity_decode($html, ENT_QUOTES | ENT_HTML5));
+
+        return $storedPaths
+            ->filter(fn (string $path) => $content->contains(fn (string $html) => str_contains($html, $path)))
+            ->values();
+    }
+
     private function isManagedPath(string $path): bool
     {
         $normalizedPath = ltrim($path, '/');
 
         return collect(config('media.managed_directories'))
             ->contains(fn (string $directory) => str_starts_with($normalizedPath, trim($directory, '/').'/'));
+    }
+
+    private function isProtectedPath(string $path): bool
+    {
+        return str_starts_with($path, 'media/legacy/');
     }
 
     private function renderPaths(string $title, Collection $paths): void

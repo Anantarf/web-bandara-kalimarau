@@ -3,12 +3,13 @@
 namespace App\Services;
 
 use App\Models\Media;
+use App\Support\MediaStorage;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Resolves a WordPress attachment (by legacy post ID) into a Laravel Media row,
  * copying only the physical files that are actually referenced as featured
- * images Ã¢â‚¬â€ per docs/archive/DATA MIGRATION PLAN.md, not the full 1.7GB uploads folder.
+ * images ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â per docs/archive/DATA MIGRATION PLAN.md, not the full 1.7GB uploads folder.
  */
 class LegacyMediaImporter
 {
@@ -97,7 +98,7 @@ class LegacyMediaImporter
             $sourcePath = $uploadsRoot.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $relativePath);
 
             if (! is_file($sourcePath)) {
-                // File isn't in the local backup (whole months are missing, not just images Ã¢â‚¬â€
+                // File isn't in the local backup (whole months are missing, not just images ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â
                 // this also catches PDFs embedded via <iframe>). Blank the dead hotlink out
                 // rather than leave a reference to the old domain; asset needs re-sourcing.
                 $html = str_replace($matchedUrl, '', $html);

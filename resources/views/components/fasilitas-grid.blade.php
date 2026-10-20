@@ -1,24 +1,3 @@
-@php
-$categories = \App\Models\Facility::query()
-    ->orderBy('order')
-    ->get()
-    ->groupBy('category')
-    ->sortBy(fn ($items, $title) => $title === 'Aksesibilitas' ? 0 : 1)
-    ->map(fn ($items, $title) => [
-        'title' => $title === 'Aksesibilitas' ? 'Sarana Bagi Kelompok Rentan' : $title,
-        'description' => $title === 'Aksesibilitas'
-            ? 'Fasilitas aksesibilitas untuk mendukung difabel, lansia, ibu hamil, anak-anak, dan pengguna jasa yang membutuhkan pendampingan.'
-            : null,
-        'is_featured_accessibility' => $title === 'Aksesibilitas',
-        'items' => $items->map(fn ($facility) => [
-            'name' => $facility->name,
-            'image' => $facility->image_url,
-            'details' => $facility->details ?? [],
-        ])->values(),
-    ])
-    ->values();
-@endphp
-
 <div x-data="{
         modalOpen: false,
         activeFacility: null,

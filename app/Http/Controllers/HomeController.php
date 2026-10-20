@@ -11,79 +11,6 @@ use App\Models\PublicServiceLink;
 
 class HomeController extends Controller
 {
-    /**
-     * Fixed, hand-picked images for the hero carousel and facilities cards.
-     *
-     * Deliberately NOT pulled from the `media` table: that table holds every
-     * image imported from the legacy site (news photos, holiday greetings,
-     * scam warnings, tax socialization posters, staff portraits...) with no
-     * curation flag to tell "airport photography" apart from "whatever image
-     * was attached to this news post". A random/featured-image query over
-     * that table can surface anything — including a QRIS payment code or an
-     * HIV/AIDS awareness poster — as the homepage hero. Until there's a real
-     * curation mechanism (e.g. an admin-set `is_featured_photo` flag on
-     * Media), stock photography is the safe choice here.
-     */
-    protected const HERO_IMAGES = [
-        'images/hero/hero1.jpg',
-    ];
-
-    protected const SAMBUTAN = [
-        'nama' => 'Patah Atabri, S.Si.T., M.M.',
-        'jabatan' => 'Kepala BLU Kantor UPBU Kelas I Kalimarau',
-        'teks' => [
-            'Selamat datang di portal resmi Bandara Kalimarau. Di tengah kebutuhan informasi yang semakin cepat, kami menghadirkan website ini sebagai kanal resmi untuk membantu masyarakat memperoleh informasi layanan bandara secara mudah, jelas, dan tepercaya.',
-            'Kami terus berkomitmen memberikan pelayanan terbaik dengan mengutamakan keselamatan, keamanan, dan kenyamanan pengguna jasa penerbangan. Melalui website ini, masyarakat dapat mengakses informasi penerbangan, layanan publik, berita, kontak, serta kanal pengaduan secara lebih terarah.',
-            'Kami mengundang masyarakat untuk memanfaatkan situs ini sebagai sarana informasi dan komunikasi. Masukan yang konstruktif akan menjadi bagian penting dalam meningkatkan kualitas pelayanan Bandara Kalimarau bagi Kabupaten Berau dan wilayah sekitarnya.',
-        ],
-        'foto' => 'images/people/kepala-bandara.jpg',
-    ];
-
-    protected const MITRA = [
-        [
-            'nama' => 'Batik Air',
-            'rute' => 'Jakarta (CGK), Surabaya (SUB)',
-            'logo' => 'images/airlines/batik-air.png',
-            'slug' => 'batik-air',
-        ],
-        [
-            'nama' => 'Super Air Jet',
-            'rute' => 'Balikpapan (BPN), Surabaya (SUB)',
-            'logo' => 'images/airlines/super-air-jet.png',
-            'slug' => 'super-air-jet',
-        ],
-        [
-            'nama' => 'AirAsia',
-            'rute' => 'Surabaya (SUB)',
-            'logo' => 'images/airlines/airasia.svg',
-            'slug' => 'airasia',
-        ],
-        [
-            'nama' => 'Sriwijaya Air',
-            'rute' => 'Balikpapan (BPN), Makassar (UPG)',
-            'logo' => 'images/airlines/sriwijaya-air.png',
-            'slug' => 'sriwijaya-air',
-        ],
-        [
-            'nama' => 'Citilink',
-            'rute' => 'Balikpapan (BPN)',
-            'logo' => 'images/airlines/citilink.svg',
-            'slug' => 'citilink',
-        ],
-        [
-            'nama' => 'Wings Air',
-            'rute' => 'Samarinda (AAP), Balikpapan (BPN), Maratua (RTU)',
-            'logo' => 'images/airlines/wings-air.svg',
-            'slug' => 'wings-air',
-        ],
-        [
-            'nama' => 'Smart Aviation',
-            'rute' => 'Maratua (RTU)',
-            'logo' => 'images/airlines/smart-aviation.png',
-            'slug' => 'smart-aviation',
-        ],
-    ];
-
     public function index()
     {
         $latestPosts = Post::query()
@@ -110,7 +37,7 @@ class HomeController extends Controller
             ->latest('period_date')
             ->first();
 
-        $heroImages = collect(self::HERO_IMAGES)->map(fn ($path) => asset($path))->toArray();
+        $heroImages = collect(config('home.hero_images'))->map(fn ($path) => asset($path))->toArray();
         $facilities = Facility::query()
             ->orderBy('order')
             ->take(4)
@@ -120,7 +47,7 @@ class HomeController extends Controller
                 'desc' => ! empty($facility->details[0]) ? $facility->details[0] : 'Layanan fasilitas terminal untuk kenyamanan dan kemudahan pengguna jasa.',
                 'img' => $facility->image_url,
             ]);
-        $sambutan = self::SAMBUTAN;
+        $sambutan = config('home.welcome');
         $dbMitra = Airline::query()
             ->active()
             ->ordered()
@@ -133,7 +60,7 @@ class HomeController extends Controller
             ])
             ->toArray();
 
-        $mitra = ! empty($dbMitra) ? $dbMitra : collect(self::MITRA)->map(fn ($item) => [
+        $mitra = ! empty($dbMitra) ? $dbMitra : collect(config('home.partner_fallbacks'))->map(fn ($item) => [
             'nama' => $item['nama'],
             'rute' => $item['rute'],
             'logo' => asset($item['logo']),

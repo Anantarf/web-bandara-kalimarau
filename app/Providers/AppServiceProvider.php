@@ -2,14 +2,17 @@
 
 namespace App\Providers;
 
+use App\Models\Announcement;
 use App\Models\Category;
 use App\Models\ContactMessage;
+use App\Models\Facility;
 use App\Models\FlightSchedule;
 use App\Models\Media;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\PublicServiceLink;
 use App\Models\Redirect;
+use App\Models\SurveyReport;
 use App\Models\User;
 use App\Models\Visitor;
 use App\Observers\AuditLogObserver;
@@ -96,6 +99,40 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perMinute(10)->by($request->ip());
         });
 
+        View::composer('components.public.announcement-banner', function ($view) {
+            $view->with('activeAnnouncements', Announcement::active()
+                ->orderBy('sort_order')
+                ->orderByDesc('id')
+                ->get());
+        });
+        View::composer('components.fasilitas-grid', function ($view) {
+            $categories = Facility::query()
+                ->orderBy('order')
+                ->get()
+                ->groupBy('category')
+                ->sortBy(fn ($items, $title) => $title === 'Aksesibilitas' ? 0 : 1)
+                ->map(fn ($items, $title) => [
+                    'title' => $title === 'Aksesibilitas' ? 'Sarana Bagi Kelompok Rentan' : $title,
+                    'description' => $title === 'Aksesibilitas'
+                        ? 'Fasilitas aksesibilitas untuk mendukung difabel, lansia, ibu hamil, anak-anak, dan pengguna jasa yang membutuhkan pendampingan.'
+                        : null,
+                    'is_featured_accessibility' => $title === 'Aksesibilitas',
+                    'items' => $items->map(fn ($facility) => [
+                        'name' => $facility->name,
+                        'image' => $facility->image_url,
+                        'details' => $facility->details ?? [],
+                    ])->values(),
+                ])
+                ->values();
+
+            $view->with('categories', $categories);
+        });
+        View::composer('pages.partials.hasil-dan-tindak-lanjut', function ($view) {
+            $view->with('reports', SurveyReport::published()
+                ->orderBy('sort_order')
+                ->orderByDesc('period_date')
+                ->get());
+        });
         View::composer('components.public.footer', function ($view) {
             $stats = Cache::remember('visitor_stats', 60 * 5, function () {
                 return [

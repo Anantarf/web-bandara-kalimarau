@@ -17,7 +17,10 @@ class PublicPagesSmokeTest extends TestCase
 
     public function test_home_page_loads(): void
     {
-        $this->get(route('home'))->assertOk();
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('Patah Atabri, S.Si.T., M.M.')
+            ->assertSee('Batik Air');
     }
 
     public function test_posts_index_loads_with_no_posts(): void

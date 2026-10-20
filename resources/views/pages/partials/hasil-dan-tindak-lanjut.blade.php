@@ -3,13 +3,6 @@
         Berikut kumpulan dokumen laporan berkala hasil survey kepuasan masyarakat di UPBU Kelas I Kalimarau. Klik dokumen untuk melihat rincian laporan:
     </p>
 
-    @php
-        $reports = \App\Models\SurveyReport::published()
-            ->orderBy('sort_order')
-            ->orderByDesc('period_date')
-            ->get();
-    @endphp
-
     @if($reports->isNotEmpty())
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 mt-4">
             @foreach($reports as $doc)

@@ -1,9 +1,3 @@
-@php
-    $activeAnnouncements = \App\Models\Announcement::active()
-        ->orderBy('sort_order')
-        ->orderByDesc('id')
-        ->get();
-@endphp
 
 @if($activeAnnouncements->isNotEmpty())
     <div class="relative z-50">

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Jobs\OptimizeImage;
 use App\Models\Announcement;
 use App\Models\Category;
 use App\Models\ContactMessage;
@@ -16,14 +17,12 @@ use App\Models\SurveyReport;
 use App\Models\User;
 use App\Models\Visitor;
 use App\Observers\AuditLogObserver;
-use App\Services\ImageOptimizer;
 use Filament\Forms\Components\BaseFileUpload;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -73,12 +72,10 @@ class AppServiceProvider extends ServiceProvider
                 );
 
                 if ($storedPath) {
-                    $ext = strtolower(pathinfo($storedPath, PATHINFO_EXTENSION));
-                    if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp'], true)) {
-                        $disk = $component->getDiskName() ?: config('filesystems.default', 'public');
-                        $fullPath = Storage::disk($disk)->path($storedPath);
-                        ImageOptimizer::optimize($fullPath);
-                    }
+                    OptimizeImage::dispatch(
+                        $component->getDiskName() ?: config('media.disk', 'public'),
+                        $storedPath,
+                    )->afterCommit();
                 }
 
                 return $storedPath;

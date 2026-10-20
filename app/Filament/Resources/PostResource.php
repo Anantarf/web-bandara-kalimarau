@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use FilamentTiptapEditor\TiptapEditor;
+use Illuminate\Database\Eloquent\Model;
 
 class PostResource extends Resource
 {
@@ -73,7 +74,7 @@ class PostResource extends Resource
                                     ->image()
                                     ->imageEditor()
                                     ->imageCropAspectRatio('16:9')
-                                    ->disk('public')
+                                    ->disk(config('media.disk', 'public'))
                                     ->maxSize(5120)
                                     ->helperText('Maksimal 5MB. Gunakan editor foto bawaan untuk menyesuaikan rasio ke 16:9 agar tampilan berita rapi.')
                                     ->directory('featured-images')
@@ -212,7 +213,7 @@ class PostResource extends Resource
             ]);
     }
 
-    public static function getGlobalSearchResultDetails(\Illuminate\Database\Eloquent\Model $record): array
+    public static function getGlobalSearchResultDetails(Model $record): array
     {
         /** @var Post $record */
         return [

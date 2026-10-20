@@ -61,7 +61,7 @@ class AirlineResource extends Resource
 
                                 Forms\Components\FileUpload::make('logo')
                                     ->label('Logo Maskapai')
-                                    ->disk('public')
+                                    ->disk(config('media.disk', 'public'))
                                     ->directory('airlines')
                                     ->image()
                                     ->maxSize(2048)

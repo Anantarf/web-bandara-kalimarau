@@ -57,6 +57,7 @@ class PageResource extends Resource
                             ->label('Gambar Utama')
                             ->image()
                             ->imageEditor()
+                            ->disk(config('media.disk', 'public'))
                             ->maxSize(5120)
                             ->helperText('Format foto JPG/PNG/WebP, maksimal 5MB. Gunakan editor foto bawaan untuk menyesuaikan rasio.')
                             ->directory('featured-images')

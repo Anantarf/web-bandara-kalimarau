@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Support\MediaStorage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 class PpidDocument extends Model
 {
@@ -24,13 +24,13 @@ class PpidDocument extends Model
     {
         static::updating(function (PpidDocument $document): void {
             if ($document->isDirty('file_path') && $document->getOriginal('file_path')) {
-                Storage::disk('public')->delete($document->getOriginal('file_path'));
+                MediaStorage::disk()->delete($document->getOriginal('file_path'));
             }
         });
 
         static::deleted(function (PpidDocument $document): void {
             if ($document->file_path) {
-                Storage::disk('public')->delete($document->file_path);
+                MediaStorage::disk()->delete($document->file_path);
             }
         });
     }
@@ -78,7 +78,7 @@ class PpidDocument extends Model
         }
 
         if (filled($this->file_path)) {
-            return Storage::disk('public')->url($this->file_path);
+            return MediaStorage::disk()->url($this->file_path);
         }
 
         return '#';

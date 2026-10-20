@@ -4,12 +4,11 @@ namespace App\Services;
 
 use App\Models\Media;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * Resolves a WordPress attachment (by legacy post ID) into a Laravel Media row,
  * copying only the physical files that are actually referenced as featured
- * images — per docs/archive/DATA MIGRATION PLAN.md, not the full 1.7GB uploads folder.
+ * images Ã¢â‚¬â€ per docs/archive/DATA MIGRATION PLAN.md, not the full 1.7GB uploads folder.
  */
 class LegacyMediaImporter
 {
@@ -52,7 +51,7 @@ class LegacyMediaImporter
         }
 
         $destinationPath = 'media/legacy/'.$relativePath;
-        Storage::disk('public')->put($destinationPath, file_get_contents($sourcePath));
+        MediaStorage::disk()->put($destinationPath, file_get_contents($sourcePath));
 
         $imageSize = str_starts_with((string) $attachment->post_mime_type, 'image/')
             ? @getimagesize($sourcePath)
@@ -60,7 +59,7 @@ class LegacyMediaImporter
 
         return Media::create([
             'legacy_id' => $legacyAttachmentId,
-            'disk' => 'public',
+            'disk' => MediaStorage::diskName(),
             'path' => $destinationPath,
             'filename' => basename($relativePath),
             'mime_type' => $attachment->post_mime_type ?: 'application/octet-stream',
@@ -98,7 +97,7 @@ class LegacyMediaImporter
             $sourcePath = $uploadsRoot.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $relativePath);
 
             if (! is_file($sourcePath)) {
-                // File isn't in the local backup (whole months are missing, not just images —
+                // File isn't in the local backup (whole months are missing, not just images Ã¢â‚¬â€
                 // this also catches PDFs embedded via <iframe>). Blank the dead hotlink out
                 // rather than leave a reference to the old domain; asset needs re-sourcing.
                 $html = str_replace($matchedUrl, '', $html);
@@ -109,11 +108,11 @@ class LegacyMediaImporter
 
             $destinationPath = 'media/legacy/'.$relativePath;
 
-            if (! Storage::disk('public')->exists($destinationPath)) {
-                Storage::disk('public')->put($destinationPath, file_get_contents($sourcePath));
+            if (! MediaStorage::disk()->exists($destinationPath)) {
+                MediaStorage::disk()->put($destinationPath, file_get_contents($sourcePath));
             }
 
-            $html = str_replace($matchedUrl, Storage::disk('public')->url($destinationPath), $html);
+            $html = str_replace($matchedUrl, MediaStorage::disk()->url($destinationPath), $html);
         }
 
         return $html;

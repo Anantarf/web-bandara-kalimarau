@@ -69,7 +69,7 @@ class AwardResource extends Resource
                                     ->label('Berkas Gambar')
                                     ->image()
                                     ->imageEditor()
-                                    ->disk('public')
+                                    ->disk(config('media.disk', 'public'))
                                     ->directory('awards')
                                     ->maxSize(5120)
                                     ->required(fn (string $operation): bool => $operation === 'create')
@@ -114,7 +114,7 @@ class AwardResource extends Resource
                     ->size('sm'),
                 Tables\Columns\ImageColumn::make('image')
                     ->label('Foto')
-                    ->disk('public')
+                    ->disk(config('media.disk', 'public'))
                     ->square()
                     ->alignCenter(),
                 Tables\Columns\TextColumn::make('title')

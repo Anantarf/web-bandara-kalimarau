@@ -36,7 +36,7 @@ class MediaResource extends Resource
                     ->schema([
                         Forms\Components\FileUpload::make('path')
                             ->label('Berkas Gambar / Foto')
-                            ->disk('public')
+                            ->disk(config('media.disk', 'public'))
                             ->directory('media')
                             ->image()
                             ->maxSize(5120)
@@ -66,7 +66,7 @@ class MediaResource extends Resource
                     ->size('sm'),
                 Tables\Columns\ImageColumn::make('path')
                     ->label('Pratinjau')
-                    ->disk('public')
+                    ->disk(config('media.disk', 'public'))
                     ->square()
                     ->alignCenter(),
                 Tables\Columns\TextColumn::make('filename')

@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Support\MediaStorage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 class Award extends Model
 {
@@ -33,20 +33,13 @@ class Award extends Model
         static::updating(function (Award $award): void {
             $oldImage = $award->getOriginal('image');
             if ($award->isDirty('image') && $oldImage && ! static::isLegacyPath($oldImage)) {
-                Storage::disk('public')->delete($oldImage);
-            }
-        });
-
-        static::saved(function (Award $award): void {
-            if (($award->wasChanged('image') || $award->wasRecentlyCreated) && filled($award->image) && ! static::isLegacyPath($award->image)) {
-                $path = Storage::disk('public')->path($award->image);
-                \App\Services\ImageOptimizer::optimize($path);
+                MediaStorage::disk()->delete($oldImage);
             }
         });
 
         static::deleted(function (Award $award): void {
             if ($award->image && ! static::isLegacyPath($award->image)) {
-                Storage::disk('public')->delete($award->image);
+                MediaStorage::disk()->delete($award->image);
             }
         });
     }
@@ -76,7 +69,7 @@ class Award extends Model
                     return asset($this->image);
                 }
 
-                return Storage::disk('public')->url($this->image);
+                return MediaStorage::disk()->url($this->image);
             }
         );
     }

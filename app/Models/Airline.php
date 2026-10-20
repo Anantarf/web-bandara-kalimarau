@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use App\Services\ImageOptimizer;
+use App\Support\MediaStorage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Airline extends Model
@@ -44,22 +43,13 @@ class Airline extends Model
         static::updating(function (Airline $airline): void {
             $oldLogo = $airline->getOriginal('logo');
             if ($airline->isDirty('logo') && $oldLogo && ! static::isStaticPath($oldLogo)) {
-                Storage::disk('public')->delete($oldLogo);
-            }
-        });
-
-        static::saved(function (Airline $airline): void {
-            if (($airline->wasChanged('logo') || $airline->wasRecentlyCreated) && filled($airline->logo) && ! static::isStaticPath($airline->logo)) {
-                $path = Storage::disk('public')->path($airline->logo);
-                if (file_exists($path)) {
-                    ImageOptimizer::optimize($path);
-                }
+                MediaStorage::disk()->delete($oldLogo);
             }
         });
 
         static::deleted(function (Airline $airline): void {
             if ($airline->logo && ! static::isStaticPath($airline->logo)) {
-                Storage::disk('public')->delete($airline->logo);
+                MediaStorage::disk()->delete($airline->logo);
             }
         });
     }
@@ -89,7 +79,7 @@ class Airline extends Model
                     return asset($this->logo);
                 }
 
-                return Storage::disk('public')->url($this->logo);
+                return MediaStorage::disk()->url($this->logo);
             }
         );
     }

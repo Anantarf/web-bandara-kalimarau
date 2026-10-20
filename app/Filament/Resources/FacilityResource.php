@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class FacilityResource extends Resource
 {
@@ -52,14 +53,14 @@ class FacilityResource extends Resource
                             ->label('Foto / Gambar Fasilitas')
                             ->image()
                             ->imageEditor()
-                            ->disk('public')
+                            ->disk(config('media.disk', 'public'))
                             ->directory('facilities')
                             ->maxSize(10240)
                             ->columnSpanFull()
                             ->helperText('Format foto JPG/PNG/WebP, maksimal 10MB. Foto otomatis dioptimasi dan dikompresi agar loading cepat.'),
                         Forms\Components\Textarea::make('details')
                             ->label('Detail & Spesifikasi (satu poin per baris)')
-                            ->placeholder("Luas area: 12.000 m²\nKapasitas: 1,5 juta penumpang/tahun\nDilengkapi AC & Ruang Menyusui")
+                            ->placeholder("Luas area: 12.000 mÂ²\nKapasitas: 1,5 juta penumpang/tahun\nDilengkapi AC & Ruang Menyusui")
                             ->rows(4)
                             ->columnSpanFull()
                             ->dehydrateStateUsing(fn (?string $state) => collect(explode("\n", (string) $state))->map(fn ($line) => trim($line))->filter()->values()->all())
@@ -86,7 +87,7 @@ class FacilityResource extends Resource
                     ->size('sm'),
                 Tables\Columns\ImageColumn::make('image')
                     ->label('Foto')
-                    ->disk('public')
+                    ->disk(config('media.disk', 'public'))
                     ->circular()
                     ->alignCenter(),
                 Tables\Columns\TextColumn::make('name')
@@ -132,7 +133,7 @@ class FacilityResource extends Resource
             ]);
     }
 
-    public static function getGlobalSearchResultDetails(\Illuminate\Database\Eloquent\Model $record): array
+    public static function getGlobalSearchResultDetails(Model $record): array
     {
         /** @var Facility $record */
         return [

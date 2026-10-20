@@ -5,14 +5,58 @@ namespace Tests\Feature;
 use App\Models\Airline;
 use App\Models\Facility;
 use App\Models\Media;
+use App\Models\Page;
+use App\Models\Post;
 use App\Models\PpidDocument;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class CmsStorageCleanupTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_post_and_page_featured_images_are_removed_only_after_a_committed_change(): void
+    {
+        Storage::fake('public');
+        Storage::disk('public')->put('featured-images/post-old.jpg', 'old');
+        Storage::disk('public')->put('featured-images/post-new.jpg', 'new');
+        Storage::disk('public')->put('featured-images/page.jpg', 'page');
+
+        $post = Post::create([
+            'title' => 'Berita Uji',
+            'slug' => 'berita-uji',
+            'content' => 'Konten.',
+            'status' => 'draft',
+            'featured_image' => 'featured-images/post-old.jpg',
+        ]);
+
+        try {
+            DB::transaction(function () use ($post): void {
+                $post->update(['featured_image' => 'featured-images/post-new.jpg']);
+
+                throw new \RuntimeException('Rollback test.');
+            });
+        } catch (\RuntimeException) {
+        }
+
+        Storage::disk('public')->assertExists('featured-images/post-old.jpg');
+
+        $post->refresh()->update(['featured_image' => 'featured-images/post-new.jpg']);
+        Storage::disk('public')->assertMissing('featured-images/post-old.jpg');
+
+        $page = Page::create([
+            'title' => 'Halaman Uji',
+            'slug' => 'halaman-uji',
+            'content' => 'Konten.',
+            'status' => 'draft',
+            'featured_image' => 'featured-images/page.jpg',
+        ]);
+
+        $page->delete();
+        Storage::disk('public')->assertMissing('featured-images/page.jpg');
+    }
 
     public function test_facility_images_are_deleted_when_replaced_or_record_is_deleted(): void
     {

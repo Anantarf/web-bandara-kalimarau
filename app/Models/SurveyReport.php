@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Support\MediaStorage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 class SurveyReport extends Model
 {
@@ -43,19 +43,19 @@ class SurveyReport extends Model
 
         static::updating(function (SurveyReport $report): void {
             if ($report->isDirty('file_path') && $report->getOriginal('file_path')) {
-                Storage::disk('public')->delete($report->getOriginal('file_path'));
+                MediaStorage::disk()->delete($report->getOriginal('file_path'));
             }
             if ($report->isDirty('cover_image') && $report->getOriginal('cover_image')) {
-                Storage::disk('public')->delete($report->getOriginal('cover_image'));
+                MediaStorage::disk()->delete($report->getOriginal('cover_image'));
             }
         });
 
         static::deleted(function (SurveyReport $report): void {
             if ($report->file_path) {
-                Storage::disk('public')->delete($report->file_path);
+                MediaStorage::disk()->delete($report->file_path);
             }
             if ($report->cover_image) {
-                Storage::disk('public')->delete($report->cover_image);
+                MediaStorage::disk()->delete($report->cover_image);
             }
         });
     }
@@ -72,7 +72,7 @@ class SurveyReport extends Model
         }
 
         if (filled($this->file_path)) {
-            return Storage::disk('public')->url($this->file_path);
+            return MediaStorage::disk()->url($this->file_path);
         }
 
         return '#';
@@ -81,7 +81,7 @@ class SurveyReport extends Model
     public function getThumbnailUrlAttribute(): string
     {
         if (filled($this->cover_image)) {
-            return Storage::disk('public')->url($this->cover_image);
+            return MediaStorage::disk()->url($this->cover_image);
         }
 
         if (filled($this->google_drive_id)) {

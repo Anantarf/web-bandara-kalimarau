@@ -72,7 +72,7 @@ class PpidDocumentResource extends Resource
 
                                 Forms\Components\FileUpload::make('file_path')
                                     ->label('Upload File (PDF / Dokumen)')
-                                    ->disk('public')
+                                    ->disk(config('media.disk', 'public'))
                                     ->directory('ppid-documents')
                                     ->acceptedFileTypes([
                                         'application/pdf',

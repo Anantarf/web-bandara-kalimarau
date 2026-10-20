@@ -66,7 +66,7 @@ class SurveyReportResource extends Resource
                                     ->columnSpanFull(),
                                 Forms\Components\FileUpload::make('file_path')
                                     ->label('Atau Upload File PDF Lokal')
-                                    ->disk('public')
+                                    ->disk(config('media.disk', 'public'))
                                     ->directory('survey-reports')
                                     ->acceptedFileTypes(['application/pdf'])
                                     ->maxSize(15360)
@@ -76,7 +76,7 @@ class SurveyReportResource extends Resource
                                     ->columnSpanFull(),
                                 Forms\Components\FileUpload::make('cover_image')
                                     ->label('Gambar Sampul / Cover Kustom (Opsional)')
-                                    ->disk('public')
+                                    ->disk(config('media.disk', 'public'))
                                     ->directory('survey-reports/covers')
                                     ->image()
                                     ->imageEditor()

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Concerns\CleansUpFeaturedImage;
 use App\Support\HtmlSanitizer;
+use App\Support\MediaStorage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -83,6 +84,6 @@ class Post extends Model
 
     public function getFeaturedImageUrlAttribute(): ?string
     {
-        return $this->featured_image ? asset('storage/'.$this->featured_image) : null;
+        return $this->featured_image ? MediaStorage::disk()->url($this->featured_image) : null;
     }
 }

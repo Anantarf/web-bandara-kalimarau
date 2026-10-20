@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Support\MediaStorage;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 class Facility extends Model
 {
@@ -21,20 +21,13 @@ class Facility extends Model
     {
         static::updating(function (Facility $facility): void {
             if ($facility->isDirty('image') && $facility->getOriginal('image')) {
-                Storage::disk('public')->delete($facility->getOriginal('image'));
-            }
-        });
-
-        static::saved(function (Facility $facility): void {
-            if (($facility->wasChanged('image') || $facility->wasRecentlyCreated) && filled($facility->image)) {
-                $path = Storage::disk('public')->path($facility->image);
-                \App\Services\ImageOptimizer::optimize($path);
+                MediaStorage::disk()->delete($facility->getOriginal('image'));
             }
         });
 
         static::deleted(function (Facility $facility): void {
             if ($facility->image) {
-                Storage::disk('public')->delete($facility->image);
+                MediaStorage::disk()->delete($facility->image);
             }
         });
     }
@@ -58,7 +51,7 @@ class Facility extends Model
     protected function imageUrl(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->image ? Storage::disk('public')->url($this->image) : null,
+            get: fn () => $this->image ? MediaStorage::disk()->url($this->image) : null,
         );
     }
 
